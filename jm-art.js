@@ -233,6 +233,10 @@ A.tree=function(se,kind,v){
       blobs.forEach(([x,y,r])=>D(x+1,y+1.5,r,LD));
       blobs.forEach(([x,y,r])=>D(x,y,r,L));
       [[12,9,4],[20,8,3.5],[8,17,3.5],[16,14,4],[24,16,3]].forEach(([x,y,r])=>D(x-1,y-1,r,LL));
+      // Blätterbüschel: Struktur mit Licht oben und Schatten unten
+      { const cx2=c.getContext("2d"), dat=cx2.getImageData(0,0,c.width,c.height).data, a=(px,py)=>dat[(py*c.width+px)*4+3]>0;
+        for(let i=0;i<90;i++){ const h=hsh(i,(v||0)+7,se+3), px=2+h%30, py=2+(h>>5)%26; if(!a(px,py)||!a(px+2,py+2)||!a(px-1,py)) continue;
+          const top=py<14; R(px,py,2,1,top?LL:L); R(px+1,py+1,2,1,top?L:LD); if(!top) R(px,py+2,1,1,A.shade(LD,-.15)); } }
       for(let i=0;i<14;i++){ const h=hsh(i,v||0,se); R(4+h%26,4+(h>>5)%22,1,1,i%2?LD:LL); }
       if(se===0||(kind==="fruit"&&se===1)){ for(let i=0;i<9;i++){ const h=hsh(i,v||1,7); R(5+h%24,5+(h>>5)%20,2,2,se===0?P.acc:"#e8434f"); } }
       if(se===2){ for(let i=0;i<6;i++){ const h=hsh(i,v||2,9); R(6+h%22,6+(h>>5)%18,1,1,P.acc); } }

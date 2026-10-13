@@ -116,9 +116,13 @@ function buildGround(){
   groundKey=M.id+":"+se+":"+(S.flags.glas?1:0);
 }
 function drawGrass(g,X,Y,x,y,P,forest){
-  const base=forest?A.shade(P.g,-.1):P.g, d=forest?A.shade(P.gd,-.1):P.gd;
-  g.r(X,Y,16,16,base);
-  for(let i=0;i<9;i++){ const h=A.hsh(x,y,i); g.p(X+h%16,Y+(h>>4)%16,i%3?d:P.gl); }
+  const base=forest?A.shade(P.g,-.1):P.g, d=forest?A.shade(P.gd,-.1):P.gd, l=forest?A.shade(P.gl,-.08):P.gl, dd=A.shade(d,-.12);
+  // großflächige Farbwolken, damit sich keine Kacheln wiederholen
+  const cx=g.ctx;
+  for(let py=0;py<16;py+=2) for(let px=0;px<16;px+=2){ const wx=X+px, wy=Y+py; const v=Math.sin(wx*.09+wy*.05)+Math.sin(wx*.04-wy*.11)+Math.sin((wx+wy)*.13)*.5; cx.fillStyle=v>1.1?l:v<-1.1?d:base; cx.fillRect(wx,wy,2,2); }
+  // Grashalme: unten dunkel, oben hell
+  for(let i=0;i<22;i++){ const h=A.hsh(x,y,i+200); const bx0=X+h%16, by0=Y+(h>>4)%15; const tall=(h>>8)%3===0;
+    g.p(bx0,by0+1,i%4?d:dd); g.p(bx0,by0,i%3?base:l); if(tall) g.p(bx0,by0-1>=Y?by0-1:by0,l); }
 }
 function drawTile(g,x,y,se){
   const t=M.t[y][x], P=A.PAL[se], X=x*16, Y=y*16, h=A.hsh;
@@ -163,7 +167,7 @@ function drawSoil(g,x,y,se){
   if(glass&&!S.flags.glas){ g.r(X,Y,16,16,"#7a6a4a"); for(let i=0;i<5;i++){ const hh=A.hsh(x,y,i+90); g.r(X+hh%14,Y+(hh>>4)%14,2,1,i%2?"#a9c8d8":P.gd); } return; }
   if(!f||!f.t){
     if(glass){ g.r(X,Y,16,16,"#8a6a48"); for(let i=0;i<5;i++){ const hh=A.hsh(x,y,i+50); g.p(X+hh%16,Y+(hh>>4)%16,"#7a5a3a"); } }
-    else { g.r(X,Y,16,16,se===3?"#e3e8ec":A.mix(P.g,"#8a6a3a",.42)); for(let i=0;i<8;i++){ const hh=A.hsh(x,y,i+40); g.p(X+hh%16,Y+(hh>>4)%16,i%2?(se===3?"#ffffff":"#7a5f35"):(se===3?"#cfd8e0":P.gd)); } }
+    else { const P2=se===3?P:{g:A.mix(P.g,"#8a6a3a",.4),gd:A.mix(P.gd,"#5e4426",.4),gl:A.mix(P.gl,"#a8885a",.35)}; drawGrass(g,X,Y,x,y,P2,false); for(let i=0;i<4;i++){ const hh=A.hsh(x,y,i+40); g.r(X+hh%15,Y+(hh>>4)%15,2,1,se===3?"#ffffff":"#6e5230"); } }
     return;
   }
   const base=f.w?"#4f3420":"#7a5232", fur=f.w?"#3a2616":"#5e3e22", hi=f.w?"#5f4029":"#8f6340";
@@ -1422,6 +1426,10 @@ function render(){
   const edge=(x,y,k)=>{ const spr=lazy(SPR.trees,se+k+(x&3),()=>A.tree(se,k,x&3)); L.push({y:y+.5,d:()=>bx.drawImage(spr,x*16+8-17-CX,y*16+16-45-CY)}); };
   if(!M.cave) for(let y=Math.floor(CY/16)-1;y<0;y++) for(let x=x0-1;x<=x1+1;x++) edge(x,y,(x+y)%3?"pine":"oak");
   if(!M.cave) for(let y=M.h;y<=Math.ceil((CY+LH)/16)+2;y++) for(let x=x0-1;x<=x1+1;x++) edge(x,y,(x+y)%3?"pine":"oak");
+  // Kontaktschatten am Boden
+  bx.fillStyle="rgba(20,30,15,.22)";
+  for(const t of M.trees){ if(t.x<x0-1||t.x>x1+1||t.y<y0||t.y>y1+2) continue; bx.beginPath(); bx.ellipse(t.x*16+10-CX,t.y*16+14-CY,13,5,0,0,Math.PI*2); bx.fill(); }
+  for(const o of M.obj){ if(!["house","coop","barn","markt","nudelhaus","rathaus","tierhof","huette","mondbaum","fountain"].includes(o.k)) continue; if(o.x+(o.w||1)<x0-3||o.x>x1+3||o.y>y1+2||o.y+(o.h||1)<y0-1) continue; const w=(o.w||1)*16, by=(o.y+(o.h||1))*16; bx.beginPath(); bx.ellipse(o.x*16+w/2+4-CX,by-2-CY,w/2+6,7,0,0,Math.PI*2); bx.fill(); bx.fillRect(o.x*16+w-CX,o.y*16+8-CY,5,(o.h||1)*16-10); }
   L.sort((a,b)=>a.y-b.y); for(const o of L) o.d();
   // Angelschnur
   if(FISH.phase==="wait"||FISH.phase==="bite"){ const bob=Math.round(Math.sin(gameT*4)); const bxp=FISH.x*16+8-CX, byp=FISH.y*16+8-CY+bob; bx.fillStyle="rgba(255,255,255,.6)"; const [px,py]=[Math.round(P.x*16+8-CX),Math.round(P.y*16-6-CY)]; for(let i=0;i<=10;i++) bx.fillRect(Math.round(px+(bxp-px)*i/10),Math.round(py+(byp-py)*i/10+Math.sin(i/10*Math.PI)*-4),1,1); bx.fillStyle="#e8483a"; bx.fillRect(bxp-1,byp-1,3,2); bx.fillStyle="#fff"; bx.fillRect(bxp-1,byp+1,3,1); if(FISH.phase==="bite"){ drawBadge(px,py-22,"!"); } }
