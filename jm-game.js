@@ -917,7 +917,7 @@ function floatItem(x,y,k){ FLT.push({x:x*16+8,y:y*16,k,l:1.3}); }
 let AC=null, master=null, musicGain=null;
 function audioInit(){
   if(AC) return;
-  try{ AC=new (window.AudioContext||window.webkitAudioContext)(); master=AC.createGain(); master.gain.value=.9; master.connect(AC.destination); musicGain=AC.createGain(); musicGain.gain.value=S&&S.music?.05:0; musicGain.connect(master); startMusic(); }catch(e){ AC=null; }
+  try{ AC=new (window.AudioContext||window.webkitAudioContext)(); master=AC.createGain(); master.gain.value=2; master.connect(AC.destination); musicGain=AC.createGain(); musicGain.gain.value=S&&S.music?.05:0; musicGain.connect(master); startMusic(); }catch(e){ AC=null; }
 }
 function tone(f,t0,dur,type,vol,dest){ const o=AC.createOscillator(), g=AC.createGain(); o.type=type||"triangle"; o.frequency.value=f; g.gain.setValueAtTime(.0001,t0); g.gain.exponentialRampToValueAtTime(vol||.08,t0+.015); g.gain.exponentialRampToValueAtTime(.0001,t0+dur); o.connect(g).connect(dest||master); o.start(t0); o.stop(t0+dur+.02); }
 function sfx(k){
