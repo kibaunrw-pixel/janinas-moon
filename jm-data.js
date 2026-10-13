@@ -84,9 +84,9 @@ JM.ITEMS = {
 
   huhn:{n:"Hähnchenbrust",cat:"ingredient",sell:30},
   stein:{n:"Stein",cat:"mineral",sell:3},
-  kupfer:{n:"Kupfererz",cat:"mineral",sell:25},
-  amethyst:{n:"Amethyst",cat:"mineral",sell:120},
-  mondquarz:{n:"Mondquarz",cat:"mineral",sell:260},
+  kupfer:{n:"Kupfererz",cat:"mineral",sell:8},
+  amethyst:{n:"Amethyst",cat:"mineral",sell:60},
+  mondquarz:{n:"Mondquarz",cat:"mineral",sell:140},
   duenger:{n:"Dünger",cat:"place"},
   futter:{n:"Tierfutter",cat:"misc"},
   sprinkler:{n:"Sprinkler",cat:"place"},
