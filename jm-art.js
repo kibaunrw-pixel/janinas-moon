@@ -142,14 +142,21 @@ function drawChar(g,L,dir,f){
   if(L.hat==="chef"){ if(dir===2){ R(5,-1+Y+1,7,3,"#ffffff"); R(5,2+Y,7,1,"#dcdce4"); } else { R(4,0+Y,8,3,"#ffffff"); R(3,0+Y,10,2,"#ffffff"); R(4,3+Y,8,1,"#dcdce4"); } }
   if(L.hat==="cap"){ const hc=L.hatC, hd=shade(hc,-.25); if(dir===0){ R(3,1+Y,10,3,hc); R(4,0+Y,8,1,hc); R(3,4+Y,10,1,hd); } else if(dir===1){ R(3,1+Y,10,4,hc); R(4,0+Y,8,1,hc); } else { R(4,1+Y,8,3,hc); R(5,0+Y,6,1,hc); R(10,3+Y,4,1,hd); } }
 }
+// Randlicht: linke Kante heller, rechte Kante dunkler – Figuren wirken runder
+function rim(c){ const x=c.getContext("2d"), w=c.width, h=c.height, d=x.getImageData(0,0,w,h), a=d.data, src=new Uint8ClampedArray(a);
+  const op=(i,y)=>i>=0&&i<w&&y>=0&&y<h&&src[(y*w+i)*4+3]>40;
+  for(let y=0;y<h;y++) for(let i=0;i<w;i++){ const k=(y*w+i)*4; if(src[k+3]<=40) continue;
+    let f=0; if(!op(i-1,y)) f=.22; else if(!op(i+1,y)) f=-.2; else if(!op(i,y+1)) f=-.12;
+    if(f>0){ a[k]+= (255-a[k])*f; a[k+1]+=(255-a[k+1])*f; a[k+2]+=(255-a[k+2])*f; } else if(f<0){ a[k]*=1+f; a[k+1]*=1+f; a[k+2]*=1+f; } }
+  x.putImageData(d,0,0); }
 A.char=function(L){
   const out={down:[],up:[],side:[],sideL:[],portrait:null};
   for(let d=0;d<3;d++) for(let f=0;f<4;f++){
-    const c=cnv(18,26); drawChar(G(c),L,d,f); outline(c,OUT);
+    const c=cnv(18,26); drawChar(G(c),L,d,f); rim(c); outline(c,OUT);
     if(d===0) out.down.push(c); else if(d===1) out.up.push(c); else { out.side.push(c); out.sideL.push(flipC(c)); }
   }
   const p=cnv(18,15); p.getContext("2d").drawImage(out.down[0],0,0,18,15,0,0,18,15); out.portrait=p;
-  { const c=cnv(18,26); drawChar(G(c),Object.assign({},L,{_blink:true}),0,0); outline(c,OUT); out.blink=c; }
+  { const c=cnv(18,26); drawChar(G(c),Object.assign({},L,{_blink:true}),0,0); rim(c); outline(c,OUT); out.blink=c; }
   return out;
 };
 
@@ -243,6 +250,7 @@ A.tree=function(se,kind,v){
       if(se===2){ for(let i=0;i<6;i++){ const h=hsh(i,v||2,9); R(6+h%22,6+(h>>5)%18,1,1,P.acc); } }
     }
   }
+  if(kind==="pine") sphereLight(c,17,22,17); else if(se!==3) sphereLight(c,17,16,16);
   outline(c,"#23291f"); return c;
 };
 A.bush=function(se,berries){
@@ -252,18 +260,27 @@ A.bush=function(se,berries){
   [[6,10,5],[12,10,5],[9,7,5],[9,11,5.5]].forEach(([x,y,r])=>D(x,y,r,L));
   D(7,6,2.5,LL); D(12,8,2,LL);
   if(berries) [[5,9],[9,6],[13,10],[8,12],[11,13],[6,13]].forEach(([x,y])=>{ g.r(x+o,y+o,2,2,"#c42a4a"); g.p(x+o,y+o,"#f27a8a"); });
-  outline(c,"#23291f"); return c;
+  sphereLight(c,10,9,9); outline(c,"#23291f"); return c;
 };
 
 /* ---------- Gebäude ---------- */
 function planksH(g,x,y,w,h,c){ g.r(x,y,w,h,c); for(let j=y+3;j<y+h;j+=4) g.r(x,j,w,1,shade(c,-.18)); for(let j=y;j<y+h;j+=4) g.r(x,j,w,1,shade(c,.1)); for(let j=y;j<y+h;j+=4){ const off=(j/4)%2?7:15; for(let i=x+off;i<x+w;i+=16) g.r(i,j,1,3,shade(c,-.18)); } }
 function planksV(g,x,y,w,h,c){ g.r(x,y,w,h,c); for(let i=x+3;i<x+w;i+=4) g.r(i,y,1,h,shade(c,-.2)); for(let i=x;i<x+w;i+=4) g.r(i,y,1,h,shade(c,.08)); }
-function shingles(g,x0,y0,rows,wFn,c){ const d=shade(c,-.2), l=shade(c,.15); for(let r=0;r<rows;r++){ const [x,w]=wFn(r); const y=y0+r; g.r(x,y,w,1,(r%4===3)?d:c); if(r%4===0) g.r(x,y,w,1,l); if(r%4===1){ for(let i=x+((r/4|0)%2?2:6);i<x+w;i+=8) g.r(i,y,1,3,d);} } }
+function shingles(g,x0,y0,rows,wFn,c0){ for(let r=0;r<rows;r++){ const c=shade(c0,.1-.22*r/Math.max(1,rows-1)), d=shade(c,-.2), l=shade(c,.15); const [x,w]=wFn(r); const y=y0+r; g.r(x,y,w,1,(r%4===3)?d:c); if(r%4===0) g.r(x,y,w,1,l); if(r%4===1){ for(let i=x+((r/4|0)%2?2:6);i<x+w;i+=8) g.r(i,y,1,3,d);} } }
 function windowF(g,x,y,w,h,night,frame){ frame=frame||"#f0e3c8"; g.r(x-1,y-1,w+2,h+2,frame); g.r(x,y,w,h,night?"#ffd77a":"#8fc3e4"); if(!night){ g.r(x+1,y+1,2,1,"#d8eefa"); g.r(x+1,y+2,1,1,"#d8eefa"); g.r(x,y+h-2,w,2,"#7ab0d6"); } else { g.r(x,y,w,1,"#ffe9a8"); } g.r(x+(w>>1),y,1,h,frame); g.r(x,y+(h>>1),w,1,frame); }
 function snowRoof(g,x0,y0,rows,wFn){ for(let r=0;r<rows;r++){ const [x,w]=wFn(r); g.r(x,y0+r,w,1,r<rows-2?"#ffffff":"#e3ecf3"); } }
 function stones(g,x,y,w,h){ g.r(x,y,w,h,"#9d958a"); for(let j=y;j<y+h;j+=4){ const off=((j-y)/4)%2?3:0; for(let i=x+off;i<x+w;i+=7){ g.r(i,j,6,3,"#b3ab9f"); g.r(i,j,6,1,"#c6bfb3"); } } }
 function lantern(g,x,y){ g.r(x+1,y-2,1,2,"#3a2a2a"); g.r(x,y,3,4,"#d9382f"); g.r(x-1,y+1,5,2,"#e8483a"); g.r(x+1,y+1,1,2,"#ffd77a"); g.r(x,y+4,3,1,"#f3c34a"); g.r(x+1,y+5,1,2,"#f3c34a"); }
 
+// Kugel-Licht: oben links hell, unten rechts dunkel – Kronen und Büsche wirken rund
+function sphereLight(c,cx,cy,r){ const x=c.getContext("2d"); x.save(); x.globalCompositeOperation="source-atop";
+  const gr=x.createRadialGradient(cx-r*.35,cy-r*.4,0,cx,cy,r*1.25); gr.addColorStop(0,"rgba(255,250,215,.26)"); gr.addColorStop(.38,"rgba(255,250,215,0)"); gr.addColorStop(.7,"rgba(15,25,45,.08)"); gr.addColorStop(1,"rgba(15,25,45,.36)");
+  x.fillStyle=gr; x.fillRect(0,0,c.width,c.height); x.restore(); }
+A.sphereLight=sphereLight;
+// Licht von links oben: linke Hälfte heller, rechte und untere Kante dunkler
+function lightPass(c){ const x=c.getContext("2d"), w=c.width, h=c.height; x.save(); x.globalCompositeOperation="source-atop";
+  let gr=x.createLinearGradient(0,0,w,0); gr.addColorStop(0,"rgba(255,240,200,.18)"); gr.addColorStop(.45,"rgba(255,240,200,0)"); gr.addColorStop(.7,"rgba(20,10,40,0)"); gr.addColorStop(1,"rgba(20,10,40,.28)"); x.fillStyle=gr; x.fillRect(0,0,w,h);
+  gr=x.createLinearGradient(0,0,0,h); gr.addColorStop(0,"rgba(255,250,230,.08)"); gr.addColorStop(.3,"rgba(0,0,0,0)"); gr.addColorStop(.85,"rgba(20,10,40,0)"); gr.addColorStop(1,"rgba(20,10,40,.18)"); x.fillStyle=gr; x.fillRect(0,0,w,h); x.restore(); }
 A.building=function(kind,se,night){
   let c,g,lights=[];
   const win=se===3;
@@ -285,7 +302,7 @@ A.building=function(kind,se,night){
     stones(g,30,104,24,6);
     g.r(52,74,3,6,"#3a2a2a"); g.r(51,73,5,2,"#3a2a2a"); g.r(52,75,3,3,night?"#ffe08a":"#e8d29a");
     lights=[[21,77,30],[63,77,30],[53,76,22],[42,82,18]];
-    outline(c,OUT); return {c,ox:2,lights};
+    lightPass(c); outline(c,OUT); return {c,ox:2,lights};
   }
   if(kind==="coop"){
     c=cnv(52,68); g=G(c);
@@ -295,7 +312,7 @@ A.building=function(kind,se,night){
     g.r(19,44,14,20,"#3a2218"); g.r(21,46,10,18,"#4a2a1c"); g.r(17,62,18,3,"#a8743f");
     g.disc(26,34,4,"#f4ead8"); g.disc(26,34,3,night?"#ffd77a":"#8fc3e4");
     lights=[[26,34,16]];
-    outline(c,OUT); return {c,ox:2,lights};
+    lightPass(c); outline(c,OUT); return {c,ox:2,lights};
   }
   if(kind==="barn"){
     c=cnv(68,90); g=G(c);
@@ -305,7 +322,7 @@ A.building=function(kind,se,night){
     g.r(22,10,24,14,"#f4ead8"); g.r(24,12,20,10,"#3a2218"); g.r(33,12,2,10,"#f4ead8");
     g.r(16,52,36,34,"#f4ead8"); g.r(18,54,32,32,"#8a3a2c"); g.line(18,54,49,85,"#f4ead8",2); g.line(49,54,18,85,"#f4ead8",2); g.r(33,54,2,32,"#f4ead8");
     lights=[];
-    outline(c,OUT); return {c,ox:2,lights};
+    lightPass(c); outline(c,OUT); return {c,ox:2,lights};
   }
   if(kind==="markt"){
     c=cnv(84,84); g=G(c);
@@ -319,7 +336,7 @@ A.building=function(kind,se,night){
     // Kisten
     [[8,68,"#4fb04a"],[22,68,"#e8434f"],[66,68,"#f0a83a"]].forEach(([x,y,col])=>{ g.r(x,y,13,10,"#a8743f"); g.r(x,y,13,1,"#c58d52"); g.r(x,y+5,13,1,"#8a5a33"); for(let i=0;i<4;i++) g.disc(x+2+i*3,y-1,2,col); });
     lights=[[23,55,28],[55,55,22]];
-    outline(c,OUT); return {c,ox:2,lights};
+    lightPass(c); outline(c,OUT); return {c,ox:2,lights};
   }
   if(kind==="nudelhaus"){
     c=cnv(92,104); g=G(c);
@@ -335,7 +352,7 @@ A.building=function(kind,se,night){
     g.r(40,66,12,34,"#5a3420"); g.r(41,67,10,33,"#3a2218"); g.r(41,67,10,4,"#b8302a");
     lantern(g,22,42); lantern(g,68,42); lantern(g,46,60);
     lights=[[24,48,26],[70,48,26],[47,64,20],[24,71,22],[67,71,22]];
-    outline(c,OUT); return {c,ox:6,lights};
+    lightPass(c); outline(c,OUT); return {c,ox:6,lights};
   }
   if(kind==="rathaus"){
     c=cnv(100,112); g=G(c);
@@ -349,7 +366,7 @@ A.building=function(kind,se,night){
     g.r(32,74,20,34,"#e9dfc8"); g.r(34,76,16,32,"#5a3420"); g.r(41,76,2,32,"#3a2218"); g.r(38,92,2,2,"#f3d77a"); g.r(44,92,2,2,"#f3d77a");
     g.r(80,0,1,18,"#5a4a3a"); g.r(81,1,10,6,"#d9473a"); g.r(81,4,10,1,"#f6d55c");
     lights=[[18,68,24],[82,68,24],[18,91,22],[82,91,22],[50,24,14]];
-    outline(c,OUT); return {c,ox:2,lights};
+    lightPass(c); outline(c,OUT); return {c,ox:2,lights};
   }
   if(kind==="tierhof"){
     c=cnv(84,90); g=G(c);
@@ -361,7 +378,7 @@ A.building=function(kind,se,night){
     windowF(g,12,56,12,12,night,"#f4ead8"); windowF(g,60,56,12,12,night,"#f4ead8");
     [[4,76],[68,78]].forEach(([x,y])=>{ g.r(x,y,14,9,"#e8c95a"); g.r(x,y,14,1,"#f3dc7a"); g.r(x,y+3,14,1,"#c9a43c"); g.r(x,y+6,14,1,"#c9a43c"); });
     lights=[[18,62,22],[66,62,22]];
-    outline(c,OUT); return {c,ox:2,lights};
+    lightPass(c); outline(c,OUT); return {c,ox:2,lights};
   }
   if(kind==="huette"){
     c=cnv(68,80); g=G(c);
@@ -372,7 +389,7 @@ A.building=function(kind,se,night){
     for(let i=0;i<5;i++){ g.line(50+i*3,36,50+i*3,56,"#c9b98a",1); } for(let j=0;j<5;j++) g.r(49,38+j*4,14,1,"#c9b98a");
     g.disc(56,64,3,"#e8483a"); g.r(54,64,5,1,"#ffffff");
     lights=[[18,48,22]];
-    outline(c,OUT); return {c,ox:2,lights};
+    lightPass(c); outline(c,OUT); return {c,ox:2,lights};
   }
   return null;
 };
