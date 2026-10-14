@@ -322,6 +322,7 @@ cv.addEventListener("wheel",e=>{ if(!running||demo) return; e.preventDefault(); 
 cv.addEventListener("pointerdown",e=>{
   audioInit();
   if(!running||demo||PINCH.on) return;
+  if(!paused()&&starHit(e.clientX,e.clientY)) return;
   if(FISH.phase==="wait"||FISH.phase==="bite"){ fishTap(); return; }
   if(paused()) return;
   const {wx,wy}=toWorld(e.clientX,e.clientY), tx=Math.floor(wx), ty=Math.floor(wy);
@@ -431,8 +432,9 @@ function doField(x,y){
       const it=ITEMS[S.hold]; if(!S.inv[S.hold]){ note("Keine "+it.n+" mehr."); return; }
       const wasT=f.t; f.t=true; f.c={k:it.crop,a:0}; take(S.hold,1); P.tool="seed"; sfx("plant"); burst(x,y,"#e8d29a",4); if(!wasT) emit("till"); emit("plant"); break; }
     case "harvest": {
-      const cr=CROPS[f.c.k], ck=f.c.k; give(ck,1); S.stats.harvest++;
-      if(cr.re) f.c.a=cr.days-cr.re; else { f.c=null; f.d=false; }
+      const cr=CROPS[f.c.k], ck=f.c.k, giant=!!f.c.g; give(ck,giant?5:1); S.stats.harvest+=giant?5:1;
+      if(giant){ S.stats.giant=(S.stats.giant||0)+1; sfx("fanfare"); for(let i=0;i<3;i++) burst(x,y,["#f6d55c","#ffffff","#f28fb0"][i],14); banner("Riesen-"+ITEMS[ck].n+"!"); note("So groß! Das zählt wie fünf Stück."); }
+      if(cr.re){ f.c.a=cr.days-cr.re; delete f.c.g; } else { f.c=null; f.d=false; }
       P.tool="auto"; sfx("pick"); floatItem(x,y,ck); emit("harvest"); break; }
     case "placespr": if(!S.inv.sprinkler) return; take("sprinkler",1); f.o="spr"; sfx("plant"); break;
     case "pickspr": f.o=null; give("sprinkler",1); sfx("pick"); break;
@@ -583,7 +585,8 @@ function endDay(passedOut){
   const oldSe=season();
   // Pflanzen
   for(const k in S.field){ const f=S.field[k]; const [x,y]=k.split(",").map(Number); const glass=MAPS.farm.t[y][x]===T.GLAS;
-    if(f.c&&f.w&&(glass||oldSe!==3)){ f.c.a++; if(f.d&&rnd()<.5) f.c.a++; } f.w=false; }
+    if(f.c&&f.w&&(glass||oldSe!==3)){ f.c.a++; if(f.d&&rnd()<.5) f.c.a++; } f.w=false;
+    if(f.c&&f.c.a>=CROPS[f.c.k].days&&f.c.g==null) f.c.g=rnd()<(f.d?.08:.05); }
   // Tiere
   const eggSpots=[]; const c=MAPS.farm.coop; for(let y=c.y0+1;y<=c.y1;y++) for(let x=c.x0;x<=c.x1;x++) if(MAPS.farm.t[y][x]===T.GRAS||MAPS.farm.t[y][x]===T.TUFF||MAPS.farm.t[y][x]===T.BLUME) eggSpots.push([x,y]);
   S.hens.forEach(h=>{ if(S.trough.h>0){ S.trough.h--; const free=eggSpots.filter(([x,y])=>!S.eggs.some(g=>g.x===x&&g.y===y)); if(free.length&&S.eggs.length<10){ const [x,y]=pick(free); S.eggs.push({x,y,g:h.h>=7&&rnd()<.25}); } } });
@@ -1011,6 +1014,33 @@ function routeTarget(t){
 }
 
 /* ================= Effekte ================= */
+/* Sternschnuppen: abends draußen, antippen und etwas wünschen */
+const STAR={a:null,cool:20,hint:-1};
+const WISHES=["Ich wünsch mir, dass {d0} und {d1} immer gesund bleiben.","Ich wünsch mir noch ganz viele Abende wie diesen. Mit {von}.","Ich wünsch mir die größte Ernte, die das Dorf je gesehen hat.","Ich wünsch mir, dass {von} endlich seine zweite Socke findet.","Ich wünsch mir, dass es morgen chinesische Nudeln mit Tempura-Chicken gibt.","Ich wünsch mir einen Hof voller Lachen."];
+function starTick(dt){
+  if(STAR.a){ STAR.a.t+=dt; if(STAR.a.t>STAR.a.d) STAR.a=null; return; }
+  const night=S.min>=1170||S.min<300; if(demo||!night||M.inside||M.cave||S.weather!=="sun"||paused()) return;
+  STAR.cool-=dt; if(STAR.cool>0) return; STAR.cool=25+rnd()*35;
+  const ltr=rnd()<.5; STAR.a={x0:ltr?.1+rnd()*.3:.6+rnd()*.3,y0:.18+rnd()*.25,vx:(ltr?1:-1)*(.22+rnd()*.1),vy:.07+rnd()*.05,t:0,d:2.6};
+  if(STAR.hint!==S.day){ STAR.hint=S.day; note("Eine Sternschnuppe! Schnell antippen und etwas wünschen."); }
+}
+function starPos(){ const a=STAR.a; return [(a.x0+a.vx*a.t)*innerWidth,(a.y0+a.vy*a.t)*innerHeight]; }
+function drawStar(){
+  const a=STAR.a; if(!a) return; const [x,y]=starPos(), k=DPR, f=Math.min(1,a.t*3,(a.d-a.t)*2);
+  ctx.save(); ctx.globalAlpha=f; const tx=x-a.vx*innerWidth*.6, ty=y-a.vy*innerHeight*.6;
+  const g=ctx.createLinearGradient(tx*k,ty*k,x*k,y*k); g.addColorStop(0,"rgba(255,240,200,0)"); g.addColorStop(1,"rgba(255,248,220,.95)");
+  ctx.strokeStyle=g; ctx.lineWidth=4.5*k; ctx.lineCap="round"; ctx.beginPath(); ctx.moveTo(tx*k,ty*k); ctx.lineTo(x*k,y*k); ctx.stroke();
+  const r=ctx.createRadialGradient(x*k,y*k,0,x*k,y*k,20*k); r.addColorStop(0,"rgba(255,255,240,1)"); r.addColorStop(1,"rgba(255,230,160,0)"); ctx.fillStyle=r; ctx.fillRect(x*k-20*k,y*k-20*k,40*k,40*k);
+  ctx.restore();
+}
+function starHit(cx,cy){
+  if(!STAR.a) return false; const [x,y]=starPos(); if(Math.hypot(cx-x,cy-y)>70) return false;
+  STAR.a=null; S.stats.wishes=(S.stats.wishes||0)+1; sfx("fanfare");
+  const gifts=[()=>{ const n=150+Math.floor(rnd()*200); S.money+=n; return n+" G liegen plötzlich in deiner Tasche."; },()=>{ give("erdbeere_s",3); return "Drei Erdbeer-Samen funkeln in deiner Hand."; },()=>{ S.energy=S.maxE; return "Du fühlst dich wach und voller Kraft."; },()=>{ give("mondquarz",1); return "Ein Mondquarz fällt vor dir ins Gras."; },()=>{ S.dogH=S.dogH.map(h=>Math.min(10,h+1)); return fmtD("{d0} und {d1} kuscheln sich glücklich an dich."); }];
+  const txt=pick(gifts)(); hud(); saveSoon();
+  dialog([{who:"player",text:fmtD(pick(WISHES))},{who:null,text:txt}]);
+  return true;
+}
 function burst(x,y,c,n,drop){ for(let i=0;i<n;i++) FX.push({x:x*16+8,y:y*16+10,vx:(rnd()-.5)*50,vy:-rnd()*50-15,l:.5+rnd()*.3,c,g:drop?160:120,s:1+(rnd()<.3?1:0)}); }
 function hearts(x,y,c){ for(let i=0;i<3;i++) FX.push({heart:true,x:x*16+4+i*5,y:y*16-4-i*3,vx:(rnd()-.5)*6,vy:-14-rnd()*6,l:1.2,c:c||"#e8476a",g:0}); }
 function floatItem(x,y,k){ FLT.push({x:x*16+8,y:y*16,k,l:1.3}); }
@@ -1389,7 +1419,7 @@ let last=performance.now(), gameT=0, saveTick=0, TESTSPEED=1, FDT=.016, camSnap=
 const cam={x:0,y:0};
 function loop(now){
   const dt=Math.min(.05,(now-last)/1000); last=now; gameT+=dt; FDT=dt;
-  if(running){ for(let k=0;k<TESTSPEED;k++){ if(!paused()||(demo&&!UI.panel)) update(dt); else if(FISH.phase==="reel") fishUpdate(dt); } ambient(dt); render(); }
+  if(running){ for(let k=0;k<TESTSPEED;k++){ if(!paused()||(demo&&!UI.panel)) update(dt); else if(FISH.phase==="reel") fishUpdate(dt); } ambient(dt); if(!demo) starTick(dt); render(); }
   requestAnimationFrame(loop);
 }
 function update(dt){
@@ -1601,6 +1631,7 @@ function render3(){
   ctx.drawImage(VIG,0,0);
   if(FESTFX.moon>0) drawMoon();
   if(!demo&&!paused()) drawArrow3(pr);
+  drawStar();
 }
 function drawArrow3(pr){
   const t=routeTarget(questTarget()); if(!t) return;
@@ -1645,7 +1676,7 @@ function render(){
   // Liste
   const L=[];
   for(let y=y0;y<=y1;y++) for(let x=x0;x<=x1;x++){
-    if(M.id==="farm"&&isField(x,y)){ const f=fieldAt(x,y); if(f){ if(f.c){ const cr=CROPS[f.c.k]; const st=f.c.a===0?0:f.c.a>=cr.days?4:f.c.a/cr.days<.34?1:f.c.a/cr.days<.67?2:3; const spr=lazy(SPR.crops,f.c.k+st,()=>A.crop(f.c.k,st)); L.push({y:y+.1,d:()=>{ bx.drawImage(spr,x*16-1-CX+(st>=3?Math.round(Math.sin(gameT*1.8*wind+x+y*.7)*.6*wind):0),y*16+16-25-CY); if(st===4&&Math.floor(gameT*2+x)%6===0) bx.fillStyle="#fff",bx.fillRect(x*16+12-CX,y*16+2-CY,1,1); }}); }
+    if(M.id==="farm"&&isField(x,y)){ const f=fieldAt(x,y); if(f){ if(f.c){ const cr=CROPS[f.c.k]; const st=f.c.a===0?0:f.c.a>=cr.days?4:f.c.a/cr.days<.34?1:f.c.a/cr.days<.67?2:3; const spr=lazy(SPR.crops,f.c.k+st,()=>A.crop(f.c.k,st)); if(f.c.g&&st===4){ L.push({y:y+.3,d:()=>bx.drawImage(spr,x*16-9-CX,y*16+16-44-CY,spr.width*1.8,spr.height*1.8)}); } else L.push({y:y+.1,d:()=>{ bx.drawImage(spr,x*16-1-CX+(st>=3?Math.round(Math.sin(gameT*1.8*wind+x+y*.7)*.6*wind):0),y*16+16-25-CY); if(st===4&&Math.floor(gameT*2+x)%6===0) bx.fillStyle="#fff",bx.fillRect(x*16+12-CX,y*16+2-CY,1,1); }}); }
       if(f.o){ const spr=lazy(SPR.prop,f.o+se,()=>A.prop(f.o==="spr"?"sprinkler":f.o,se)); L.push({y:y+.05,d:()=>bx.drawImage(spr,x*16+8-(spr.width>>1)-CX,y*16+15-spr.height-CY)}); } } }
   }
   for(const t of M.trees){ if(t.x<x0-1||t.x>x1+1||t.y<y0||t.y>y1+2) continue; const spr=lazy(SPR.trees,se+t.kind+t.v,()=>A.tree(se,t.kind==="fruit"?"fruit":t.kind,t.v)); cast(spr,t.x*16+8-17-CX,t.y*16+16-45-CY); L.push({y:t.y+.5,d:()=>{ const behind=P.y<t.y&&P.y>t.y-2.6&&Math.abs(P.x-t.x)<1.4; if(behind) bx.globalAlpha=.55; const dx=t.x*16+8-17-CX, dy=t.y*16+16-45-CY, off=Math.round(Math.sin(gameT*1.2*wind+t.x*.8+t.y*.4)*.7*wind); bx.drawImage(spr,0,0,34,28,dx+off,dy,34,28); bx.drawImage(spr,0,28,34,18,dx,dy+28,34,18); bx.globalAlpha=1; }}); }
@@ -1736,6 +1767,7 @@ function render(){
   if(FESTFX.moon>0) drawMoon();
   // Zielpfeil
   if(!demo&&!paused()) drawArrow(CX,CY);
+  drawStar();
 }
 function drawWater(X,Y,x,y,se){
   const t=gameT, w=(xx,yy)=>xx<0||yy<0||xx>=M.w||yy>=M.h||M.t[yy][xx]===T.WASSER||M.t[yy][xx]===T.STEG;
@@ -1902,6 +1934,6 @@ requestAnimationFrame(loop);
 JM.ENG={get M(){return M;},get S(){return S;},P,RA,get DOGS(){return DOGS;},get HENS(){return HENS;},get COWS(){return COWS;},get NPCA(){return NPCA;},get gameT(){return gameT;},
   season,fieldAt,isField,isGlass,icon,playerLook:()=>JM.lookFrom(S.look),reneLook:reneLookObj,npcInside:()=>!!(M.owner&&npcPlace(M.owner)==="in"),unread:()=>S.mail.some(m=>!m.read),marketDay,
   cooking:()=>renePlan().mode==="cook"&&RA.vis,tvOn:()=>S.min>=1080&&S.min<1380,bushBer:o=>season()===1&&(S.bush[M.id+":"+o.x+","+o.y]||0)<=S.day,
-  cropStage:c=>{ const cr=CROPS[c.k]; return c.a===0?0:c.a>=cr.days?4:c.a/cr.days<.34?1:c.a/cr.days<.67?2:3; },zoom:()=>ZOOM,camSnap:()=>snap3};
-window.JMDEBUG={RA,renePlan,reneTalk,spawnMess,get qid(){const q=curQ(); return q?q.id:'ende';},set speed(v){TESTSPEED=v;},get scale(){return SC/DPR;},get audio(){return AC?AC.state:null;},get DOGS(){return DOGS;},get HENS(){return HENS;},tap:(tx,ty)=>tapAt(tx+.5,ty+.5,tx,ty),swipe:t=>{P.queue=t.slice();},get idle(){return !P.path.length&&!P.act&&!P.queue.length&&P.busy<=0;},get busy(){return {ui:UI,fish:FISH.phase};},dlgNext:()=>nextLine(),give,openHouse,openBag,openMail,openBundles,openCook,talk,giveGift,cam,FISH,fishTap,get NPCA(){return NPCA;},get S(){return S;},emit,endDay,setMap,startGame,newState,P,fieldPlan,doField,openBook,openShop,npcInteract,runFest:id=>runFest(JM.FESTS.find(f=>f.id===id)),get M(){return M;}};
+  giant:c=>!!c.g,cropStage:c=>{ const cr=CROPS[c.k]; return c.a===0?0:c.a>=cr.days?4:c.a/cr.days<.34?1:c.a/cr.days<.67?2:3; },zoom:()=>ZOOM,camSnap:()=>snap3};
+window.JMDEBUG={star:()=>STAR,RA,renePlan,reneTalk,spawnMess,get qid(){const q=curQ(); return q?q.id:'ende';},set speed(v){TESTSPEED=v;},get scale(){return SC/DPR;},get audio(){return AC?AC.state:null;},get DOGS(){return DOGS;},get HENS(){return HENS;},tap:(tx,ty)=>tapAt(tx+.5,ty+.5,tx,ty),swipe:t=>{P.queue=t.slice();},get idle(){return !P.path.length&&!P.act&&!P.queue.length&&P.busy<=0;},get busy(){return {ui:UI,fish:FISH.phase};},dlgNext:()=>nextLine(),give,openHouse,openBag,openMail,openBundles,openCook,talk,giveGift,cam,FISH,fishTap,get NPCA(){return NPCA;},get S(){return S;},emit,endDay,setMap,startGame,newState,P,fieldPlan,doField,openBook,openShop,npcInteract,runFest:id=>runFest(JM.FESTS.find(f=>f.id===id)),get M(){return M;}};
 })();

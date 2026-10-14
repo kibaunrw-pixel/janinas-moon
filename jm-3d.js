@@ -488,7 +488,7 @@ function key0(){ const M=E.M, S=E.S; return M.id+"|"+E.season()+"|"+(S.flags.gla
 function dynState(){ const S=E.S; return {unread:E.unread(),troughH:S.trough.h>0,troughC:S.trough.c>0,market:E.marketDay(),cooking:E.cooking(),tv:E.tvOn()}; }
 function dynKey(){
   const M=E.M, S=E.S; let k=M.id+E.season();
-  if(M.id==="farm") for(const f in S.field){ const v=S.field[f]; k+=f+(v.t?1:0)+(v.w?1:0)+(v.d?1:0)+(v.o||"")+(v.c?v.c.k+E.cropStage(v.c):"")+";"; }
+  if(M.id==="farm") for(const f in S.field){ const v=S.field[f]; k+=f+(v.t?1:0)+(v.w?1:0)+(v.d?1:0)+(v.o||"")+(v.c?v.c.k+E.cropStage(v.c)+(v.c.g?"G":""):"")+";"; }
   if(M.id==="farm") k+="e"+S.eggs.map(g=>g.x+","+g.y).join(";");
   k+="f"+(S.forage[M.id]||[]).map(f=>f.k+f.x+","+f.y).join(";");
   k+="m"+S.mess.filter(m=>m.map===M.id).map(m=>m.k+m.x+","+m.y).join(";");
@@ -504,7 +504,9 @@ function buildDyn(){
   if(M.id==="farm") for(const key in S.field){
     const [x,y]=key.split(",").map(Number); if(!E.isField(x,y)) continue; const f=S.field[key], cx=x+.5, cz=y+.5;
     if(f.t){ const soil=f.w?"#5e3c24":"#8f623a"; mg.box(cx,.04,cz,.94,.08,.94,soil); for(let i=0;i<3;i++) mg.box(cx,.085,y+.2+i*.3,.86,.012,.06,cssShade(soil,-.2)); if(f.d) for(let i=0;i<5;i++){ const hh=hsh(x,y,i+140); mg.sph(x+.15+(hh%70)/100,.09,y+.15+((hh>>4)%70)/100,.03,.015,.03,"#cfe8a8",true); } if(se===3&&!E.isGlass(x,y)) mg.box(cx,.09,cz,.9,.01,.9,"#f4f8fb"); }
-    if(f.c) crop(mg,cx,cz,f.c.k,E.cropStage(f.c),h01(x,y,8)*6);
+    if(f.c){ const st=E.cropStage(f.c);
+      if(st===4&&E.giant(f.c)){ const tmp=new Merge(); crop(tmp,cx,cz,f.c.k,4,h01(x,y,8)*6); const k=2.3; for(let i=0;i<tmp.pos.length;i+=3){ mg.pos.push(cx+(tmp.pos[i]-cx)*k,tmp.pos[i+1]*k,cz+(tmp.pos[i+2]-cz)*k); } mg.nor.push(...tmp.nor); mg.col.push(...tmp.col); for(let i=0;i<6;i++){ const a=i*1.05; mg.sph(cx+Math.cos(a)*.6,.5+(i%3)*.25,cz+Math.sin(a)*.4,.04,.04,.04,"#fff6c0",true); } }
+      else crop(mg,cx,cz,f.c.k,st,h01(x,y,8)*6); }
     if(f.o==="weed"){ for(let k=0;k<5;k++) mg.add(GEO.cone8,M4(cx+(k-2)*.07,.14,cz+(k%2)*.06,.05,.3,.05,0,0,(k-2)*.3),k%2?"#4f9a3a":"#6fb44a"); }
     if(f.o==="stone"){ mg.add(GEO.sphLo,M4(cx,.14,cz,.3,.22,.26,.3,.5,0),"#9a948c"); mg.add(GEO.sphLo,M4(cx-.06,.24,cz-.04,.15,.08,.12),"#b8b2a8"); }
     if(f.o==="branch"){ mg.cyl(cx,.08,cz,.05,.75,"#7a4e2a",0,1.3); mg.cyl(cx+.12,.08,cz+.1,.03,.3,"#7a4e2a",.9,.4); }
