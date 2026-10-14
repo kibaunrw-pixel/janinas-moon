@@ -16,7 +16,14 @@ const assert=require('node:assert/strict');
  await page.evaluate(()=>JMDEBUG.tap(2,3));await page.getByRole('heading',{name:'Küche',exact:true}).waitFor();
  await page.locator('[data-a="cook"][data-k="suppe"]').click();
  assert.equal(await page.evaluate(()=>JMDEBUG.S.inv.suppe),1);
- assert.deepEqual(errors,[]);console.log('Browser Kühlschrank/Küche',viewport,'OK');
+ await page.getByRole('button',{name:'Schließen',exact:true}).click();
+ await page.evaluate(()=>{JMDEBUG.S.rod=1;JMDEBUG.S.hold='rute';JMDEBUG.S.min=720;JMDEBUG.setMap('forest',24,5);});
+ await page.evaluate(()=>JMDEBUG.tap(24,2));await page.waitForFunction(()=>JMDEBUG.M.id==='hoehle');
+ for(let depth=2;depth<=10;depth++){await page.evaluate(()=>JMDEBUG.tap(10,2));await page.waitForFunction(d=>JMDEBUG.M.depth===d,depth,{timeout:15000});}
+ assert.equal(await page.evaluate(()=>JMDEBUG.M.id),'hoehle10');
+ await page.evaluate(()=>JMDEBUG.tap(13,7));await page.waitForFunction(()=>JMDEBUG.busy.fish==='wait');
+ assert.ok(['sternenschuppe','kristallforelle'].includes(await page.evaluate(()=>JMDEBUG.FISH.k)));
+ assert.deepEqual(errors,[]);console.log('Browser Kühlschrank/Küche/Mine',viewport,'OK');
  await context.close();}
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1});

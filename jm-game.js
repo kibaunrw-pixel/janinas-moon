@@ -70,6 +70,7 @@ function newState(name,dogs){
 }
 const OLD_ORDER=["brief","pudel","raeumen","hacken","saeen","giessen","schlafen","eier","dorf","nachbarn","ernte","versand","angeln","lin","lieblingsessen","wald","gabe","tier","freunde","mondfest","frei"];
 function migrate(s){
+  JM.Ausbau.migrate(s);
   if(s.quest&&s.quest.i!==undefined&&!s.quest.id){ const done=OLD_ORDER.slice(0,s.quest.i); s.qDone=Array.from(new Set((s.qDone||[]).concat(done))); s.quest={id:OLD_ORDER[s.quest.i]||null,p:s.quest.p||0,seen:s.quest.seen||[]}; }
   const d=newState(s.name||"Janina",s.dogs||[{name:"",fell:"weiss"},{name:"",fell:"apricot"}]);
   for(const k in d) if(s[k]===undefined) s[k]=d[k];
@@ -204,7 +205,7 @@ function drawTile(g,x,y,se){
   if(t===T.FELD||t===T.GLAS){ drawSoil(g,x,y,se); return; }
   if(t===T.WASSER){ g.r(X,Y,16,16,"#3f86c8"); return; }
   if(t===T.FELS){ g.r(X,Y,16,16,"#3a3230"); for(let i=0;i<6;i++){ const hh=h(x,y,i+110); g.r(X+hh%13,Y+(hh>>4)%13,3,2,i%2?"#4a403c":"#2c2624"); } const fl=(xx,yy)=>xx>=0&&yy>=0&&xx<M.w&&yy<M.h&&M.t[yy][xx]===T.HBODEN; if(fl(x,y+1)){ g.r(X,Y+12,16,4,"#5a4e48"); g.r(X,Y+12,16,1,"#6e605a"); } return; }
-  if(t===T.HBODEN){ g.r(X,Y,16,16,"#7a6a5a"); for(let i=0;i<7;i++){ const hh=h(x,y,i+120); g.p(X+hh%16,Y+(hh>>4)%16,i%2?"#8a7a68":"#665848"); } return; }
+  if(t===T.HBODEN){ g.r(X,Y,16,16,M.tint||"#7a6a5a"); for(let i=0;i<7;i++){ const hh=h(x,y,i+120); g.p(X+hh%16,Y+(hh>>4)%16,i%2?"#8a7a68":"#665848"); } return; }
   if(t===T.STEG){ g.r(X,Y,16,16,"#3f86c8"); g.r(X+1,Y,14,16,"#a8743f"); for(let j=0;j<16;j+=4){ g.r(X+1,Y+j,14,1,"#8a5a33"); g.r(X+1,Y+j+1,14,1,"#c08a52"); } g.r(X,Y,2,16,"#6b4423"); g.r(X+14,Y,2,16,"#6b4423"); }
 }
 // Umgebungsschatten: Boden wird an Wänden dunkler
@@ -257,7 +258,9 @@ function spawnAnimals(){
 }
 function setMap(id,x,y){
   camSnap=true; CRIT=[];
+  JM.Ausbau.enterMine(S,id,MAPS,rnd);
   M=MAPS[id]; P.x=x; P.y=y; P.path=[]; P.act=null; P.queue=[]; aim=null;
+  if(M.cave) hudSoon();
   buildGround(); spawnAnimals(); npcPlaceAll(true); FX=[]; FLT=[];
 }
 
@@ -448,20 +451,19 @@ function doField(x,y){
   redrawField(x,y); hudSoon(); hotbarSoon(); saveSoon();
 }
 function mineRock(r){
+  if(!S.rocks.includes(r))return;
   if(!cost(2)) return;
   r.hp--; P.tool="hacke"; P.busy=.25; sfx("stone"); burst(r.x,r.y,"#8a8079",8);
   if(r.hp>0) return;
-  S.rocks=S.rocks.filter(x=>x!==r);
+  S.rocks.splice(S.rocks.indexOf(r),1);
   const k=r.k==="stein"?"stein":r.k; const n=r.k==="kupfer"?1+(rnd()<.5?1:0):1;
   give(k,n); floatItem(r.x,r.y,k); emit("mine");
   if(r.k==="mondquarz"){ S.stats.quarz=(S.stats.quarz||0)+1; } if(r.k==="mondquarz") note("Ein Mondquarz! Er schimmert wie der Mond.");
   saveSoon();
 }
 function spawnRocks(){
-  const m=MAPS.hoehle, cand=[], seen=new Set([key(...m.spawn)]), q=[m.spawn];
-  while(q.length){ const [x,y]=q.shift(); for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){ const nx=x+dx, ny=y+dy, k=key(nx,ny); if(seen.has(k)||nx<0||ny<0||nx>=m.w||ny>=m.h||m.t[ny][nx]!==T.HBODEN) continue; seen.add(k); q.push([nx,ny]); if(ny<13) cand.push([nx,ny]); } }
-  S.rocks=[];
-  for(let i=0;i<26&&cand.length;i++){ const [x,y]=cand.splice(Math.floor(rnd()*cand.length),1)[0]; const r=rnd(); const k=r<.05?"mondquarz":r<.15?"amethyst":r<.42?"kupfer":"stein"; S.rocks.push({x,y,k,hp:k==="stein"?1:2}); }
+  // Durchläufe werden nur beim vollständigen Verlassen geschlossen, nie am Tageswechsel neu gewürfelt.
+  if(M.cave) JM.Ausbau.enterMine(S,M.id,MAPS,rnd);
 }
 function waterAct(x,y){
   if(S.hold==="rute"&&S.rod){ startFishing(x,y); return; }
@@ -567,6 +569,7 @@ function objAct(o){
   if(a==="fountain") return note(pick(["Das Wasser glitzert in der Sonne.","Jemand hat eine Münze in den Brunnen geworfen.","Ein ruhiger Ort zum Durchatmen."]));
   if(a==="lamp") return note("Eine alte Straßenlaterne.");
   if(a==="mondbaum") return mondbaum();
+  if(a==='mine_down'||a==='mine_up'){const d=M.depth+(a==='mine_down'?1:-1);return travel({to:d===1?'hoehle':'hoehle'+d,tx:10,ty:a==='mine_down'?14:3});}
   if(a==="cave_in") return travel({to:"hoehle",tx:10,ty:14});
   if(a==="cave_out") return travel({to:"forest",tx:24,ty:5});
   if(a.startsWith("shop:")){ const id=a.slice(5); if(npcPlace(JM.SHOPS[id].npc)==="in") return travel({to:"i_"+id,tx:6,ty:7}); return openShop(id); }
@@ -853,12 +856,7 @@ function startFishing(x,y){
   FISH.phase="wait"; FISH.t=1.6+rnd()*3.5; FISH.x=x; FISH.y=y; P.tool="rute"; P.busy=.4; sfx("cast");
   FISH.k=pickFish(JM.waterKind(M.id,x,y));
 }
-function pickFish(kind){
-  const night=S.min>=1140||S.min<360;
-  let opts=Object.keys(JM.FISH).filter(k=>JM.FISH[k].at.includes(kind)&&(!JM.FISH[k].night||night));
-  for(const k of opts){ const r=JM.FISH[k].rare; if(r&&rnd()<r*(k==="koi"&&FESTFX.moon?3:1)) return k; }
-  opts=opts.filter(k=>!JM.FISH[k].rare); return pick(opts.length?opts:["karpfen"]);
-}
+function pickFish(kind){return JM.Ausbau.pickFish(kind,S.min,FESTFX.moon,rnd);}
 function fishTap(){
   if(FISH.phase==="wait"){ note("Geduld... warte, bis das Ausrufezeichen erscheint."); return; }
   if(FISH.phase==="bite"){ FISH.phase="reel"; FISH.prog=.45; FISH.zone=.2; FISH.zv=0; FISH.fy=.35; FISH.fv=0; FISH.ft=.8; FISH.tgt=.35; FISH.hold=false; $("fishui").hidden=false; sfx("bite"); }
@@ -1125,6 +1123,8 @@ function hud(){
   $("gold").textContent=S.money.toLocaleString("de-DE")+" G";
   const e=S.energy/S.maxE; $("efill").style.width=(e*100)+"%"; $("efill").style.background=e<.25?"#d9583f":e<.5?"#e8b83a":"#6fbf4a";
   $("enum").textContent=Math.round(S.energy)+"/"+S.maxE;
+  $('depth').hidden=!M.cave;
+  $('depth').textContent=M.cave?'Ebene '+M.depth+'/10 · '+M.title+' · Leitern: oben tiefer, unten zurück':'';
   drawWx();
 }
 function drawWx(){
@@ -1336,9 +1336,9 @@ function openMail(){
 }
 function openCraft(){
   const rows=JM.CRAFT.map(r=>{ const ok=Object.entries(r.need).every(([k,n])=>has(k,n)); const need=Object.entries(r.need).map(([k,n])=>`<span class="${(S.inv[k]||0)>=n?"ok":"no"}">${n}× ${ITEMS[k].n} (${S.inv[k]||0})</span>`).join(" ");
-    return `<div class="row">${ic(r.k)}<div class="tx"><b>${r.n>1?r.n+"× ":""}${esc(ITEMS[r.k].n)}</b><small>${esc(r.d)}</small><small>${need}</small></div><button class="btn" data-a="make" data-k="${r.k}" ${ok?"":"disabled"}>Bauen</button></div>`; }).join("");
+    return `<div class="row">${ic(r.k)}<div class="tx"><b>${r.n>1?r.n+"× ":""}${esc(ITEMS[r.k].n)}</b><small>${esc(r.d)}</small><small>${need}</small></div><button class="btn" data-a="make" data-k="${r.id}" ${ok?"":"disabled"}>Bauen</button></div>`; }).join("");
   openPanel(`<h2>Werkbank</h2><p class="sub">Kupfer und Steine findest du in der Mondhöhle hinten im Wald.</p>${rows}<div class="row2"><button class="btn alt wide" data-a="back">Zurück</button>${closeBtn}</div>`,
-  {back:closePanel,make:k=>{ const r=JM.CRAFT.find(x=>x.k===k); if(!Object.entries(r.need).every(([i,n])=>has(i,n))) return; for(const [i,n] of Object.entries(r.need)) take(i,n); give(k,r.n); sfx("fanfare"); emit("craft"); note(r.n+"× "+ITEMS[k].n+" gebaut."); saveSoon(); openCraft(); }});
+  {back:closePanel,make:k=>{ const r=JM.CRAFT.find(x=>x.id===k); if(!r||!Object.entries(r.need).every(([i,n])=>has(i,n))) return; for(const [i,n] of Object.entries(r.need)) take(i,n); give(r.k,r.n); sfx("fanfare"); emit("craft"); note(r.n+"× "+ITEMS[r.k].n+" gebaut."); saveSoon(); openCraft(); }});
 }
 function openWardrobe(){
   const W=JM.WARDROBE, cur=Object.assign({hair:JM.PLAYER_LOOK.hair,style:JM.PLAYER_LOOK.style,top:JM.PLAYER_LOOK.top,outfit:"ov:"+JM.PLAYER_LOOK.bot,skin:JM.PLAYER_LOOK.skin},S.look||{});

@@ -94,7 +94,7 @@ function grassLike(t){ return t===T.GRAS||t===T.TUFF||t===T.BLUME||t===T.BAUM||t
 function baseColor(M,t,se,x,y){
   const P=PAL3[se];
   if(M.inside){ if(t===T.TEPPICH) return M.pal.rug; if(t===T.WAND) return cssShade(M.pal.trim,-.35); return M.pal.floor; }
-  if(M.cave){ if(t===T.FELS) return "#3a3230"; return "#7a6a5a"; }
+  if(M.cave){ if(t===T.FELS) return "#3a3230"; if(t===T.WASSER)return '#569fce'; return M.tint||"#7a6a5a"; }
   switch(t){
     case T.WEG: return se===3?"#dcd8d0":"#dcb57e";
     case T.PLATZ: return se===3?"#d6d4d0":"#bdb4a4";
@@ -427,7 +427,7 @@ function buildWorld(){
   const mg=new Merge(), mgE=new Merge();
   // Wasser
   water=null;
-  if(!M.inside&&!M.cave&&M.t.some(r=>r.includes(T.WASSER))){
+  if(!M.inside&&M.t.some(r=>r.includes(T.WASSER))){
     const wm=new THREE.CanvasTexture(waterMask(M)); const rt=ripple().clone(); rt.needsUpdate=true; rt.repeat.set(M.w/2.5,M.h/2.5); rt.userData.keep=false;
     const mat=new THREE.MeshPhongMaterial({color:se===3?"#a8cce4":"#58aee6",map:rt,alphaMap:wm,transparent:true,opacity:.86,shininess:120,specular:"#ffffff",depthWrite:false});
     water=new THREE.Mesh(new THREE.PlaneGeometry(M.w,M.h),mat); water.rotation.x=-Math.PI/2; water.position.set(M.w/2,.035,M.h/2); water.receiveShadow=true; world.add(water);

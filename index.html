@@ -187,6 +187,7 @@ button:focus-visible{outline:3px solid var(--moon);outline-offset:2px}
 .savedinfo{text-align:center;color:#fff1c4;font-weight:800;margin:0;text-shadow:0 2px 0 #141633}
 @media (min-height:760px){#hud{padding-top:calc(env(safe-area-inset-top,0px) + 12px)}}
 @media (prefers-reduced-motion:reduce){#note,#fade,#quick{transition:none}#banner.show{animation-duration:.01s}#dlg::after{animation:none}}
+.storage-row{border-top:1px solid var(--woodL);padding:12px 0}.storage-row input{width:80px;min-height:40px}.storage-row .btns{flex-wrap:wrap;margin-top:8px}.storage-row .btn{min-height:44px}#depth{max-width:calc(100vw - 20px);font-size:13px;line-height:1.4;padding:6px 9px;box-sizing:border-box}
 </style>
 
 <canvas id="game"></canvas>
@@ -199,6 +200,7 @@ button:focus-visible{outline:3px solid var(--moon);outline-offset:2px}
     <div id="time">06:00</div>
     <div id="ebox"><span>Energie</span><div id="ebar"><div id="efill"></div></div><span id="enum">100/100</span></div>
   </div>
+  <div class="card" id="depth" hidden></div>
   <button class="card" id="quest"><div id="qTitle"></div><div id="qProg"></div></button>
 </div>
 
