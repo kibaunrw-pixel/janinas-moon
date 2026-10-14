@@ -53,7 +53,7 @@ const dogName=i=>S.dogs[i].name||("Pudel "+(i+1));
 const fmtD=t=>t.replace(/\{d0\}/g,dogName(0)).replace(/\{d1\}/g,dogName(1)).replace(/\{name\}/g,S.name).replace(/\{von\}/g,JM.CONFIG.von);
 function newState(name,dogs){
   const s={v:2,t:Date.now(),name,dogs,day:1,min:360,money:500,energy:100,maxE:100,
-    map:"farm",px:5,py:8,inv:{zwiebel_s:12,futter:6},hold:"auto",can:{w:20,max:20},rod:0,
+    map:"farm",px:5,py:8,inv:{zwiebel_s:12,futter:6},fridge:{},hold:"auto",can:{w:20,max:20},rod:0,
     field:{},forage:{},bush:{},eggs:[],
     hens:[{n:"Henni",c:0,h:0,pet:0},{n:"Gacki",c:1,h:0,pet:0}],cows:[],trough:{h:2,c:0},
     dogH:[0,0],dogPet:[0,0],npc:{},quest:{id:null,p:0,seen:[]},qDone:[],board:null,
@@ -361,6 +361,10 @@ function tapAt(wx,wy,tx,ty){
   if(ms){ goTo(adjGoal(tx,ty,true),()=>tidy(ms),{x:tx,y:ty}); return; }
   const egg0=M.id==="farm"&&S.eggs.find(g=>g.x===tx&&g.y===ty);
   if(egg0){ goTo(adjGoal(tx,ty,true),()=>pickEgg(egg0),{x:tx,y:ty}); return; }
+  const fixture=objAt(tx,ty);
+  if(fixture&&['stove','fridge'].includes(fixture.act)){
+    goTo((x,y)=>Math.abs(x-fixture.x)+Math.abs(y-fixture.y)===1,()=>objAct(fixture),{x:tx,y:ty});return;
+  }
   const h=hitActor(wx,wy);
   if(h){
     if(h.k==="rene"){ goTo(adjGoal(Math.round(RA.x),Math.round(RA.y)),()=>{ faceTo(Math.round(RA.x),Math.round(RA.y)); reneTalk(); }); return; }
@@ -539,13 +543,13 @@ function bushAct(o){
 function objAct(o){
   const a=o.act;
   if(a==="house") return travel({to:"haus",tx:7,ty:9});
-  if(a==="stove") return renePlan().mode==="cook"&&RA.vis?reneTalk():openCook();
+  if(a==="stove") return openCook();
   if(a==="table") return M.id==="haus"?showLetter():note("Ein gemütlicher Tisch.");
   if(a==="tv") return openTV();
   if(a==="bed") return openSleep();
   if(a==="wardrobe") return openWardrobe();
   if(a==="craft") return openCraft();
-  if(a==="fridge") return note(pick(["Im Kühlschrank: Milch, Butter und ein Zettel: Nicht naschen! Gruß, "+JM.CONFIG.von+".","Kalt da drin. Und leer, bis auf "+JM.CONFIG.von+"s Joghurt."]));
+  if(a==="fridge") return openFridge();
   if(a==="counter") return M.shop?openShop(M.shop):note("Die Arbeitsplatte. "+JM.CONFIG.von+" hat Krümel hinterlassen.");
   if(a==="plant") return note("Eine Zimmerpflanze. Sie sieht durstig aus.");
   if(a==="shelf") return note("Ein Regal voller Kram.");
@@ -638,6 +642,7 @@ function spawnForage(mapId,n){
 }
 function srcHint(k){
   const it=ITEMS[k];
+  if(JM.SHOPS.markt.stock.some(s=>s.k===k)) return 'Ganzjährig bei Mei im Markt (9–17 Uhr, außer Sonntag). '+(it.cat==='crop'?'Auch selbst aus saisonalem Saatgut anbauen.':k==='ei'?'Auch von gefütterten Hühnern.':k==='milch'?'Auch von gefütterten Kühen.':k==='pilz'?'Im Herbst auch im Wald sammeln.':'');
   if(it.cat==="crop") return "Samen gibt es bei Mei im Markt, dann pflanzen und gießen.";
   if(it.cat==="fish") return k==="karpfen"?"Angeln, am Teich auf deinem Hof oder im Waldfluss.":k==="forelle"?"Angeln, im Dorffluss oder im Waldfluss.":k==="barsch"?"Angeln, am Hofteich, im Dorffluss oder im Waldsee.":"Angeln.";
   if(it.cat==="forage") return "Liegt draußen herum, vor allem im Wald südlich vom Hof.";
@@ -1237,16 +1242,22 @@ function openHouse(){
 function showLetter(){
   dialog([{who:"von",text:fmtD("Liebe {name},\n\ndieser kleine Hof gehört jetzt uns. Pflanz, was dir schmeckt, kümmer dich um die Hühner und lass dir Zeit. {d0} und {d1} sind auch da und weichen dir nicht von der Seite.\n\nIm Dorf wohnen liebe Leute. Lin vom Nudelhaus kennt ein Rezept, das dir gefallen wird.\n\nUnd im Herbst, wenn der Mond am größten ist, feiert das ganze Dorf. Ich glaube, das wird schön.\n\nIn Liebe,\n{von}")}],()=>{ if(!S.flags.letter){ S.flags.letter=true; emit("letter"); } });
 }
+function openFridge(){
+ const keys=Array.from(new Set([...Object.keys(S.inv),...Object.keys(S.fridge)])).filter(JM.Ausbau.food);
+ const rows=keys.map(k=>`<section class="storage-row"><b>${esc(ITEMS[k].n)}</b><p>Rucksack: ${S.inv[k]||0} · Kühlschrank: ${S.fridge[k]||0}</p><label>Menge <input type="number" min="1" step="1" value="1" id="qty-${k}" aria-label="Menge ${esc(ITEMS[k].n)}"></label><div class="btns">${['in','out'].map(dir=>[1,'n','all'].map(n=>`<button class="btn ${dir==='out'?'alt':''}" data-a="${dir}${n}" data-k="${k}" ${!(dir==='in'?S.inv[k]:S.fridge[k])?'disabled':''}>${n==='all'?'Alle':n==='n'?'Menge':1} ${dir==='in'?'einlagern':'entnehmen'}</button>`).join('')).join('')}</div></section>`).join('');
+ const handlers={};for(const dir of ['in','out'])for(const n of [1,'n','all'])handlers[dir+n]=k=>{const into=dir==='in',source=into?S.inv:S.fridge;const amount=n==='all'?(source[k]||0):n==='n'?Number($('qty-'+k).value):1;if(!JM.Ausbau.transfer(S,k,amount,into)){note('Bitte eine verfügbare, positive ganze Menge wählen.');return;}hotbarSoon();save(true);openFridge();};
+ openPanel(`<h2>Kühlschrank</h2><p>Lebensmittel lagern hier dauerhaft. Die Küche nutzt Rucksack und Kühlschrank. Beide Lager sind unbegrenzt.</p>${rows||'<p>Noch keine Lebensmittel.</p>'}${closeBtn}`,handlers);
+}
 function openCook(){
   const rows=JM.RECIPES.map(r=>{
     const known=S.recipes.includes(r.k);
     if(!known) return `<div class="row dim"><canvas class="ic sil" data-ic="${r.k}"></canvas><div class="tx"><b>???</b><small>Lernst du von: ${esc(r.from||"?")}</small></div></div>`;
-    const ok=Object.entries(r.need).every(([k,n])=>has(k,n));
-    const need=Object.entries(r.need).map(([k,n])=>{ const h=k==="fisch"?JM.FISHKEYS.reduce((s,f)=>s+(S.inv[f]||0),0):(S.inv[k]||0); return `<span class="${h>=n?"ok":"no"}">${n}× ${k==="fisch"?"Fisch":ITEMS[k].n}</span>`; }).join(" ");
+    const ok=!!JM.Ausbau.plan(S,r.need);
+    const need=Object.entries(r.need).map(([k,n])=>{ const h=JM.Ausbau.count(S,k); return `<span class="${h>=n?'ok':'no'}">${n}× ${k==='fisch'?'Fisch':ITEMS[k].n} (${h} da)</span>${h<n?`<small>${esc(k==='fisch'?'Mit Henks Angel an Teichen und Flüssen fangen.':srcHint(k))}</small>`:''}`; }).join(' ');
     return `<div class="row ${r.fav?"fav":""}">${ic(r.k)}<div class="tx"><b>${r.fav?"★ ":""}${ITEMS[r.k].n}</b><small>${need}</small><small>${ITEMS[r.k].eat>=999?"Volle Energie":"+"+ITEMS[r.k].eat+" Energie"} · Wert ${ITEMS[r.k].sell} G</small></div><button class="btn" data-a="cook" data-k="${r.k}" ${ok?"":"disabled"}>Kochen</button></div>`;
   }).join("");
   openPanel(`<h2>Küche</h2><p class="sub">Was möchtest du kochen?</p>${rows}<div class="row2"><button class="btn alt wide" data-a="back">Zurück</button>${closeBtn}</div>`,
-    {back:closePanel,cook:k=>{ const r=JM.RECIPES.find(x=>x.k===k); if(!Object.entries(r.need).every(([i,n])=>has(i,n))) return; for(const [i,n] of Object.entries(r.need)) takeAny(i,n); give(k,1); sfx("cook"); emit("cook_"+k); if(r.fav&&!S.flags.favCooked){ S.flags.favCooked=true; setTimeout(()=>note("Es duftet nach Tempura. Dein Lieblingsessen ist fertig! Tippe es unten zweimal an, um es zu essen."),100); } else note(ITEMS[k].n+" ist fertig."); saveSoon(); openCook(); }});
+    {back:closePanel,cook:k=>{ const r=JM.RECIPES.find(x=>x.k===k); if(!JM.Ausbau.cook(S,r)) return; hotbarSoon(); sfx("cook"); emit("cook_"+k); if(r.fav&&!S.flags.favCooked){ S.flags.favCooked=true; setTimeout(()=>note("Es duftet nach Tempura. Dein Lieblingsessen ist fertig! Tippe es unten zweimal an, um es zu essen."),100); } else note(ITEMS[k].n+" ist fertig."); saveSoon(); openCook(); }});
 }
 function openTV(){
   openPanel(`<h2>Fernsehen</h2><div class="stack">
@@ -1301,7 +1312,7 @@ function openShop(id){
     const full=(s.k==="tier_huhn"&&S.hens.length>=6)||(s.k==="tier_kuh"&&S.cows.length>=2);
     const desc=done?"Schon gekauft":full?"Kein Platz mehr":off?"Gibt es erst im "+crop.se.map(x=>JM.SEASONS[x]).join("/"):(s.d||(crop?crop.days+" Tage bis zur Ernte"+(crop.re?", danach alle "+crop.re+" Tage":"")+" · Ernte "+ITEMS[it.crop].sell+" G":""));
     const can=!done&&!full&&!off&&S.money>=s.p;
-    const multi=crop||s.winter||s.k==="futter"||s.k==="huhn"||s.k==="tee"||s.k==="rolle";
+    const multi=crop||JM.Ausbau.food(s.k)||s.k==='holz'||s.k==='futter';
     return `<div class="row ${off||done?"dim":""}">${ic(s.k)}<div class="tx"><b>${esc(itemName(s.k))}</b><small>${esc(desc)}</small></div><div class="price">${s.p} G</div><div class="btns v"><button class="btn" data-a="buy" data-k="${s.k}" data-n="1" ${can?"":"disabled"}>${multi?"1×":"Kaufen"}</button>${multi?`<button class="btn" data-a="buy" data-k="${s.k}" data-n="5" ${!off&&S.money>=s.p*5?"":"disabled"}>5×</button>`:""}</div></div>`;
   }).join("");
   const giftable=ITEMS[S.hold]&&ITEMS[S.hold].cat!=="seed"&&S.hold!=="futter"&&S.hold!=="sprinkler";
