@@ -39,6 +39,18 @@ test('Alte Saves migrieren ohne Progressionsverlust; leere alte Höhle bleibt le
  const maps=JM.buildMaps();JM.Ausbau.enterMine(s,'hoehle',maps,()=>.9);assert.equal(s.rocks.length,0);
  const r=JSON.parse(JSON.stringify(s));r.fridge={ei:-4,milch:2.5,zwiebel:3};JM.Ausbau.migrate(r);assert.equal(r.fridge.ei,undefined);assert.equal(r.fridge.zwiebel,3);assert.equal(r.house.level,0);
 });
+test('Zimmermann: Ressourcen, einmalige Kosten, Bauzeit, Reload und sichtbare Räume',()=>{
+ assert.ok(JM.HOUSE_UPGRADES);const s={day:4,money:9000,inv:{},house:{level:0,job:null},maxE:100};
+ assert.equal(JM.Ausbau.orderHouse(s,1),false);assert.equal(s.money,9000);
+ for(const r of JM.HOUSE_UPGRADES){Object.assign(s.inv,r.need);const before=s.money;
+ assert.equal(JM.Ausbau.orderHouse(s,r.level),true);assert.equal(s.money,before-r.money);assert.equal(JM.Ausbau.orderHouse(s,r.level),false);assert.equal(s.money,before-r.money);
+ assert.equal(JM.Ausbau.finishHouse(s),false);const reload=JSON.parse(JSON.stringify(s));JM.Ausbau.migrate(reload);assert.equal(reload.house.job.due,s.day+r.days);
+ s.day+=r.days;assert.equal(JM.Ausbau.finishHouse(s),true);assert.equal(s.house.level,r.level);assert.equal(JM.Ausbau.finishHouse(s),false);
+ const maps=JM.buildMaps();JM.Ausbau.applyHouse(maps,s.house.level);assert.ok(maps.haus.w>14);assert.ok(maps.haus.obj.some(o=>o.act==='fridge'));assert.equal(maps.haus.exits[0].x,7);
+ }
+ assert.equal(s.maxE,120);assert.equal(JM.Ausbau.orderHouse(s,3),false);
+ const maps=JM.buildMaps();assert.ok(maps.village.obj.some(o=>o.act==='shop:zimmerei'));assert.equal(maps.i_zimmerei.owner,'timo');
+});
 test('Lebensmitteltransfer erhält Bilanz und lehnt ungültige Mengen ab',()=>{
  assert.ok(JM.Ausbau,'Ausbau-Produktionslogik fehlt');
  const s={inv:{ei:7,kupfer:4},fridge:{ei:2}};

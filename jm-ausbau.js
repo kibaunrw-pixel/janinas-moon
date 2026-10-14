@@ -101,4 +101,38 @@ X.migrate=function(s){
  for(const id of Object.keys(s.mine.floors)){const a=s.mine.floors[id];if(!Array.isArray(a)){delete s.mine.floors[id];continue;}s.mine.floors[id]=a.filter(r=>r&&Number.isInteger(r.x)&&Number.isInteger(r.y)&&r.x>=2&&r.x<20&&r.y>=2&&r.y<17&&JM.ITEMS[r.k]?.cat==='mineral'&&Number.isInteger(r.hp)&&r.hp>0);}
  s.ausbauVersion=1;return s;
 };
+// Timo wohnt/arbeitet in einer eigenen, über den Dorfweg erreichbaren Zimmerei.
+JM.ITEMS.holz={n:'Bauholz',cat:'material',sell:4};
+JM.SHOPS.zimmerei={npc:'timo',n:'Timos Zimmerei',stock:[{k:'holz',p:35,d:'Bauholz · auch aus Ästen auf dem Hof und täglich im Wald'}]};
+JM.NPCS.timo={n:'Timo',role:'Zimmermann',home:'zimmerei',bday:[2,4],
+ look:{skin:'#e3b48e',hair:'#6b4423',style:'short',beard:true,top:'#64885a',bot:'#4a5678',overall:true,shoes:'#5a3a24'},
+ love:['holz','pilzpfanne'],like:['suppe','amethyst','silber'],hate:['kabel'],
+ sched:[[360,[24,14]],[480,'in'],[1020,[17,13]],[1200,'off']],free:[6],freeSched:[[480,[17,13]],[1140,'off']],recipe:'suppe',
+ intro:'Ich bin Timo, der Zimmermann. Meine Werkstatt liegt rechts vom Brunnen. Bring Holz und etwas Geld mit: Ich baue euch mehr Platz, ohne Küche oder Bett zu versetzen. Ein Auftrag dauert mehrere Nächte.',
+ lines:[['Äste auf deinem Feld ergeben Bauholz. Im Wald findest du täglich neues. Oder du kaufst welches bei mir.','Ich arbeite von 8 bis 17 Uhr. Sonntags ruht die Säge.'],['Eisenerz ab Ebene 3 macht starke Verbindungen. Für den zweiten Anbau brauche ich davon ein wenig.'],['Ein gutes Haus wächst mit den Menschen darin. Eures wird langsam richtig gemütlich.']],
+ rain:'Bei Regen arbeite ich lieber drinnen. Das Holz muss trocken bleiben.',gift:{love:'Das kann ich gut gebrauchen. Danke!',like:'Wie aufmerksam, danke.',neutral:'Danke dir.',hate:'Das passt eher in die Kabelkiste.'}};
+JM.NPC_ORDER.push('timo');
+JM.HOUSE_UPGRADES=[
+ {level:1,n:'Vorratsstube',money:1000,need:{holz:20,stein:10},days:2,d:'Heller Anbau mit zweitem Kühlschrankzugang zur gemeinsamen Vorratskammer. +10 maximale Energie.'},
+ {level:2,n:'Wohnwerkstatt',money:2400,need:{holz:40,stein:20,eisen:6},days:3,d:'Noch mehr begehbarer Raum, zweite Werkbank und Esstisch. +10 maximale Energie. Benötigt Vorratsstube.'}
+];
+const mineMaps=JM.buildMaps;
+JM.buildMaps=function(){const maps=mineMaps(),v=maps.village;
+ v.rect(23,13,25,14,JM.T.WEG);v.add({k:'huette',x:23,y:10,w:5,h:3,door:[25,13],act:'shop:zimmerei'});
+ const r=maps.i_zimmerei=Object.assign({},maps.i_huette,{id:'i_zimmerei',owner:'timo',shop:'zimmerei',exits:[{x:6,y:8,to:'village',tx:25,ty:14}]});r.obj=maps.i_huette.obj.map(o=>Object.assign({},o));return maps;};
+X.orderHouse=function(s,level){const r=JM.HOUSE_UPGRADES.find(r=>r.level===level);
+ if(!r||s.house.job||level!==s.house.level+1||s.money<r.money||!Object.entries(r.need).every(([k,n])=>(s.inv[k]||0)>=n))return false;
+ s.money-=r.money;for(const [k,n] of Object.entries(r.need)){s.inv[k]-=n;if(!s.inv[k])delete s.inv[k];}s.house.job={level,due:s.day+r.days};return true;
+};
+X.finishHouse=function(s){const j=s.house.job;if(!j||s.day<j.due)return false;
+ s.house.level=j.level;s.house.job=null;s.maxE+=10;return true;
+};
+X.applyHouse=function(maps,level){if(!level)return;
+ const m=maps.haus,old=m.w;m.w=14+level*4;
+ for(let y=0;y<m.h;y++){for(let x=old;x<m.w;x++)m.t[y][x]=JM.T.WAND;if(y>=3&&y<=9)for(let x=13;x<m.w-1;x++)m.t[y][x]=JM.T.BODEN;}
+ m.obj.push({k:'fridge',x:14,y:3,act:'fridge'});m.t[3][14]=JM.T.BLOCK;
+ if(level>=2){m.obj.push({k:'workbench',x:19,y:3,w:2,act:'craft'},{k:'table',x:18,y:7,w:2,act:'deco'});for(const o of m.obj.filter(o=>o.x>=18))for(let x=o.x;x<o.x+(o.w||1);x++)m.t[o.y][x]=JM.T.BLOCK;}
+ for(let y=5;y<=8;y++)for(let x=15;x<m.w-2;x++)if(m.t[y][x]!==JM.T.BLOCK)m.t[y][x]=JM.T.TEPPICH;
+ m.windows.push([16,1]);if(level>=2)m.windows.push([20,1]);
+};
 })();

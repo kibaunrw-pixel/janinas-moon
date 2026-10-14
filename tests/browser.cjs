@@ -23,7 +23,17 @@ const assert=require('node:assert/strict');
  assert.equal(await page.evaluate(()=>JMDEBUG.M.id),'hoehle10');
  await page.evaluate(()=>JMDEBUG.tap(13,7));await page.waitForFunction(()=>JMDEBUG.busy.fish==='wait');
  assert.ok(['sternenschuppe','kristallforelle'].includes(await page.evaluate(()=>JMDEBUG.FISH.k)));
- assert.deepEqual(errors,[]);console.log('Browser Kühlschrank/Küche/Mine',viewport,'OK');
+ assert.deepEqual(errors,[]);
+ await page.evaluate(()=>{JMDEBUG.FISH.phase=null;JMDEBUG.S.money=10000;Object.assign(JMDEBUG.S.inv,{holz:70,stein:40,eisen:8});JMDEBUG.S.npc.timo.met=true;JMDEBUG.S.min=720;JMDEBUG.setMap('village',20,14);});
+ await page.evaluate(()=>JMDEBUG.tap(25,11));await page.waitForFunction(()=>JMDEBUG.M.id==='i_zimmerei');
+ await page.evaluate(()=>JMDEBUG.tap(3,4));await page.getByRole('heading',{name:'Timos Zimmerei',exact:true}).waitFor();
+ await page.locator('[data-a="buildhouse"][data-k="1"]').click();assert.equal(await page.evaluate(()=>JMDEBUG.S.money),9000);
+ await page.getByRole('button',{name:'Schließen',exact:true}).click();
+ // Beschleunigt nur das Testtempo, nicht die Bauabschlussfunktion.
+ for(let i=0;i<2;i++){await page.evaluate(()=>JMDEBUG.endDay(false));await page.waitForFunction(()=>!JMDEBUG.busy.ui.fade,{timeout:10000});}
+ assert.equal(await page.evaluate(()=>JMDEBUG.S.house.level),1);assert.equal(await page.evaluate(()=>JMDEBUG.M.w),18);
+ const wood=await page.evaluate(()=>{const d=JMDEBUG;d.setMap('farm',5,8);const entry=Object.entries(d.S.field).find(([,f])=>f.o==='branch');const [x,y]=entry[0].split(',').map(Number);const before=d.S.inv.holz||0;d.doField(x,y);return (d.S.inv.holz||0)-before;});assert.equal(wood,2);
+ assert.deepEqual(errors,[]);console.log('Browser Kühlschrank/Küche/Mine/Zimmermann/Holz',viewport,'OK');
  await context.close();}
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1});

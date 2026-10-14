@@ -514,7 +514,7 @@ function buildDyn(){
   }
   for(const o of M.obj) if(o.k==="bush"){ prop(mg,null,o,se,{berries:E.bushBer(o)}); addPickDyn(o.x,o.y,1,1,.8,o); }
   if(M.id==="farm") for(const g of S.eggs) mg.sph(g.x+.5,.09,g.y+.55,.08,.1,.08,g.g?"#f3c34a":"#f8f4ec");
-  if(M.cave) for(const r of (S.rocks||[])){ const c={stein:"#8a8078",kupfer:"#c8783a",amethyst:"#a868d8",mondquarz:"#cfe6ff"}[r.k]||"#8a8078"; mg.add(GEO.sphLo,M4(r.x+.5,.25,r.y+.5,.4,.3,.36,.2,h01(r.x,r.y,1)*3,0),"#7a7068"); if(r.k!=="stein") for(let i=0;i<3;i++) mg.add(GEO.cone8,M4(r.x+.35+i*.15,.45,r.y+.5+(i%2)*.1,.06,.25,.06,0,0,(i-1)*.4),c); addPickDyn(r.x,r.y,1,1,.6,null); }
+  if(M.cave) for(const r of (S.rocks||[])){ const c={stein:"#8a8078",kupfer:"#c8783a",eisen:'#b2bac3',silber:'#eef4ff',amethyst:"#a868d8",mondquarz:"#cfe6ff"}[r.k]||"#8a8078"; mg.add(GEO.sphLo,M4(r.x+.5,.25,r.y+.5,.4,.3,.36,.2,h01(r.x,r.y,1)*3,0),"#7a7068"); if(r.k!=="stein") for(let i=0;i<3;i++) mg.add(GEO.cone8,M4(r.x+.35+i*.15,.45,r.y+.5+(i%2)*.1,.06,.25,.06,0,0,(i-1)*.4),c); addPickDyn(r.x,r.y,1,1,.6,null); }
   if(mg.pos.length) dyn.add(mg.mesh());
   const items=[...(S.forage[M.id]||[]).map(f=>[f.k,f.x,f.y]),...S.mess.filter(m=>m.map===M.id).map(m=>[m.k,m.x,m.y])];
   for(const [k,x,y] of items){ const s=iconSprite(k); s.position.set(x+.5,.4,y+.5); s.userData.x=x; dyn.add(s); dyn.userData.bob.push(s); const sh=new THREE.Mesh(new THREE.CircleGeometry(.18,12),MATS.sh||(MATS.sh=new THREE.MeshBasicMaterial({color:"#000",transparent:true,opacity:.18,depthWrite:false}))); sh.rotation.x=-Math.PI/2; sh.position.set(x+.5,.012,y+.5); dyn.add(sh); }

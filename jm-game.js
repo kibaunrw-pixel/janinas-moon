@@ -431,7 +431,7 @@ function doField(x,y){
   const k=key(x,y); const f=S.field[k]||(S.field[k]={t:false,w:false,c:null,o:null});
   faceTo(x,y); P.busy=.22;
   switch(pl.k){
-    case "clear": { const o=f.o; f.o=null; P.tool=o==="stone"?"hacke":"auto"; sfx(o==="stone"?"stone":"pick"); burst(x,y,o==="stone"?"#a9a39b":"#5a9a3a",8); emit("clear"); break; }
+    case "clear": { const o=f.o; f.o=null; if(o==='branch'){give('holz',2);floatItem(x,y,'holz');}else if(o==='stone')give('stein',1); P.tool=o==="stone"?"hacke":"auto"; sfx(o==="stone"?"stone":"pick"); burst(x,y,o==="stone"?"#a9a39b":"#5a9a3a",8); emit("clear"); break; }
     case "till": f.t=true; P.tool="hacke"; sfx("dig"); burst(x,y,"#7a5232",6); emit("till"); break;
     case "water":
       if(S.can.w<=0){ note("Die Gießkanne ist leer. Tippe auf Wasser, um sie zu füllen."); P.queue=[]; S.energy+=1; return; }
@@ -601,6 +601,7 @@ function endDay(passedOut){
   S.cows.forEach(cw=>{ if(S.trough.c>0){ S.trough.c--; cw.milk=true; } });
   S.day++; S.min=360;
   const se=season(); const notes=[];
+  if(JM.Ausbau.finishHouse(S)){MAPS=JM.buildMaps();JM.Ausbau.applyHouse(MAPS,S.house.level);notes.push('Timo hat den Hausausbau abgeschlossen! Stufe '+S.house.level+' · mehr Raum und +10 maximale Energie.');}
   if(se!==oldSe){
     notes.push(JM.SEASONS[se]+" beginnt!");
     let died=0; for(const k in S.field){ const f=S.field[k]; const [x,y]=k.split(",").map(Number); if(f.c&&MAPS.farm.t[y][x]!==T.GLAS&&!CROPS[f.c.k].se.includes(se)){ f.c=null; died++; } }
@@ -642,6 +643,7 @@ function spawnForage(mapId,n){
   const cand=[]; const seen=new Set(); const q=[m.spawn]; seen.add(key(...m.spawn));
   while(q.length){ const [x,y]=q.shift(); for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){ const nx=x+dx, ny=y+dy, k=key(nx,ny); if(seen.has(k)||nx<0||ny<0||nx>=m.w||ny>=m.h) continue; const t=m.t[ny][nx]; if(!JM.WALK.has(t)) continue; seen.add(k); q.push([nx,ny]); if((t===T.TUFF||t===T.GRAS||t===T.WALD||t===T.BLUME)) cand.push([nx,ny]); } }
   for(let i=0;i<n&&cand.length;i++){ const j=Math.floor(rnd()*cand.length); const [x,y]=cand.splice(j,1)[0]; list.push({x,y,k:pick(JM.FORAGE[se])}); }
+  if(mapId==='forest')for(let i=0;i<4&&cand.length;i++){const [x,y]=cand.splice(Math.floor(rnd()*cand.length),1)[0];list.push({x,y,k:'holz'});}
 }
 function srcHint(k){
   const it=ITEMS[k];
@@ -679,7 +681,7 @@ function makeBoard(){
 function npcPlace(id){
   const N=NPCS[id], st=S.npc[id];
   const f=festActive();
-  if(f){ const spots={mei:[13,12],lin:[18,12],rosa:[15,13],paula:[13,9],henk:[18,9]}; return spots[id]; }
+  if(f){ const spots={mei:[13,12],lin:[18,12],rosa:[15,13],paula:[13,9],henk:[18,9],timo:[17,14]}; return spots[id]; }
   if(festToday()&&S.min<(festToday().from-60)) return "off";
   const sched=(N.free&&N.free.includes(weekday())&&N.freeSched)?N.freeSched:N.sched;
   let place="off";
@@ -1294,6 +1296,10 @@ function openBag(mode){
   };
   render();
 }
+function houseOffers(){
+ const j=S.house.job;
+ return `<h3>Hausausbau · Stufe ${S.house.level}/2</h3><p>${j?'In Arbeit: noch '+Math.max(0,j.due-S.day)+' Nächte. Kosten sind bereits bezahlt.':'Materialien aus dem Rucksack abgeben. Bau beginnt sofort; Küche und Bett bleiben zugänglich.'}</p>`+JM.HOUSE_UPGRADES.map(r=>{const can=!j&&r.level===S.house.level+1&&S.money>=r.money&&Object.entries(r.need).every(([k,n])=>(S.inv[k]||0)>=n);return `<section class="storage-row"><b>${r.level}. ${r.n}</b><p>${r.d}</p><p>${r.money} G · ${r.days} Nächte<br>${Object.entries(r.need).map(([k,n])=>n+'× '+ITEMS[k].n+' ('+(S.inv[k]||0)+' da)').join(' · ')}</p><button class="btn" data-a="buildhouse" data-k="${r.level}" ${can?'':'disabled'}>${S.house.level>=r.level?'Fertig':j?'Bau läuft':r.level!==S.house.level+1?'Erst vorherige Stufe':'Verbindlich beauftragen'}</button></section>`;}).join('');
+}
 function openShop(id){
   const SH=JM.SHOPS[id], nid=SH.npc, N=NPCS[nid], st=npcPlace(nid);
   if(st!=="in"){
@@ -1318,8 +1324,8 @@ function openShop(id){
   const giftable=ITEMS[S.hold]&&ITEMS[S.hold].cat!=="seed"&&S.hold!=="futter"&&S.hold!=="sprinkler";
   openPanel(`<div class="shophead"><canvas class="pt" data-pt="${nid}"></canvas><div><h2>${esc(SH.n)}</h2><p class="sub">${esc(N.n)} · ${heartRow(hearts10(nid))}</p></div></div>
     <div class="row2"><button class="btn alt wide" data-a="talk">Reden</button><button class="btn alt wide" data-a="gift" ${giftable&&S.npc[nid].gift!==S.day?"":"disabled"}>${giftable?"Schenken: "+esc(ITEMS[S.hold].n):"Geschenk: erst unten wählen"}</button></div>
-    <p class="sub">Du hast ${S.money.toLocaleString("de-DE")} G</p>${rows}${closeBtn}`,
-  {talk:()=>{ closePanel(); talk(nid); }, gift:()=>{ closePanel(); giveGift(nid,S.hold); },
+    <p class="sub">Du hast ${S.money.toLocaleString("de-DE")} G</p>${rows}${id==='zimmerei'?houseOffers():''}${closeBtn}`,
+  {buildhouse:k=>{if(id!=='zimmerei'||!JM.Ausbau.orderHouse(S,+k))return;hotbarSoon();hud();save(true);openShop(id);},talk:()=>{ closePanel(); talk(nid); }, gift:()=>{ closePanel(); giveGift(nid,S.hold); },
    buy:(k,b)=>{ const n=+b.dataset.n, s=SH.stock.find(x=>x.k===k), c=s.p*n; if(S.money<c) return; S.money-=c; sfx("buy");
      if(k==="kanne2"){ S.bought[k]=true; S.can.max=40; S.can.w=40; note("Die große Gießkanne gehört jetzt dir."); }
      else if(k==="rute2"){ S.bought[k]=true; S.rod=2; note("Die goldene Angel gehört jetzt dir."); }
@@ -1913,6 +1919,7 @@ function startGame(st,isNew){
   S=migrate(st); demo=false; ZOOM=S.zoom||1; resize();
   dogSprites();
   MAPS=JM.buildMaps();
+  JM.Ausbau.finishHouse(S);JM.Ausbau.applyHouse(MAPS,S.house.level);
   setMap(S.map||"farm",S.px,S.py);
   if(!walkT(Math.round(P.x),Math.round(P.y))) setMap("farm",5,8);
   $("title").hidden=true; $("hud").hidden=false; $("bottom").hidden=false;

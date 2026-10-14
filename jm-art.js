@@ -402,7 +402,7 @@ A.prop=function(kind,se,extra){
   if(kind==="trough"){ c=cnv(18,12); g=G(c); g.r(1,3,16,8,"#8a5a33"); g.r(2,4,14,4,"#5a3a24"); if(extra) { g.r(2,3,14,3,"#e8c95a"); g.r(3,2,4,1,"#f3dc7a"); g.r(10,2,3,1,"#f3dc7a"); } g.r(1,10,2,2,"#6b4423"); g.r(15,10,2,2,"#6b4423"); }
   if(kind==="lamp"){ c=cnv(10,30); g=G(c); g.r(4,8,2,21,"#3a3a44"); g.r(2,28,6,2,"#3a3a44"); g.r(2,2,6,7,"#3a3a44"); g.r(3,3,4,5,extra?"#ffe08a":"#f0e3c0"); g.r(1,1,8,2,"#2a2a33"); }
   if(kind==="fountain"){ c=cnv(36,40); g=G(c); g.ell(18,28,16,9,"#9d958a"); g.ell(18,27,15,8,"#b3ab9f"); g.ell(18,27,12,6,se===3?"#cfe3f0":"#4f8fcf"); g.ell(18,26,9,4,se===3?"#e3eef6":"#6aa8dd"); g.r(16,8,4,18,"#b3ab9f"); g.r(16,8,1,18,"#c6bfb3"); g.ell(18,9,6,3,"#9d958a"); g.ell(18,8,5,2,se===3?"#cfe3f0":"#6aa8dd"); }
-  if(kind==="rock"){ c=cnv(18,16); g=G(c); const ore={stein:null,kupfer:"#e08a3a",amethyst:"#a86ad8",mondquarz:"#cfe6ff"}[extra||"stein"];
+  if(kind==="rock"){ c=cnv(18,16); g=G(c); const ore={stein:null,kupfer:"#e08a3a",eisen:'#b2bac3',silber:'#eef4ff',amethyst:"#a86ad8",mondquarz:"#cfe6ff"}[extra||"stein"];
     g.ell(9,10,7.5,5.5,"#6e655e"); g.ell(8,9,6.5,4.6,"#8a8079"); g.r(5,6,4,1,"#a69c94"); g.r(10,12,4,1,"#5a524c");
     if(ore){ [[5,8],[10,7],[12,10],[7,11]].forEach(([x,y])=>{ g.r(x,y,2,2,ore); g.p(x,y,"#ffffff"); }); } }
   if(kind==="cave"){ c=cnv(34,34); g=G(c); g.ell(17,20,17,14,"#5a524c"); g.ell(17,19,15,12,"#6e655e"); g.ell(17,24,9,10,"#1a1418"); g.r(8,26,18,8,"#1a1418"); g.r(6,8,4,2,"#8a8079"); g.r(24,10,5,2,"#8a8079"); if(se===3) g.r(6,6,22,3,"#ffffff"); g.r(15,16,1,1,"#cfe6ff"); g.r(20,14,1,1,"#a86ad8"); }
@@ -527,6 +527,9 @@ A.icon=function(k){
     case "shake": R(5,4,6,11,"#f6b3c9"); R(5,4,6,2,"#ffffff"); R(4,3,8,1,"#f4f1ea"); R(9,0,1,4,"#d9473a"); D(7,3,1.5,"#d9283a"); break;
     case "kuerbissuppe": bowl("#f4f1ea","#e8842a"); R(6,6,3,1,"#f4f1ea"); break;
     case "pilzpfanne": R(1,9,12,5,"#3a3a44"); R(13,10,3,2,"#3a3a44"); R(2,8,10,2,"#8a4a2a"); R(4,7,2,1,"#f0e3c8"); R(8,7,2,1,"#f0e3c8"); break;
+    case 'holz': R(2,5,12,7,'#a8743f');R(2,5,12,2,'#c8955b');g.ell(3,9,2,4,'#d5b47c');R(6,8,8,1,'#714826');break;
+    case 'eisen': case 'silber': g.ell(8,9,6,4.5,'#777f89');[[5,7],[9,8],[7,11]].forEach(([x,y])=>R(x,y,2,2,k==='eisen'?'#b2bac3':'#eef4ff'));break;
+    case 'sternenschuppe': case 'kristallforelle': g.ell(7,8,5.5,3.2,k==='sternenschuppe'?'#f2d77c':'#adf0ed');R(12,5,3,6,'#9d86d8');R(3,7,1,1,'#222');R(6,6,2,2,'#fff');R(9,10,2,1,'#83b7db');break;
     case "stein": g.ell(8,9,6,4.5,"#8a8079"); R(5,6,4,1,"#a69c94"); break;
     case "kupfer": g.ell(8,9,6,4.5,"#8a8079"); [[5,7],[9,8],[7,11]].forEach(([x,y])=>{ R(x,y,2,2,"#e08a3a"); g.p(x,y,"#ffd0a0"); }); break;
     case "amethyst": [[5,4,3,9],[8,2,3,11],[11,5,2,8]].forEach(([x,y,w,h])=>{ R(x,y,w,h,"#a86ad8"); R(x,y,1,h,"#d0a8f0"); }); R(4,12,10,2,"#6e655e"); break;
