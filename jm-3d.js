@@ -24,11 +24,11 @@ function init(){
   renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap;
   renderer.outputColorSpace=THREE.SRGBColorSpace;
   scene=new THREE.Scene();
-  camera=new THREE.PerspectiveCamera(34,1,0.5,200);
+  camera=new THREE.PerspectiveCamera(34,1,0.5,260);
   hemi=new THREE.HemisphereLight("#d8ecff","#6a8a4a",1.1); scene.add(hemi);
   amb=new THREE.AmbientLight("#ffffff",0.25); scene.add(amb);
   sun=new THREE.DirectionalLight("#fff4e0",2.4); sun.castShadow=true;
-  sun.shadow.mapSize.set(2048,2048); const sc=sun.shadow.camera; sc.left=-24; sc.right=24; sc.top=24; sc.bottom=-24; sc.near=1; sc.far=80;
+  sun.shadow.mapSize.set(2048,2048); const sc=sun.shadow.camera; sc.left=-30; sc.right=30; sc.top=30; sc.bottom=-30; sc.far=120; sc.near=1; sc.far=80;
   sun.shadow.bias=-0.0008; sun.shadow.normalBias=0.03; sun.shadow.radius=3;
   scene.add(sun); scene.add(sun.target);
   for(let i=0;i<8;i++){ const l=new THREE.PointLight("#ffc070",0,6,1.6); scene.add(l); PL.push(l); }
@@ -450,7 +450,7 @@ function buildWorld(){
   // Bäume, auch außerhalb des Randes
   if(!M.inside&&!M.cave){
     const list=M.trees.slice();
-    for(let y=-9;y<M.h+5;y++) for(let x=-6;x<M.w+6;x++){ if(x>=0&&y>=0&&x<M.w&&y<M.h) continue; if(hsh(x,y,21)%10<7) list.push({x,y,kind:hsh(x,y,22)%3?"pine":"oak"}); }
+    for(let y=-15;y<M.h+7;y++) for(let x=-11;x<M.w+11;x++){ if(x>=0&&y>=0&&x<M.w&&y<M.h) continue; if(hsh(x,y,21)%10<7) list.push({x,y,kind:hsh(x,y,22)%3?"pine":"oak"}); }
     world.add(treeSet(list,se));
   }
   // Objekte
@@ -568,7 +568,7 @@ function syncActors(dt){
 R3.resetActors=function(){ for(const [,rec] of ACT) AG&&AG.remove(rec.g); ACT.clear(); };
 
 /* ---------- Kamera ---------- */
-const camT=new V3(), camP=new V3(); let camInit=false, lastMap="";
+const camT=new V3(), camP=new V3(); let camDist=30; let camInit=false, lastMap="";
 function cameraUpdate(dt,pads){
   const M=E.M, P=E.P;
   const zoom=R3.zo||E.zoom(), inside=M.inside||M.cave;
@@ -577,7 +577,7 @@ function cameraUpdate(dt,pads){
   const visW=fovH/zoom;
   camera.fov=34; const vfov=camera.fov*Math.PI/180, aspect=camera.aspect;
   const visH=visW/aspect;
-  const dist=(visH/2)/Math.tan(vfov/2);
+  const dist=(visH/2)/Math.tan(vfov/2); camDist=dist;
   // Rand begrenzen
   const halfW=visW/2;
   if(M.w>visW) tx=clamp(tx,halfW-1,M.w-halfW+1); else tx=M.w/2;
@@ -620,7 +620,7 @@ function lightUpdate(){
   lantern.intensity=M.cave?3.2:(night&&!M.inside?1.4:0); lantern.position.set(E.P.x+.5,1.3,E.P.y+.9);
   if(M.cave){ PL.forEach((l,i)=>{ const r=(S.rocks||[]).filter(r=>r.k==="mondquarz"||r.k==="amethyst")[i]; if(r){ l.position.set(r.x+.5,.6,r.y+.5); l.intensity=.9; l.color.set(r.k==="amethyst"?"#c890ff":"#a8d8ff"); } else l.intensity=0; }); }
   else PL.forEach(l=>l.color.set("#ffc070"));
-  if(M.inside) scene.fog=null; else { if(!FOG) FOG=new THREE.Fog("#ffffff",40,80); FOG.color.copy(scene.background); scene.fog=FOG; }
+  if(M.inside) scene.fog=null; else { if(!FOG) FOG=new THREE.Fog("#ffffff",40,80); FOG.color.copy(scene.background); FOG.near=camDist+8; FOG.far=camDist+45; scene.fog=FOG; }
 }
 
 /* ---------- Rauch ---------- */

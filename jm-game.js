@@ -300,9 +300,20 @@ function travel(ex){
 /* ================= Eingabe ================= */
 let ptr=null;
 function toWorld(cx,cy){ if(use3D()){ const r=JM.R3.pick(cx,cy); if(r) return r; } return {wx:(cx*DPR/SC+cam.x)/16, wy:(cy*DPR/SC+cam.y)/16}; }
+// Zoomen mit zwei Fingern (und Mausrad am Rechner)
+const PINCH={pts:new Map(),d0:0,z0:1,on:false};
+const ZMIN=.45, ZMAX=1.6;
+let zoomSaveT=0;
+function setZoom(z){ z=clamp(z,ZMIN,ZMAX); if(Math.abs(z-ZOOM)<.002) return; S.zoom=ZOOM=Math.round(z*100)/100; if(!use3D()) resize(); clearTimeout(zoomSaveT); zoomSaveT=setTimeout(saveSoon,600); }
+function pinchDist(){ const a=[...PINCH.pts.values()]; return Math.hypot(a[0][0]-a[1][0],a[0][1]-a[1][1]); }
+cv.addEventListener("pointerdown",e=>{ PINCH.pts.set(e.pointerId,[e.clientX,e.clientY]); if(PINCH.pts.size===2&&running&&!demo){ PINCH.on=true; PINCH.d0=pinchDist(); PINCH.z0=ZOOM; ptr=null; P.queue=[]; if(!P.busy&&!P.tool){ P.path=[]; P.act=null; aim=null; } } },true);
+addEventListener("pointermove",e=>{ if(!PINCH.pts.has(e.pointerId)) return; PINCH.pts.set(e.pointerId,[e.clientX,e.clientY]); if(PINCH.on&&PINCH.pts.size>=2&&PINCH.d0>0) setZoom(PINCH.z0*pinchDist()/PINCH.d0); });
+const pinchEnd=e=>{ PINCH.pts.delete(e.pointerId); if(PINCH.pts.size<2) PINCH.on=false; };
+addEventListener("pointerup",pinchEnd); addEventListener("pointercancel",pinchEnd);
+cv.addEventListener("wheel",e=>{ if(!running||demo) return; e.preventDefault(); setZoom(ZOOM*Math.exp(-e.deltaY*.0015)); },{passive:false});
 cv.addEventListener("pointerdown",e=>{
   audioInit();
-  if(!running||demo) return;
+  if(!running||demo||PINCH.on) return;
   if(FISH.phase==="wait"||FISH.phase==="bite"){ fishTap(); return; }
   if(paused()) return;
   const {wx,wy}=toWorld(e.clientX,e.clientY), tx=Math.floor(wx), ty=Math.floor(wy);
@@ -316,7 +327,7 @@ cv.addEventListener("pointerdown",e=>{
   ptr.mode="walk";
 });
 cv.addEventListener("pointermove",e=>{
-  if(!ptr||ptr.id!==e.pointerId||paused()) return;
+  if(PINCH.on||!ptr||ptr.id!==e.pointerId||paused()) return;
   const {wx,wy}=toWorld(e.clientX,e.clientY), tx=Math.floor(wx), ty=Math.floor(wy), k=key(tx,ty);
   if(k===ptr.last) return; ptr.last=k;
   if(ptr.mode==="swipe"){ if(isField(tx,ty)&&!P.queue.some(q=>q[0]===tx&&q[1]===ty)) P.queue.push([tx,ty]); }
@@ -1342,7 +1353,7 @@ function openBook(tab){
     body=`<div class="row"><div class="tx"><b>Geräusche</b></div><button class="btn alt" data-a="snd">${S.sound?"An":"Aus"}</button></div>
       <div class="row"><div class="tx"><b>Musik</b></div><button class="btn alt" data-a="mus">${S.music?"An":"Aus"}</button></div>
       <div class="row"><div class="tx"><b>Grafik</b><span>3D wie Home Sweet Home oder klassische Pixel-Grafik</span></div><button class="btn alt" data-a="gfx">${S.gfx==="2d"?"Pixel":"3D"}</button></div>
-      <div class="row"><div class="tx"><b>Ansicht</b><small>Wie nah die Kamera ist</small></div><div class="btns">${[["Nah",1.25],["Normal",1],["Weit",.8]].map(([n,z])=>`<button class="btn ${(S.zoom||1)===z?"":"alt"}" data-a="zoom" data-k="${z}">${n}</button>`).join("")}</div></div>
+      <div class="row"><div class="tx"><b>Ansicht</b><small>Oder mit zwei Fingern zoomen</small></div><div class="btns">${[["Nah",1.25],["Normal",1],["Weit",.75],["Übersicht",.5]].map(([n,z])=>`<button class="btn ${(S.zoom||1)===z?"":"alt"}" data-a="zoom" data-k="${z}">${n}</button>`).join("")}</div></div>
       <div class="row" id="photoRow" hidden><div class="tx"><b>Foto vom Hof</b><small>Speichert ein Bild von diesem Moment</small></div><button class="btn alt" data-a="photo">Foto</button></div>
       <div class="row"><div class="tx"><b>Gespeichert</b><small>Automatisch, und immer beim Schlafen</small></div></div>
       <div class="row"><div class="tx"><b>Neuer Hof</b><small>Beginnt von vorn. Der jetzige Hof geht verloren.</small></div><button class="btn danger" data-a="reset">Neu</button></div>
