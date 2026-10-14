@@ -316,6 +316,7 @@ document.addEventListener("gesturestart",e=>{ e.preventDefault(); gz0=ZOOM; PINC
 document.addEventListener("gesturechange",e=>{ e.preventDefault(); if(running&&!demo) setZoom(gz0*e.scale); },{passive:false});
 document.addEventListener("gestureend",e=>{ e.preventDefault(); PINCH.on=PINCH.pts.size>=2; },{passive:false});
 // Zoom-Knöpfe
+$("zFoto").addEventListener("click",e=>{ e.stopPropagation(); photo(); });
 $("zIn").addEventListener("click",e=>{ e.stopPropagation(); setZoom(ZOOM*1.25); });
 $("zOut").addEventListener("click",e=>{ e.stopPropagation(); setZoom(ZOOM/1.25); });
 cv.addEventListener("wheel",e=>{ if(!running||demo) return; e.preventDefault(); setZoom(ZOOM*Math.exp(-e.deltaY*.0015)); },{passive:false});
@@ -1041,6 +1042,29 @@ function starHit(cx,cy){
   dialog([{who:"player",text:fmtD(pick(WISHES))},{who:null,text:txt}]);
   return true;
 }
+/* Fotomodus: Spielbild ohne Menüs, mit Rahmen und Datum */
+let PHOTO=false;
+function photo(){
+  if(!running||demo||paused()) return;
+  PHOTO=true; render();
+  const W=VW, H=VH, pad=Math.round(W*.045), foot=Math.round(W*.16);
+  const c=A.cnv(W+pad*2,H+pad+foot), x=c.getContext("2d");
+  x.fillStyle="#fbf3e2"; x.fillRect(0,0,c.width,c.height);
+  const gl=document.getElementById("gl"); if(use3D()&&gl) x.drawImage(gl,pad,pad,W,H); x.drawImage(cv,pad,pad,W,H);
+  PHOTO=false;
+  x.strokeStyle="#5a3a22"; x.lineWidth=Math.max(2,W*.004); x.strokeRect(pad,pad,W,H);
+  x.fillStyle="#3a2418"; x.textAlign="center";
+  x.font=`900 ${Math.round(W*.055)}px Saira, system-ui, sans-serif`; x.fillText("JANINAS MOON",c.width/2,H+pad+foot*.48);
+  x.font=`600 ${Math.round(W*.034)}px Barlow, system-ui, sans-serif`; x.fillText(dayIn()+". "+JM.SEASONS[season()]+" · Jahr "+year()+" · "+fmtD("mit {d0} und {d1}"),c.width/2,H+pad+foot*.8);
+  const fl=$("flash"); fl.style.transition="none"; fl.style.opacity="1"; requestAnimationFrame(()=>{ fl.style.transition="opacity .6s"; fl.style.opacity="0"; });
+  sfx("blip"); S.stats.photos=(S.stats.photos||0)+1; saveSoon();
+  const name="janinas-moon-"+S.day+"-"+Math.round(S.min)+".png";
+  c.toBlob(async b=>{ if(!b){ note("Das Foto hat nicht geklappt."); return; }
+    const file=new File([b],name,{type:"image/png"});
+    try{ if(navigator.canShare&&navigator.canShare({files:[file]})){ await navigator.share({files:[file],title:"Janinas Moon"}); note("Foto geteilt."); return; } }catch(err){ if(err&&err.name==="AbortError"){ note("Foto nicht gespeichert."); return; } }
+    const u=URL.createObjectURL(b), a=document.createElement("a"); a.href=u; a.download=name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(u),4000); note("Foto gespeichert.");
+  },"image/png");
+}
 function burst(x,y,c,n,drop){ for(let i=0;i<n;i++) FX.push({x:x*16+8,y:y*16+10,vx:(rnd()-.5)*50,vy:-rnd()*50-15,l:.5+rnd()*.3,c,g:drop?160:120,s:1+(rnd()<.3?1:0)}); }
 function hearts(x,y,c){ for(let i=0;i<3;i++) FX.push({heart:true,x:x*16+4+i*5,y:y*16-4-i*3,vx:(rnd()-.5)*6,vy:-14-rnd()*6,l:1.2,c:c||"#e8476a",g:0}); }
 function floatItem(x,y,k){ FLT.push({x:x*16+8,y:y*16,k,l:1.3}); }
@@ -1605,7 +1629,7 @@ function render3(){
   const badge=(x,y,ch)=>{ const b=Math.sin(gameT*5)*3*DPR, s=11*DPR; ctx.save(); ctx.translate(x,y+b); ctx.fillStyle="#2b1e2a"; ctx.beginPath(); ctx.roundRect(-s-2*DPR,-s-2*DPR,2*s+4*DPR,2*s+4*DPR,6*DPR); ctx.fill(); ctx.fillStyle=ch==="*"?"#f6b3c9":"#f6d55c"; ctx.beginPath(); ctx.roundRect(-s,-s,2*s,2*s,5*DPR); ctx.fill(); ctx.fillStyle="#2b1e2a"; ctx.font=`900 ${15*DPR}px Saira, system-ui, sans-serif`; ctx.textAlign="center"; ctx.textBaseline="middle"; ctx.fillText(ch==="*"?"♥":ch,0,1*DPR); ctx.restore(); };
   const heart=(x,y,c,sc)=>{ ctx.save(); ctx.translate(x,y); ctx.scale(sc,sc); ctx.fillStyle=c; ctx.fillRect(1,0,2,1); ctx.fillRect(4,0,2,1); ctx.fillRect(0,1,7,2); ctx.fillRect(1,3,5,1); ctx.fillRect(2,4,3,1); ctx.fillRect(3,5,1,1); ctx.restore(); };
   // Hinweise über Figuren
-  if(!demo){
+  if(!demo&&!PHOTO){
     for(const id in NPCA){ const a=NPCA[id]; if(!a.vis) continue; const st=S.npc[id]; const qn=curQ()&&curQ().tg&&(curQ().tg==="npc:"+id||(curQ().tg==="npc:unmet"&&!st.met)); const [x,y]=pr(a.x+.5,a.y+.62,1.55);
       if(!st.met||qn) badge(x,y,qn?"!":"?"); else if(NPCS[id].bday[0]===season()&&NPCS[id].bday[1]===dayIn()) badge(x,y,"*"); }
     if(M.owner&&npcPlace(M.owner)==="in"&&!S.npc[M.owner].met){ const [x,y]=pr(M.npcAt[0]+.5,M.npcAt[1]+.62,1.55); badge(x,y,"?"); }
@@ -1630,8 +1654,8 @@ function render3(){
   if(!VIG||VIG.width!==VW||VIG.height!==VH){ VIG=A.cnv(VW,VH); const vx=VIG.getContext("2d"), g=vx.createRadialGradient(VW/2,VH/2,Math.min(VW,VH)*.35,VW/2,VH/2,Math.max(VW,VH)*.75); g.addColorStop(0,"rgba(10,12,30,0)"); g.addColorStop(1,"rgba(10,12,30,.32)"); vx.fillStyle=g; vx.fillRect(0,0,VW,VH); }
   ctx.drawImage(VIG,0,0);
   if(FESTFX.moon>0) drawMoon();
-  if(!demo&&!paused()) drawArrow3(pr);
-  drawStar();
+  if(!demo&&!paused()&&!PHOTO) drawArrow3(pr);
+  if(!PHOTO) drawStar();
 }
 function drawArrow3(pr){
   const t=routeTarget(questTarget()); if(!t) return;
@@ -1766,8 +1790,8 @@ function render(){
   ctx.drawImage(VIG,0,0);
   if(FESTFX.moon>0) drawMoon();
   // Zielpfeil
-  if(!demo&&!paused()) drawArrow(CX,CY);
-  drawStar();
+  if(!demo&&!paused()&&!PHOTO) drawArrow(CX,CY);
+  if(!PHOTO) drawStar();
 }
 function drawWater(X,Y,x,y,se){
   const t=gameT, w=(xx,yy)=>xx<0||yy<0||xx>=M.w||yy>=M.h||M.t[yy][xx]===T.WASSER||M.t[yy][xx]===T.STEG;

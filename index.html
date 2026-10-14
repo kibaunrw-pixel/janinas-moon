@@ -55,6 +55,8 @@ button:focus-visible{outline:3px solid var(--moon);outline-offset:2px}
 #bottom{position:fixed;left:0;right:0;bottom:0;padding:0 8px calc(env(safe-area-inset-bottom,0px) + 8px);display:flex;flex-direction:column;gap:4px;pointer-events:none}
 #zoomb{align-self:flex-end;display:flex;flex-direction:column;gap:6px;pointer-events:auto;margin-bottom:4px}
 #zoomb button{width:42px;height:42px;font:900 24px/1 Saira,system-ui,sans-serif;color:var(--woodD);background:var(--paper);border:3px solid var(--woodD);border-radius:6px;box-shadow:0 3px 0 var(--woodD);padding:0;cursor:pointer;touch-action:manipulation}
+#zoomb svg{display:block;margin:auto}
+#flash{position:fixed;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:50;transition:opacity .5s}
 #zoomb button:active{transform:translateY(2px);box-shadow:0 1px 0 var(--woodD)}
 #holdlbl{align-self:center;max-width:calc(100vw - 32px);font-weight:800;font-size:12px;color:#fff6dc;background:rgba(27,31,71,.8);padding:3px 10px;border-radius:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #barrow{display:flex;gap:4px;align-items:stretch;pointer-events:auto;max-width:620px;width:100%;margin:0 auto;box-sizing:border-box}
@@ -200,8 +202,9 @@ button:focus-visible{outline:3px solid var(--moon);outline-offset:2px}
   <button class="card" id="quest"><div id="qTitle"></div><div id="qProg"></div></button>
 </div>
 
+<div id="flash"></div>
 <div id="bottom" hidden>
-  <div id="zoomb"><button id="zIn" aria-label="Näher heran">+</button><button id="zOut" aria-label="Weiter weg">&minus;</button></div>
+  <div id="zoomb"><button id="zFoto" aria-label="Foto machen"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7l2-3h4l2 3"/><circle cx="12" cy="13.5" r="3.6"/></svg></button><button id="zIn" aria-label="Näher heran">+</button><button id="zOut" aria-label="Weiter weg">&minus;</button></div>
   <div id="holdlbl"></div>
   <div id="barrow" class="card">
     <div id="hotbar"></div>
@@ -223,7 +226,7 @@ button:focus-visible{outline:3px solid var(--moon);outline-offset:2px}
   <div id="menu"></div>
 </div>
 
-<script>window.JMVER="14.10.2026 · ad83da";</script>
+<script>window.JMVER="14.10.2026 · 774a82";</script>
 <script src="jm-data.js"></script>
 <script src="jm-art.js"></script>
 <script src="jm-game.js"></script>
