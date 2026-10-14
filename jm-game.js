@@ -1647,7 +1647,7 @@ function render3(){
   for(const f of FLT){ const [x,y]=p2(f.x,f.y-4,1.1); ctx.globalAlpha=Math.min(1,f.l*1.5); ctx.drawImage(icon(f.k),x-8*px,y-8*px,16*px,16*px); ctx.globalAlpha=1; }
   // Wetter
   bx.clearRect(0,0,LW,LH);
-  if(!M.cave&&!M.inside) drawAmbient(se,night);
+  if(!M.cave&&!M.inside&&S.weather==='sun'&&!(se===1&&night)) drawAmbient(se,night);
   if(FESTFX.fire>0&&night) drawFireworks();
   if(FESTFX.lanterns>0) drawLanterns();
   ctx.drawImage(buf,0,0,LW*SC,LH*SC);

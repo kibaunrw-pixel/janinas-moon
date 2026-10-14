@@ -632,13 +632,67 @@ function smoke(dt){
   for(const m of smokeP){ const u=m.userData; u.t=(u.t+dt*.18)%1; const t=u.t; m.position.set(u.s[0]+Math.sin(t*5+u.s[0])*.15+t*.4,u.s[1]+t*1.6,u.s[2]-t*.2); const r=.12+t*.22; m.scale.setScalar(r); m.material.opacity=.5*(1-t)*(E.S.weather==="rain"?.4:1); }
 }
 
+/* ---------- Leben: Schmetterlinge, Glühwürmchen, Regen, Schnee, Pfützen ---------- */
+let LIFE=null;
+function lifeInit(){
+  LIFE={g:new THREE.Group(),bf:[],ff:[],puddles:[]}; scene.add(LIFE.g);
+  const wingG=new THREE.PlaneGeometry(.16,.12); wingG.translate(.08,0,0);
+  const cols=["#f6d55c","#ffffff","#f28fb0","#9ad0f0","#f2a03a"];
+  for(let i=0;i<7;i++){ const b=new THREE.Group(), m=new THREE.MeshBasicMaterial({color:cols[i%5],side:THREE.DoubleSide});
+    const l=new THREE.Mesh(wingG,m), r=new THREE.Mesh(wingG,m); r.scale.x=-1; l.rotation.x=r.rotation.x=-Math.PI/2; b.add(l,r); const bd=new THREE.Mesh(CG.sph,new THREE.MeshBasicMaterial({color:"#3a2a2a"})); bd.scale.set(.02,.02,.06); b.add(bd); b.scale.setScalar(1.6);
+    b.userData={l,r,ph:rnd()*9,sp:.6+rnd()*.5,t:rnd()*100}; LIFE.g.add(b); LIFE.bf.push(b); }
+  const ffm=new THREE.MeshBasicMaterial({color:"#f6f08a",transparent:true,blending:THREE.AdditiveBlending,depthWrite:false});
+  for(let i=0;i<26;i++){ const f=new THREE.Mesh(CG.sph,ffm.clone()); f.userData={ph:rnd()*9,t:rnd()*100}; LIFE.g.add(f); LIFE.ff.push(f); }
+  // Regen als dünne Striche, Schnee als Flocken
+  const N=420; LIFE.rain=new THREE.InstancedMesh(new THREE.BoxGeometry(.02,.45,.02),new THREE.MeshBasicMaterial({color:"#e4efff",transparent:true,opacity:.8,depthWrite:false}),N);
+  LIFE.snow=new THREE.InstancedMesh(new THREE.IcosahedronGeometry(.035,0),new THREE.MeshBasicMaterial({color:"#ffffff"}),N);
+  LIFE.drops=[]; for(let i=0;i<N;i++) LIFE.drops.push([rnd()*30-15,rnd()*9,rnd()*30-15,rnd()]);
+  LIFE.g.add(LIFE.rain,LIFE.snow);
+  LIFE.rings=[]; const rm=new THREE.MeshBasicMaterial({color:"#e8f2ff",transparent:true,opacity:.6,depthWrite:false});
+  for(let i=0;i<40;i++){ const r=new THREE.Mesh(new THREE.RingGeometry(.05,.075,14),rm.clone()); r.rotation.x=-Math.PI/2; r.userData={t:rnd()}; LIFE.g.add(r); LIFE.rings.push(r); }
+}
+function lifePuddles(){
+  if(!LIFE) return; LIFE.puddles.forEach(p=>LIFE.g.remove(p)); LIFE.puddles=[];
+  const M=E.M; if(M.inside||M.cave) return;
+  const pm=new THREE.MeshPhongMaterial({color:"#6f8fae",transparent:true,opacity:0,shininess:140,specular:"#ffffff",depthWrite:false});
+  for(let y=0;y<M.h;y++) for(let x=0;x<M.w;x++){ const t=M.t[y][x]; if((t===T.WEG||t===T.PLATZ)&&hsh(x,y,31)%9===0){ const p=new THREE.Mesh(new THREE.CircleGeometry(1,18),pm); p.rotation.x=-Math.PI/2; p.scale.set(.32+h01(x,y,2)*.25,.2+h01(x,y,3)*.15,1); p.position.set(x+.5,.012,y+.5); p.receiveShadow=true; LIFE.g.add(p); LIFE.puddles.push(p); } }
+  LIFE.pm=pm; LIFE.pmap=M.id;
+}
+function lifeUpdate(dt){
+  if(!LIFE) lifeInit(); const M=E.M, S=E.S, se=E.season(), t=E.gameT, m=S.min, out=!M.inside&&!M.cave;
+  if(LIFE.pmap!==M.id) lifePuddles();
+  const night=m>=1170||m<330, day=m>=420&&m<1080, sun=S.weather==="sun", rain=S.weather==="rain", snow=S.weather==="snow";
+  // Schmetterlinge
+  const bfOn=out&&day&&sun&&(se===0||se===1);
+  LIFE.bf.forEach((b,i)=>{ b.visible=bfOn; if(!bfOn) return; const u=b.userData; u.t+=dt*u.sp;
+    if(!u.home||Math.hypot(u.home.x-camT.x,u.home.z-camT.z)>9){ u.home={x:camT.x+(rnd()-.5)*12,z:camT.z+(rnd()-.5)*12}; }
+    b.position.set(u.home.x+Math.sin(u.t*.7+u.ph)*2.2,.55+Math.sin(u.t*2.3+u.ph)*.3+.25,u.home.z+Math.cos(u.t*.5+u.ph)*1.6);
+    b.rotation.y=Math.atan2(Math.cos(u.t*.7+u.ph)*.7*2.2,-Math.sin(u.t*.5+u.ph)*.5*1.6)+Math.PI;
+    const f=Math.sin(t*22+u.ph)*1.1; u.l.rotation.y=f; u.r.rotation.y=-f; });
+  // Glühwürmchen
+  const ffOn=out&&night&&!rain&&!snow&&(se===0||se===1);
+  LIFE.ff.forEach(f=>{ f.visible=ffOn; if(!ffOn) return; const u=f.userData; u.t+=dt*.4;
+    if(!u.home||Math.hypot(u.home.x-camT.x,u.home.z-camT.z)>10){ u.home={x:camT.x+(rnd()-.5)*14,z:camT.z+(rnd()-.5)*14}; }
+    f.position.set(u.home.x+Math.sin(u.t+u.ph)*1.2,.4+Math.sin(u.t*1.7+u.ph)*.35+.3,u.home.z+Math.cos(u.t*.8+u.ph)*1.2);
+    const glow=Math.max(0,Math.sin(t*2.2+u.ph*3)); f.scale.setScalar(.03+glow*.035); f.material.opacity=.25+glow*.75; });
+  // Regen und Schnee um die Kamera
+  const mat=new THREE.Matrix4(); LIFE.rain.visible=out&&rain; LIFE.snow.visible=out&&snow;
+  if(out&&(rain||snow)){ const inst=rain?LIFE.rain:LIFE.snow, fall=rain?14:1.1;
+    LIFE.drops.forEach((d,i)=>{ d[1]-=dt*fall*(.8+d[3]*.4); if(snow){ d[0]+=Math.sin(t+i)*dt*.3; } if(d[1]<0){ d[1]+=9; d[0]=rnd()*30-15; d[2]=rnd()*30-15; }
+      mat.makeTranslation(camT.x+d[0],d[1],camT.z+d[2]); if(rain) mat.multiply(new THREE.Matrix4().makeRotationZ(.12)); inst.setMatrixAt(i,mat); });
+    inst.instanceMatrix.needsUpdate=true; }
+  LIFE.rings.forEach(r=>{ const u=r.userData; r.visible=out&&rain; if(!r.visible) return; u.t+=dt*1.6; if(u.t>1){ u.t=0; r.position.set(camT.x+(rnd()-.5)*16,.02,camT.z+(rnd()-.5)*14); } r.scale.setScalar(1+u.t*3); r.material.opacity=.6*(1-u.t); });
+  // Pfützen wachsen bei Regen und trocknen langsam
+  if(LIFE.pm){ const goal=out&&rain?.7:0; LIFE.pm.opacity+=(goal-LIFE.pm.opacity)*Math.min(1,dt*(goal?0.8:0.08)); }
+}
+
 /* ---------- Öffentliche Schnittstelle ---------- */
 R3.attach=function(eng){ E=eng; if(!R3.ok) init(); };
 R3.frame=function(dt,pads){
   if(!E) return;
   const k0=key0(); if(k0!==wkey){ buildWorld(); buildDyn(); }
   dynT-=dt; if(dynT<=0){ dynT=.25; if(dynKey()!==dkey) buildDyn(); }
-  syncActors(dt); cameraUpdate(dt,pads); lightUpdate(); smoke(dt);
+  syncActors(dt); cameraUpdate(dt,pads); lightUpdate(); smoke(dt); lifeUpdate(dt);
   if(water&&water.material.map){ water.material.map.offset.x=(E.gameT*.02)%1; water.material.map.offset.y=(Math.sin(E.gameT*.3)*.02); }
   if(dyn) for(const s of dyn.userData.bob) s.position.y=.42+Math.sin(E.gameT*3+s.userData.x)*.05;
   renderer.render(scene,camera);
