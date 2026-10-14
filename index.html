@@ -53,6 +53,9 @@ button:focus-visible{outline:3px solid var(--moon);outline-offset:2px}
 
 /* Leiste unten */
 #bottom{position:fixed;left:0;right:0;bottom:0;padding:0 8px calc(env(safe-area-inset-bottom,0px) + 8px);display:flex;flex-direction:column;gap:4px;pointer-events:none}
+#zoomb{align-self:flex-end;display:flex;flex-direction:column;gap:6px;pointer-events:auto;margin-bottom:4px}
+#zoomb button{width:42px;height:42px;font:900 24px/1 Saira,system-ui,sans-serif;color:var(--woodD);background:var(--paper);border:3px solid var(--woodD);border-radius:6px;box-shadow:0 3px 0 var(--woodD);padding:0;cursor:pointer;touch-action:manipulation}
+#zoomb button:active{transform:translateY(2px);box-shadow:0 1px 0 var(--woodD)}
 #holdlbl{align-self:center;max-width:calc(100vw - 32px);font-weight:800;font-size:12px;color:#fff6dc;background:rgba(27,31,71,.8);padding:3px 10px;border-radius:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #barrow{display:flex;gap:4px;align-items:stretch;pointer-events:auto;max-width:620px;width:100%;margin:0 auto;box-sizing:border-box}
 #hotbar{flex:1;min-width:0;display:flex;gap:4px;overflow-x:auto;padding:5px;scrollbar-width:none;touch-action:pan-x}
@@ -198,6 +201,7 @@ button:focus-visible{outline:3px solid var(--moon);outline-offset:2px}
 </div>
 
 <div id="bottom" hidden>
+  <div id="zoomb"><button id="zIn" aria-label="Näher heran">+</button><button id="zOut" aria-label="Weiter weg">&minus;</button></div>
   <div id="holdlbl"></div>
   <div id="barrow" class="card">
     <div id="hotbar"></div>
@@ -219,13 +223,14 @@ button:focus-visible{outline:3px solid var(--moon);outline-offset:2px}
   <div id="menu"></div>
 </div>
 
+<script>window.JMVER="14.10.2026 · 925332";</script>
 <script src="jm-data.js"></script>
 <script src="jm-art.js"></script>
 <script src="jm-game.js"></script>
 <script type="module">import * as THREE from "./three.module.min.js"; window.THREE=THREE; const s=document.createElement("script"); s.src="jm-3d.js"; document.body.appendChild(s);</script>
 
 <script>
-if("serviceWorker" in navigator){ window.addEventListener("load",()=>{ navigator.serviceWorker.register("sw.js").catch(()=>{}); }); }
+if("serviceWorker" in navigator){ window.addEventListener("load",()=>{ navigator.serviceWorker.register("sw.js").catch(()=>{}); }); let had=!!navigator.serviceWorker.controller; navigator.serviceWorker.addEventListener("controllerchange",()=>{ if(had) location.reload(); had=true; }); }
 </script>
 </body>
 </html>

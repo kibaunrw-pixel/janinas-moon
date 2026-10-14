@@ -310,6 +310,14 @@ cv.addEventListener("pointerdown",e=>{ PINCH.pts.set(e.pointerId,[e.clientX,e.cl
 addEventListener("pointermove",e=>{ if(!PINCH.pts.has(e.pointerId)) return; PINCH.pts.set(e.pointerId,[e.clientX,e.clientY]); if(PINCH.on&&PINCH.pts.size>=2&&PINCH.d0>0) setZoom(PINCH.z0*pinchDist()/PINCH.d0); });
 const pinchEnd=e=>{ PINCH.pts.delete(e.pointerId); if(PINCH.pts.size<2) PINCH.on=false; };
 addEventListener("pointerup",pinchEnd); addEventListener("pointercancel",pinchEnd);
+// Safari auf dem iPhone meldet Zwei-Finger-Gesten als eigene Ereignisse
+let gz0=1;
+document.addEventListener("gesturestart",e=>{ e.preventDefault(); gz0=ZOOM; PINCH.on=true; ptr=null; },{passive:false});
+document.addEventListener("gesturechange",e=>{ e.preventDefault(); if(running&&!demo) setZoom(gz0*e.scale); },{passive:false});
+document.addEventListener("gestureend",e=>{ e.preventDefault(); PINCH.on=PINCH.pts.size>=2; },{passive:false});
+// Zoom-Knöpfe
+$("zIn").addEventListener("click",e=>{ e.stopPropagation(); setZoom(ZOOM*1.25); });
+$("zOut").addEventListener("click",e=>{ e.stopPropagation(); setZoom(ZOOM/1.25); });
 cv.addEventListener("wheel",e=>{ if(!running||demo) return; e.preventDefault(); setZoom(ZOOM*Math.exp(-e.deltaY*.0015)); },{passive:false});
 cv.addEventListener("pointerdown",e=>{
   audioInit();
@@ -1353,7 +1361,8 @@ function openBook(tab){
     body=`<div class="row"><div class="tx"><b>Geräusche</b></div><button class="btn alt" data-a="snd">${S.sound?"An":"Aus"}</button></div>
       <div class="row"><div class="tx"><b>Musik</b></div><button class="btn alt" data-a="mus">${S.music?"An":"Aus"}</button></div>
       <div class="row"><div class="tx"><b>Grafik</b><span>3D wie Home Sweet Home oder klassische Pixel-Grafik</span></div><button class="btn alt" data-a="gfx">${S.gfx==="2d"?"Pixel":"3D"}</button></div>
-      <div class="row"><div class="tx"><b>Ansicht</b><small>Oder mit zwei Fingern zoomen</small></div><div class="btns">${[["Nah",1.25],["Normal",1],["Weit",.75],["Übersicht",.5]].map(([n,z])=>`<button class="btn ${(S.zoom||1)===z?"":"alt"}" data-a="zoom" data-k="${z}">${n}</button>`).join("")}</div></div>
+      <div class="row"><div class="tx"><b>Version</b><small>${window.JMVER||"Vorschau"}</small></div></div>
+      <div class="row"><div class="tx"><b>Ansicht</b><small>Oder mit zwei Fingern oder den Knöpfen + und − zoomen</small></div><div class="btns">${[["Nah",1.25],["Normal",1],["Weit",.75],["Übersicht",.5]].map(([n,z])=>`<button class="btn ${(S.zoom||1)===z?"":"alt"}" data-a="zoom" data-k="${z}">${n}</button>`).join("")}</div></div>
       <div class="row" id="photoRow" hidden><div class="tx"><b>Foto vom Hof</b><small>Speichert ein Bild von diesem Moment</small></div><button class="btn alt" data-a="photo">Foto</button></div>
       <div class="row"><div class="tx"><b>Gespeichert</b><small>Automatisch, und immer beim Schlafen</small></div></div>
       <div class="row"><div class="tx"><b>Neuer Hof</b><small>Beginnt von vorn. Der jetzige Hof geht verloren.</small></div><button class="btn danger" data-a="reset">Neu</button></div>
@@ -1888,6 +1897,7 @@ const hot=window.claude&&window.claude.hot;
 if(hot&&hot.snapshot) hot.snapshot(()=>({state:demo?null:S}));
 if(hot&&hot.ready) hot.ready(boot); else boot(hot&&hot.data||{});
 document.addEventListener("visibilitychange",()=>{ if(document.hidden) save(true); });
+addEventListener("pagehide",()=>{ if(!demo&&S) save(true); });
 requestAnimationFrame(loop);
 JM.ENG={get M(){return M;},get S(){return S;},P,RA,get DOGS(){return DOGS;},get HENS(){return HENS;},get COWS(){return COWS;},get NPCA(){return NPCA;},get gameT(){return gameT;},
   season,fieldAt,isField,isGlass,icon,playerLook:()=>JM.lookFrom(S.look),reneLook:reneLookObj,npcInside:()=>!!(M.owner&&npcPlace(M.owner)==="in"),unread:()=>S.mail.some(m=>!m.read),marketDay,
