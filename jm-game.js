@@ -1017,6 +1017,7 @@ function routeTarget(t){
 /* ================= Effekte ================= */
 /* Sternschnuppen: abends draußen, antippen und etwas wünschen */
 const STAR={a:null,cool:20,hint:-1};
+const ZOOMY={t:0,cool:45,a:0,bark:0};
 const WISHES=["Ich wünsch mir, dass {d0} und {d1} immer gesund bleiben.","Ich wünsch mir noch ganz viele Abende wie diesen. Mit {von}.","Ich wünsch mir die größte Ernte, die das Dorf je gesehen hat.","Ich wünsch mir, dass {von} endlich seine zweite Socke findet.","Ich wünsch mir, dass es morgen chinesische Nudeln mit Tempura-Chicken gibt.","Ich wünsch mir einen Hof voller Lachen."];
 function starTick(dt){
   if(STAR.a){ STAR.a.t+=dt; if(STAR.a.t>STAR.a.d) STAR.a=null; return; }
@@ -1474,8 +1475,18 @@ function update(dt){
   const night=S.min>=1260;
   const lt=TRAIL[TRAIL.length-1];
   if(!lt||Math.hypot(lt.x-P.x,lt.y-P.y)>=.25){ TRAIL.push({x:P.x,y:P.y}); if(TRAIL.length>40) TRAIL.shift(); }
+  // Pudel-Flitzen: ab und zu jagen sich die beiden übermütig ums Haus
+  if(!S.follow&&M.id==="farm"&&DOGS.length===2&&!night&&S.weather==="sun"&&ZOOMY.t<=0){ ZOOMY.cool-=dt; if(ZOOMY.cool<=0){ ZOOMY.t=7; ZOOMY.cool=110+rnd()*130; ZOOMY.a=Math.atan2(DOGS[0].y-9,DOGS[0].x-6); ZOOMY.bark=0; sfx("bark"); S.stats.zoomies=(S.stats.zoomies||0)+1; if(Math.hypot(P.x-6,P.y-9)<10) note(fmtD("{d0} und {d1} drehen völlig durch und flitzen ums Haus!")); } }
+  if(ZOOMY.t>0&&(S.follow||M.id!=="farm")) ZOOMY.t=0;
+  if(ZOOMY.t>0){ ZOOMY.t-=dt; ZOOMY.a+=dt*2.4; ZOOMY.bark-=dt; if(ZOOMY.bark<=0){ ZOOMY.bark=1.2+rnd()*1.5; sfx("bark"); }
+    for(const d of DOGS){ const a=ZOOMY.a-d.i*1.1, nx=6+Math.cos(a)*2.7, ny=9.1+Math.sin(a)*1.2, k=Math.min(1,dt*7), ox=d.x;
+      d.x+=(nx-d.x)*k; d.y+=(ny-d.y)*k; d.face=d.x<ox?-1:1; d.moving=true; d.idle=0; d.ft+=dt; if(d.ft>.07){ d.ft=0; d.frame=(d.frame+1)%4; }
+      if(rnd()<dt*8) FX.push({x:d.x*16+8+(rnd()-.5)*6,y:d.y*16+14,vx:(rnd()-.5)*14,vy:-8-rnd()*6,l:.35,c:"#d8c8a0",g:40,s:1});
+      if(ZOOMY.t<=0){ d.timer=1+rnd()*2; d.tx=Math.round(d.x); d.ty=Math.round(d.y); d.trick=.6; } }
+  }
   for(const d of DOGS){
     if(d.trick>0) d.trick-=dt;
+    if(ZOOMY.t>0) continue;
     if(S.follow){
       const back=(d.i+1)*4+1, tp=TRAIL.length>back?TRAIL[TRAIL.length-1-back]:{x:P.x+(d.i?.8:-.8),y:P.y+.4};
       const dx=tp.x-d.x, dy=tp.y-d.y, dist=Math.hypot(dx,dy);
@@ -1959,5 +1970,5 @@ JM.ENG={get M(){return M;},get S(){return S;},P,RA,get DOGS(){return DOGS;},get 
   season,fieldAt,isField,isGlass,icon,playerLook:()=>JM.lookFrom(S.look),reneLook:reneLookObj,npcInside:()=>!!(M.owner&&npcPlace(M.owner)==="in"),unread:()=>S.mail.some(m=>!m.read),marketDay,
   cooking:()=>renePlan().mode==="cook"&&RA.vis,tvOn:()=>S.min>=1080&&S.min<1380,bushBer:o=>season()===1&&(S.bush[M.id+":"+o.x+","+o.y]||0)<=S.day,
   giant:c=>!!c.g,cropStage:c=>{ const cr=CROPS[c.k]; return c.a===0?0:c.a>=cr.days?4:c.a/cr.days<.34?1:c.a/cr.days<.67?2:3; },zoom:()=>ZOOM,camSnap:()=>snap3};
-window.JMDEBUG={star:()=>STAR,RA,renePlan,reneTalk,spawnMess,get qid(){const q=curQ(); return q?q.id:'ende';},set speed(v){TESTSPEED=v;},get scale(){return SC/DPR;},get audio(){return AC?AC.state:null;},get DOGS(){return DOGS;},get HENS(){return HENS;},tap:(tx,ty)=>tapAt(tx+.5,ty+.5,tx,ty),swipe:t=>{P.queue=t.slice();},get idle(){return !P.path.length&&!P.act&&!P.queue.length&&P.busy<=0;},get busy(){return {ui:UI,fish:FISH.phase};},dlgNext:()=>nextLine(),give,openHouse,openBag,openMail,openBundles,openCook,talk,giveGift,cam,FISH,fishTap,get NPCA(){return NPCA;},get S(){return S;},emit,endDay,setMap,startGame,newState,P,fieldPlan,doField,openBook,openShop,npcInteract,runFest:id=>runFest(JM.FESTS.find(f=>f.id===id)),get M(){return M;}};
+window.JMDEBUG={star:()=>STAR,zoomy:()=>ZOOMY,RA,renePlan,reneTalk,spawnMess,get qid(){const q=curQ(); return q?q.id:'ende';},set speed(v){TESTSPEED=v;},get scale(){return SC/DPR;},get audio(){return AC?AC.state:null;},get DOGS(){return DOGS;},get HENS(){return HENS;},tap:(tx,ty)=>tapAt(tx+.5,ty+.5,tx,ty),swipe:t=>{P.queue=t.slice();},get idle(){return !P.path.length&&!P.act&&!P.queue.length&&P.busy<=0;},get busy(){return {ui:UI,fish:FISH.phase};},dlgNext:()=>nextLine(),give,openHouse,openBag,openMail,openBundles,openCook,talk,giveGift,cam,FISH,fishTap,get NPCA(){return NPCA;},get S(){return S;},emit,endDay,setMap,startGame,newState,P,fieldPlan,doField,openBook,openShop,npcInteract,runFest:id=>runFest(JM.FESTS.find(f=>f.id===id)),get M(){return M;}};
 })();

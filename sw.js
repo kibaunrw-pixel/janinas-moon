@@ -1,5 +1,5 @@
-/* Janinas Moon – Offline-Speicher. Version 4adec32c00 */
-const CACHE = "janinas-moon-4adec32c00";
+/* Janinas Moon – Offline-Speicher. Version 2ead6be0b1 */
+const CACHE = "janinas-moon-2ead6be0b1";
 const FILES = ["./", "index.html", "jm-data.js", "jm-art.js", "jm-game.js", "jm-3d.js", "three.module.min.js", "manifest.webmanifest", "icon-192.png", "icon-512.png"];
 self.addEventListener("install", e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES)).then(() => self.skipWaiting())); });
 self.addEventListener("activate", e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim())); });
