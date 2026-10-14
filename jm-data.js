@@ -26,6 +26,24 @@ JM.FELL = {
 };
 
 JM.PLAYER_LOOK = {skin:"#f3cfae", hair:"#5a3622", style:"long", top:"#e89bb0", bot:"#4d6fa8", overall:true, shoes:"#6b3f26", clip:"#f6d55c"};
+/* René */
+JM.RENE_LOOK = {skin:"#f0c8a8", hair:"#3a2a1e", style:"short", beard:true, top:"#E98F1F", bot:"#3b4a6b", shoes:"#2a2a2a"};
+JM.RENE_WARDROBE = {
+  hair:[["Dunkelbraun","#3a2a1e"],["Schwarz","#1f1a22"],["Braun","#5a3622"],["Blond","#c9a46a"],["Grau","#9a9aa2"]],
+  top:[["KIBAU-Orange","#E98F1F"],["Navy","#183060"],["Grau","#7a7a84"],["Weiß","#f4f1ea"],["Grün","#4f7a4a"],["Schwarz","#2a2a30"]],
+  beard:[["Mit Bart","1"],["Ohne Bart","0"]]
+};
+JM.RENE = {
+  breakfast:["Guten Morgen, Schatz! Ich hab Rührei gemacht. Setz dich, iss was.","Morgen! Kaffee steht da. Und Pfannkuchen, die erste ist leider schwarz geworden.","Na, ausgeschlafen? Hier, Frühstück. Damit du auf dem Feld nicht umkippst."],
+  lines:["Ich mach gleich Feierabend, dann helf ich dir mit den Hühnern. Versprochen.","Hast du meine Socke gesehen? Die linke. Oder die rechte. Eine von beiden.","Lilly und Coco haben heute schon wieder mein Brötchen geklaut.","Weißt du, was ich an dir mag? Alles. Aber vor allem, dass du über meine Witze lachst.","Ich hab mal die Gießkanne aufgefüllt. Oder ich wollte. Ich hab sie nicht gefunden.","Wenn das Mondfest ist, tanzen wir. Ich übe schon heimlich.","Du riechst nach frischem Heu. Gefällt mir."],
+  weekend:["Wochenende! Heute koche ich. Rate mal was.","Ich hab heute frei. Sag, wenn ich irgendwas tragen soll."],
+  work:["{von} ist bei der Arbeit. Er kommt am Nachmittag wieder."],
+  cuddle:["Komm mal her. Einfach so.","Pause! Kurz kuscheln, dann darfst du weiterarbeiten.","Ich hab dich vermisst. Seit heute Morgen schon."],
+  tidy:{socke:["Schon wieder eine Socke. Wo ist eigentlich die andere?","Socke gefunden. Warum liegt die im Beet?"],tasse:["Seine Kaffeetasse. Halb voll. Natürlich.","Noch eine Tasse. Er hat bestimmt zwanzig davon."],kappe:["Seine KIBAU-Kappe. Die sucht er morgen bestimmt wieder.","Die Kappe lag auf dem Zaun. Typisch."],kabel:["Ein Ladekabel. Mitten im Weg.","Wieder ein Ladekabel. Wozu braucht ein Mensch so viele?"],schrauber:["Ein Schraubenzieher. Was wollte er denn reparieren?","Werkzeug im Gras. Er wollte bestimmt was bauen."],zeitung:["Die Zeitung von gestern. Schon wieder.","Zeitung, ausgelesen bis Seite 3."]}
+};
+JM.MESS = ["socke","tasse","kappe","kabel","schrauber","zeitung"];
+JM.MESS_N = {socke:"Renés Socke",tasse:"Kaffeetasse",kappe:"Renés Kappe",kabel:"Ladekabel",schrauber:"Schraubenzieher",zeitung:"Zeitung"};
+
 /* Kleiderschrank: Aussehen jederzeit änderbar */
 JM.WARDROBE = {
   hair:[["Braun","#5a3622"],["Dunkelbraun","#3a2418"],["Schwarz","#1f1a22"],["Blond","#e3c27a"],["Rot","#b8482a"],["Kupfer","#c9783a"],["Rosa","#e89bb8"]],
@@ -161,7 +179,9 @@ JM.ACH = [
   {id:"baum", t:"Der leuchtende Wald", d:"Erfülle alle Gaben am Mondbaum"},
   {id:"quarz", t:"Glitzerfund", d:"Finde einen Mondquarz in der Höhle"},
   {id:"reich", t:"Erfolgreicher Hof", d:"Verdiene insgesamt 10.000 G"},
-  {id:"jahr", t:"Ein Jahr auf dem Mondhof", d:"Erlebe alle vier Jahreszeiten"}
+  {id:"jahr", t:"Ein Jahr auf dem Mondhof", d:"Erlebe alle vier Jahreszeiten"},
+  {id:"ordnung", t:"Ordnung muss sein", d:"Räum 25 Sachen von {von} weg"},
+  {id:"kuscheln", t:"Kuschelzeit", d:"Kuschel 10 Mal mit {von}"}
 ];
 
 /* ---------- Läden ---------- */
@@ -319,6 +339,7 @@ JM.DAILY = [
   {k:"ship", t:"Leg etwas in die Versandkiste", ev:"ship", n:1, g:50},
   {k:"cook", t:"Koche ein Gericht", ev:"cook", n:1, g:90, need:"cook"},
   {k:"board", t:"Erfülle den Wunsch an der Anschlagtafel", ev:"board", n:1, g:100, need:"board"},
+  {k:"tidy", t:"Räum 2 Sachen von {von} weg", ev:"tidy", n:2, g:50, need:"mess"},
   {k:"mine", t:"Bau 5 Steine in der Höhle ab", ev:"mine", n:5, g:70, need:"cave"}
 ];
 
@@ -326,6 +347,7 @@ JM.DAILY = [
 // ev: Ereignis, das zählt. tg: Ziel für den Pfeil.
 JM.QUESTS = [
   {id:"brief", t:"Ein Brief für dich", d:"Lies den Brief, der auf dem Tisch liegt.", ev:"letter", n:1, tg:"house"},
+  {id:"rene", t:"Guten Morgen, {von}", d:"{von} steht in der Küche und macht Frühstück. Geh ins Haus und sag hallo.", ev:"talk_rene", n:1, tg:"rene"},
   {id:"pudel", t:"Alte Freunde", d:"Tippe {d0} und {d1} an und wähle Streicheln. Sie spielen am Haus. Willst du sie dabeihaben, wähle Mitkommen lassen.", ev:"petdog", n:2, uniq:true, tg:"dogs"},
   {id:"raeumen", t:"Das Feld freiräumen", d:"Tippe auf Unkraut, Steine und Äste im Feld, um sie wegzuräumen.", ev:"clear", n:5, tg:"debris"},
   {id:"hacken", t:"Beete anlegen", d:"Tippe auf freie Feldstücke, um sie umzugraben. Du kannst auch mit dem Finger über mehrere wischen.", ev:"till", n:6, tg:"field"},
@@ -333,6 +355,7 @@ JM.QUESTS = [
   {id:"giessen", t:"Wasser marsch", d:"Wähle unten die Hand und tippe auf die Beete, um sie zu gießen. Ist die Kanne leer, tippe auf den Teich.", ev:"water", n:6, tg:"dry", hold:"auto"},
   {id:"schlafen", t:"Feierabend", d:"Gut gemacht! Geh ins Haus und schlaf. Gegossene Pflanzen wachsen über Nacht.", ev:"sleep", n:1, tg:"house"},
   {id:"eier", t:"Frische Eier", d:"Geh in den Hühnerhof und sammle 2 Eier ein. Füll auch den Futtertrog auf.", ev:"egg", n:2, tg:"eggs"},
+  {id:"aufraeumen", t:"Typisch {von}", d:"{von} lässt überall seine Sachen liegen. Räum 3 Dinge weg, im Haus und auf dem Hof.", ev:"tidy", n:3, tg:"mess"},
   {id:"dorf", t:"Ab ins Dorf", d:"Folge dem Weg nach Osten ins Dorf und sprich mit Mei.", ev:"talk_mei", n:1, tg:"npc:mei", reward:{items:{pakchoi_s:6,weizen_s:4}, text:"Mei schenkt dir 6 Pak-Choi- und 4 Weizen-Samen."}},
   {id:"nachbarn", t:"Neue Nachbarn", d:"Stell dich Lin, Rosa, Paula und Henk vor.", ev:"meet", n:4, uniq:true, tg:"npc:unmet", reward:{g:300, text:"Rosa heißt dich mit 300 G im Dorf willkommen."}},
   {id:"angeln", t:"Petri Heil", d:"Henk hat dir eine Angel geschenkt. Wähle sie unten aus und tippe auf Wasser, zum Beispiel den Teich auf deinem Hof. Erscheint das !, tippen. Dann gedrückt halten, damit der grüne Balken beim Fisch bleibt.", ev:"fish", n:1, tg:"water", hold:"rute"},
@@ -350,8 +373,8 @@ JM.QUESTS = [
 
 /* ---------- Karten ---------- */
 // Kachelarten
-const T = JM.T = {GRAS:0, TUFF:1, BLUME:2, WEG:3, PLATZ:4, SAND:5, FELD:6, WASSER:7, ZAUN:8, BLOCK:9, BAUM:10, STEG:11, GLAS:12, WALD:14, FELS:15, HBODEN:16};
-JM.WALK = new Set([0,1,2,3,4,5,6,11,12,14,16]);
+const T = JM.T = {GRAS:0, TUFF:1, BLUME:2, WEG:3, PLATZ:4, SAND:5, FELD:6, WASSER:7, ZAUN:8, BLOCK:9, BAUM:10, STEG:11, GLAS:12, WALD:14, FELS:15, HBODEN:16, WAND:17, BODEN:18, TEPPICH:19};
+JM.WALK = new Set([0,1,2,3,4,5,6,11,12,14,16,18,19]);
 
 function grid(w,h,v){ const a=[]; for(let y=0;y<h;y++) a.push(new Array(w).fill(v)); return a; }
 function mk(id,w,h,base){
@@ -453,6 +476,34 @@ JM.buildMaps = function(){
   h.exits=[];
   h.spawn=[10,14]; h.cave=true;
   maps.hoehle=h;
+
+  /* --- Innenräume --- */
+  function room(id,w,h,pal,outside){
+    const m=mk(id,w,h,T.WAND); m.rect(1,3,w-2,h-2,T.BODEN); const dx=Math.floor(w/2); m.t[h-1][dx]=T.BODEN;
+    m.exits=[{x:dx,y:h-1,to:outside[0],tx:outside[1],ty:outside[2]}]; m.spawn=[dx,h-2]; m.inside=true; m.pal=pal; return m;
+  }
+  const ha=room("haus",14,11,{wall:"#e9d6b0",wall2:"#d9c398",trim:"#8a5a33",floor:"#b98a58",floor2:"#a5774a",rug:"#b8444a",rug2:"#d8a050"},["farm",5,7]);
+  ha.rect(5,7,8,9,T.TEPPICH);
+  ha.add({k:"stove",x:2,y:3,act:"stove"}); ha.add({k:"counter",x:3,y:3,act:"counter"}); ha.add({k:"fridge",x:1,y:3,act:"fridge"});
+  ha.add({k:"table",x:5,y:5,w:2,h:1,act:"table"}); ha.add({k:"tv",x:8,y:3,act:"tv"}); ha.add({k:"plant",x:6,y:3,act:"plant"});
+  ha.add({k:"bed",x:11,y:3,w:2,h:2,act:"bed"}); ha.add({k:"wardrobe",x:12,y:7,act:"wardrobe"}); ha.add({k:"workbench",x:1,y:8,w:2,h:1,act:"craft"});
+  ha.windows=[[4,1],[10,1]]; ha.owner=null;
+  maps.haus=ha;
+  const shops=[["markt","markt",{wall:"#dfe8c8",wall2:"#c8d6a8",trim:"#3f7a4a",floor:"#c9a46a",floor2:"#b08a52",rug:"#4f9a4a",rug2:"#f4ead8"},[6,7],"mei"],
+    ["nudelhaus","nudelhaus",{wall:"#f0d8c0",wall2:"#c94a3a",trim:"#8a1f1c",floor:"#8a5a33",floor2:"#6b4423",rug:"#b8302a",rug2:"#f3c34a"},[14,7],"lin"],
+    ["rathaus","rathaus",{wall:"#d8dfe8",wall2:"#b8c4d6",trim:"#3f5a8a",floor:"#a8743f",floor2:"#8a5a33",rug:"#3f5a8a",rug2:"#f6d55c"},[23,7],"rosa"],
+    ["tierhof","tierhof",{wall:"#e3cf98",wall2:"#c9b072",trim:"#6b4423",floor:"#c9a46a",floor2:"#a88a52",rug:"#e8c95a",rug2:"#c9a43c"},[25,21],"paula"],
+    ["huette","huette",{wall:"#b8c8d0",wall2:"#8aa0ac",trim:"#4a5a66",floor:"#8a6a4a",floor2:"#6e5238",rug:"#3f6a8a",rug2:"#e8483a"},[5,21],"henk"]];
+  for(const [id,kind,pal,door,npc] of shops){
+    const r=room("i_"+id,12,9,pal,["village",door[0],door[1]]);
+    r.add({k:"counter_"+kind,x:3,y:4,w:6,h:1,act:"counter"}); r.add({k:"shelf",x:2,y:3,act:"shelf"}); r.add({k:"shelf",x:9,y:3,act:"shelf"});
+    r.rect(4,6,7,7,T.TEPPICH); r.owner=npc; r.shop=id; r.windows=[[3,1],[8,1]]; r.npcAt=[6,3];
+    if(kind==="nudelhaus"){ r.add({k:"table",x:2,y:6,w:2,h:1,act:"deco"}); r.add({k:"table",x:8,y:6,w:2,h:1,act:"deco"}); }
+    if(kind==="tierhof"){ r.add({k:"hay",x:1,y:6,act:"deco"}); r.add({k:"hay",x:10,y:6,act:"deco"}); }
+    if(kind==="markt"){ r.add({k:"crates",x:1,y:6,act:"deco"}); r.add({k:"crates",x:10,y:6,act:"deco"}); }
+    if(kind==="huette"){ r.add({k:"barrel",x:1,y:6,act:"deco"}); }
+    maps["i_"+id]=r;
+  }
   return maps;
 };
 JM.waterKind = (map,x,y) => map==="forest" ? (x>=18&&y>=14?"see":"fluss") : map==="village" ? "dorf" : "teich";

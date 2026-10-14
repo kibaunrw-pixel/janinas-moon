@@ -103,7 +103,7 @@ function drawChar(g,L,dir,f){
   else { R(4,2+Y,8,9,skin); R(3,3+Y,10,7,skin); R(4,10+Y,8,1,skinD); }
   // Gesicht
   if(dir===0){
-    R(5,6+Y,1,2,eye); R(10,6+Y,1,2,eye); R(5,6+Y,1,1,shade(eye,.35)); R(10,6+Y,1,1,shade(eye,.35));
+    if(L._blink){ R(5,7+Y,1,1,eye); R(10,7+Y,1,1,eye); R(4,7+Y,1,1,skinD); R(11,7+Y,1,1,skinD); } else { R(5,6+Y,1,2,eye); R(10,6+Y,1,2,eye); R(5,6+Y,1,1,shade(eye,.35)); R(10,6+Y,1,1,shade(eye,.35)); }
     if(!L.beard){ R(4,8+Y,1,1,blush); R(11,8+Y,1,1,blush); R(7,9+Y,2,1,mouth); }
   } else if(dir===2){
     R(10,6+Y,1,2,eye); if(!L.beard){ R(10,8+Y,1,1,blush); R(11,9+Y,1,1,mouth); }
@@ -149,6 +149,7 @@ A.char=function(L){
     if(d===0) out.down.push(c); else if(d===1) out.up.push(c); else { out.side.push(c); out.sideL.push(flipC(c)); }
   }
   const p=cnv(18,15); p.getContext("2d").drawImage(out.down[0],0,0,18,15,0,0,18,15); out.portrait=p;
+  { const c=cnv(18,26); drawChar(G(c),Object.assign({},L,{_blink:true}),0,0); outline(c,OUT); out.blink=c; }
   return out;
 };
 
@@ -389,6 +390,26 @@ A.prop=function(kind,se,extra){
     if(ore){ [[5,8],[10,7],[12,10],[7,11]].forEach(([x,y])=>{ g.r(x,y,2,2,ore); g.p(x,y,"#ffffff"); }); } }
   if(kind==="cave"){ c=cnv(34,34); g=G(c); g.ell(17,20,17,14,"#5a524c"); g.ell(17,19,15,12,"#6e655e"); g.ell(17,24,9,10,"#1a1418"); g.r(8,26,18,8,"#1a1418"); g.r(6,8,4,2,"#8a8079"); g.r(24,10,5,2,"#8a8079"); if(se===3) g.r(6,6,22,3,"#ffffff"); g.r(15,16,1,1,"#cfe6ff"); g.r(20,14,1,1,"#a86ad8"); }
   if(kind==="leiter"){ c=cnv(16,22); g=G(c); g.r(3,0,2,22,"#8a5a33"); g.r(11,0,2,22,"#8a5a33"); for(let i=2;i<22;i+=4) g.r(3,i,10,2,"#a8743f"); }
+  if(kind==="stove"){ c=cnv(18,26); g=G(c); g.r(1,8,16,17,"#5a5a64"); g.r(1,8,16,3,"#7a7a84"); g.r(3,13,12,8,"#3a3a44"); g.r(4,14,10,6,extra?"#f39a3a":"#2a2a30"); g.r(2,6,6,2,"#2a2a30"); g.r(10,6,6,2,"#2a2a30"); g.r(3,2,4,4,"#c94a3a"); g.r(3,2,4,1,"#e8735a"); g.r(11,1,4,5,"#9aa3ad"); g.r(11,1,4,1,"#c9d0d8"); g.r(15,3,2,1,"#5a5a64"); }
+  if(kind==="counter"){ c=cnv(18,26); g=G(c); g.r(1,8,16,17,"#a8743f"); g.r(1,8,16,3,"#e9dfc8"); g.r(3,13,5,10,"#8a5a33"); g.r(10,13,5,10,"#8a5a33"); g.r(7,17,1,2,"#f3d77a"); g.r(10,17,1,2,"#f3d77a"); g.r(3,5,4,3,"#f4f1ea"); g.r(9,4,6,4,"#4fb04a"); g.r(10,3,4,1,"#e8433a"); }
+  if(kind==="fridge"){ c=cnv(18,30); g=G(c); g.r(2,2,14,27,"#e9eef2"); g.r(2,2,14,2,"#ffffff"); g.r(2,12,14,1,"#b8c4d0"); g.r(13,5,2,5,"#9aa3ad"); g.r(13,15,2,7,"#9aa3ad"); g.r(4,16,4,4,"#f6d55c"); g.r(9,17,3,3,"#f28fb0"); }
+  if(kind==="table"){ c=cnv(34,24); g=G(c); g.r(1,6,32,10,"#a8743f"); g.r(1,6,32,2,"#c58d52"); g.r(3,16,3,7,"#6b4423"); g.r(28,16,3,7,"#6b4423"); g.r(4,7,26,7,"#f4ead8"); g.r(5,8,24,1,"#e0d4b8"); g.r(9,9,4,3,"#ffffff"); g.r(20,8,5,4,"#e8b84a"); g.r(15,4,4,3,"#c94a3a"); g.r(16,2,2,2,"#5aa646"); }
+  if(kind==="tv"){ c=cnv(18,24); g=G(c); g.r(1,14,16,9,"#8a5a33"); g.r(1,14,16,2,"#a8743f"); g.r(2,3,14,11,"#3a3a44"); g.r(3,4,12,8,extra?"#8fc3e4":"#2a3a4a"); g.r(4,5,3,1,"#c8e4f4"); g.r(6,1,1,2,"#3a3a44"); g.r(11,1,1,2,"#3a3a44"); }
+  if(kind==="plant"){ c=cnv(16,24); g=G(c); g.r(4,15,8,8,"#c9683a"); g.r(4,15,8,2,"#e8843a"); g.disc(8,9,5,"#3f8a34"); g.disc(5,7,3,"#5aa646"); g.disc(11,8,3,"#5aa646"); g.disc(8,4,3,"#4f9e3a"); }
+  if(kind==="bed"){ c=cnv(34,38); g=G(c); g.r(1,1,32,7,"#8a5a33"); g.r(1,1,32,2,"#a8743f"); g.r(2,8,30,28,"#f4ead8"); g.r(4,9,11,7,"#ffffff"); g.r(19,9,11,7,"#ffffff"); g.r(2,17,30,19,"#d9707a"); g.r(2,17,30,2,"#e8949c"); for(let i=0;i<4;i++) g.r(4+i*7,22,4,4,"#f6d55c"); g.r(1,34,32,3,"#6b4423"); }
+  if(kind==="wardrobe"){ c=cnv(18,34); g=G(c); g.r(1,1,16,32,"#8a5a33"); g.r(1,1,16,2,"#a8743f"); g.r(2,4,6,27,"#a8743f"); g.r(10,4,6,27,"#a8743f"); g.r(7,15,1,3,"#f3d77a"); g.r(10,15,1,3,"#f3d77a"); }
+  if(kind==="workbench"){ c=cnv(34,24); g=G(c); g.r(1,8,32,4,"#a8743f"); g.r(1,8,32,1,"#c58d52"); g.r(3,12,3,11,"#6b4423"); g.r(28,12,3,11,"#6b4423"); g.r(6,16,22,2,"#8a5a33"); g.r(5,4,8,4,"#9aa3ad"); g.r(16,5,10,2,"#8a5a33"); g.r(24,3,3,3,"#e08a3a"); }
+  if(kind==="shelf"){ c=cnv(18,30); g=G(c); g.r(1,1,16,28,"#8a5a33"); for(let j=0;j<3;j++){ g.r(2,3+j*9,14,7,"#5a3a24"); for(let i=0;i<3;i++) g.r(3+i*5,5+j*9,3,5,["#4fb04a","#e8433a","#f3d04a","#4f8fcf","#f4ead8"][(i+j)%5]); } }
+  if(kind==="hay"){ c=cnv(18,16); g=G(c); g.r(1,3,16,12,"#e8c95a"); g.r(1,3,16,2,"#f3dc7a"); g.r(1,8,16,1,"#c9a43c"); g.r(1,12,16,1,"#c9a43c"); }
+  if(kind==="crates"){ c=cnv(18,18); g=G(c); g.r(1,6,16,11,"#a8743f"); g.r(1,6,16,1,"#c58d52"); g.r(1,11,16,1,"#8a5a33"); for(let i=0;i<4;i++) g.disc(4+i*3.5,5,2,["#e8433a","#f0a83a","#4fb04a","#f3d04a"][i]); }
+  if(kind==="barrel"){ c=cnv(16,20); g=G(c); g.ell(8,11,6,8,"#8a5a33"); g.r(2,6,12,1,"#5a5a64"); g.r(2,15,12,1,"#5a5a64"); g.r(4,3,8,2,"#6b4423"); }
+  if(kind&&kind.startsWith("counter_")){ const t=kind.slice(8); const col={markt:"#3f7a4a",nudelhaus:"#8a1f1c",rathaus:"#3f5a8a",tierhof:"#6b4423",huette:"#4a5a66"}[t]||"#8a5a33";
+    c=cnv(98,26); g=G(c); g.r(1,6,96,18,"#a8743f"); g.r(1,6,96,4,shade(col,.1)); g.r(1,9,96,1,shade(col,-.2)); for(let i=0;i<6;i++) g.r(4+i*16,12,10,10,"#8a5a33");
+    if(t==="markt"){ g.disc(20,4,3,"#e8433a"); g.disc(26,4,3,"#4fb04a"); g.r(70,1,12,6,"#f4ead8"); }
+    if(t==="nudelhaus"){ g.ell(24,5,6,3,"#f4f1ea"); g.ell(24,4,5,2,"#f0d38a"); g.r(60,1,2,6,"#8a5a33"); g.r(64,1,2,6,"#8a5a33"); g.ell(70,5,6,3,"#2f5a8a"); }
+    if(t==="rathaus"){ g.r(20,2,14,5,"#f4ead8"); g.r(22,3,10,1,"#9a8a7a"); g.r(70,0,3,7,"#c94a3a"); }
+    if(t==="tierhof"){ g.r(18,1,10,6,"#c9b98a"); g.r(60,2,6,5,"#fbf6e9"); g.r(68,1,8,6,"#f4f1ea"); }
+    if(t==="huette"){ g.r(16,2,20,3,"#c9b98a"); g.ell(70,4,7,3,"#7a9a4a"); } }
   if(kind==="stall"){ c=cnv(22,40); g=G(c); const open=!!extra;
     g.r(2,10,2,28,"#6b4423"); g.r(18,10,2,28,"#6b4423");
     if(open){ for(let i=0;i<5;i++) g.r(i*4+1,4,4,8,i%2?"#fff6dc":"#e0476a"); g.r(1,12,20,2,"#a8302a"); for(let i=0;i<5;i++) g.r(i*4+1,14,3,2,i%2?"#fff6dc":"#e0476a"); }
@@ -494,6 +515,12 @@ A.icon=function(k){
     case "amethyst": [[5,4,3,9],[8,2,3,11],[11,5,2,8]].forEach(([x,y,w,h])=>{ R(x,y,w,h,"#a86ad8"); R(x,y,1,h,"#d0a8f0"); }); R(4,12,10,2,"#6e655e"); break;
     case "mondquarz": g.ell(8,8,4.5,6,"#cfe6ff"); R(6,4,2,6,"#ffffff"); R(9,8,2,4,"#9ac0e8"); break;
     case "duenger": R(3,4,10,11,"#7a5a3a"); R(3,4,10,2,"#8f6a45"); R(5,8,6,4,"#5fae3c"); R(7,6,2,2,"#f4f1ea"); break;
+    case "socke": R(5,1,5,9,"#f4f1ea"); R(5,9,8,4,"#f4f1ea"); R(5,1,5,2,"#E98F1F"); R(10,11,3,2,"#d8d4cc"); R(5,5,5,1,"#E98F1F"); break;
+    case "tasse": R(3,5,9,9,"#f4f1ea"); R(12,7,3,4,"#f4f1ea"); R(13,8,1,2,"#7a5a3a"); R(4,6,7,2,"#5a3a24"); R(5,10,5,2,"#E98F1F"); R(6,1,1,3,"#d8d4cc"); R(9,2,1,3,"#d8d4cc"); break;
+    case "kappe": g.ell(8,9,6,4,"#E98F1F"); R(2,10,13,2,"#E98F1F"); R(9,11,6,2,"#c9701a"); R(6,7,4,2,"#183060"); break;
+    case "kabel": g.line(2,13,6,6,"#3a3a44",1); g.line(6,6,11,9,"#3a3a44",1); g.line(11,9,13,3,"#3a3a44",1); R(1,12,3,3,"#f4f1ea"); R(12,2,3,3,"#9aa3ad"); break;
+    case "schrauber": g.line(3,13,9,7,"#9aa3ad",1); R(9,3,4,5,"#E98F1F"); R(10,2,2,1,"#E98F1F"); break;
+    case "zeitung": R(2,4,12,9,"#e9e4d8"); R(2,4,12,2,"#9a8a7a"); R(3,7,5,4,"#b8b0a0"); R(9,7,4,1,"#9a8a7a"); R(9,9,4,1,"#9a8a7a"); R(13,5,1,8,"#c8c0b0"); break;
     case "karte": R(1,3,14,11,"#f0e3c0"); R(5,3,1,11,"#d8c8a4"); R(10,3,1,11,"#d8c8a4"); R(3,6,2,2,"#5aa646"); R(7,9,3,2,"#4f8fcf"); R(12,5,2,3,"#d9473a"); break;
     case "sprinkler": R(6,6,4,7,"#9aa3ad"); R(4,12,8,3,"#7d8690"); R(5,4,6,3,"#c9d0d8"); R(7,1,2,3,"#4f8fcf"); R(3,2,1,1,"#6aa8dd"); R(12,2,1,1,"#6aa8dd"); break;
     case "mondstein": g.ell(8,8,5,6,"#cfd8f0"); R(6,4,2,3,"#ffffff"); R(9,9,2,3,"#a9b8e0"); break;

@@ -36,7 +36,8 @@ function initSprites(){
   const sh=A.cnv(14,5), g=A.G(sh); g.ell(7,2.5,7,2.5,"rgba(0,0,0,.22)"); SPR.shadow=sh;
   const sb=A.cnv(24,6), g2=A.G(sb); g2.ell(12,3,12,3,"rgba(0,0,0,.2)"); SPR.shadowB=sb;
 }
-function lookSprites(){ SPR.player=A.char(JM.lookFrom(S.look)); }
+function reneLookObj(){ const L=Object.assign({},JM.RENE_LOOK), o=S&&S.reneLook||{}; if(o.hair) L.hair=o.hair; if(o.top) L.top=o.top; if(o.beard) L.beard=o.beard==="1"; return L; }
+function lookSprites(){ SPR.player=A.char(JM.lookFrom(S.look)); SPR.rene=A.char(reneLookObj()); }
 function dogSprites(){ lookSprites(); SPR.dogs=S.dogs.map((d,i)=>A.poodle(JM.FELL[d.fell]||JM.FELL.weiss,i?"#3f6ad8":"#d9473a")); }
 function iconCanvas(k,cls){ const src=k.getContext?k:icon(k); const c=A.cnv(src.width,src.height); c.getContext("2d").drawImage(src,0,0); if(cls) c.className=cls; return c; }
 function shopIcon(k){ if(k==="tier_huhn") return SPR.hen[0].r[0]; if(k==="tier_kuh") return SPR.cow[0].r[0]; if(k==="kanne2") return icon("kanne"); if(k==="gewaechshaus") return icon("sprinkler"); return icon(k); }
@@ -58,7 +59,7 @@ function newState(name,dogs){
     dogH:[0,0],dogPet:[0,0],npc:{},quest:{id:null,p:0,seen:[]},qDone:[],board:null,
     bundles:{},bundleDone:{},recipes:["pakchoi_g","suppe"],mail:[],mailQ:[],
     ship:{},shipLog:{},fishLog:{},cookLog:{},stats:{earned:0,harvest:0,shipped:0},
-    flags:{},weather:"sun",tomorrow:"sun",bought:{},sound:true,music:true,follow:false};
+    flags:{},weather:"sun",tomorrow:"sun",bought:{},sound:true,music:true,follow:false,rene:{met:false,bf:0,cud:0,cudToday:0,cuddles:0,wk:-1},reneLook:{},mess:[]};
   for(const id in NPCS) s.npc[id]={p:0,met:false,talk:0,gift:0,r3:false};
   // Unkraut, Steine, Äste auf dem Feld
   let n=0;
@@ -128,6 +129,19 @@ function drawGrass(g,X,Y,x,y,P,forest){
 }
 function drawTile(g,x,y,se){
   const t=M.t[y][x], P=A.PAL[se], X=x*16, Y=y*16, h=A.hsh;
+  if(M.inside){ const Q=M.pal;
+    const floorAt=(xx,yy)=>xx>=0&&yy>=0&&xx<M.w&&yy<M.h&&(M.t[yy][xx]===T.BODEN||M.t[yy][xx]===T.TEPPICH||M.t[yy][xx]===T.BLOCK);
+    if(t===T.BODEN||t===T.BLOCK){ g.r(X,Y,16,16,Q.floor); for(let j=0;j<16;j+=4){ g.r(X,Y+j+3,16,1,Q.floor2); const off=((y*4+j)/4)%2?5:11; g.r(X+off,Y+j,1,3,Q.floor2); } g.p(X+(x*5)%13+1,Y+(y*7)%13+1,A.shade(Q.floor,.12));
+      if(y===M.h-1){ g.r(X+2,Y+4,12,9,"#7a5a3a"); g.r(X+3,Y+5,10,7,"#a8743f"); } return; }
+    if(t===T.TEPPICH){ g.r(X,Y,16,16,Q.rug); const up=M.t[y-1]&&M.t[y-1][x]===T.TEPPICH, dn=M.t[y+1]&&M.t[y+1][x]===T.TEPPICH, lf=M.t[y][x-1]===T.TEPPICH, rt=M.t[y][x+1]===T.TEPPICH;
+      if(!up) g.r(X,Y+1,16,2,Q.rug2); if(!dn) g.r(X,Y+13,16,2,Q.rug2); if(!lf) g.r(X+1,Y,2,16,Q.rug2); if(!rt) g.r(X+13,Y,2,16,Q.rug2); for(let i=0;i<3;i++){ const hh=A.hsh(x,y,i+400); g.p(X+3+hh%10,Y+3+(hh>>4)%10,A.shade(Q.rug,.15)); } return; }
+    if(t===T.WAND){
+      if(y<=2&&x>0&&x<M.w-1){ if(y===0){ g.r(X,Y,16,16,A.shade(Q.trim,-.35)); g.r(X,Y+12,16,4,Q.trim); g.r(X,Y+12,16,1,A.shade(Q.trim,.2)); }
+        else { g.r(X,Y,16,16,Q.wall); for(let i=0;i<16;i+=4) g.r(X+i,Y,1,16,Q.wall2); if(y===2){ g.r(X,Y+12,16,4,Q.trim); g.r(X,Y+12,16,1,A.shade(Q.trim,.25)); g.r(X,Y+15,16,1,A.shade(Q.trim,-.3)); } }
+        const win=(M.windows||[]).some(([wx,wy])=>wx===x); if(win&&y===1){ g.r(X+1,Y+3,14,13,Q.trim); g.r(X+2,Y+4,12,12,"#8fc3e4"); g.r(X+3,Y+5,3,1,"#d8eefa"); g.r(X+7,Y+4,1,12,Q.trim); } if(win&&y===2){ g.r(X+1,Y,14,6,Q.trim); g.r(X+2,Y,12,4,"#7ab0d6"); g.r(X,Y+6,16,2,A.shade(Q.trim,.15)); }
+        return; }
+      g.r(X,Y,16,16,A.shade(Q.trim,-.45)); if(floorAt(x+1,y)) g.r(X+13,Y,3,16,Q.trim); if(floorAt(x-1,y)) g.r(X,Y,3,16,Q.trim); if(floorAt(x,y-1)) g.r(X,Y,16,3,Q.trim); return; }
+  }
   if(M.cave&&(t===T.BLOCK||t===T.GRAS)){ g.r(X,Y,16,16,"#7a6a5a"); return; }
   if(grassLike(t)){
     drawGrass(g,X,Y,x,y,P,t===T.WALD||M.id==="forest");
@@ -244,7 +258,7 @@ function finishMove(){
 }
 function faceTo(tx,ty){ const dx=tx-Math.round(P.x), dy=ty-Math.round(P.y); if(Math.abs(dx)>Math.abs(dy)){ P.dir=2; P.flip=dx<0; } else if(dy){ P.dir=dy<0?1:0; } }
 function travel(ex){
-  fadeQuick(()=>{ setMap(ex.to,ex.tx,ex.ty); const msg={village:"Das Dorf",forest:"Der Mondwald",farm:"Dein Hof",hoehle:"Die Mondhöhle"}[ex.to]; banner(msg); if(ex.to==="hoehle"&&!S.flags.caveSeen){ S.flags.caveSeen=true; setTimeout(()=>note("Tippe auf Felsen, um sie abzubauen. Darin stecken Kupfer und Edelsteine."),900); } if(ex.to==="forest"&&!S.flags.forestSeen){ S.flags.forestSeen=true; } if(ex.to==="village"&&!S.flags.villageSeen){ S.flags.villageSeen=true; note("Tippe Leute an, um mit ihnen zu reden. Türen öffnen Läden."); } updateQuestUI(); saveSoon(); });
+  fadeQuick(()=>{ setMap(ex.to,ex.tx,ex.ty); const msg={village:"Das Dorf",forest:"Der Mondwald",farm:"Dein Hof",hoehle:"Die Mondhöhle",haus:"Zuhause"}[ex.to]||(JM.SHOPS[ex.to.slice(2)]?JM.SHOPS[ex.to.slice(2)].n:""); banner(msg); if(ex.to==="hoehle"&&!S.flags.caveSeen){ S.flags.caveSeen=true; setTimeout(()=>note("Tippe auf Felsen, um sie abzubauen. Darin stecken Kupfer und Edelsteine."),900); } if(ex.to==="forest"&&!S.flags.forestSeen){ S.flags.forestSeen=true; } if(ex.to==="village"&&!S.flags.villageSeen){ S.flags.villageSeen=true; note("Tippe Leute an, um mit ihnen zu reden. Türen öffnen Läden."); } updateQuestUI(); saveSoon(); });
 }
 
 /* ================= Eingabe ================= */
@@ -276,6 +290,8 @@ addEventListener("pointerup",e=>{ if(ptr&&ptr.id===e.pointerId) ptr=null; });
 addEventListener("pointercancel",()=>{ ptr=null; });
 function hitActor(wx,wy){
   const hit=(a,h)=>Math.abs(wx-(a.x+.5))<.75&&wy>a.y-(h||1)+.3&&wy<a.y+1.2;
+  if(RA.vis&&hit(RA,1.4)) return {k:"rene"};
+  if(M.owner&&npcPlace(M.owner)==="in"){ const [nx,ny]=M.npcAt; if(Math.abs(wx-(nx+.5))<.9&&wy>ny-1&&wy<ny+1.4) return {k:"shopnpc",id:M.owner}; }
   for(const id in NPCA){ const n=NPCA[id]; if(n.vis&&hit(n,1.4)) return {k:"npc",id}; }
   for(const d of DOGS) if(hit(d,.8)) return {k:"dog",d};
   for(const h of HENS) if(hit(h,.6)) return {k:"hen",h};
@@ -284,10 +300,14 @@ function hitActor(wx,wy){
 }
 function tapAt(wx,wy,tx,ty){
   P.queue=[];
+  const ms=S.mess.find(m=>m.map===M.id&&m.x===tx&&m.y===ty);
+  if(ms){ goTo(adjGoal(tx,ty,true),()=>tidy(ms),{x:tx,y:ty}); return; }
   const egg0=M.id==="farm"&&S.eggs.find(g=>g.x===tx&&g.y===ty);
   if(egg0){ goTo(adjGoal(tx,ty,true),()=>pickEgg(egg0),{x:tx,y:ty}); return; }
   const h=hitActor(wx,wy);
   if(h){
+    if(h.k==="rene"){ goTo(adjGoal(Math.round(RA.x),Math.round(RA.y)),()=>{ faceTo(Math.round(RA.x),Math.round(RA.y)); reneTalk(); }); return; }
+    if(h.k==="shopnpc"){ if(!S.npc[h.id].met) npcInteract(h.id); else openShop(M.shop); return; }
     if(h.k==="npc"){ const n=NPCA[h.id]; goTo(adjGoal(Math.round(n.x),Math.round(n.y)),()=>{ faceTo(Math.round(n.x),Math.round(n.y)); npcInteract(h.id); }); return; }
     if(h.k==="dog"){ const d=h.d; goTo(adjGoal(Math.round(d.x),Math.round(d.y),true),()=>dogMenu(d)); return; }
     if(h.k==="hen"){ const a=h.h; goTo(adjGoal(Math.round(a.x),Math.round(a.y),true),()=>{ faceTo(Math.round(a.x),Math.round(a.y)); petHen(a); }); return; }
@@ -460,7 +480,18 @@ function bushAct(o){
 /* ================= Objekte ================= */
 function objAct(o){
   const a=o.act;
-  if(a==="house") return openHouse();
+  if(a==="house") return travel({to:"haus",tx:7,ty:9});
+  if(a==="stove") return renePlan().mode==="cook"&&RA.vis?reneTalk():openCook();
+  if(a==="table") return M.id==="haus"?showLetter():note("Ein gemütlicher Tisch.");
+  if(a==="tv") return openTV();
+  if(a==="bed") return openSleep();
+  if(a==="wardrobe") return openWardrobe();
+  if(a==="craft") return openCraft();
+  if(a==="fridge") return note(pick(["Im Kühlschrank: Milch, Butter und ein Zettel: Nicht naschen! Gruß, "+JM.CONFIG.von+".","Kalt da drin. Und leer, bis auf "+JM.CONFIG.von+"s Joghurt."]));
+  if(a==="counter") return M.shop?openShop(M.shop):note("Die Arbeitsplatte. "+JM.CONFIG.von+" hat Krümel hinterlassen.");
+  if(a==="plant") return note("Eine Zimmerpflanze. Sie sieht durstig aus.");
+  if(a==="shelf") return note("Ein Regal voller Kram.");
+  if(a==="deco") return note(pick(["Gemütlich hier.","Hier riecht es gut."]));
   if(a==="ship") return openBag("ship");
   if(a==="mail") return openMail();
   if(a==="trough_h") return trough("h");
@@ -476,7 +507,7 @@ function objAct(o){
   if(a==="mondbaum") return mondbaum();
   if(a==="cave_in") return travel({to:"hoehle",tx:10,ty:14});
   if(a==="cave_out") return travel({to:"forest",tx:24,ty:5});
-  if(a.startsWith("shop:")) return openShop(a.slice(5));
+  if(a.startsWith("shop:")){ const id=a.slice(5); if(npcPlace(JM.SHOPS[id].npc)==="in") return travel({to:"i_"+id,tx:6,ty:7}); return openShop(id); }
 }
 
 /* ================= Zeit ================= */
@@ -525,8 +556,8 @@ function endDay(passedOut){
   S.mail.push(...S.mailQ); S.mailQ=[];
   for(const id in NPCS){ const b=NPCS[id].bday; if(b[0]===se&&b[1]===dayIn()) notes.push("Heute hat "+NPCS[id].n+" Geburtstag."); }
   S.energy=passedOut?Math.round(S.maxE*.5):S.maxE;
-  S.can.w=S.can.max; S.market=null;
-  setMap("farm",5,7); P.dir=0;
+  S.can.w=S.can.max; S.market=null; S.rene.cudToday=0; spawnMess();
+  setMap("haus",10,5); P.dir=0;
   emit("sleep");
   save(true);
   const fd=$("fade");
@@ -556,7 +587,7 @@ function srcHint(k){
   return "";
 }
 function makeDaily(){
-  const can={cave:!!S.flags.caveSeen,crops:Object.values(S.field).some(f=>f.c), ripe:Object.values(S.field).some(f=>f.c&&f.c.a>=CROPS[f.c.k].days-1), met:JM.NPC_ORDER.some(id=>S.npc[id].met), rod:!!S.rod, eggs:S.hens.length>0, cook:Object.keys(S.inv).length>0, board:!!S.board&&!S.board.done};
+  const can={mess:S.mess.length>0,cave:!!S.flags.caveSeen,crops:Object.values(S.field).some(f=>f.c), ripe:Object.values(S.field).some(f=>f.c&&f.c.a>=CROPS[f.c.k].days-1), met:JM.NPC_ORDER.some(id=>S.npc[id].met), rod:!!S.rod, eggs:S.hens.length>0, cook:Object.keys(S.inv).length>0, board:!!S.board&&!S.board.done};
   const pool=JM.DAILY.filter(d=>!d.need||can[d.need]);
   const goals=[]; while(goals.length<3&&pool.length){ const d=pool.splice(Math.floor(rnd()*pool.length),1)[0]; goals.push({k:d.k,p:0,seen:[]}); }
   S.daily={day:S.day,goals};
@@ -566,7 +597,7 @@ function dailyEmit(ev,arg){
   let changed=false;
   for(const g of S.daily.goals){ const D=JM.DAILY.find(d=>d.k===g.k); if(!D||g.p>=D.n) continue; if(D.ev!==ev&&!(D.ev==="cook"&&ev.startsWith("cook_"))) continue;
     if(D.uniq){ const k=String(arg); if(g.seen.includes(k)) continue; g.seen.push(k); }
-    g.p++; changed=true; if(g.p>=D.n){ S.money+=D.g; sfx("quest"); setTimeout(()=>note("Tagesziel geschafft: "+D.t+". +"+D.g+" G"),250); if(S.daily.goals.every(x=>x.p>=JM.DAILY.find(d=>d.k===x.k).n)){ S.money+=100; setTimeout(()=>banner("Alle Tagesziele! +100 G"),900); } hud(); } }
+    g.p++; changed=true; if(g.p>=D.n){ S.money+=D.g; sfx("quest"); setTimeout(()=>note("Tagesziel geschafft: "+fmtD(D.t)+". +"+D.g+" G"),250); if(S.daily.goals.every(x=>x.p>=JM.DAILY.find(d=>d.k===x.k).n)){ S.money+=100; setTimeout(()=>banner("Alle Tagesziele! +100 G"),900); } hud(); } }
   if(changed) updateQuestUI();
 }
 function makeBoard(){
@@ -714,7 +745,7 @@ function runFest(f){
       {who:"paula",text:"Ich bin dankbar für jede Kuh, jedes Huhn und jeden Menschen mit einem großen Herzen. Also auch für dich."},
       {who:"henk",text:"...Danke, dass du da bist. Mehr sag ich nicht."},
       {who:null,text:fmtD("Die Laternen steigen langsam in den Himmel. {d0} und {d1} sitzen eng neben dir und schauen nach oben.")},
-      {who:"von",text:fmtD("Liebe {name},\n\ndu hast es geschafft. Aus einem verwilderten Hof ist ein Zuhause geworden. {d0} und {d1} sind stolz auf dich, und ich bin es auch.\n\nSchau heute Nacht mal nach oben. Der Mond scheint nur für dich.\n\nIn Liebe,\n{von}")},
+      {who:"rene",text:fmtD("{name}, weißt du was? Du hast es geschafft. Aus einem verwilderten Hof ist ein Zuhause geworden. {d0} und {d1} sind stolz auf dich, und ich bin es auch.\n\nSchau mal nach oben. Der Mond scheint heute nur für dich. Und ich bin froh, dass ich neben dir stehe.")},
       {who:null,text:"Du bekommst das Mondamulett. Deine maximale Energie steigt um 30.",fn:()=>{ give("amulett",1); S.maxE+=30; S.energy=S.maxE; S.flags.finale=true; allPts(100); sfx("fanfare"); }}
     ];
     dialog(seq,()=>{ emit("fest_mond"); banner("Kapitel 1 geschafft"); });
@@ -811,11 +842,12 @@ function achDone(id){
     case "lieb": return !!S.cookLog.nudeln; case "koch": return JM.RECIPES.every(r=>S.cookLog[r.k]);
     case "pudel": return S.dogH[0]>=10&&S.dogH[1]>=10; case "dorf": return JM.NPC_ORDER.every(n=>hearts10(n)>=5);
     case "baum": return JM.BUNDLES.every(b=>S.bundleDone[b.id]); case "quarz": return (S.stats.quarz||0)>0||!!S.shipLog.mondquarz||!!S.inv.mondquarz;
-    case "reich": return S.stats.earned>=10000; case "jahr": return S.day>JM.DPS*3;
+    case "reich": return S.stats.earned>=10000;
+    case "ordnung": return (S.stats.tidy||0)>=25; case "kuscheln": return (S.rene.cuddles||0)>=10; case "jahr": return S.day>JM.DPS*3;
   }
   return false;
 }
-function checkAch(){ S.ach=S.ach||[]; for(const a of JM.ACH){ if(!S.ach.includes(a.id)&&achDone(a.id)){ S.ach.push(a.id); sfx("fanfare"); banner("Erfolg: "+a.t); saveSoon(); break; } } }
+function checkAch(){ S.ach=S.ach||[]; for(const a of JM.ACH){ if(!S.ach.includes(a.id)&&achDone(a.id)){ S.ach.push(a.id); sfx("fanfare"); banner("Erfolg: "+fmtD(a.t)); saveSoon(); break; } } }
 function recheckQuest(){ if(!demo) checkAch(); const q=curQ(); if(!q||q.ev==="never") return; const a=questAlready(q); if(a>S.quest.p){ S.quest.p=Math.min(q.n,a); if(S.quest.p>=q.n) completeQuest(); else updateQuestUI(); } }
 function emit(ev,arg){
   if(!S||demo) return;
@@ -839,6 +871,8 @@ function questAlready(q){
   const F=()=>Object.values(S.field);
   switch(q.id){
     case "brief": return S.flags.letter?1:0;
+    case "rene": return S.rene.met?1:0;
+    case "aufraeumen": return S.stats.tidy||0;
     case "pudel": { const m=[0,1].filter(i=>S.dogPet[i]===S.day).map(String); S.quest.seen=m; return m.length; }
     case "raeumen": { const left=Object.values(S.field).filter(f=>f.o&&f.o!=="spr").length; if(left<q.n) return q.n; return Math.max(0,(S.flags.debris0||left)-left); }
     case "eier": return S.stats.eggs||0;
@@ -870,7 +904,7 @@ function completeQuest(){
   if(q.id==="lieblingsessen") S.mailQ.push({from:"von",t:"Für dich",b:fmtD("Liebe {name},\n\nich hab gehört, du hast dein Lieblingsessen gekocht. Ich hoffe, es hat so gut geschmeckt wie bei uns zu Hause.\n\nIn Liebe,\n{von}")});
   if(q.id==="freunde"){ S.money+=500; }
   S.qDone.push(q.id); sfx("quest");
-  banner("Erledigt: "+q.t); if(r.text) setTimeout(()=>note(r.text),900);
+  banner("Erledigt: "+fmtD(q.t)); if(r.text) setTimeout(()=>note(r.text),900);
   S.quest={id:null,p:0,seen:[]};
   activateQuest();
   saveSoon();
@@ -886,7 +920,9 @@ function activateQuest(){
 function questTarget(){
   const q=curQ(); if(!q||!q.tg) return null;
   const tg=q.tg, F=MAPS.farm, nearest=(fn)=>{ let best=null,bd=1e9; for(let y=0;y<F.h;y++) for(let x=0;x<F.w;x++){ if(F.t[y][x]!==T.FELD) continue; if(fn(fieldAt(x,y)||{})){ const d=Math.abs(x-P.x)+Math.abs(y-P.y); if(d<bd){bd=d;best={map:"farm",x,y};} } } return best; };
-  if(tg==="house") return {map:"farm",x:5,y:5};
+  if(tg==="house"){ const q=curQ(); return q.id==="schlafen"?{map:"haus",x:11,y:3}:q.id==="lieblingsessen"?{map:"haus",x:2,y:3}:q.id==="brief"?{map:"haus",x:5,y:5}:{map:"haus",x:7,y:6}; }
+  if(tg==="rene"){ const pl=renePlan(); if(!pl.map) return null; return RA.vis?{map:M.id,x:RA.x,y:RA.y-1,live:true}:{map:pl.map,x:pl.pos[0],y:pl.pos[1]-1}; }
+  if(tg==="mess"){ const m=S.mess.find(m=>m.map===M.id)||S.mess[0]; return m?{map:m.map,x:m.x,y:m.y}:null; }
   if(tg==="dogs"){ const d=DOGS.find(d=>!S.quest.seen.includes(String(d.i))); return d?{map:M.id,x:d.x,y:d.y-.6,live:true}:{map:"farm",x:3,y:8}; }
   if(tg==="debris") return nearest(f=>f.o&&f.o!=="spr");
   if(tg==="field") return nearest(f=>!f.t&&!f.o);
@@ -904,13 +940,17 @@ function questTarget(){
     if(!id) return null;
     const pl=npcPlace(id);
     if(Array.isArray(pl)){ const a=NPCA[id]; return (M.id==="village"&&a&&a.vis)?{map:"village",x:a.x,y:a.y-1,live:true}:{map:"village",x:pl[0],y:pl[1]-1}; }
-    if(pl==="in"){ const d=homeDoor(id); return {map:"village",x:d[0],y:d[1]-1}; }
+    if(pl==="in") return {map:"i_"+NPCS[id].home,x:6,y:2};
     return null;
   }
   return null;
 }
 function routeTarget(t){
   if(!t) return null; if(t.map===M.id) return t;
+  if(M.inside){ const ex=M.exits[0]; return {map:M.id,x:ex.x,y:ex.y,exit:true}; }
+  if(t.map==="haus"){ if(M.id==="farm") return {map:"farm",x:5,y:6,exit:true}; t={map:"farm",x:5,y:6}; }
+  else if(t.map.startsWith("i_")){ const o=MAPS.village.obj.find(o=>o.act==="shop:"+t.map.slice(2)); if(M.id==="village") return {map:"village",x:o.door[0],y:o.door[1]-1,exit:true}; t={map:"village",x:o.door[0],y:o.door[1]}; }
+  if(t.map===M.id) return t;
   const via={farm:{village:[27,15],forest:[13,31],hoehle:[13,31]},village:{farm:[0,9],forest:[0,9],hoehle:[0,9]},forest:{farm:[13,0],village:[13,0],hoehle:[24,4]},hoehle:{farm:[10,16],village:[10,16],forest:[10,16]}}[M.id][t.map];
   return {map:M.id,x:via[0],y:via[1],exit:true};
 }
@@ -984,7 +1024,8 @@ function updateQuestUI(){
   if(!S) return;
   const q=curQ(); const el=$("quest");
   if(!q){ el.hidden=true; return; } el.hidden=false;
-  $("qTitle").textContent=q.t;
+  $("qTitle").textContent=fmtD(q.t);
+  if(q.tg==="rene"&&!renePlan().map) sub=fmtD("{von} ist bei der Arbeit, ab 16:30 Uhr zu Hause");
   let sub=q.n>1?S.quest.p+"/"+q.n:"";
   if(q.id==="mondfest"){ const Y=JM.DPS*4, left=((2*JM.DPS+13)-((S.day-1)%Y)+Y)%Y; if(left>0) sub="noch "+left+(left===1?" Tag":" Tage"); else if(left===0) sub="heute ab 18 Uhr"; }
   const t=questTarget(); if(t&&t.map!==M.id) sub=(sub?sub+" · ":"")+({farm:"auf dem Hof",village:"im Dorf",forest:"im Wald"}[t.map]);
@@ -1045,6 +1086,7 @@ function nextLine(){
   if(who&&NPCS[who]){ name.textContent=NPCS[who].n; pc.width=18; pc.height=15; pc.getContext("2d").drawImage(SPR.npc[who].portrait,0,0); }
   else if(who==="player"){ name.textContent=S.name; pc.width=18; pc.height=15; pc.getContext("2d").drawImage(SPR.player.portrait,0,0); }
   else if(who==="dog0"||who==="dog1"){ const i=+who.slice(3); name.textContent=dogName(i); pc.width=23; pc.height=19; pc.getContext("2d").drawImage(SPR.dogs[i].r[0],0,0); }
+  else if(who==="rene"){ name.textContent=JM.CONFIG.von; pc.width=18; pc.height=15; pc.getContext("2d").drawImage(SPR.rene.portrait,0,0); }
   else if(who==="von"){ name.textContent="Ein Brief von "+JM.CONFIG.von; pc.hidden=true; }
   else { name.textContent=""; pc.hidden=true; }
   const txt=$("dlgT"), ch=$("dlgC"); ch.innerHTML=""; txt.textContent="";
@@ -1058,7 +1100,7 @@ function nextLine(){
 /* Panels */
 const veil=$("veil"), panel=$("panel");
 let PH={};
-function openPanel(html,handlers){ UI.panel=true; panel.innerHTML=html; PH=handlers||{}; veil.hidden=false; panel.scrollTop=0; panel.querySelectorAll("canvas[data-ic]").forEach(c=>{ const src=shopIcon(c.dataset.ic); c.width=src.width; c.height=src.height; c.getContext("2d").drawImage(src,0,0); }); panel.querySelectorAll("canvas[data-pt]").forEach(c=>{ const id=c.dataset.pt; const src=id==="dog0"?SPR.dogs[0].r[0]:id==="dog1"?SPR.dogs[1].r[0]:SPR.npc[id].portrait; c.width=src.width; c.height=src.height; c.getContext("2d").drawImage(src,0,0); }); }
+function openPanel(html,handlers){ UI.panel=true; panel.innerHTML=html; PH=handlers||{}; veil.hidden=false; panel.scrollTop=0; panel.querySelectorAll("canvas[data-ic]").forEach(c=>{ const src=shopIcon(c.dataset.ic); c.width=src.width; c.height=src.height; c.getContext("2d").drawImage(src,0,0); }); panel.querySelectorAll("canvas[data-pt]").forEach(c=>{ const id=c.dataset.pt; const src=id==="dog0"?SPR.dogs[0].r[0]:id==="dog1"?SPR.dogs[1].r[0]:id==="rene"?SPR.rene.portrait:SPR.npc[id].portrait; c.width=src.width; c.height=src.height; c.getContext("2d").drawImage(src,0,0); }); }
 function closePanel(){ veil.hidden=true; UI.panel=false; hud(); hotbar(); updateQuestUI(); }
 function closeAll(){ closePanel(); $("dlg").hidden=true; UI.dialog=false; DQ=[]; }
 veil.addEventListener("pointerdown",e=>{ if(e.target===veil) closePanel(); });
@@ -1083,7 +1125,7 @@ function openHouse(){
    cook:openCook, tv:openTV, letter:()=>{ closePanel(); showLetter(); }, wardrobe:openWardrobe, mailx:openMail, craft:openCraft});
 }
 function showLetter(){
-  dialog([{who:"von",text:fmtD("Liebe {name},\n\ndieser kleine Hof gehört jetzt dir. Pflanz, was dir schmeckt, kümmer dich um die Hühner und lass dir Zeit. {d0} und {d1} sind auch da und weichen dir nicht von der Seite.\n\nIm Dorf wohnen liebe Leute. Lin vom Nudelhaus kennt ein Rezept, das dir gefallen wird.\n\nUnd im Herbst, wenn der Mond am größten ist, feiert das ganze Dorf. Ich glaube, das wird schön.\n\nIn Liebe,\n{von}")}],()=>{ if(!S.flags.letter){ S.flags.letter=true; emit("letter"); } });
+  dialog([{who:"von",text:fmtD("Liebe {name},\n\ndieser kleine Hof gehört jetzt uns. Pflanz, was dir schmeckt, kümmer dich um die Hühner und lass dir Zeit. {d0} und {d1} sind auch da und weichen dir nicht von der Seite.\n\nIm Dorf wohnen liebe Leute. Lin vom Nudelhaus kennt ein Rezept, das dir gefallen wird.\n\nUnd im Herbst, wenn der Mond am größten ist, feiert das ganze Dorf. Ich glaube, das wird schön.\n\nIn Liebe,\n{von}")}],()=>{ if(!S.flags.letter){ S.flags.letter=true; emit("letter"); } });
 }
 function openCook(){
   const rows=JM.RECIPES.map(r=>{
@@ -1094,7 +1136,7 @@ function openCook(){
     return `<div class="row ${r.fav?"fav":""}">${ic(r.k)}<div class="tx"><b>${r.fav?"★ ":""}${ITEMS[r.k].n}</b><small>${need}</small><small>${ITEMS[r.k].eat>=999?"Volle Energie":"+"+ITEMS[r.k].eat+" Energie"} · Wert ${ITEMS[r.k].sell} G</small></div><button class="btn" data-a="cook" data-k="${r.k}" ${ok?"":"disabled"}>Kochen</button></div>`;
   }).join("");
   openPanel(`<h2>Küche</h2><p class="sub">Was möchtest du kochen?</p>${rows}<div class="row2"><button class="btn alt wide" data-a="back">Zurück</button>${closeBtn}</div>`,
-    {back:openHouse,cook:k=>{ const r=JM.RECIPES.find(x=>x.k===k); if(!Object.entries(r.need).every(([i,n])=>has(i,n))) return; for(const [i,n] of Object.entries(r.need)) takeAny(i,n); give(k,1); sfx("cook"); emit("cook_"+k); if(r.fav&&!S.flags.favCooked){ S.flags.favCooked=true; setTimeout(()=>note("Es duftet nach Tempura. Dein Lieblingsessen ist fertig! Tippe es unten zweimal an, um es zu essen."),100); } else note(ITEMS[k].n+" ist fertig."); saveSoon(); openCook(); }});
+    {back:closePanel,cook:k=>{ const r=JM.RECIPES.find(x=>x.k===k); if(!Object.entries(r.need).every(([i,n])=>has(i,n))) return; for(const [i,n] of Object.entries(r.need)) takeAny(i,n); give(k,1); sfx("cook"); emit("cook_"+k); if(r.fav&&!S.flags.favCooked){ S.flags.favCooked=true; setTimeout(()=>note("Es duftet nach Tempura. Dein Lieblingsessen ist fertig! Tippe es unten zweimal an, um es zu essen."),100); } else note(ITEMS[k].n+" ist fertig."); saveSoon(); openCook(); }});
 }
 function openTV(){
   openPanel(`<h2>Fernsehen</h2><div class="stack">
@@ -1102,7 +1144,7 @@ function openTV(){
     <button class="tile" data-a="show"><b>Kochshow</b><small>Jeden Sonntag ein neues Rezept</small></button>
     <button class="tile" data-a="tip"><b>Landfunk</b><small>Tipps für deinen Hof</small></button></div>
     <div class="row2"><button class="btn alt wide" data-a="back">Zurück</button>${closeBtn}</div>`,
-  {back:openHouse,
+  {back:closePanel,
    wx:()=>{ const w=S.tomorrow, f=JM.FESTS.find(x=>x.s===season()&&x.d===dayIn()+1); closePanel(); dialog([{who:null,text:"Der Wetterbericht für morgen: "+(w==="rain"?"Regen. Gut für die Felder, du musst nicht gießen.":w==="snow"?"Schnee. Zieh dich warm an!":"Sonnig und freundlich.")+(f?" Und morgen ist "+f.n+"!":"")}]); },
    show:()=>{ closePanel(); if(weekday()===6&&!S.recipes.includes("tomatenei")){ S.recipes.push("tomatenei"); dialog([{who:null,text:"„Heute in der Kochshow: Tomaten-Ei-Pfanne! Zwei Tomaten, ein Ei, fertig ist ein Klassiker.“"},{who:null,text:"Du hast das Rezept „Tomaten-Ei-Pfanne“ gelernt!",fn:()=>sfx("fanfare")}]); } else dialog([{who:null,text:weekday()===6?"Eine Wiederholung der Kochshow. Das Rezept kennst du schon.":"Die Kochshow läuft nur sonntags."}]); },
    tip:()=>{ closePanel(); dialog([{who:null,text:"Landfunk: "+JM.TIPS[(S.day*7)%JM.TIPS.length]}]); }});
@@ -1175,15 +1217,18 @@ function openCraft(){
   const rows=JM.CRAFT.map(r=>{ const ok=Object.entries(r.need).every(([k,n])=>has(k,n)); const need=Object.entries(r.need).map(([k,n])=>`<span class="${(S.inv[k]||0)>=n?"ok":"no"}">${n}× ${ITEMS[k].n} (${S.inv[k]||0})</span>`).join(" ");
     return `<div class="row">${ic(r.k)}<div class="tx"><b>${r.n>1?r.n+"× ":""}${esc(ITEMS[r.k].n)}</b><small>${esc(r.d)}</small><small>${need}</small></div><button class="btn" data-a="make" data-k="${r.k}" ${ok?"":"disabled"}>Bauen</button></div>`; }).join("");
   openPanel(`<h2>Werkbank</h2><p class="sub">Kupfer und Steine findest du in der Mondhöhle hinten im Wald.</p>${rows}<div class="row2"><button class="btn alt wide" data-a="back">Zurück</button>${closeBtn}</div>`,
-  {back:openHouse,make:k=>{ const r=JM.CRAFT.find(x=>x.k===k); if(!Object.entries(r.need).every(([i,n])=>has(i,n))) return; for(const [i,n] of Object.entries(r.need)) take(i,n); give(k,r.n); sfx("fanfare"); emit("craft"); note(r.n+"× "+ITEMS[k].n+" gebaut."); saveSoon(); openCraft(); }});
+  {back:closePanel,make:k=>{ const r=JM.CRAFT.find(x=>x.k===k); if(!Object.entries(r.need).every(([i,n])=>has(i,n))) return; for(const [i,n] of Object.entries(r.need)) take(i,n); give(k,r.n); sfx("fanfare"); emit("craft"); note(r.n+"× "+ITEMS[k].n+" gebaut."); saveSoon(); openCraft(); }});
 }
 function openWardrobe(){
   const W=JM.WARDROBE, cur=Object.assign({hair:JM.PLAYER_LOOK.hair,style:JM.PLAYER_LOOK.style,top:JM.PLAYER_LOOK.top,outfit:"ov:"+JM.PLAYER_LOOK.bot,skin:JM.PLAYER_LOOK.skin},S.look||{});
   const grp=(k,label,colors)=>`<h3>${label}</h3><div class="chips">${W[k].map(([n,v])=>`<button class="chip ${cur[k]===v?"ok":""}" data-a="set" data-k="${k}|${v}">${colors?`<i class="sw" style="background:${v.split(":").pop()}"></i>`:""}<span>${esc(n)}</span></button>`).join("")}</div>`;
   openPanel(`<h2>Kleiderschrank</h2><div class="shophead"><canvas class="pt big" id="wpv"></canvas><p class="sub">Ändere dein Aussehen, so oft du willst.</p></div>
+    <h3>${esc(JM.CONFIG.von)}</h3><div class="chips">${JM.RENE_WARDROBE.hair.map(([n,v])=>`<button class="chip ${(S.reneLook.hair||JM.RENE_LOOK.hair)===v?"ok":""}" data-a="rset" data-k="hair|${v}"><i class="sw" style="background:${v}"></i><span>Haare ${esc(n)}</span></button>`).join("")}</div>
+    <div class="chips">${JM.RENE_WARDROBE.top.map(([n,v])=>`<button class="chip ${(S.reneLook.top||JM.RENE_LOOK.top)===v?"ok":""}" data-a="rset" data-k="top|${v}"><i class="sw" style="background:${v}"></i><span>${esc(n)}</span></button>`).join("")}${JM.RENE_WARDROBE.beard.map(([n,v])=>`<button class="chip ${(S.reneLook.beard||"1")===v?"ok":""}" data-a="rset" data-k="beard|${v}"><span>${esc(n)}</span></button>`).join("")}</div>
+    <h3>Du</h3>
     ${grp("hair","Haarfarbe",true)}${grp("style","Frisur",false)}${grp("top","Oberteil",true)}${grp("outfit","Kleidung",true)}${grp("skin","Hautton",true)}
     <div class="row2"><button class="btn alt wide" data-a="back">Zurück</button>${closeBtn}</div>`,
-  {back:openHouse,set:k=>{ const [a,v]=k.split("|"); S.look=Object.assign({},S.look||{}, {[a]:v}); lookSprites(); sfx("blip"); saveSoon(); openWardrobe(); }});
+  {back:closePanel,rset:k=>{ const [a,v]=k.split("|"); S.reneLook=Object.assign({},S.reneLook||{},{[a]:v}); lookSprites(); sfx("blip"); saveSoon(); openWardrobe(); },set:k=>{ const [a,v]=k.split("|"); S.look=Object.assign({},S.look||{}, {[a]:v}); lookSprites(); sfx("blip"); saveSoon(); openWardrobe(); }});
   const c=$("wpv"), src=SPR.player.down[0]; c.width=src.width; c.height=src.height; c.getContext("2d").drawImage(src,0,0);
 }
 function marketDay(){ return weekday()===5&&S.min>=540&&S.min<900&&!festToday(); }
@@ -1221,17 +1266,17 @@ function openBook(tab){
   let body="";
   if(tab==="quest"){
     const q=curQ();
-    body=q?`<div class="qcard"><small>Aktuelle Aufgabe</small><b>${esc(q.t)}</b><p>${esc(fmtD(q.d))}</p>${q.n>1?`<div class="pbar"><i style="width:${S.quest.p/q.n*100}%"></i></div><small>${S.quest.p} von ${q.n}</small>`:""}</div>`:"";
-    if(S.daily&&S.daily.day===S.day) body+=`<h3>Tagesziele</h3>`+S.daily.goals.map(g=>{ const D=JM.DAILY.find(d=>d.k===g.k), ok=g.p>=D.n; return `<div class="row"><div class="tx"><b>${ok?"✓ ":""}${esc(D.t)}</b><small>${Math.min(g.p,D.n)} von ${D.n} · Belohnung ${D.g} G</small></div></div>`; }).join("")+`<p class="sub">Alle drei geschafft: +100 G extra. Jeden Morgen gibt es neue.</p>`;
+    body=q?`<div class="qcard"><small>Aktuelle Aufgabe</small><b>${esc(fmtD(q.t))}</b><p>${esc(fmtD(q.d))}</p>${q.n>1?`<div class="pbar"><i style="width:${S.quest.p/q.n*100}%"></i></div><small>${S.quest.p} von ${q.n}</small>`:""}</div>`:"";
+    if(S.daily&&S.daily.day===S.day) body+=`<h3>Tagesziele</h3>`+S.daily.goals.map(g=>{ const D=JM.DAILY.find(d=>d.k===g.k), ok=g.p>=D.n; return `<div class="row"><div class="tx"><b>${ok?"✓ ":""}${esc(fmtD(D.t))}</b><small>${Math.min(g.p,D.n)} von ${D.n} · Belohnung ${D.g} G</small></div></div>`; }).join("")+`<p class="sub">Alle drei geschafft: +100 G extra. Jeden Morgen gibt es neue.</p>`;
     if(S.board&&!S.board.done) body+=`<div class="row">${ic(S.board.k)}<div class="tx"><b>Anschlagtafel: ${esc(NPCS[S.board.who].n)}</b><small>sucht ${S.board.n}× ${esc(ITEMS[S.board.k].n)} · ${S.board.rew} G</small></div></div>`;
-    body+=`<h3>Geschafft</h3>`+(S.qDone.length?S.qDone.slice().reverse().map(id=>`<div class="done">✓ ${esc(JM.QUESTS.find(q=>q.id===id).t)}</div>`).join(""):"<p class='sub'>Noch nichts. Leg los!</p>");
+    body+=`<h3>Geschafft</h3>`+(S.qDone.length?S.qDone.slice().reverse().map(id=>`<div class="done">✓ ${esc(fmtD((JM.QUESTS.find(q=>q.id===id)||{t:id}).t))}</div>`).join(""):"<p class='sub'>Noch nichts. Leg los!</p>");
   }
   if(tab==="map"){
     const places=[["farm","Dein Hof","Haus, Felder, Tiere",5,8],["village","Das Dorf","Läden, Bewohner, Dorfplatz",14,13],["forest","Der Mondwald","Mondbaum, Fluss, See, Fundstücke",13,15]].concat(S.flags.caveSeen?[["hoehle","Die Mondhöhle","Kupfer und Edelsteine",10,14]]:[]);
     body=`<p class="sub">Mit der Kutsche bist du schnell überall. Die Fahrt dauert 30 Minuten.</p>`+places.map(([id,n,d])=>`<button class="tile" data-a="go" data-k="${id}" ${M.id===id?"disabled":""} style="width:100%;margin-bottom:8px"><b>${n}${M.id===id?" · du bist hier":""}</b><small>${d}</small></button>`).join("")+(S.flags.caveSeen?"":`<p class="sub">Eine Höhle soll es hinten im Wald geben. Erst wenn du sie gefunden hast, fährt die Kutsche dorthin.</p>`);
     PH_GO=places;
   }
-  if(tab==="ach"){ const got=S.ach||[]; body=`<p class="sub">${got.length} von ${JM.ACH.length} Erfolgen</p>`+JM.ACH.map(a=>`<div class="row ${got.includes(a.id)?"":"dim"}"><div class="tx"><b>${got.includes(a.id)?"★ ":"☆ "}${esc(a.t)}</b><small>${esc(a.d)}</small></div></div>`).join(""); }
+  if(tab==="ach"){ const got=S.ach||[]; body=`<p class="sub">${got.length} von ${JM.ACH.length} Erfolgen</p>`+JM.ACH.map(a=>`<div class="row ${got.includes(a.id)?"":"dim"}"><div class="tx"><b>${got.includes(a.id)?"★ ":"☆ "}${esc(fmtD(a.t))}</b><small>${esc(fmtD(a.d))}</small></div></div>`).join(""); }
   if(tab==="cal"){
     const se=season(); let cells="";
     for(let d=1;d<=JM.DPS;d++){
@@ -1244,6 +1289,7 @@ function openBook(tab){
   if(tab==="friends"){
     body=`<div class="row"><canvas class="pt" data-pt="dog0"></canvas><div class="tx"><b>${esc(dogName(0))}</b>${heartRow(S.dogH[0])}<small>${S.dogPet[0]===S.day?"Heute gestreichelt":"Noch nicht gestreichelt"}</small></div></div>
       <div class="row"><canvas class="pt" data-pt="dog1"></canvas><div class="tx"><b>${esc(dogName(1))}</b>${heartRow(S.dogH[1])}<small>${S.dogPet[1]===S.day?"Heute gestreichelt":"Noch nicht gestreichelt"}</small></div></div>`;
+    body+=`<div class="row"><canvas class="pt" data-pt="rene"></canvas><div class="tx"><b>${esc(JM.CONFIG.von)} <small>· dein Mann</small></b>${heartRow(10)}<small>${S.rene.cuddles||0} mal gekuschelt · ${S.stats.tidy||0} Sachen weggeräumt</small></div></div>`;
     body+=JM.NPC_ORDER.map(id=>{ const N=NPCS[id], st=S.npc[id]; if(!st.met) return `<div class="row dim"><div class="tx"><b>???</b><small>Noch nicht kennengelernt</small></div></div>`;
       return `<div class="row"><canvas class="pt" data-pt="${id}"></canvas><div class="tx"><b>${esc(N.n)} <small>· ${esc(N.role)}</small></b>${heartRow(hearts10(id))}<small>${st.talk===S.day?"Heute geredet":"Noch nicht geredet"} · ${st.gift===S.day?"Geschenk ✓":"Kein Geschenk"} · Geburtstag ${N.bday[1]}. ${JM.SEASONS[N.bday[0]]}</small>${hearts10(id)>=2?`<small>Liebt: ${N.love.map(k=>esc(ITEMS[k].n)).join(", ")}</small>`:""}</div></div>`; }).join("");
     body+=`<h3>Tiere</h3>`+S.hens.map(h=>`<div class="row"><div class="tx"><b>${esc(h.n)} <small>· Huhn</small></b>${heartRow(h.h)}</div></div>`).join("")+S.cows.map(c=>`<div class="row"><div class="tx"><b>${esc(c.n)} <small>· Kuh</small></b>${heartRow(c.h)}</div></div>`).join("");
@@ -1338,20 +1384,78 @@ function update(dt){
     if(h.timer<=0){ h.timer=1+rnd()*3; if(rnd()<.35){ h.peck=.8; h.tx=h.x; h.ty=h.y; } else { h.tx=box.x0+rnd()*(box.x1-box.x0); h.ty=(h.deco?box.y0:box.y0+1)+rnd()*(box.y1-box.y0-(h.deco?0:1)); } }
     moveA(h,h.tx,h.ty,.9,dt,.15); }
   for(const c of COWS){ c.timer-=dt; const box=M.pasture; if(c.timer<=0){ c.timer=2+rnd()*4; c.tx=box.x0+rnd()*(box.x1-box.x0); c.ty=box.y0+1+rnd()*(box.y1-box.y0-1); } moveA(c,c.tx,c.ty,.6,dt,.25); }
-  npcUpdate(dt);
+  npcUpdate(dt); reneUpdate(dt);
   fishUpdate(dt);
   for(const p of FX){ p.l-=dt; p.x+=p.vx*dt; p.y+=p.vy*dt; p.vy+=p.g*dt; } FX=FX.filter(p=>p.l>0);
   for(const f of FLT){ f.l-=dt; f.y-=18*dt; } FLT=FLT.filter(f=>f.l>0);
   for(const k in FESTFX) if(FESTFX[k]>0) FESTFX[k]-=dt*(UI.dialog?0:1);
   if(Math.floor(gameT*2)!==Math.floor((gameT-dt)*2)){ recheckQuest(); updateQuestUI(); }
 }
+const RA={x:2,y:4,dir:0,flip:false,frame:0,ft:0,path:[],vis:false,map:null,moving:false,cuddle:false,timer:0,goal:null};
+function renePlan(){
+  if(!S) return {map:null};
+  const f=festActive(); if(f&&f.id==="mond") return {map:"village",pos:[16,14],mode:"fest"};
+  const we=weekday()>=5, m=S.min;
+  const sch=we?[[420,"haus",[2,4],"cook"],[600,"farm",[8,9],"wander"],[780,"haus",[6,6],"sit"],[840,"farm",[10,8],"wander"],[1140,"haus",[2,4],"cook"],[1260,"haus",[6,6],"sit"],[1380,null]]
+              :[[360,"haus",[2,4],"cook"],[540,null,null,"work"],[990,"farm",[8,9],"wander"],[1140,"haus",[6,6],"sit"],[1320,"haus",[10,4],"bed"],[1410,null]];
+  let cur=[0,null];
+  for(const e of sch) if(m>=e[0]) cur=e;
+  if(cur[1]==="farm"&&S.weather!=="sun") cur=[cur[0],"haus",[6,6],"sit"];
+  return {map:cur[1],pos:cur[2],mode:cur[3]||"off"};
+}
+function reneUpdate(dt){
+  const pl=renePlan();
+  if(pl.map!==M.id){ RA.vis=false; RA.cuddle=false; return; }
+  if(!RA.vis||RA.map!==M.id||RA.mode!==pl.mode&&!RA.path.length&&Math.hypot(RA.x-pl.pos[0],RA.y-pl.pos[1])>6){ RA.x=pl.pos[0]; RA.y=pl.pos[1]; RA.path=[]; }
+  RA.vis=true; RA.map=M.id; RA.mode=pl.mode;
+  // Kuscheln
+  if(!RA.cuddle&&S.rene.met&&S.rene.cudToday<2&&!paused()&&P.queue.length===0&&rnd()<dt/75) { RA.cuddle=true; RA.path=[]; }
+  let goal=pl.pos;
+  if(RA.cuddle){ goal=null; const px=Math.round(P.x), py=Math.round(P.y); if(Math.abs(Math.round(RA.x)-px)+Math.abs(Math.round(RA.y)-py)<=1&&!RA.path.length){ RA.cuddle=false; reneCuddle(); }
+    else if(!RA.path.length){ const p=bfs(RA.x,RA.y,adjGoal(px,py),2000); RA.path=p||[]; if(!p) RA.cuddle=false; } }
+  else if(pl.mode==="wander"){ RA.timer-=dt; if(RA.timer<=0&&!RA.path.length){ RA.timer=3+rnd()*4; for(let k=0;k<8;k++){ const tx=pl.pos[0]+Math.floor(rnd()*7)-3, ty=pl.pos[1]+Math.floor(rnd()*5)-2; if(walkT(tx,ty)){ const p=bfs(RA.x,RA.y,(x,y)=>x===tx&&y===ty,800); if(p){ RA.path=p; break; } } } } }
+  else if(!RA.path.length&&(Math.round(RA.x)!==goal[0]||Math.round(RA.y)!==goal[1])){ const p=bfs(RA.x,RA.y,(x,y)=>x===goal[0]&&y===goal[1],1500); RA.path=p||[]; if(!p){ RA.x=goal[0]; RA.y=goal[1]; } }
+  RA.moving=false;
+  if(RA.path.length){ const [nx,ny]=RA.path[0], dx=nx-RA.x, dy=ny-RA.y, d=Math.hypot(dx,dy), sp=(RA.cuddle?3.4:2.3)*dt;
+    if(Math.abs(dx)>Math.abs(dy)){ RA.dir=2; RA.flip=dx<0; } else if(Math.abs(dy)>.01) RA.dir=dy<0?1:0;
+    if(d<=sp){ RA.x=nx; RA.y=ny; RA.path.shift(); } else { RA.x+=dx/d*sp; RA.y+=dy/d*sp; }
+    RA.moving=true; RA.ft+=dt; if(RA.ft>.14){ RA.ft=0; RA.frame=(RA.frame+1)%4; } }
+  else { RA.frame=0; if(pl.mode==="cook"){ RA.dir=1; } else if(pl.mode==="sit"||pl.mode==="bed") RA.dir=0; }
+}
+function reneCuddle(){
+  RA.dir=Math.round(P.y)<Math.round(RA.y)?1:Math.round(P.y)>Math.round(RA.y)?0:2; RA.flip=P.x<RA.x; faceTo(Math.round(RA.x),Math.round(RA.y));
+  dialog([{who:"rene",text:pick(JM.RENE.cuddle)},{who:null,text:fmtD("Ihr kuschelt eine Weile. {d0} und {d1} drängeln sich dazwischen."),fn:()=>{ hearts(P.x,P.y-.6); hearts(RA.x,RA.y-.6); sfx("gift"); S.energy=Math.min(S.maxE,S.energy+15); S.rene.cuddles=(S.rene.cuddles||0)+1; S.rene.cudToday++; hud(); }}],()=>{ emit("cuddle"); note("Energie +15"); saveSoon(); });
+}
+function reneTalk(){
+  const pl=renePlan(); RA.dir=Math.round(P.y)<Math.round(RA.y)?1:Math.round(P.y)>Math.round(RA.y)?0:2; RA.flip=P.x<RA.x;
+  if(!S.rene.met){ S.rene.met=true; S.rene.bf=S.day; S.energy=Math.min(S.maxE,S.energy+20);
+    dialog([{who:"rene",text:fmtD("Guten Morgen, {name}! Na, wie gefällt dir unser Hof? Ich hab Rührei gemacht, iss erst mal was.")},{who:"rene",text:"Ich muss gleich los zur Arbeit. Und falls du irgendwo eine Socke findest... die gehört mir. Vermutlich."},{who:null,text:"Energie +20"}],()=>{ emit("talk_rene"); emit("talk","rene"); hud(); saveSoon(); }); return; }
+  if(pl.mode==="cook"&&S.rene.bf!==S.day){ S.rene.bf=S.day; S.energy=Math.min(S.maxE,S.energy+20); const wk=Math.floor((S.day-1)/7);
+    if(weekday()>=5&&S.rene.wk!==wk){ S.rene.wk=wk; give("nudeln",1); dialog([{who:"rene",text:"Wochenende! Heute hab ich gekocht: deine Nudeln mit Tempura-Chicken. Eine Portion ist für später."},{who:null,text:"Du bekommst Chinesische Nudeln mit Tempura-Chicken. Energie +20"}],()=>{ hud(); saveSoon(); }); return; }
+    dialog([{who:"rene",text:pick(JM.RENE.breakfast)},{who:null,text:"Energie +20"}],()=>{ hud(); emit("talk","rene"); saveSoon(); }); return; }
+  dialog([{who:"rene",text:fmtD(pick(weekday()>=5?JM.RENE.lines.concat(JM.RENE.weekend):JM.RENE.lines))}],()=>{ emit("talk","rene"); });
+}
+function spawnMess(){
+  const n=weekday()>=5?3:2, out=[];
+  const pickTile=(m,ok)=>{ for(let k=0;k<40;k++){ const x=Math.floor(rnd()*m.w), y=Math.floor(rnd()*m.h); if(ok(x,y)&&!out.some(o=>o.map===m.id&&o.x===x&&o.y===y)) return [x,y]; } return null; };
+  for(let i=0;i<n;i++){ const inHouse=rnd()<.5, m=inHouse?MAPS.haus:MAPS.farm;
+    const t=inHouse?pickTile(m,(x,y)=>y>=5&&(m.t[y][x]===T.BODEN||m.t[y][x]===T.TEPPICH)&&y<m.h-1):pickTile(m,(x,y)=>x>=2&&x<=12&&y>=6&&y<=9&&(m.t[y][x]===T.GRAS||m.t[y][x]===T.TUFF||m.t[y][x]===T.WEG));
+    if(t) out.push({map:m.id,x:t[0],y:t[1],k:pick(JM.MESS)}); }
+  S.mess=out;
+}
+function tidy(m){
+  S.mess=S.mess.filter(x=>x!==m); S.stats.tidy=(S.stats.tidy||0)+1; sfx("pick"); burst(m.x,m.y,"#f4f1ea",5);
+  note(pick(JM.RENE.tidy[m.k])+" Weggeräumt."); emit("tidy"); saveSoon();
+}
+function blinkNow(seed){ return ((gameT+seed*.77)%3.4)<.13; }
+function openSleep(){ openPanel(`<h2>Schlafen gehen?</h2><p>Der Tag endet und das Spiel wird gespeichert. Gegossene Pflanzen wachsen über Nacht.</p><div class="row2"><button class="btn wide" data-a="yes">Gute Nacht</button><button class="btn alt wide" data-a="no">Noch nicht</button></div>`,{yes:()=>endDay(false),no:closePanel}); }
 function ambientLife(dt){
   const se=season(), day=S.min>=420&&S.min<1140;
   if(M.id==="farm"&&rnd()<dt*2.5){ const w=S.weather==="rain"?14:7; FX.push({smoke:true,x:3*16-2+63+(rnd()-.5)*3,y:-2,vx:w+rnd()*4,vy:-9-rnd()*3,l:2.6,r:1.2,g:0}); }
   for(const p of FX) if(p.smoke) p.r=Math.min(4,p.r+dt*1.1);
-  const want=!M.cave&&day&&S.weather==="sun"&&(se===0||se===1)?4:0;
+  const want=!M.cave&&!M.inside&&day&&S.weather==="sun"&&(se===0||se===1)?4:0;
   if(CRIT.filter(c=>!c.bird).length<want&&rnd()<dt){ const cols=["#f6d55c","#ffffff","#f28fb0","#9ad0f0"]; CRIT.push({x:cam.x+rnd()*LW,y:cam.y+rnd()*LH,tx:0,ty:0,t:0,p:rnd()*10,c:pick(cols)}); }
-  birdT-=dt; if(!M.cave&&day&&birdT<=0){ birdT=10+rnd()*20; const y=cam.y+20+rnd()*(LH-40); for(let i=0;i<3+Math.floor(rnd()*3);i++) CRIT.push({bird:true,x:cam.x+LW+20+i*9,y:y+(i%2)*6+i*2,p:i,vx:-55}); }
+  birdT-=dt; if(!M.cave&&!M.inside&&day&&birdT<=0){ birdT=10+rnd()*20; const y=cam.y+20+rnd()*(LH-40); for(let i=0;i<3+Math.floor(rnd()*3);i++) CRIT.push({bird:true,x:cam.x+LW+20+i*9,y:y+(i%2)*6+i*2,p:i,vx:-55}); }
   for(const c of CRIT){
     if(c.bird){ c.x+=c.vx*dt; continue; }
     c.t-=dt; if(c.t<=0){ c.t=1+rnd()*2; c.tx=c.x+(rnd()-.5)*60; c.ty=c.y+(rnd()-.5)*40; }
@@ -1390,6 +1494,7 @@ function darkness(){
   const m=S.min; let a=0;
   if(m<420) a=.5*(420-m)/60; else if(m>1050) a=Math.min(.66,(m-1050)/170*.66);
   if(M.cave) return .55;
+  if(M.inside) return (m>=1140||m<390)?.32:0;
   if(S.weather==="rain") a=Math.max(a,.18)+.06; if(S.weather==="snow") a+=.03;
   return clamp(a,0,.72);
 }
@@ -1403,7 +1508,7 @@ function render(){
   else { const k=Math.min(1,FDT*6); cam.x+=(tcx-cam.x)*k; cam.y+=(tcy-cam.y)*k; }
   const CX=Math.round(cam.x), CY=Math.round(cam.y);
   const wind=S.weather==="rain"?1.8:S.weather==="snow"?1.2:1;
-  bx.fillStyle=M.cave?"#2c2624":A.shade(A.PAL[se].g,-.35); bx.fillRect(0,0,LW,LH);
+  bx.fillStyle=M.cave?"#2c2624":M.inside?"#241a14":A.shade(A.PAL[se].g,-.35); bx.fillRect(0,0,LW,LH);
   if(GROUND) bx.drawImage(GROUND,-CX,-CY);
   const x0=Math.max(0,Math.floor(CX/16)-1), y0=Math.max(0,Math.floor(CY/16)-1), x1=Math.min(M.w-1,Math.ceil((CX+LW)/16)+1), y1=Math.min(M.h-1,Math.ceil((CY+LH)/16)+2);
   // Wasser
@@ -1425,10 +1530,10 @@ function render(){
     let spr;
     if(["house","coop","barn","markt","nudelhaus","rathaus","tierhof","huette"].includes(o.k)){ const B=lazy(SPR.bld,o.k+se+(night?"n":""),()=>A.building(o.k,se,night)); spr=B.c; L.push({y:by,d:()=>bx.drawImage(spr,o.x*16-B.ox-CX,(o.y+(o.h||1))*16-spr.height+2-CY)}); continue; }
     if(o.k==="mondbaum"){ const glow=Object.keys(S.bundleDone).length; spr=lazy(SPR.prop,"mb"+se+glow,()=>A.prop("mondbaum",se,glow)); L.push({y:by,d:()=>bx.drawImage(spr,o.x*16+16-36-CX,(o.y+2)*16-spr.height+4-CY)}); continue; }
-    const extra=o.k==="stall"?marketDay():o.k==="mailbox"?unread:o.k==="trough"?(o.act==="trough_h"?S.trough.h>0:S.trough.c>0):o.k==="lamp"?night:false;
+    const extra=o.k==="stove"?(renePlan().mode==="cook"&&RA.vis):o.k==="tv"?(S.min>=1080&&S.min<1380):o.k==="stall"?marketDay():o.k==="mailbox"?unread:o.k==="trough"?(o.act==="trough_h"?S.trough.h>0:S.trough.c>0):o.k==="lamp"?night:false;
     spr=lazy(SPR.prop,o.k+se+(extra?1:0),()=>A.prop(o.k,se,extra));
     if(o.k==="fountain"){ L.push({y:by,d:()=>{ bx.drawImage(spr,o.x*16-2-CX,(o.y+2)*16-spr.height+3-CY); const t=gameT*6; for(let i=0;i<4;i++){ const a=(t+i*1.6)%6; bx.fillStyle=se===3?"#ffffff":"#bfe3ff"; bx.fillRect(o.x*16+14+Math.round(Math.sin(i*2.1)*a*1.4)-CX,o.y*16-6+Math.round(a*a*.5)-CY,1,1); } }}); continue; }
-    L.push({y:by,d:()=>bx.drawImage(spr,o.x*16+8-(spr.width>>1)-CX,(o.y+(o.h||1))*16-spr.height+1-CY)});
+    L.push({y:by,d:()=>bx.drawImage(spr,o.x*16+(o.w||1)*8-(spr.width>>1)-CX,(o.y+(o.h||1))*16-spr.height+1-CY)});
   }
   if(M.cave) for(const r of (S.rocks||[])){ if(r.x<x0||r.x>x1||r.y<y0||r.y>y1) continue; const spr=lazy(SPR.prop,"rock"+r.k,()=>A.prop("rock",0,r.k)); L.push({y:r.y+.3,d:()=>bx.drawImage(spr,r.x*16-1-CX,r.y*16+1-CY)}); }
   if(M.id==="farm"){
@@ -1438,17 +1543,21 @@ function render(){
   for(const f of (S.forage[M.id]||[])){ L.push({y:f.y,d:()=>{ const b=Math.round(Math.sin(gameT*3+f.x)*1); bx.drawImage(icon(f.k),f.x*16-CX,f.y*16-2+b-CY); }}); }
   // Figuren
   const fpos=a=>[Math.round(a.x*16+8-CX),Math.round(a.y*16+14-CY)];
-  L.push({y:P.y+.5,d:()=>{ const [fx,fy]=fpos(P); bx.drawImage(SPR.shadow,fx-7,fy-2); const set=P.dir===0?SPR.player.down:P.dir===1?SPR.player.up:(P.flip?SPR.player.sideL:SPR.player.side); bx.drawImage(set[P.frame],fx-9,fy-25); if(P.tool) drawTool(fx,fy); }});
+  L.push({y:P.y+.5,d:()=>{ const [fx,fy]=fpos(P); bx.drawImage(SPR.shadow,fx-7,fy-2); const set=P.dir===0?SPR.player.down:P.dir===1?SPR.player.up:(P.flip?SPR.player.sideL:SPR.player.side); bx.drawImage(P.dir===0&&!P.moving&&!P.tool&&blinkNow(0)?SPR.player.blink:set[P.frame],fx-9,fy-25); if(P.tool) drawTool(fx,fy); }});
   for(const d of DOGS){ L.push({y:d.y+.45,d:()=>{ const [fx,fy]=fpos(d); const jump=d.trick>0?Math.round(Math.abs(Math.sin(d.trick*9))*5):0; bx.drawImage(SPR.shadow,fx-7,fy-2); const set=d.face<0?SPR.dogs[d.i].l:SPR.dogs[d.i].r; const fr=d.trick>0?3:(d.moving?1+(d.frame%2):(S.min>=1260||d.idle>3?3:0)); bx.drawImage(set[fr],fx-11,fy-17-jump); }}); }
   for(const h of HENS){ const spr=SPR.hen[h.deco?(h.i===-1?0:1):S.hens[h.i].c]; L.push({y:h.y+.4,d:()=>{ const [fx,fy]=fpos(h); bx.drawImage(SPR.shadow,fx-6,fy-2); const set=h.face<0?spr.l:spr.r; bx.drawImage(set[h.peck>0?2:(h.moving?h.frame%2:0)],fx-8,fy-13); }}); }
   for(const c of COWS){ const spr=SPR.cow[S.cows[c.i].c]; L.push({y:c.y+.4,d:()=>{ const [fx,fy]=fpos(c); bx.drawImage(SPR.shadowB,fx-12,fy-3); const set=c.face<0?spr.l:spr.r; bx.drawImage(set[c.moving?1+(c.frame%2):0],fx-15,fy-21); if(S.cows[c.i].milk){ bx.drawImage(icon("milch"),fx-4,fy-36+Math.round(Math.sin(gameT*3))); } }}); }
-  for(const id in NPCA){ const a=NPCA[id]; if(!a.vis) continue; L.push({y:a.y+.5,d:()=>{ const [fx,fy]=fpos(a); bx.drawImage(SPR.shadow,fx-7,fy-2); const sp=SPR.npc[id]; const set=a.dir===0?sp.down:a.dir===1?sp.up:(a.flip?sp.sideL:sp.side); bx.drawImage(set[a.frame],fx-9,fy-25);
+  if(M.owner&&npcPlace(M.owner)==="in"){ const id=M.owner, [nx,ny]=M.npcAt; L.push({y:ny+.5,d:()=>{ const fx=nx*16+8-CX, fy=ny*16+14-CY; const sp=SPR.npc[id]; bx.drawImage(blinkNow(3)?sp.blink:sp.down[0],fx-9,fy-25); if(!S.npc[id].met) drawBadge(fx,fy-31,"?"); }}); }
+  if(RA.vis){ L.push({y:RA.y+.5,d:()=>{ const [fx,fy]=fpos(RA); bx.drawImage(SPR.shadow,fx-7,fy-2); const sp=SPR.rene; const set=RA.dir===0?sp.down:RA.dir===1?sp.up:(RA.flip?sp.sideL:sp.side); bx.drawImage(RA.dir===0&&!RA.moving&&blinkNow(7)?sp.blink:set[RA.moving?RA.frame:0],fx-9,fy-25);
+    if(curQ()&&curQ().tg==="rene") drawBadge(fx,fy-31,"!"); else if(RA.cuddle) { bx.globalAlpha=.9; drawHeart(fx-3,fy-33,"#e8476a"); bx.globalAlpha=1; } if(renePlan().mode==="cook"&&Math.floor(gameT*2)%2) { bx.fillStyle="rgba(240,240,245,.6)"; bx.fillRect(2*16+6-CX,3*16-4-CY-Math.floor(gameT*8)%6,2,2); } }}); }
+  for(const m of S.mess) if(m.map===M.id){ L.push({y:m.y,d:()=>{ bx.drawImage(icon(m.k),m.x*16-CX,m.y*16-1-CY); if(Math.floor(gameT*1.5+m.x)%4===0){ bx.fillStyle="#fff"; bx.fillRect(m.x*16+12-CX,m.y*16-CY,1,1); } }}); }
+  for(const id in NPCA){ const a=NPCA[id]; if(!a.vis) continue; L.push({y:a.y+.5,d:()=>{ const [fx,fy]=fpos(a); bx.drawImage(SPR.shadow,fx-7,fy-2); const sp=SPR.npc[id]; const set=a.dir===0?sp.down:a.dir===1?sp.up:(a.flip?sp.sideL:sp.side); bx.drawImage(a.dir===0&&!a.moving&&blinkNow(id.length)?sp.blink:set[a.frame],fx-9,fy-25);
     const st=S.npc[id]; const q=questTarget(); const qn=curQ()&&curQ().tg&&(curQ().tg==="npc:"+id||(curQ().tg==="npc:unmet"&&!st.met));
     if(!st.met||qn){ drawBadge(fx,fy-31,qn?"!":"?"); } else if(NPCS[id].bday[0]===season()&&NPCS[id].bday[1]===dayIn()) drawBadge(fx,fy-31,"*"); }}); }
   // Waldrand außerhalb der Karte
   const edge=(x,y,k)=>{ const spr=lazy(SPR.trees,se+k+(x&3),()=>A.tree(se,k,x&3)); L.push({y:y+.5,d:()=>bx.drawImage(spr,x*16+8-17-CX,y*16+16-45-CY)}); };
-  if(!M.cave) for(let y=Math.floor(CY/16)-1;y<0;y++) for(let x=x0-1;x<=x1+1;x++) edge(x,y,(x+y)%3?"pine":"oak");
-  if(!M.cave) for(let y=M.h;y<=Math.ceil((CY+LH)/16)+2;y++) for(let x=x0-1;x<=x1+1;x++) edge(x,y,(x+y)%3?"pine":"oak");
+  if(!M.cave&&!M.inside) for(let y=Math.floor(CY/16)-1;y<0;y++) for(let x=x0-1;x<=x1+1;x++) edge(x,y,(x+y)%3?"pine":"oak");
+  if(!M.cave&&!M.inside) for(let y=M.h;y<=Math.ceil((CY+LH)/16)+2;y++) for(let x=x0-1;x<=x1+1;x++) edge(x,y,(x+y)%3?"pine":"oak");
   // Kontaktschatten am Boden
   bx.fillStyle="rgba(20,30,15,.22)";
   for(const t of M.trees){ if(t.x<x0-1||t.x>x1+1||t.y<y0||t.y>y1+2) continue; bx.beginPath(); bx.ellipse(t.x*16+10-CX,t.y*16+14-CY,13,5,0,0,Math.PI*2); bx.fill(); }
@@ -1463,12 +1572,13 @@ function render(){
   // Fest
   const fest=festActive(); if(fest&&M.id==="village") drawFestDecor(fest,CX,CY,night);
   // Wetter und Stimmung
-  if(!M.cave) drawAmbient(se,night);
+  if(!M.cave&&!M.inside) drawAmbient(se,night);
   // Licht
   if(dk>0){
     lx.globalCompositeOperation="source-over"; lx.clearRect(0,0,LW,LH); lx.fillStyle=`rgba(18,22,62,${dk})`; lx.fillRect(0,0,LW,LH);
     lx.globalCompositeOperation="destination-out";
     const lights=[]; lights.push([P.x*16+8,P.y*16+4,M.cave?64:38]);
+    if(M.inside){ lights.push([M.w*8,M.h*8,90]); lights.push([M.w*8,M.h*8,90]); }
     if(M.cave) for(const r of (S.rocks||[])) if(r.k==='mondquarz'||r.k==='amethyst') lights.push([r.x*16+8,r.y*16+8,18]);
     if(night){ for(const o of M.obj){ if(["house","coop","barn","markt","nudelhaus","rathaus","tierhof","huette"].includes(o.k)){ const B=lazy(SPR.bld,o.k+se+"n",()=>A.building(o.k,se,true)); const bx0=o.x*16-B.ox, by0=(o.y+(o.h||1))*16-B.c.height+2; B.lights.forEach(l=>lights.push([bx0+l[0],by0+l[1],l[2]])); } if(o.k==="lamp") lights.push([o.x*16+8,o.y*16-8,40]); if(o.k==="mondbaum") lights.push([o.x*16+16,o.y*16-20,50+Object.keys(S.bundleDone).length*12]); }
       if(fest&&M.id==="village") for(let i=0;i<8;i++) lights.push([12*16+i*16+8,7*16+4,22]); }
@@ -1476,7 +1586,7 @@ function render(){
     bx.drawImage(lit,0,0);
     if(night){ bx.globalCompositeOperation="lighter"; for(const [lxp,lyp,r] of lights.slice(1)){ const x=lxp-CX, y=lyp-CY; if(x<-r||y<-r||x>LW+r||y>LH+r) continue; const g=bx.createRadialGradient(x,y,0,x,y,r*.7); g.addColorStop(0,"rgba(255,190,90,.22)"); g.addColorStop(1,"rgba(255,190,90,0)"); bx.fillStyle=g; bx.fillRect(x-r,y-r,r*2,r*2); } bx.globalCompositeOperation="source-over"; }
   }
-  if(!M.cave){
+  if(!M.cave&&!M.inside){
     if(S.min>960&&S.min<1170){ const a=Math.sin((S.min-960)/210*Math.PI); const gr=bx.createLinearGradient(0,0,0,LH); gr.addColorStop(0,`rgba(255,110,150,${.45*a})`); gr.addColorStop(1,`rgba(255,160,60,${.35*a})`); bx.globalCompositeOperation="soft-light"; bx.fillStyle=gr; bx.fillRect(0,0,LW,LH); bx.globalCompositeOperation="source-over"; bx.fillStyle=`rgba(255,130,70,${.10*a})`; bx.fillRect(0,0,LW,LH); }
     if(S.min<480){ const a=Math.min(1,(480-S.min)/120); bx.globalCompositeOperation="soft-light"; bx.fillStyle=`rgba(255,195,110,${.45*a})`; bx.fillRect(0,0,LW,LH); bx.globalCompositeOperation="source-over"; bx.fillStyle=`rgba(255,200,140,${.07*a})`; bx.fillRect(0,0,LW,LH); }
     if(S.min>=600&&S.min<=900&&S.weather==="sun"){ bx.globalCompositeOperation="soft-light"; bx.fillStyle="rgba(255,250,220,.10)"; bx.fillRect(0,0,LW,LH); bx.globalCompositeOperation="source-over"; }
@@ -1589,17 +1699,18 @@ function startGame(st,isNew){
   if(musicGain) musicGain.gain.value=S.music?.05:0;
   if(isNew){
     S.mail.push(...S.mailQ.splice(0)); S.mail.forEach(m=>m.read=false);
-    S.board=null; spawnRocks(); spawnForage("farm",2); spawnForage("forest",7); spawnForage("village",1);
+    S.board=null; spawnRocks(); spawnMess(); spawnForage("farm",2); spawnForage("forest",7); spawnForage("village",1);
     S.tomorrow=rollWeather(2);
     activateQuest(); save(true);
     setTimeout(()=>dialog([
       {who:null,text:"Der Mondhof. Lange stand er leer, jetzt ist er deiner."},
       {who:null,text:fmtD("{d0} und {d1} rennen schon über die Wiese und schnuppern an allem.")},
-      {who:"player",text:"Auf dem Tisch im Haus liegt ein Brief. Mal sehen, was drinsteht."}
+      {who:"player",text:fmtD("Aus dem Haus duftet es nach Kaffee. {von} hat mir einen Brief auf den Tisch gelegt. Mal sehen, was drinsteht.")}
     ],()=>showLetter()),500);
   } else { activateQuest(); note("Willkommen zurück, "+S.name+"."); }
   if(!S.daily||S.daily.day!==S.day) makeDaily();
   if(!S.rocks) spawnRocks();
+  if(!S.mess) S.mess=[];
   updateQuestUI();
 }
 function demoState(){ const s=newState("Janina",JM.CONFIG.pudel.map((p,i)=>({name:p.name||["Lilly","Coco"][i],fell:p.fell}))); s.min=1290; return s; }
@@ -1644,5 +1755,5 @@ if(hot&&hot.snapshot) hot.snapshot(()=>({state:demo?null:S}));
 if(hot&&hot.ready) hot.ready(boot); else boot(hot&&hot.data||{});
 document.addEventListener("visibilitychange",()=>{ if(document.hidden) save(true); });
 requestAnimationFrame(loop);
-window.JMDEBUG={get qid(){const q=curQ(); return q?q.id:'ende';},set speed(v){TESTSPEED=v;},get scale(){return SC/DPR;},get audio(){return AC?AC.state:null;},get DOGS(){return DOGS;},get HENS(){return HENS;},tap:(tx,ty)=>tapAt(tx+.5,ty+.5,tx,ty),swipe:t=>{P.queue=t.slice();},get idle(){return !P.path.length&&!P.act&&!P.queue.length&&P.busy<=0;},get busy(){return {ui:UI,fish:FISH.phase};},dlgNext:()=>nextLine(),give,openHouse,openBag,openMail,openBundles,openCook,talk,giveGift,cam,FISH,fishTap,get NPCA(){return NPCA;},get S(){return S;},emit,endDay,setMap,startGame,newState,P,fieldPlan,doField,openBook,openShop,npcInteract,runFest:id=>runFest(JM.FESTS.find(f=>f.id===id)),get M(){return M;}};
+window.JMDEBUG={RA,renePlan,reneTalk,spawnMess,get qid(){const q=curQ(); return q?q.id:'ende';},set speed(v){TESTSPEED=v;},get scale(){return SC/DPR;},get audio(){return AC?AC.state:null;},get DOGS(){return DOGS;},get HENS(){return HENS;},tap:(tx,ty)=>tapAt(tx+.5,ty+.5,tx,ty),swipe:t=>{P.queue=t.slice();},get idle(){return !P.path.length&&!P.act&&!P.queue.length&&P.busy<=0;},get busy(){return {ui:UI,fish:FISH.phase};},dlgNext:()=>nextLine(),give,openHouse,openBag,openMail,openBundles,openCook,talk,giveGift,cam,FISH,fishTap,get NPCA(){return NPCA;},get S(){return S;},emit,endDay,setMap,startGame,newState,P,fieldPlan,doField,openBook,openShop,npcInteract,runFest:id=>runFest(JM.FESTS.find(f=>f.id===id)),get M(){return M;}};
 })();
