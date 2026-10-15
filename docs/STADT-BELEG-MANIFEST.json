@@ -1,0 +1,49 @@
+{
+  "codeCommit": "66725d0ce4e86dae50b9e77b0cee704ad5b0c4e1",
+  "passed": true,
+  "commandCount": 37,
+  "syntaxCount": 24,
+  "browserCount": 12,
+  "screenshots": [
+    {
+      "path": "docs/belege/stadt-ausbau/hinweise-kompakt-390-3d.png",
+      "bytes": 310759,
+      "sha256": "690af8aceb2ac65a4b0869302d513414d8bb18952265e54568ef682e55f52f5a"
+    },
+    {
+      "path": "docs/belege/stadt-ausbau/hinweise-offen-1440-2d.png",
+      "bytes": 314077,
+      "sha256": "2b4f1c119db673808db86f3dc840b037e9992d1484828d8cac929b554f3c5e16"
+    },
+    {
+      "path": "docs/belege/stadt-ausbau/markttag-390-3d.png",
+      "bytes": 115788,
+      "sha256": "9d33f596b25e9c41bd1553462e409be843a451e8cd28343f972505b65984cc6a"
+    },
+    {
+      "path": "docs/belege/stadt-ausbau/riesenernte-1440-3d.png",
+      "bytes": 678443,
+      "sha256": "f460e793861285594fc01f1d42339a8e5d3ecd2dd4c8b0b9486afc7ee056ddd3"
+    },
+    {
+      "path": "docs/belege/stadt-ausbau/transfer-390-2d.png",
+      "bytes": 47843,
+      "sha256": "5b6d0d6b211a339d822222978ec39211141653534773d5714b65f64919ad2d91"
+    },
+    {
+      "path": "docs/belege/stadt-ausbau/versand-editierbar-390.png",
+      "bytes": 64605,
+      "sha256": "fe1065a54155987eb9f77b92653f3c30b4c22da8ef14159d92ab005fee053f4a"
+    },
+    {
+      "path": "docs/belege/stadt-ausbau/wohnetage-stufe1-390-2d.png",
+      "bytes": 195079,
+      "sha256": "feafe7e012c480b14dc742fa3f8077004a0311f163d982e87df0f9399a78bc65"
+    },
+    {
+      "path": "docs/belege/stadt-ausbau/wohnetage-stufe2-1440-3d.png",
+      "bytes": 474939,
+      "sha256": "7807f9c44353ba6a62805e734668a2d2b0f46743bbfab82a1d8d1b06b3ff2bad"
+    }
+  ]
+}

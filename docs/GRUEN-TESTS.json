@@ -1,5 +1,5 @@
 {
-  "node": "v26.7.0",
+  "node": "v22.23.2",
   "chrome": "installierter Chrome, frische isolierte Playwright-Kontexte",
   "commands": [
     {
@@ -52,6 +52,34 @@
       "error": null
     },
     {
+      "command": "node --check tests/wohnraum.test.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/versand.test.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/markt.test.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/riesenpflanzen.test.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
       "command": "node --check tests/browser.cjs",
       "exitCode": 0,
       "stdout": "",
@@ -87,13 +115,6 @@
       "error": null
     },
     {
-      "command": "node --check tests/run-all.cjs",
-      "exitCode": 0,
-      "stdout": "",
-      "stderr": "",
-      "error": null
-    },
-    {
       "command": "node --check tests/mine-rueckweg.cjs",
       "exitCode": 0,
       "stdout": "",
@@ -101,9 +122,58 @@
       "error": null
     },
     {
-      "command": "node --test tests/ausbau.test.cjs",
+      "command": "node --check tests/transfer-scroll.cjs",
       "exitCode": 0,
-      "stdout": "✔ Kochen verbraucht beide Lager atomar, auch konkrete plus Sammelfische (0.727666ms)\n✔ Alle konkreten Rezeptzutaten sind ganzjährig ohne Wiederverkaufsgewinn kaufbar (0.166334ms)\n✔ Zehn Höhlenebenen: sichere Wege, persistente Abbaubilanz, Reload, neuer Besuch (6.533375ms)\n✔ Neue Erze sind nutzbar; jeder magische Fisch ist wirklich auswählbar und verkäuflich (0.241459ms)\n✔ Alte Saves migrieren ohne Progressionsverlust; leere alte Höhle bleibt leer (1.098667ms)\n✔ Zimmermann: Ressourcen, einmalige Kosten, Bauzeit, Reload und sichtbare Räume (1.441375ms)\n✔ Alte unerreichbare Sammelobjekte werden ohne Verlust erreichbar versetzt (3.220666ms)\n✔ Komplett gekaufte Zutaten erzeugen auch am maximalen Marktbonus keine Endlosschleife (0.126375ms)\n✔ Lebensmitteltransfer erhält Bilanz und lehnt ungültige Mengen ab (0.157625ms)\nℹ tests 9\nℹ suites 0\nℹ pass 9\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 78.479791\n",
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/versand-browser.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/markt-browser.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/hinweise-browser.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/wohnraum-browser.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/riesenpflanzen-browser.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/run-all.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --test tests/ausbau.test.cjs tests/wohnraum.test.cjs tests/versand.test.cjs tests/markt.test.cjs tests/riesenpflanzen.test.cjs",
+      "exitCode": 0,
+      "stdout": "TAP version 13\n# Subtest: Kochen verbraucht beide Lager atomar, auch konkrete plus Sammelfische\nok 1 - Kochen verbraucht beide Lager atomar, auch konkrete plus Sammelfische\n  ---\n  duration_ms: 0.898708\n  type: 'test'\n  ...\n# Subtest: Alle konkreten Rezeptzutaten sind ganzjährig ohne Wiederverkaufsgewinn kaufbar\nok 2 - Alle konkreten Rezeptzutaten sind ganzjährig ohne Wiederverkaufsgewinn kaufbar\n  ---\n  duration_ms: 0.370542\n  type: 'test'\n  ...\n# Subtest: Zehn Höhlenebenen: sichere Wege, persistente Abbaubilanz, Reload, neuer Besuch\nok 3 - Zehn Höhlenebenen: sichere Wege, persistente Abbaubilanz, Reload, neuer Besuch\n  ---\n  duration_ms: 8.969583\n  type: 'test'\n  ...\n# Subtest: Neue Erze sind nutzbar; jeder magische Fisch ist wirklich auswählbar und verkäuflich\nok 4 - Neue Erze sind nutzbar; jeder magische Fisch ist wirklich auswählbar und verkäuflich\n  ---\n  duration_ms: 0.335291\n  type: 'test'\n  ...\n# Subtest: Alte Saves migrieren ohne Progressionsverlust; leere alte Höhle bleibt leer\nok 5 - Alte Saves migrieren ohne Progressionsverlust; leere alte Höhle bleibt leer\n  ---\n  duration_ms: 1.471042\n  type: 'test'\n  ...\n# Subtest: Zimmermann: Ressourcen, einmalige Kosten, Bauzeit, Reload und sichtbare Räume\nok 6 - Zimmermann: Ressourcen, einmalige Kosten, Bauzeit, Reload und sichtbare Räume\n  ---\n  duration_ms: 3.57775\n  type: 'test'\n  ...\n# Subtest: Alte unerreichbare Sammelobjekte werden ohne Verlust erreichbar versetzt\nok 7 - Alte unerreichbare Sammelobjekte werden ohne Verlust erreichbar versetzt\n  ---\n  duration_ms: 4.493166\n  type: 'test'\n  ...\n# Subtest: Komplett gekaufte Zutaten erzeugen auch am maximalen Marktbonus keine Endlosschleife\nok 8 - Komplett gekaufte Zutaten erzeugen auch am maximalen Marktbonus keine Endlosschleife\n  ---\n  duration_ms: 0.136209\n  type: 'test'\n  ...\n# Subtest: Lebensmitteltransfer erhält Bilanz und lehnt ungültige Mengen ab\nok 9 - Lebensmitteltransfer erhält Bilanz und lehnt ungültige Mengen ab\n  ---\n  duration_ms: 0.323583\n  type: 'test'\n  ...\n# Subtest: Markt öffnet nach Spielkalender Samstag 9 bis vor 15 Uhr, nicht an Festtagen\nok 10 - Markt öffnet nach Spielkalender Samstag 9 bis vor 15 Uhr, nicht an Festtagen\n  ---\n  duration_ms: 1.394625\n  type: 'test'\n  ...\n# Subtest: Freie Marktteilmenge rechnet den sichtbaren Stückpreis atomar und nur am offenen Markt ab\nok 11 - Freie Marktteilmenge rechnet den sichtbaren Stückpreis atomar und nur am offenen Markt ab\n  ---\n  duration_ms: 0.2495\n  type: 'test'\n  ...\n# Subtest: Riesen-Ernte bleibt eigene Sorte mit Größenbonus statt fünf normalen Stücken\nok 12 - Riesen-Ernte bleibt eigene Sorte mit Größenbonus statt fünf normalen Stücken\n  ---\n  duration_ms: 1.194167\n  type: 'test'\n  ...\n# Subtest: Größenstapel erhalten Transfer-/Reload-Bilanz; Markt und Tagesversand verwenden selben Basispreis\nok 13 - Größenstapel erhalten Transfer-/Reload-Bilanz; Markt und Tagesversand verwenden selben Basispreis\n  ---\n  duration_ms: 0.436333\n  type: 'test'\n  ...\n# Subtest: Versand ist bearbeitbare Warteschlange mit atomarer Teilrücknahme bis zur einmaligen Abholung\nok 14 - Versand ist bearbeitbare Warteschlange mit atomarer Teilrücknahme bis zur einmaligen Abholung\n  ---\n  duration_ms: 2.396292\n  type: 'test'\n  ...\n# Subtest: Direkte Mengen: nur ganze positive sichere Zahlen bis Bestand\nok 15 - Direkte Mengen: nur ganze positive sichere Zahlen bis Bestand\n  ---\n  duration_ms: 0.425041\n  type: 'test'\n  ...\n# Subtest: Bezahlte Hausstufen erhalten kostenlos obere Etage, sichere Treppe und eigene Einrichtung\nok 16 - Bezahlte Hausstufen erhalten kostenlos obere Etage, sichere Treppe und eigene Einrichtung\n  ---\n  duration_ms: 9.4945\n  type: 'test'\n  ...\n1..16\n# tests 16\n# suites 0\n# pass 16\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 90.865417\n",
       "stderr": "",
       "error": null
     },
@@ -146,6 +216,48 @@
       "command": "node tests/mine-rueckweg.cjs",
       "exitCode": 0,
       "stdout": "Höhlenebene 2+: Schleife läuft, Wegweiser ok, Rückweg ok {\"vor\":[10,14],\"nach\":[10,13],\"ziel\":\"nicht exportiert\",\"zurueck\":{\"map\":\"hoehle\",\"depth\":1}}\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node tests/transfer-scroll.cjs",
+      "exitCode": 0,
+      "stdout": "Transfer-Kontext 390 2d OK\nTransfer-Kontext 390 3d OK\nTransfer-Kontext 1440 2d OK\nTransfer-Kontext 1440 3d OK\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node tests/versand-browser.cjs",
+      "exitCode": 0,
+      "stdout": "Versand Menge/Enter/Teilrücknahme/Doppelklick/Reload/Tagesverkauf 390 OK\nVersand Menge/Enter/Teilrücknahme/Doppelklick/Reload/Tagesverkauf 1440 OK\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node tests/markt-browser.cjs",
+      "exitCode": 0,
+      "stdout": "Markt echter Pointer/Teilmenge/Rosa/Grenzen 390 2d OK\nMarkt echter Pointer/Teilmenge/Rosa/Grenzen 390 3d OK\nMarkt echter Pointer/Teilmenge/Rosa/Grenzen 1440 2d OK\nMarkt echter Pointer/Teilmenge/Rosa/Grenzen 1440 3d OK\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node tests/hinweise-browser.cjs",
+      "exitCode": 0,
+      "stdout": "Hinweise Mondfest/Tagesziele kompakt/Weltklick/Reload/Wechsel 390 2d OK\nHinweise Mondfest/Tagesziele kompakt/Weltklick/Reload/Wechsel 390 3d OK\nHinweise Mondfest/Tagesziele kompakt/Weltklick/Reload/Wechsel 1440 2d OK\nHinweise Mondfest/Tagesziele kompakt/Weltklick/Reload/Wechsel 1440 3d OK\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node tests/wohnraum-browser.cjs",
+      "exitCode": 0,
+      "stdout": "Altbau Haus→Treppe→Wohnetage→Hof 390 2d Stufe 1 OK\nAltbau Haus→Treppe→Wohnetage→Hof 390 2d Stufe 2 OK\nAltbau Haus→Treppe→Wohnetage→Hof 390 3d Stufe 1 OK\nAltbau Haus→Treppe→Wohnetage→Hof 390 3d Stufe 2 OK\nAltbau Haus→Treppe→Wohnetage→Hof 1440 2d Stufe 1 OK\nAltbau Haus→Treppe→Wohnetage→Hof 1440 2d Stufe 2 OK\nAltbau Haus→Treppe→Wohnetage→Hof 1440 3d Stufe 1 OK\nAltbau Haus→Treppe→Wohnetage→Hof 1440 3d Stufe 2 OK\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node tests/riesenpflanzen-browser.cjs",
+      "exitCode": 0,
+      "stdout": "Riesen-Ernte/Name/Vorrat/Teilmenge/Entnahme/Reload 390 2d OK\nRiesen-Ernte/Name/Vorrat/Teilmenge/Entnahme/Reload 390 3d OK\nRiesen-Ernte/Name/Vorrat/Teilmenge/Entnahme/Reload 1440 2d OK\nRiesen-Ernte/Name/Vorrat/Teilmenge/Entnahme/Reload 1440 3d OK\n",
       "stderr": "",
       "error": null
     }
