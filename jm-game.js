@@ -1018,7 +1018,12 @@ function routeTarget(t){
   if(t.map==="haus"){ if(M.id==="farm") return {map:"farm",x:5,y:6,exit:true}; t={map:"farm",x:5,y:6}; }
   else if(t.map.startsWith("i_")){ const o=MAPS.village.obj.find(o=>o.act==="shop:"+t.map.slice(2)); if(M.id==="village") return {map:"village",x:o.door[0],y:o.door[1]-1,exit:true}; t={map:"village",x:o.door[0],y:o.door[1]}; }
   if(t.map===M.id) return t;
-  const via={farm:{village:[27,15],forest:[13,31],hoehle:[13,31]},village:{farm:[0,9],forest:[0,9],hoehle:[0,9]},forest:{farm:[13,0],village:[13,0],hoehle:[24,4]},hoehle:{farm:[10,16],village:[10,16],forest:[10,16]}}[M.id][t.map];
+  // Höhlenebenen (hoehle2 … hoehle10) fehlten hier: der Wegweiser warf auf jeder anderen Karte
+  // einen Fehler und stoppte damit die Spielschleife. Jetzt gilt für alle Ebenen die Höhlenlogik:
+  // zu einem Minenziel geht es tiefer (obere Leiter), zu jedem anderen Ziel über die untere Leiter hinaus.
+  const wege={farm:{village:[27,15],forest:[13,31],hoehle:[13,31]},village:{farm:[0,9],forest:[0,9],hoehle:[0,9]},forest:{farm:[13,0],village:[13,0],hoehle:[24,4]},hoehle:{farm:[10,16],village:[10,16],forest:[10,16]}};
+  const via=(wege[M.cave?"hoehle":M.id]||{})[t.map]||(M.cave?(/^hoehle\d*$/.test(t.map)?[10,2]:[10,16]):null);
+  if(!via) return null;
   return {map:M.id,x:via[0],y:via[1],exit:true};
 }
 
@@ -1464,11 +1469,15 @@ async function takePhoto(){
 }
 
 /* ================= Spielschleife ================= */
-let last=performance.now(), gameT=0, saveTick=0, TESTSPEED=1, FDT=.016, camSnap=true, CRIT=[], birdT=4;
+let last=performance.now(), gameT=0, saveTick=0, TESTSPEED=1, FDT=.016, camSnap=true, CRIT=[], birdT=4, loopErr=false;
 const cam={x:0,y:0};
 function loop(now){
   const dt=Math.min(.05,(now-last)/1000); last=now; gameT+=dt; FDT=dt;
-  if(running){ for(let k=0;k<TESTSPEED;k++){ if(!paused()||(demo&&!UI.panel)) update(dt); else if(FISH.phase==="reel") fishUpdate(dt); } ambient(dt); if(!demo) starTick(dt); render(); }
+  // Wichtig: Ein Fehler in Update oder Anzeige darf die Schleife NIE beenden. Sonst friert die
+  // Welt ein, während Menüs weiter reagieren (echter Vorfall 15.10.2026, Höhle ab Ebene 2).
+  try{
+    if(running){ for(let k=0;k<TESTSPEED;k++){ if(!paused()||(demo&&!UI.panel)) update(dt); else if(FISH.phase==="reel") fishUpdate(dt); } ambient(dt); if(!demo) starTick(dt); render(); }
+  }catch(e){ if(!loopErr){ loopErr=true; console.error("Spielschleife:",e); } }
   requestAnimationFrame(loop);
 }
 function update(dt){

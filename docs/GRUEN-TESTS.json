@@ -94,9 +94,16 @@
       "error": null
     },
     {
+      "command": "node --check tests/mine-rueckweg.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
       "command": "node --test tests/ausbau.test.cjs",
       "exitCode": 0,
-      "stdout": "✔ Kochen verbraucht beide Lager atomar, auch konkrete plus Sammelfische (0.636833ms)\n✔ Alle konkreten Rezeptzutaten sind ganzjährig ohne Wiederverkaufsgewinn kaufbar (0.153583ms)\n✔ Zehn Höhlenebenen: sichere Wege, persistente Abbaubilanz, Reload, neuer Besuch (7.395084ms)\n✔ Neue Erze sind nutzbar; jeder magische Fisch ist wirklich auswählbar und verkäuflich (0.2435ms)\n✔ Alte Saves migrieren ohne Progressionsverlust; leere alte Höhle bleibt leer (0.8655ms)\n✔ Zimmermann: Ressourcen, einmalige Kosten, Bauzeit, Reload und sichtbare Räume (1.35775ms)\n✔ Alte unerreichbare Sammelobjekte werden ohne Verlust erreichbar versetzt (3.360584ms)\n✔ Komplett gekaufte Zutaten erzeugen auch am maximalen Marktbonus keine Endlosschleife (0.125333ms)\n✔ Lebensmitteltransfer erhält Bilanz und lehnt ungültige Mengen ab (0.12ms)\nℹ tests 9\nℹ suites 0\nℹ pass 9\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 74.346416\n",
+      "stdout": "✔ Kochen verbraucht beide Lager atomar, auch konkrete plus Sammelfische (0.727666ms)\n✔ Alle konkreten Rezeptzutaten sind ganzjährig ohne Wiederverkaufsgewinn kaufbar (0.166334ms)\n✔ Zehn Höhlenebenen: sichere Wege, persistente Abbaubilanz, Reload, neuer Besuch (6.533375ms)\n✔ Neue Erze sind nutzbar; jeder magische Fisch ist wirklich auswählbar und verkäuflich (0.241459ms)\n✔ Alte Saves migrieren ohne Progressionsverlust; leere alte Höhle bleibt leer (1.098667ms)\n✔ Zimmermann: Ressourcen, einmalige Kosten, Bauzeit, Reload und sichtbare Räume (1.441375ms)\n✔ Alte unerreichbare Sammelobjekte werden ohne Verlust erreichbar versetzt (3.220666ms)\n✔ Komplett gekaufte Zutaten erzeugen auch am maximalen Marktbonus keine Endlosschleife (0.126375ms)\n✔ Lebensmitteltransfer erhält Bilanz und lehnt ungültige Mengen ab (0.157625ms)\nℹ tests 9\nℹ suites 0\nℹ pass 9\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 78.479791\n",
       "stderr": "",
       "error": null
     },
@@ -132,6 +139,13 @@
       "command": "node tests/shops.cjs",
       "exitCode": 0,
       "stdout": "Laden: 5×-Kauf bilanziert; Timo Öffnungsgrenzen und Sonntag/Regen OK\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node tests/mine-rueckweg.cjs",
+      "exitCode": 0,
+      "stdout": "Höhlenebene 2+: Schleife läuft, Wegweiser ok, Rückweg ok {\"vor\":[10,14],\"nach\":[10,13],\"ziel\":\"nicht exportiert\",\"zurueck\":{\"map\":\"hoehle\",\"depth\":1}}\n",
       "stderr": "",
       "error": null
     }

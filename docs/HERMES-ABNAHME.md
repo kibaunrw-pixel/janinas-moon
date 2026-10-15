@@ -49,11 +49,19 @@ Live-Verifikation, nicht nur Push-Erfolg:
 - Echter Nutzerweg auf der Live-Adresse: Spielstart → Reise in den Mondwald → Höhle per Bildschirmklick betreten → HUD „Ebene 1/10 · Eingangskammer“ → obere Leiter per Bildschirmklick → „Ebene 2/10 · Kupferadern“. Sechsmaliger Ebenenwechsel wiederholt, ohne Fehler. Kühlschrank und Küche am Rechner/Handy-Layout geöffnet.
 - Testweise 3D-Darstellung: `R3.proj` selbst aufgerufen, solange das 3D-Modul noch nicht bereit war, wirft in **meinem Prüfcode** einen Fehler (`matrixWorldInverse`). Das ist ein Fehler meiner Messung, kein Spielverhalten; `use3D()` fängt einen fehlgeschlagenen 3D-Aufbau intern ab und fällt auf 2D zurück.
 
-## Ungeklärt: einmaliger Laufzeitfehler auf der Live-Seite
+## Ursache gefunden und behoben (15.10.2026, nach Renés Spielstand-Export)
 
-In einem Live-Prüflauf trat **einmal** `Uncaught TypeError: Cannot read properties of undefined (reading 'farm')` auf; unmittelbar danach war die Spielfigur in diesem Lauf eingefroren (Menüs reagierten weiter). **Dieser Fehler ließ sich anschließend nicht reproduzieren:** sechsmaliger Ebenenwechsel, wiederholtes Betreten/Verlassen und Erschöpfung in der Höhle liefen ohne Fehler; eine Wiederholung mit der tatsächlichen Live-Adresse ebenfalls nicht. Der `MAPS`-Zugriff auf `.farm` existiert nur in `jm-game.js`; die einzige Neuzuweisung von `MAPS` liegt im Tageswechsel beim Hausausbau.
+René schickte seinen Spielstand (`map: hoehle2`, `px/py: 10,14`, Energie 68). Damit ließ sich der Fehler **sofort und reproduzierbar** nachstellen; ein synthetischer Regressionstest (`tests/mine-rueckweg.cjs`) war vor dem Fix ebenfalls rot.
 
-Bewertung: **nicht behoben, nicht erklärt.** Möglich ist ein Mischzustand während der ersten Aktivierung des neuen Service-Workers (die Seite lud unmittelbar nach dem Deploy), aber das ist eine Vermutung und **kein Beweis** – beweisbar ist nur, dass der Fehler einmal auftrat und danach nicht wieder. Bei einem erneuten Auftreten sind Screenshot, Ebene, Gerät und Spielstand-Export nötig; ohne diese Angaben wäre jede Änderung ein Symptom-Patch.
+Ursache: `routeTarget` in `jm-game.js` kannte in seiner Wege-Tabelle nur `farm`, `village`, `forest` und `hoehle`. Für die neuen Ebenen `hoehle2` … `hoehle10` war der Tabelleneintrag `undefined`; sobald ein Ziel auf einer anderen Karte lag, warf `via[0]` den Fehler `Cannot read properties of undefined (reading 'farm')`. Der Aufruf kam aus `drawArrow3` → `render3` → `render`, also **in jedem Frame**. Weil `requestAnimationFrame(loop)` hinter dem werfenden Aufruf stand, endete die Spielschleife: Welt und Spielfigur standen still, während Menüs (DOM-Ereignisse) weiter reagierten. Das ist exakt Renés Symptom „stecke fest, kann aber nichts mehr machen“.
+
+Zwei Änderungen, beide root cause statt Symptom:
+1. `routeTarget` behandelt jede Höhlenebene über die Höhlenlogik (`M.cave`): Ziel in der Mine → obere Leiter, jedes andere Ziel → untere Leiter hinaus; fehlt ein Eintrag, kommt `null` statt eines Absturzes.
+2. `loop()` kapselt Update und Anzeige in `try/catch`, und `requestAnimationFrame(loop)` liegt **außerhalb**. Ein Anzeigefehler darf die Spielschleife nie wieder beenden.
+
+Belege: Regressionstest vorher rot (`Auf Ebene 2 darf kein Laufzeitfehler auftreten: Cannot read properties of undefined (reading 'farm')`), nachher grün. Mit Renés echtem Spielstand: keine Fehler mehr, Figur bewegt sich wieder (10,14 → 10,15), untere Leiter führt von Ebene 2 zurück auf Ebene 1. Vollständiger Lauf: 21 Befehle, alle Exit 0.
+
+**Lehre:** Die früheren Prüfungen liefen mit Spielständen ohne aktives Kartenziel auf einer Mine-Ebene – der Fehler blieb dadurch unsichtbar, obwohl er bei jedem normalen Spielab „Programm auf dem Hof, dann in die Höhle“ auftreten muss. Ein Wegweiser-/Anzeigefehl gehört mit einer laufenden Aufgabe und wechselnder Karte getestet, nicht nur mit einem nackten Kartenwechsel.
 
 ## Neu abgelegte Prüfskripte
 
