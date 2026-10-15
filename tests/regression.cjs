@@ -9,7 +9,7 @@ const out=process.env.EVIDENCE_DIR||'/Users/reneklomfas/.hermes/cache/scratch/ja
  await page.locator('#qty-ei').fill('3');await page.locator('[data-a="inn"][data-k="ei"]').click();assert.equal(await page.evaluate(()=>JMDEBUG.S.fridge.ei),3);
  await page.locator('[data-a="inall"][data-k="ei"]').click();assert.equal(await page.evaluate(()=>JMDEBUG.S.fridge.ei),9);
  await page.locator('[data-a="out1"][data-k="ei"]').click();assert.equal(await page.evaluate(()=>JMDEBUG.S.inv.ei),1);
- await page.locator('#qty-ei').fill('2');await page.locator('[data-a="outn"][data-k="ei"]').click();assert.equal(await page.evaluate(()=>JMDEBUG.S.inv.ei),3);
+ await page.locator('#outqty-ei').fill('2');await page.locator('[data-a="outn"][data-k="ei"]').click();assert.equal(await page.evaluate(()=>JMDEBUG.S.inv.ei),3);
  await snap('kuehlschrank-2d');assert.equal(await page.locator('#panel').evaluate(el=>el.scrollWidth<=el.clientWidth+1),true,'Panel darf horizontal nicht überlaufen');
  await page.getByRole('button',{name:'Schließen',exact:true}).click();
  await page.reload();await page.getByRole('button',{name:'Weiterspielen',exact:true}).click();assert.equal(await page.evaluate(()=>JMDEBUG.S.fridge.ei),6);assert.equal(await page.evaluate(()=>JMDEBUG.S.inv.ei),3);

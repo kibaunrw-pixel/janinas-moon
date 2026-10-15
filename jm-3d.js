@@ -269,6 +269,7 @@ function prop(mg,mgE,o,se,st){
       if(st.market) for(let i=0;i<5;i++) mg.sph(x+(i%2?.15:-.15),.55,z-.6+i*.3,.1,.08,.1,["#e8483a","#f6d55c","#8fd263","#f28fb0","#e8842a"][i],true); return; }
     case "sprinkler": mg.cyl(x,.12,z,.08,.24,"#8a8a96"); mg.sph(x,.26,z,.07,.05,.07,"#3f6ad8"); return;
     case "cave": { const cx=o.x+1, cz=o.y+1.2; mg.sph(cx,.2,cz-.2,1.25,1.25,.95,"#6e625a"); mg.sph(cx-.7,.1,cz,.55,.6,.5,"#5e534c"); mg.sph(cx+.75,.1,cz,.6,.55,.5,"#7a6e64"); mg.sph(cx,.35,cz+.55,.48,.62,.25,"#1a1414"); if(snow) mg.sph(cx,1.15,cz-.3,.9,.3,.6,"#ffffff"); return; }
+    case "stairs": for(let i=0;i<7;i++){const h=(7-i)*.16;mg.box(x,h/2,z-.85+i*.27,.86,h,.28,wood);mg.box(x,h+.02,z-.85+i*.27,.9,.04,.28,woodL);} for(const sx of [-.47,.47]){mg.box(x+sx,.8,z,.05,1.6,1.8,woodD);} return;
     case "leiter": for(const sx of [-.22,.22]) mg.box(x+sx,.8,z,.06,1.6,.06,woodL); for(let i=0;i<5;i++) mg.box(x,.2+i*.3,z,.44,.05,.05,wood); return;
     case "stove": mg.box(x,.42,z,.86,.84,.8,"#4a4a52"); mg.box(x,.86,z,.9,.06,.84,"#2b2b33"); mg.box(x,.38,z+.41,.6,.4,.02,"#2b2b33"); for(const sx of [-.2,.2]) mg.cyl(x+sx,.9,z,.14,.02,st.cooking?"#e8483a":"#1a1a20"); if(st.cooking){ mg.cyl(x-.2,1.0,z,.16,.18,"#b0b0bc"); } return;
     case "counter": mg.box(x,.42,z,.92,.84,.8,"#c8945a"); mg.box(x,.86,z,.96,.06,.84,"#f0ece4"); mg.box(x,.45,z+.41,.36,.5,.02,"#a8743f"); mg.sph(x+.15,.97,z,.1,.06,.1,"#f4f1ea"); return;
@@ -473,7 +474,9 @@ function wallTile(mg,mgE,M,x,y){
       if((M.windows||[]).some(([wx])=>wx===x)){ mg.box(x+.5,1.35,y+1.01,.8,.8,.03,Q.trim); mgE.box(x+.5,1.35,y+1.03,.68,.68,.02,"#a8d8f4"); mg.box(x+.5,1.35,y+1.05,.04,.7,.01,Q.trim); mg.box(x+.5,.92,y+1.06,.86,.06,.1,Q.trim); } }
     return; }
   if(x===0||x===M.w-1){ if(y<M.h-1) mg.box(x+(x===0?.85:.15),wh/2,y+.5,.3,wh,1,cssShade(Q.wall,-.08)); return; }
-  if(y===M.h-1){ mg.box(x+.5,.2,y+.2,1,.4,.25,cssShade(Q.trim,-.1)); }
+  if(y===M.h-1){ mg.box(x+.5,.2,y+.2,1,.4,.25,cssShade(Q.trim,-.1)); return; }
+  // Interior partitions need a visible wall too, not a brown floor-shaped blocker.
+  mg.box(x+.5,.7,y+.5,.16,1.4,1,Q.wall);mg.box(x+.5,1.42,y+.5,.2,.05,1,Q.trim);
 }
 function glasshouse(mg,se,ok){
   const x0=16,z0=24,w=6,d=3, fr=ok?"#f4f1ea":"#8a8a8a";

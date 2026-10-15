@@ -1,5 +1,5 @@
 /* Janinas Moon – Offline-Speicher. Ausbau-Fundament 1 */
-const CACHE = "janinas-moon-ausbau-1";
+const CACHE = "janinas-moon-wohnraum-transfers-2";
 const FILES = ["./", "index.html", "jm-data.js", "jm-ausbau.js", "jm-art.js", "jm-game.js", "jm-3d.js", "three.module.min.js", "manifest.webmanifest", "icon-192.png", "icon-512.png", "icon-maskable-512.png"];
 // Kein skipWaiting: ein laufender Hof wird bei einem späteren Update nicht zwangsweise übernommen.
 self.addEventListener("install", e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES))); });

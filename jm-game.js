@@ -27,7 +27,7 @@ addEventListener("resize",resize); resize();
 /* ================= Sprites ================= */
 const SPR={icons:{},crops:{},trees:{},bld:{},prop:{},bush:{}};
 const lazy=(st,k,fn)=>st[k]||(st[k]=fn());
-const icon=k=>lazy(SPR.icons,k,()=>A.icon(k));
+const icon=k=>lazy(SPR.icons,k,()=>{const it=ITEMS[k],base=A.icon(it?.base||k);if(!it?.giant)return base;const c=A.cnv(base.width,base.height),g=c.getContext("2d");g.drawImage(base,0,0);g.fillStyle="#654322";g.fillRect(0,0,8,8);g.fillStyle="#ffe18a";g.font="bold 8px monospace";g.fillText("R",1,7);return c;});
 function initSprites(){
   SPR.player=A.char(JM.lookFrom(null));
   SPR.npc={}; for(const id in NPCS) SPR.npc[id]=A.char(NPCS[id].look);
@@ -298,7 +298,7 @@ function finishMove(){
 }
 function faceTo(tx,ty){ const dx=tx-Math.round(P.x), dy=ty-Math.round(P.y); if(Math.abs(dx)>Math.abs(dy)){ P.dir=2; P.flip=dx<0; } else if(dy){ P.dir=dy<0?1:0; } }
 function travel(ex){
-  fadeQuick(()=>{ setMap(ex.to,ex.tx,ex.ty); const msg={village:"Das Dorf",forest:"Der Mondwald",farm:"Dein Hof",hoehle:"Die Mondhöhle",haus:"Zuhause"}[ex.to]||(JM.SHOPS[ex.to.slice(2)]?JM.SHOPS[ex.to.slice(2)].n:""); banner(msg); if(ex.to==="hoehle"&&!S.flags.caveSeen){ S.flags.caveSeen=true; setTimeout(()=>note("Tippe auf Felsen, um sie abzubauen. Darin stecken Kupfer und Edelsteine."),900); } if(ex.to==="forest"&&!S.flags.forestSeen){ S.flags.forestSeen=true; } if(ex.to==="village"&&!S.flags.villageSeen){ S.flags.villageSeen=true; note("Tippe Leute an, um mit ihnen zu reden. Türen öffnen Läden."); } updateQuestUI(); saveSoon(); });
+  fadeQuick(()=>{ setMap(ex.to,ex.tx,ex.ty); const msg={village:"Das Dorf",forest:"Der Mondwald",farm:"Dein Hof",hoehle:"Die Mondhöhle",haus:"Zuhause"}[ex.to]||(JM.SHOPS[ex.to.slice(2)]?JM.SHOPS[ex.to.slice(2)].n:MAPS[ex.to].title||""); banner(msg); if(ex.to==="hoehle"&&!S.flags.caveSeen){ S.flags.caveSeen=true; setTimeout(()=>note("Tippe auf Felsen, um sie abzubauen. Darin stecken Kupfer und Edelsteine."),900); } if(ex.to==="forest"&&!S.flags.forestSeen){ S.flags.forestSeen=true; } if(ex.to==="village"&&!S.flags.villageSeen){ S.flags.villageSeen=true; note("Tippe Leute an, um mit ihnen zu reden. Türen öffnen Läden."); } updateQuestUI(); saveSoon(); });
 }
 
 /* ================= Eingabe ================= */
@@ -442,10 +442,10 @@ function doField(x,y){
       const it=ITEMS[S.hold]; if(!S.inv[S.hold]){ note("Keine "+it.n+" mehr."); return; }
       const wasT=f.t; f.t=true; f.c={k:it.crop,a:0}; take(S.hold,1); P.tool="seed"; sfx("plant"); burst(x,y,"#e8d29a",4); if(!wasT) emit("till"); emit("plant"); break; }
     case "harvest": {
-      const cr=CROPS[f.c.k], ck=f.c.k, giant=!!f.c.g; give(ck,giant?5:1); S.stats.harvest+=giant?5:1;
-      if(giant){ S.stats.giant=(S.stats.giant||0)+1; sfx("fanfare"); for(let i=0;i<3;i++) burst(x,y,["#f6d55c","#ffffff","#f28fb0"][i],14); banner("Riesen-"+ITEMS[ck].n+"!"); note("So groß! Das zählt wie fünf Stück."); }
+      const cr=CROPS[f.c.k], ck=f.c.k, giant=!!f.c.g,harvestKey=JM.Ausbau.harvestItem(ck,giant); give(harvestKey,1); S.stats.harvest+=giant?5:1;
+      if(giant){ S.stats.giant=(S.stats.giant||0)+1; sfx("fanfare"); for(let i=0;i<3;i++) burst(x,y,["#f6d55c","#ffffff","#f28fb0"][i],14); banner("Riesen-"+ITEMS[ck].n+"!"); note("Als Riesenpflanze im Rucksack: Wert von fünf normalen Früchten plus 20 % Größenbonus."); }
       if(cr.re){ f.c.a=cr.days-cr.re; delete f.c.g; } else { f.c=null; f.d=false; }
-      P.tool="auto"; sfx("pick"); floatItem(x,y,ck); emit("harvest"); break; }
+      P.tool="auto"; sfx("pick"); floatItem(x,y,harvestKey); emit("harvest"); break; }
     case "placespr": if(!S.inv.sprinkler) return; take("sprinkler",1); f.o="spr"; sfx("plant"); break;
     case "pickspr": f.o=null; give("sprinkler",1); sfx("pick"); break;
     case "fert": if(!S.inv.duenger) return; take("duenger",1); f.d=true; sfx("plant"); burst(x,y,"#cfe8a8",6); break;
@@ -547,6 +547,8 @@ function bushAct(o){
 function objAct(o){
   const a=o.act;
   if(a==="house") return travel({to:"haus",tx:7,ty:9});
+  if(a==="house_up") return travel({to:"haus_oben",tx:3,ty:8});
+  if(a==="house_down") return travel({to:"haus",tx:16,ty:5});
   if(a==="stove") return openCook();
   if(a==="table") return M.id==="haus"?showLetter():note("Ein gemütlicher Tisch.");
   if(a==="tv") return openTV();
@@ -590,8 +592,7 @@ function rollWeather(day){
 function endDay(passedOut){
   if(UI.fade) return;
   closeAll(); FISH.phase=null;
-  let earned=0; for(const k in S.ship){ earned+=(ITEMS[k].sell||0)*S.ship[k]; S.shipLog[k]=(S.shipLog[k]||0)+S.ship[k]; S.stats.shipped+=S.ship[k]; } S.ship={};
-  S.money+=earned; S.stats.earned+=earned;
+  const earned=JM.Ausbau.settleShipment(S);
   const oldSe=season();
   // Pflanzen
   for(const k in S.field){ const f=S.field[k]; const [x,y]=k.split(",").map(Number); const glass=MAPS.farm.t[y][x]===T.GLAS;
@@ -735,9 +736,12 @@ function addPts(id,n){
   const st=S.npc[id], before=hearts10(id); st.p=clamp(st.p+n,0,1000); const after=hearts10(id);
   if(after>before&&after>=3){ emit("hearts3"); if(!st.r3){ st.r3=true; const r=NPCS[id].recipe; if(r!=="nudeln"&&!S.recipes.includes(r)) S.mailQ.push({from:id,t:"Ein Rezept für dich",b:NPCS[id].n+" hat dir ein Rezept geschrieben:\n\n"+ITEMS[r].n+"\n\nKoch es mal in deiner Küche. Ich hoffe, es schmeckt dir!\n\n"+NPCS[id].n,recipe:r}); } }
 }
-function npcInteract(id){
+function npcInteract(id,conversationOnly){
   const N=NPCS[id], st=S.npc[id], a=NPCA[id];
   if(a){ a.dir=Math.round(P.y)<Math.round(a.y)?1:Math.round(P.y)>Math.round(a.y)?0:2; a.flip=P.x<a.x; }
+  if(id==="rosa"&&marketDay()&&!conversationOnly){
+    openPanel(`<h2>Rosa am Markttag</h2><p>Der Marktstand steht direkt vor Rosa. Was möchtest du tun? Samstag 9–15 Uhr, außer an Festtagen.</p><button class="btn wide" data-a="market">Marktstand öffnen</button><button class="btn alt wide" data-a="conversation">Mit Rosa reden</button>${closeBtn}`,{market:openStall,conversation:()=>{closePanel();npcInteract(id,true);}});return;
+  }
   const f=festActive();
   if(f&&id==="rosa"&&!S.flags["fest_"+f.id+year()]){ runFest(f); return; }
   if(!st.met){
@@ -841,7 +845,7 @@ function bundleDeliver(bid,k){
     S.bundleDone[bid]=true; sfx("fanfare"); bundleReward(bid); emit("bundle"); burst(13.5,18,"#f6e6a0",24,true);
     if(JM.BUNDLES.every(b=>S.bundleDone[b.id])){ give("mondstein",1); S.mailQ.push({from:"rosa",t:"Der Mondbaum leuchtet!",b:"Liebe "+S.name+",\n\ngestern Nacht hat der ganze Wald geleuchtet. Alle im Dorf haben es gesehen. Was auch immer du getan hast: Danke!\n\nRosa"}); }
   }
-  saveSoon(); openBundles();
+  saveSoon(); refreshPanel(openBundles);
 }
 function bundleReward(bid){
   const msg={fr:"Der Baum schenkt dir 3 Sprinkler. Mei verkauft ab jetzt auch welche.",ho:"Du fühlst dich stärker. Maximale Energie +30.",fl:"Zwischen den Wurzeln liegt eine goldene Angel!",so:"Zwischen den Wurzeln steht eine große Gießkanne.",he:"Ein warmes Leuchten zieht Richtung Hof. Das Gewächshaus ist repariert!"}[bid];
@@ -1014,7 +1018,9 @@ function questTarget(){
 }
 function routeTarget(t){
   if(!t) return null; if(t.map===M.id) return t;
+  if(t.map==="haus_oben"&&M.id==="haus")return {map:M.id,x:16,y:4,exit:true};
   if(M.inside){ const ex=M.exits[0]; return {map:M.id,x:ex.x,y:ex.y,exit:true}; }
+  if(t.map==="haus_oben"){if(M.id==="haus")return {map:M.id,x:16,y:4,exit:true};t={map:"haus",x:16,y:4};}
   if(t.map==="haus"){ if(M.id==="farm") return {map:"farm",x:5,y:6,exit:true}; t={map:"farm",x:5,y:6}; }
   else if(t.map.startsWith("i_")){ const o=MAPS.village.obj.find(o=>o.act==="shop:"+t.map.slice(2)); if(M.id==="village") return {map:"village",x:o.door[0],y:o.door[1]-1,exit:true}; t={map:"village",x:o.door[0],y:o.door[1]}; }
   if(t.map===M.id) return t;
@@ -1147,8 +1153,10 @@ function drawWx(){
 }
 function updateQuestUI(){
   if(!S) return;
-  const q=curQ(); const el=$("quest");
-  if(!q){ el.hidden=true; return; } el.hidden=false;
+  const q=curQ()||(S.daily?.day===S.day&&S.daily.goals.length?{t:"Tagesziele",n:0}:null),el=$("quest"),box=$("questBox"),toggle=$("qToggle");
+  box.hidden=!q;if(!q){el.hidden=true;return;}
+  const collapsed=!!S.hintsCollapsed;box.classList.toggle("collapsed",collapsed);el.hidden=collapsed;
+  toggle.textContent=collapsed?"Ziele +":"−";toggle.setAttribute("aria-expanded",String(!collapsed));toggle.setAttribute("aria-label",collapsed?"Hinweise aufklappen":"Hinweise einklappen");
   $("qTitle").textContent=fmtD(q.t);
   let sub=q.n>1?S.quest.p+"/"+q.n:"";
   if(q.tg==="rene"&&!renePlan().map) sub=fmtD("{von} ist bei der Arbeit, ab 16:30 Uhr zu Hause");
@@ -1197,6 +1205,7 @@ $("hotbar").addEventListener("click",e=>{
 });
 $("bBag").addEventListener("click",()=>{ if(paused()) return; audioInit(); openBag("bag"); });
 $("bMenu").addEventListener("click",()=>{ if(paused()) return; audioInit(); openBook("quest"); });
+$("qToggle").addEventListener("click",e=>{e.stopPropagation();if(!S||demo)return;S.hintsCollapsed=!S.hintsCollapsed;updateQuestUI();save(true);});
 $("quest").addEventListener("click",()=>{ if(paused()) return; openBook("quest"); });
 
 /* Dialoge */
@@ -1225,12 +1234,32 @@ function nextLine(){
 
 /* Panels */
 const veil=$("veil"), panel=$("panel");
-let PH={};
+let PH={},panelAction=null;
+// Only an in-place action refresh inherits context. Opening another view always starts fresh.
+function refreshPanel(render){
+ const top=panel.scrollTop,box=panel.getBoundingClientRect(),active=document.activeElement;
+ const token=e=>e.id?'id:'+e.id:JSON.stringify([e.dataset.a,e.dataset.k||'',e.dataset.n||'']);
+ const controls=()=>Array.from(panel.querySelectorAll('[data-a][data-k],input[id]'));
+ const old=controls(),focus=old.includes(active)?token(active):null;
+ const values=new Map(old.filter(e=>e.matches('input[id]')).map(e=>[e.id,e.value]));
+ const visible=old.filter(e=>{const r=e.getBoundingClientRect();return r.bottom>box.top&&r.top<box.bottom;});
+ // Prefer the acted-on control, then visible neighbours if its last row disappears.
+ const anchorIndex=old.indexOf(panelAction||active);
+ const ordered=anchorIndex<0?visible:visible.slice().sort((a,b)=>Math.abs(old.indexOf(a)-anchorIndex)-Math.abs(old.indexOf(b)-anchorIndex)||old.indexOf(b)-old.indexOf(a));
+ const anchors=ordered.map(e=>({key:token(e),y:e.getBoundingClientRect().top-box.top}));
+ render();
+ const next=controls();for(const e of next)if(values.has(e.id))e.value=values.get(e.id);
+ const focused=next.find(e=>token(e)===focus&&!e.disabled);if(focused)focused.focus({preventScroll:true});
+ const anchor=anchors.map(a=>({...a,el:next.find(e=>token(e)===a.key)})).find(a=>a.el);
+ panel.scrollTop=anchor?panel.scrollTop+anchor.el.getBoundingClientRect().top-box.top-anchor.y:top;
+}
 function openPanel(html,handlers){ UI.panel=true; panel.innerHTML=html; PH=handlers||{}; veil.hidden=false; panel.scrollTop=0; panel.querySelectorAll("canvas[data-ic]").forEach(c=>{ const src=shopIcon(c.dataset.ic); c.width=src.width; c.height=src.height; c.getContext("2d").drawImage(src,0,0); }); panel.querySelectorAll("canvas[data-pt]").forEach(c=>{ const id=c.dataset.pt; const src=id==="dog0"?SPR.dogs[0].r[0]:id==="dog1"?SPR.dogs[1].r[0]:id==="rene"?SPR.rene.portrait:SPR.npc[id].portrait; c.width=src.width; c.height=src.height; c.getContext("2d").drawImage(src,0,0); }); }
 function closePanel(){ veil.hidden=true; UI.panel=false; hud(); hotbar(); updateQuestUI(); }
 function closeAll(){ closePanel(); $("dlg").hidden=true; UI.dialog=false; DQ=[]; }
 veil.addEventListener("pointerdown",e=>{ if(e.target===veil) closePanel(); });
-panel.addEventListener("click",e=>{ const b=e.target.closest("[data-a]"); if(!b) return; const a=b.dataset.a; sfx("blip"); if(a==="close") return closePanel(); if(PH[a]) PH[a](b.dataset.k,b); });
+panel.addEventListener("click",e=>{ const b=e.target.closest("[data-a]"); if(!b||e.detail>1) return; const a=b.dataset.a; sfx("blip"); if(a==="close") return closePanel(); if(PH[a]){panelAction=b;try{PH[a](b.dataset.k,b);}finally{panelAction=null;}} });
+// Enter confirms exactly once; no implicit form submission or held-key repeat.
+panel.addEventListener("keydown",e=>{if(e.key!=="Enter"||!e.target.matches("input[data-confirm]"))return;e.preventDefault();e.stopPropagation();if(e.repeat)return;const input=e.target;const b=Array.from(panel.querySelectorAll("[data-a]")).find(b=>b.dataset.a===input.dataset.confirm&&b.dataset.k===input.dataset.k);if(b&&!b.disabled)b.click();});
 const ic=(k,cls)=>`<canvas class="${cls||"ic"}" data-ic="${k}"></canvas>`;
 const closeBtn=`<button class="btn alt wide" data-a="close">Schließen</button>`;
 const heartRow=(n,max)=>`<span class="hearts">${"♥".repeat(n)}<i>${"♥".repeat((max||10)-n)}</i></span>`;
@@ -1255,8 +1284,8 @@ function showLetter(){
 }
 function openFridge(){
  const keys=Array.from(new Set([...Object.keys(S.inv),...Object.keys(S.fridge)])).filter(JM.Ausbau.food);
- const rows=keys.map(k=>`<section class="storage-row"><b>${esc(ITEMS[k].n)}</b><p>Rucksack: ${S.inv[k]||0} · Kühlschrank: ${S.fridge[k]||0}</p><label>Menge <input type="number" min="1" step="1" value="1" id="qty-${k}" aria-label="Menge ${esc(ITEMS[k].n)}"></label><div class="btns">${['in','out'].map(dir=>[1,'n','all'].map(n=>`<button class="btn ${dir==='out'?'alt':''}" data-a="${dir}${n}" data-k="${k}" ${!(dir==='in'?S.inv[k]:S.fridge[k])?'disabled':''}>${n==='all'?'Alle':n==='n'?'Menge':1} ${dir==='in'?'einlagern':'entnehmen'}</button>`).join('')).join('')}</div></section>`).join('');
- const handlers={};for(const dir of ['in','out'])for(const n of [1,'n','all'])handlers[dir+n]=k=>{const into=dir==='in',source=into?S.inv:S.fridge;const amount=n==='all'?(source[k]||0):n==='n'?Number($('qty-'+k).value):1;if(!JM.Ausbau.transfer(S,k,amount,into)){note('Bitte eine verfügbare, positive ganze Menge wählen.');return;}hotbarSoon();save(true);openFridge();};
+ const rows=keys.map(k=>`<section class="storage-row"><b>${esc(ITEMS[k].n)}</b><p>Rucksack: ${S.inv[k]||0} · Kühlschrank: ${S.fridge[k]||0}</p>${['in','out'].map(dir=>{const max=(dir==='in'?S.inv:S.fridge)[k]||0;return `<div class="transfer-actions"><label>${dir==='in'?'Einlagern':'Entnehmen'} · max. ${max} <input type="text" inputmode="numeric" pattern="[0-9]*" data-confirm="${dir}n" data-k="${k}" value="1" id="${dir==='in'?'qty-':'outqty-'}${k}" aria-label="${dir==='in'?'Einlagern':'Entnehmen'} ${esc(ITEMS[k].n)}"></label><div class="btns">${[1,'n','all'].map(n=>`<button class="btn ${dir==='out'?'alt':''}" data-a="${dir}${n}" data-k="${k}" ${!max?'disabled':''}>${n==='all'?'Alle':n==='n'?'Menge':1} ${dir==='in'?'einlagern':'entnehmen'}</button>`).join('')}</div></div>`;}).join('')}</section>`).join('');
+ const handlers={};for(const dir of ['in','out'])for(const n of [1,'n','all'])handlers[dir+n]=k=>{const into=dir==='in',source=into?S.inv:S.fridge;const amount=n==='all'?(source[k]||0):n==='n'?JM.Ausbau.quantity($((into?'qty-':'outqty-')+k).value,source[k]||0):1;if(!JM.Ausbau.transfer(S,k,amount,into)){note('Bitte eine verfügbare, positive ganze Menge wählen.');return;}hotbarSoon();save(true);refreshPanel(openFridge);};
  openPanel(`<h2>Kühlschrank</h2><p>Lebensmittel lagern hier dauerhaft. Die Küche nutzt Rucksack und Kühlschrank. Beide Lager sind unbegrenzt.</p>${rows||'<p>Noch keine Lebensmittel.</p>'}${closeBtn}`,handlers);
 }
 function openCook(){
@@ -1268,7 +1297,7 @@ function openCook(){
     return `<div class="row ${r.fav?"fav":""}">${ic(r.k)}<div class="tx"><b>${r.fav?"★ ":""}${ITEMS[r.k].n}</b><small>${need}</small><small>${ITEMS[r.k].eat>=999?"Volle Energie":"+"+ITEMS[r.k].eat+" Energie"} · Wert ${ITEMS[r.k].sell} G</small></div><button class="btn" data-a="cook" data-k="${r.k}" ${ok?"":"disabled"}>Kochen</button></div>`;
   }).join("");
   openPanel(`<h2>Küche</h2><p class="sub">Was möchtest du kochen?</p>${rows}<div class="row2"><button class="btn alt wide" data-a="back">Zurück</button>${closeBtn}</div>`,
-    {back:closePanel,cook:k=>{ const r=JM.RECIPES.find(x=>x.k===k); if(!JM.Ausbau.cook(S,r)) return; hotbarSoon(); sfx("cook"); emit("cook_"+k); if(r.fav&&!S.flags.favCooked){ S.flags.favCooked=true; setTimeout(()=>note("Es duftet nach Tempura. Dein Lieblingsessen ist fertig! Tippe es unten zweimal an, um es zu essen."),100); } else note(ITEMS[k].n+" ist fertig."); saveSoon(); openCook(); }});
+    {back:closePanel,cook:k=>{ const r=JM.RECIPES.find(x=>x.k===k); if(!JM.Ausbau.cook(S,r)) return; hotbarSoon(); sfx("cook"); emit("cook_"+k); if(r.fav&&!S.flags.favCooked){ S.flags.favCooked=true; setTimeout(()=>note("Es duftet nach Tempura. Dein Lieblingsessen ist fertig! Tippe es unten zweimal an, um es zu essen."),100); } else note(ITEMS[k].n+" ist fertig."); saveSoon(); refreshPanel(openCook); }});
 }
 function openTV(){
   openPanel(`<h2>Fernsehen</h2><div class="stack">
@@ -1282,9 +1311,11 @@ function openTV(){
    tip:()=>{ closePanel(); dialog([{who:null,text:"Landfunk: "+JM.TIPS[(S.day*7)%JM.TIPS.length]}]); }});
 }
 function openBag(mode){
-  const keys=Object.keys(S.inv).filter(k=>S.inv[k]>0);
   let sel=null;
+  const shipMove=(k,into,n)=>{if(!JM.Ausbau.shipTransfer(S,k,n,into)){note("Bitte eine positive ganze Menge bis zum angezeigten Bestand eingeben.");return;}if(!S.inv[k]&&S.hold===k)S.hold="auto";sfx("pick");if(into)emit("ship");hotbarSoon();save(true);refreshPanel(render);};
+  const shipQuantity=(k,into)=>{const n=(into?S.inv:S.ship)[k]||0,id=(into?"ship-qty-":"ship-out-qty-")+k;return `<label>${into?"Einlegen":"Entnehmen"} · max. ${n} <input type="text" inputmode="numeric" pattern="[0-9]*" id="${id}" value="1" data-confirm="${into?"shipn":"shipoutn"}" data-k="${k}" aria-label="${into?"Einlegen":"Entnehmen"} ${esc(ITEMS[k].n)}"></label><button class="btn" data-a="${into?"shipn":"shipoutn"}" data-k="${k}" ${n?"":"disabled"}>Menge ${into?"einlegen":"entnehmen"}</button>`;};
   const render=()=>{
+    const keys=Object.keys(S.inv).filter(k=>S.inv[k]>0);
     const cells=keys.filter(k=>S.inv[k]>0).map(k=>`<button class="cell ${sel===k?"sel":""}" data-a="sel" data-k="${k}">${ic(k)}<span>${S.inv[k]}</span></button>`).join("");
     let det="";
     if(sel&&S.inv[sel]){
@@ -1292,16 +1323,16 @@ function openBag(mode){
       if(mode==="ship"&&JM.SHIPPABLE(sel)){ btns.push(`<button class="btn" data-a="ship1" data-k="${sel}">1 einlegen</button>`); btns.push(`<button class="btn" data-a="shipall1" data-k="${sel}">Alle ${S.inv[sel]} einlegen</button>`); }
       if(mode==="bag"&&it.eat) btns.push(`<button class="btn" data-a="eat" data-k="${sel}">Essen (${it.eat>=999?"volle":"+"+it.eat} Energie)</button>`);
       if(mode==="bag") btns.push(`<button class="btn alt" data-a="hold" data-k="${sel}">In die Hand nehmen</button>`);
-      det=`<div class="row">${ic(sel)}<div class="tx"><b>${esc(it.n)}</b><small>${it.sell?"Wert "+it.sell+" G":it.cat==="seed"?"Wächst im "+CROPS[it.crop].se.map(s=>JM.SEASONS[s]).join(", ")+" · "+CROPS[it.crop].days+" Tage":""}</small></div></div><div class="btns">${btns.join("")}</div>`;
+      det=`<div class="row">${ic(sel)}<div class="tx"><b>${esc(it.n)}</b><small>${it.sell?"Wert "+it.sell+" G":it.cat==="seed"?"Wächst im "+CROPS[it.crop].se.map(s=>JM.SEASONS[s]).join(", ")+" · "+CROPS[it.crop].days+" Tage":""}</small></div></div><div class="btns">${btns.join("")}</div>${mode==="ship"&&JM.SHIPPABLE(sel)?shipQuantity(sel,true):""}`;
     }
     let head="";
-    if(mode==="ship"){ let v=0; for(const k in S.ship) v+=(ITEMS[k].sell||0)*S.ship[k]; head=`<p class="sub">In der Kiste: <b>${v} G</b>. Ausgezahlt wird am nächsten Morgen.</p><button class="btn wide" data-a="shipall">Alle Ernte, Eier, Fische und Funde einlegen</button>`; }
+    if(mode==="ship"){ let v=0; for(const k in S.ship) v+=(ITEMS[k].sell||0)*S.ship[k]; head=`<p class="sub">Vorgemerkt: <b>${v} G</b>. Abholung und Auszahlung beim Schlafen am nächsten Morgen. Bis dahin kannst du alles entnehmen.</p><button class="btn wide" data-a="shipall">Alle Ernte, Eier, Fische und Funde einlegen</button>`; }
     else head=`<p class="sub">${S.money.toLocaleString("de-DE")} G · Gießkanne ${S.can.w}/${S.can.max}${S.rod?" · "+(S.rod===2?"Goldene Angel":"Angel"):""}</p>`;
-    openPanel(`<h2>${mode==="ship"?"Versandkiste":"Rucksack"}</h2>${head}${keys.length?`<div class="grid">${cells}</div>`:`<p>Noch leer.</p>`}${det}${closeBtn}`,
-    {sel:k=>{ sel=k; render(); }, eat:k=>{ eat(k); render(); }, hold:k=>{ S.hold=k; closePanel(); },
-     ship1:k=>{ take(k,1); S.ship[k]=(S.ship[k]||0)+1; sfx("pick"); emit("ship"); if(!S.inv[k]) sel=null; render(); saveSoon(); },
-     shipall1:k=>{ const n=S.inv[k]; take(k,n); S.ship[k]=(S.ship[k]||0)+n; sfx("pick"); emit("ship"); sel=null; render(); saveSoon(); },
-     shipall:()=>{ let n=0; const keep=questKeep(), kept=[]; for(const k of Object.keys(S.inv)){ const c=ITEMS[k].cat; if(JM.SHIPPABLE(k)&&c!=="dish"){ const m=Math.max(0,S.inv[k]-(keep[k]||0)); if(keep[k]&&S.inv[k]>0) kept.push(ITEMS[k].n); if(!m) continue; n+=m; S.ship[k]=(S.ship[k]||0)+m; take(k,m); } } if(n){ sfx("pick"); emit("ship"); note(n+" Sachen eingelegt."+(kept.length?" Behalten für deine Aufgabe: "+kept.join(", ")+".":"")); } else note(kept.length?"Alles Übrige brauchst du für deine Aufgabe.":"Nichts zum Einlegen. Gerichte legst du einzeln ein."); sel=null; render(); saveSoon(); }});
+    openPanel(`<h2>${mode==="ship"?"Versandkiste":"Rucksack"}</h2>${head}${keys.length?`<div class="grid">${cells}</div>`:`<p>Noch leer.</p>`}${det}${mode==="ship"?`<h3>Inhalt der Versandkiste</h3>${Object.keys(S.ship).length?Object.keys(S.ship).map(k=>`<section class="storage-row">${ic(k)}<b>${esc(ITEMS[k].n)}</b><p>${S.ship[k]} Stück · ${S.ship[k]*(ITEMS[k].sell||0)} G vorgemerkt</p>${shipQuantity(k,false)}<button class="btn alt" data-a="shipoutall" data-k="${k}">Alle entnehmen</button></section>`).join(""):"<p>Leer – keine vorgemerkte Ware.</p>"}`:""}${closeBtn}`,
+    {shipn:k=>shipMove(k,true,JM.Ausbau.quantity($("ship-qty-"+k).value,S.inv[k]||0)),shipoutn:k=>shipMove(k,false,JM.Ausbau.quantity($("ship-out-qty-"+k).value,S.ship[k]||0)),shipoutall:k=>shipMove(k,false,S.ship[k]||0),sel:k=>{ sel=k; refreshPanel(render); }, eat:k=>{ eat(k); refreshPanel(render); }, hold:k=>{ S.hold=k; closePanel(); },
+     ship1:k=>shipMove(k,true,1),
+     shipall1:k=>shipMove(k,true,S.inv[k]||0),
+     shipall:()=>{ let n=0; const keep=questKeep(), kept=[]; for(const k of Object.keys(S.inv)){ const c=ITEMS[k].cat; if(JM.SHIPPABLE(k)&&c!=="dish"){ const m=Math.max(0,S.inv[k]-(keep[k]||0)); if(keep[k]&&S.inv[k]>0) kept.push(ITEMS[k].n); if(!m) continue; n+=m; JM.Ausbau.shipTransfer(S,k,m,true);if(!S.inv[k]&&S.hold===k)S.hold="auto";hotbarSoon(); } } if(n){ sfx("pick"); emit("ship"); note(n+" Sachen eingelegt."+(kept.length?" Behalten für deine Aufgabe: "+kept.join(", ")+".":"")); } else note(kept.length?"Alles Übrige brauchst du für deine Aufgabe.":"Nichts zum Einlegen. Gerichte legst du einzeln ein."); sel=null; refreshPanel(render); save(true); }});
   };
   render();
 }
@@ -1334,7 +1365,7 @@ function openShop(id){
   openPanel(`<div class="shophead"><canvas class="pt" data-pt="${nid}"></canvas><div><h2>${esc(SH.n)}</h2><p class="sub">${esc(N.n)} · ${heartRow(hearts10(nid))}</p></div></div>
     <div class="row2"><button class="btn alt wide" data-a="talk">Reden</button><button class="btn alt wide" data-a="gift" ${giftable&&S.npc[nid].gift!==S.day?"":"disabled"}>${giftable?"Schenken: "+esc(ITEMS[S.hold].n):"Geschenk: erst unten wählen"}</button></div>
     <p class="sub">Du hast ${S.money.toLocaleString("de-DE")} G</p>${rows}${id==='zimmerei'?houseOffers():''}${closeBtn}`,
-  {buildhouse:k=>{if(id!=='zimmerei'||!JM.Ausbau.orderHouse(S,+k))return;hotbarSoon();hud();save(true);openShop(id);},talk:()=>{ closePanel(); talk(nid); }, gift:()=>{ closePanel(); giveGift(nid,S.hold); },
+  {buildhouse:k=>{if(id!=='zimmerei'||!JM.Ausbau.orderHouse(S,+k))return;hotbarSoon();hud();save(true);refreshPanel(()=>openShop(id));},talk:()=>{ closePanel(); talk(nid); }, gift:()=>{ closePanel(); giveGift(nid,S.hold); },
    buy:(k,b)=>{ const n=+b.dataset.n, s=SH.stock.find(x=>x.k===k), c=s.p*n; if(S.money<c) return; S.money-=c; sfx("buy");
      if(k==="kanne2"){ S.bought[k]=true; S.can.max=40; S.can.w=40; note("Die große Gießkanne gehört jetzt dir."); }
      else if(k==="rute2"){ S.bought[k]=true; S.rod=2; note("Die goldene Angel gehört jetzt dir."); }
@@ -1342,7 +1373,7 @@ function openShop(id){
      else if(k==="tier_huhn"){ const names=["Pünktchen","Erna","Flocke","Berta","Krümel","Lotti"]; const nm=names.find(x=>!S.hens.some(h=>h.n===x))||"Huhn"; S.hens.push({n:nm,c:S.hens.length%2,h:0,pet:0}); note(nm+" zieht in deinen Hühnerstall ein!"); emit("buyanimal"); }
      else if(k==="tier_kuh"){ const nm=["Lotte","Milka"].find(x=>!S.cows.some(c=>c.n===x))||"Kuh"; S.cows.push({n:nm,c:S.cows.length%2,h:0,pet:0,milk:false}); note(nm+" zieht in deinen Stall ein! Füll den Futtertrog auf der Weide."); emit("buyanimal"); }
      else { give(k,n); note(n+"× "+ITEMS[k].n+" gekauft."); }
-     hud(); saveSoon(); openShop(id); }});
+     hud(); saveSoon(); refreshPanel(()=>openShop(id)); }});
 }
 function openMail(){
   const list=S.mail.slice().reverse();
@@ -1353,7 +1384,7 @@ function openCraft(){
   const rows=JM.CRAFT.map(r=>{ const ok=Object.entries(r.need).every(([k,n])=>has(k,n)); const need=Object.entries(r.need).map(([k,n])=>`<span class="${(S.inv[k]||0)>=n?"ok":"no"}">${n}× ${ITEMS[k].n} (${S.inv[k]||0})</span>`).join(" ");
     return `<div class="row">${ic(r.k)}<div class="tx"><b>${r.n>1?r.n+"× ":""}${esc(ITEMS[r.k].n)}</b><small>${esc(r.d)}</small><small>${need}</small></div><button class="btn" data-a="make" data-k="${r.id}" ${ok?"":"disabled"}>Bauen</button></div>`; }).join("");
   openPanel(`<h2>Werkbank</h2><p class="sub">Kupfer und Steine findest du in der Mondhöhle hinten im Wald.</p>${rows}<div class="row2"><button class="btn alt wide" data-a="back">Zurück</button>${closeBtn}</div>`,
-  {back:closePanel,make:k=>{ const r=JM.CRAFT.find(x=>x.id===k); if(!r||!Object.entries(r.need).every(([i,n])=>has(i,n))) return; for(const [i,n] of Object.entries(r.need)) take(i,n); give(r.k,r.n); sfx("fanfare"); emit("craft"); note(r.n+"× "+ITEMS[r.k].n+" gebaut."); saveSoon(); openCraft(); }});
+  {back:closePanel,make:k=>{ const r=JM.CRAFT.find(x=>x.id===k); if(!r||!Object.entries(r.need).every(([i,n])=>has(i,n))) return; for(const [i,n] of Object.entries(r.need)) take(i,n); give(r.k,r.n); sfx("fanfare"); emit("craft"); note(r.n+"× "+ITEMS[r.k].n+" gebaut."); saveSoon(); refreshPanel(openCraft); }});
 }
 function openWardrobe(){
   const W=JM.WARDROBE, cur=Object.assign({hair:JM.PLAYER_LOOK.hair,style:JM.PLAYER_LOOK.style,top:JM.PLAYER_LOOK.top,outfit:"ov:"+JM.PLAYER_LOOK.bot,skin:JM.PLAYER_LOOK.skin},S.look||{});
@@ -1367,18 +1398,18 @@ function openWardrobe(){
   {back:closePanel,rset:k=>{ const [a,v]=k.split("|"); S.reneLook=Object.assign({},S.reneLook||{},{[a]:v}); lookSprites(); sfx("blip"); saveSoon(); openWardrobe(); },set:k=>{ const [a,v]=k.split("|"); S.look=Object.assign({},S.look||{}, {[a]:v}); lookSprites(); sfx("blip"); saveSoon(); openWardrobe(); }});
   const c=$("wpv"), src=SPR.player.down[0]; c.width=src.width; c.height=src.height; c.getContext("2d").drawImage(src,0,0);
 }
-function marketDay(){ return weekday()===5&&S.min>=540&&S.min<900&&!festToday(); }
+function marketDay(){ return JM.Ausbau.marketOpen(S.day,S.min); }
 function openStall(){
   if(!marketDay()){ note("Dein Marktstand. Samstags von 9 bis 15 Uhr ist Markttag, dann kannst du hier teurer verkaufen."); return; }
-  const mk=S.market||(S.market={day:S.day,buzz:0,sold:0,earned:0});
+  const mk=S.market?.day===S.day?S.market:(S.market={day:S.day,buzz:0,sold:0,earned:0});
   const bonus=()=>1.2+Math.min(.5,mk.buzz*.05);
   const keys=Object.keys(S.inv).filter(k=>S.inv[k]>0&&JM.SHIPPABLE(k));
-  const rows=keys.map(k=>`<div class="row">${ic(k)}<div class="tx"><b>${esc(ITEMS[k].n)}</b><small>${S.inv[k]} Stück · ${Math.round(ITEMS[k].sell*bonus())} G pro Stück</small></div><button class="btn" data-a="sell" data-k="${k}">Verkaufen</button></div>`).join("");
-  openPanel(`<h2>Markttag</h2><p class="sub">Andrang: ${"★".repeat(Math.min(10,mk.buzz))}${"☆".repeat(Math.max(0,10-mk.buzz))} · Preis +${Math.round((bonus()-1)*100)} %</p>
+  const rows=keys.map(k=>`<section class="storage-row">${ic(k)} <b>${esc(ITEMS[k].n)}</b><p>${S.inv[k]} Stück · ${Math.round(ITEMS[k].sell*bonus())} G pro Stück</p><label>Menge · max. ${S.inv[k]} <input type="text" inputmode="numeric" pattern="[0-9]*" id="market-qty-${k}" data-confirm="sell" data-k="${k}" value="1" aria-label="Verkaufen ${esc(ITEMS[k].n)}"></label><button class="btn" data-a="sell" data-k="${k}">Menge verkaufen</button></section>`).join("");
+  openPanel(`<h2>Markttag</h2><p class="sub">Direktverkauf: sofort bezahlt, nicht zurücknehmbar. Angezeigter Stückpreis gilt für die ganze Teilmenge.<br>Andrang: ${"★".repeat(Math.min(10,mk.buzz))}${"☆".repeat(Math.max(0,10-mk.buzz))} · Preis +${Math.round((bonus()-1)*100)} %</p>
     <p class="sub">Heute verkauft: ${mk.sold} · ${mk.earned.toLocaleString("de-DE")} G</p>${rows||"<p>Du hast nichts zum Verkaufen dabei.</p>"}${closeBtn}`,
-  {sell:k=>{ if(!S.inv[k]) return; const g=Math.round(ITEMS[k].sell*bonus()); take(k,1); S.money+=g; S.stats.earned+=g; S.shipLog[k]=(S.shipLog[k]||0)+1; mk.sold++; mk.earned+=g; emit("ship"); if(mk.sold%2===0) mk.buzz++; sfx("buy");
+  {sell:k=>{ const n=JM.Ausbau.quantity($("market-qty-"+k).value,S.inv[k]||0);if(JM.Ausbau.sellMarket(S,k,n)===false){note("Bitte eine positive ganze Menge bis zum Bestand eingeben. Markt nur samstags 9–15 Uhr.");return;}if(!S.inv[k]&&S.hold===k)S.hold="auto";hotbarSoon();emit("ship");sfx("buy");
     if(rnd()<.25){ const who=pick(JM.NPC_ORDER.filter(id=>S.npc[id].met)); if(who){ addPts(who,15); note(NPCS[who].n+" kauft bei dir ein und freut sich."); } }
-    hud(); saveSoon(); openStall(); }});
+    hud(); save(true); refreshPanel(openStall); }});
 }
 function openBoard(){
   const B=S.board;

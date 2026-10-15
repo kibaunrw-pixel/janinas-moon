@@ -1,0 +1,9 @@
+{
+  "baseline": "926f78e60e25b0b915d35e4bb5d5faec5bf0427d",
+  "command": "PLAYWRIGHT_PATH=… node tests/transfer-scroll.cjs",
+  "result": {
+    "output": "AssertionError [ERR_ASSERTION]: Kühlschrank-Anker bleibt sichtbar: vorher 399.59375, nachher 2481.59375\n    at /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/transfer-scroll.cjs:14:9 {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: false,\n  expected: true,\n  operator: '==',\n  diff: 'simple'\n}",
+    "exit_code": 1,
+    "error": null
+  }
+}

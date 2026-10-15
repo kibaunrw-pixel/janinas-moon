@@ -1,0 +1,5 @@
+{
+  "output": "AssertionError [ERR_ASSERTION]: Stand-Klick darf nicht ausschließlich im Rosa-Gespräch enden\n    at /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/markt-browser.cjs:10:9 {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: 0,\n  expected: true,\n  operator: '==',\n  diff: 'simple'\n}",
+  "exit_code": 1,
+  "error": null
+}

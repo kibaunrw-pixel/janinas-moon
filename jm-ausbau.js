@@ -2,12 +2,34 @@
 /* Kleine gemeinsam von Spiel und Node-Tests verwendete Ausbau-Regeln. */
 (function(){
 const JM=window.JM, X=JM.Ausbau={};
+// Previously a giant crop silently yielded five ordinary items. Preserve that five-item
+// baseline as one distinct giant, with a moderate +20% size premium on its total value.
+for(const k of Object.keys(JM.CROPS)){const it=JM.ITEMS[k];JM.ITEMS['riesig_'+k]={...it,n:'Riesen-'+it.n,base:k,giant:true,sell:it.sell*6,...(it.eat?{eat:it.eat*5}:{})};}
+X.harvestItem=(k,giant)=>giant?'riesig_'+k:k;
 X.food=k=>!!JM.ITEMS[k]&&['crop','animal','fish','forage','dish','ingredient'].includes(JM.ITEMS[k].cat);
 X.transfer=function(s,k,n,into){
  if(!X.food(k)||!Number.isSafeInteger(n)||n<=0)return false;
  const a=into?s.inv:s.fridge,b=into?s.fridge:s.inv;
  if((a[k]||0)<n||!Number.isSafeInteger((b[k]||0)+n))return false;
  a[k]-=n;if(!a[k])delete a[k];b[k]=(b[k]||0)+n;return true;
+};
+X.quantity=function(value,max){if(!/^\d+$/.test(String(value)))return null;const n=Number(value);return Number.isSafeInteger(n)&&n>0&&n<=max?n:null;};
+X.shipTransfer=function(s,k,n,into){
+ if(!JM.ITEMS[k]||!JM.SHIPPABLE(k)||!Number.isSafeInteger(n)||n<=0)return false;
+ const a=into?s.inv:s.ship,b=into?s.ship:s.inv;
+ if((a[k]||0)<n||!Number.isSafeInteger((b[k]||0)+n))return false;
+ a[k]-=n;if(!a[k])delete a[k];b[k]=(b[k]||0)+n;return true;
+};
+// S.ship has always been the saved pending queue; shipLog is already sold, never a source.
+X.settleShipment=function(s){let earned=0;for(const [k,n] of Object.entries(s.ship)){earned+=(JM.ITEMS[k]?.sell||0)*n;s.shipLog[k]=(s.shipLog[k]||0)+n;s.stats.shipped+=n;}s.ship={};s.money+=earned;s.stats.earned+=earned;return earned;};
+X.marketOpen=function(day,min){return (day-1)%7===5&&min>=540&&min<900&&!JM.FESTS.some(f=>f.s===Math.floor((day-1)/JM.DPS)%4&&f.d===(day-1)%JM.DPS+1);};
+X.sellMarket=function(s,k,n){
+ if(!X.marketOpen(s.day,s.min)||!JM.ITEMS[k]||!JM.SHIPPABLE(k)||!Number.isSafeInteger(n)||n<=0||(s.inv[k]||0)<n)return false;
+ const mk=s.market?.day===s.day?s.market:{day:s.day,buzz:0,sold:0,earned:0};
+ const g=Math.round(JM.ITEMS[k].sell*(1.2+Math.min(.5,mk.buzz*.05)))*n;
+ if(!Number.isSafeInteger(s.money+g))return false;
+ s.market=mk;s.inv[k]-=n;if(!s.inv[k])delete s.inv[k];s.money+=g;s.stats.earned+=g;s.shipLog[k]=(s.shipLog[k]||0)+n;
+ mk.buzz+=Math.floor((mk.sold+n)/2)-Math.floor(mk.sold/2);mk.sold+=n;mk.earned+=g;return g;
 };
 X.count=(s,k)=>k==='fisch'?JM.FISHKEYS.reduce((n,f)=>n+X.count(s,f),0):(s.inv[k]||0)+((s.fridge||{})[k]||0);
 X.plan=function(s,need){
@@ -93,7 +115,7 @@ X.pickFish=function(kind,min,moon,rng=Math.random){
 };
 X.migrate=function(s){
  const validBag=b=>b&&typeof b==='object'&&!Array.isArray(b)?Object.fromEntries(Object.entries(b).filter(([,n])=>Number.isSafeInteger(n)&&n>0)):{};
- s.inv=validBag(s.inv);s.fridge=validBag(s.fridge);
+ s.inv=validBag(s.inv);s.fridge=validBag(s.fridge);s.ship=validBag(s.ship);
  for(const k of Object.keys(s.fridge))if(!X.food(k)){s.inv[k]=(s.inv[k]||0)+s.fridge[k];delete s.fridge[k];}
  if(!s.house||typeof s.house!=='object')s.house={level:0,job:null};
  if(!Number.isInteger(s.house.level)||s.house.level<0||s.house.level>2)s.house.level=0;
@@ -102,6 +124,7 @@ X.migrate=function(s){
  if(!s.mine.floors||typeof s.mine.floors!=='object')s.mine.floors={};
  if(s.map==='hoehle'&&s.mine.floors.hoehle===undefined&&Array.isArray(s.rocks))s.mine.floors.hoehle=s.rocks;
  for(const id of Object.keys(s.mine.floors)){const a=s.mine.floors[id];if(!Array.isArray(a)){delete s.mine.floors[id];continue;}s.mine.floors[id]=a.filter(r=>r&&Number.isInteger(r.x)&&Number.isInteger(r.y)&&r.x>=2&&r.x<20&&r.y>=2&&r.y<17&&JM.ITEMS[r.k]?.cat==='mineral'&&Number.isInteger(r.hp)&&r.hp>0);}
+ if(typeof s.hintsCollapsed!=='boolean')s.hintsCollapsed=false;
  s.ausbauVersion=1;return s;
 };
 // Timo wohnt/arbeitet in einer eigenen, über den Dorfweg erreichbaren Zimmerei.
@@ -116,8 +139,8 @@ JM.NPCS.timo={n:'Timo',role:'Zimmermann',home:'zimmerei',bday:[2,4],
  rain:'Bei Regen arbeite ich lieber drinnen. Das Holz muss trocken bleiben.',gift:{love:'Das kann ich gut gebrauchen. Danke!',like:'Wie aufmerksam, danke.',neutral:'Danke dir.',hate:'Das passt eher in die Kabelkiste.'}};
 JM.NPC_ORDER.push('timo');
 JM.HOUSE_UPGRADES=[
- {level:1,n:'Vorratsstube',money:1000,need:{holz:20,stein:10},days:2,d:'Heller Anbau mit zweitem Kühlschrankzugang zur gemeinsamen Vorratskammer. +10 maximale Energie.'},
- {level:2,n:'Wohnwerkstatt',money:2400,need:{holz:40,stein:20,eisen:6},days:3,d:'Noch mehr begehbarer Raum, zweite Werkbank und Esstisch. +10 maximale Energie. Benötigt Vorratsstube.'}
+ {level:1,n:'Vorratsstube',money:1000,need:{holz:20,stein:10},days:2,d:'Heller Anbau und echte obere Lesegalerie mit Treppe, Büchern und Sitzecke. +10 maximale Energie.'},
+ {level:2,n:'Wohnwerkstatt',money:2400,need:{holz:40,stein:20,eisen:6},days:3,d:'Große Wohnetage mit eigenem Schlafzimmer, Kleiderschrank und Lesegalerie; Werkstatt im Erdgeschoss. +10 maximale Energie.'}
 ];
 const mineMaps=JM.buildMaps;
 JM.buildMaps=function(){const maps=mineMaps(),v=maps.village;
@@ -130,13 +153,24 @@ X.orderHouse=function(s,level){const r=JM.HOUSE_UPGRADES.find(r=>r.level===level
 X.finishHouse=function(s){const j=s.house.job;if(!j||s.day<j.due)return false;
  s.house.level=j.level;s.house.job=null;s.maxE+=10;return true;
 };
-X.applyHouse=function(maps,level){if(!level)return;
- const m=maps.haus,old=m.w;m.w=14+level*4;
+X.applyHouse=function(maps,level){if(!level||maps.haus.houseLevel===level)return;
+ const m=maps.haus,old=m.w;m.w=14+level*4;m.houseLevel=level;
  for(let y=0;y<m.h;y++){for(let x=old;x<m.w;x++)m.t[y][x]=JM.T.WAND;if(y>=3&&y<=9)for(let x=13;x<m.w-1;x++)m.t[y][x]=JM.T.BODEN;}
  m.obj.push({k:'fridge',x:14,y:3,act:'fridge'});m.t[3][14]=JM.T.BLOCK;
  if(level>=2){m.obj.push({k:'workbench',x:19,y:3,w:2,act:'craft'},{k:'table',x:18,y:7,w:2,act:'deco'});for(const o of m.obj.filter(o=>o.x>=18))for(let x=o.x;x<o.x+(o.w||1);x++)m.t[o.y][x]=JM.T.BLOCK;}
  for(let y=5;y<=8;y++)for(let x=15;x<m.w-2;x++)if(m.t[y][x]!==JM.T.BLOCK)m.t[y][x]=JM.T.TEPPICH;
  m.windows.push([16,1]);if(level>=2)m.windows.push([20,1]);
+ m.obj.push({k:'stairs',x:16,y:3,h:2,act:'house_up'},{k:'plant',x:14,y:8,act:'plant'});
+ m.t[3][16]=m.t[4][16]=m.t[8][14]=JM.T.BLOCK;
+ m.pal={...m.pal,wall:'#f1dfc1',wall2:'#d6b88d',rug:'#6e8d82',rug2:'#dfc483'};
+ const w=level===1?14:20,h=12,T=JM.T;
+ const upper={id:'haus_oben',title:level===1?'Zuhause · Lesegalerie':'Zuhause · Wohnetage',w,h,inside:true,houseLevel:level,pal:{...m.pal,wall:'#e7e3d5',wall2:'#d1c9b5',floor:'#bd986c',floor2:'#a48058',rug:'#638d9b',rug2:'#d7c79b'},t:[],obj:[],trees:[],lights:[],windows:[[5,1],[10,1],...(level===2?[[16,1]]:[])],spawn:[3,8],exits:[{x:2,y:9,to:'haus',tx:16,ty:5}]};
+ for(let y=0;y<h;y++){upper.t[y]=[];for(let x=0;x<w;x++)upper.t[y][x]=x>0&&x<w-1&&y>=3&&y<h-1?T.BODEN:T.WAND;}
+ const add=o=>{upper.obj.push(o);for(let y=o.y;y<o.y+(o.h||1);y++)for(let x=o.x;x<o.x+(o.w||1);x++)upper.t[y][x]=T.BLOCK;};
+ for(let y=5;y<=8;y++)for(let x=4;x<=10;x++)upper.t[y][x]=T.TEPPICH;
+ add({k:'stairs',x:2,y:7,h:2,act:'house_down'});add({k:'shelf',x:2,y:3,act:'shelf'});add({k:'shelf',x:3,y:3,act:'shelf'});add({k:'table',x:6,y:6,w:2,act:'deco'});add({k:'plant',x:10,y:3,act:'plant'});add({k:'tv',x:7,y:3,act:'tv'});
+ if(level===2){for(let y=3;y<=9;y++)if(y!==7)upper.t[y][13]=T.WAND;add({k:'bed',x:16,y:3,w:2,h:2,act:'bed'});add({k:'wardrobe',x:16,y:8,act:'wardrobe'});add({k:'plant',x:18,y:6,act:'plant'});}
+ maps.haus_oben=upper;
 };
 X.repairCollectibles=function(s,m){
  const dirs=[[1,0],[-1,0],[0,1],[0,-1]],q=[m.spawn],seen=new Set([m.spawn.join(',')]);

@@ -1,0 +1,47 @@
+{
+  "baseline": "926f78e60e25b0b915d35e4bb5d5faec5bf0427d",
+  "server": "http://127.0.0.1:8786/",
+  "method": "git archive unverändert; aktuelle Regressionen nur auf anderen Loopback-Port umgebogen",
+  "results": [
+    {
+      "test": "transfer-scroll",
+      "result": {
+        "output": "AssertionError [ERR_ASSERTION]: Kühlschrank-Anker bleibt sichtbar: vorher 399.59375, nachher 2481.59375\n    at /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/transfer-scroll.cjs:14:9 {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: false,\n  expected: true,\n  operator: '==',\n  diff: 'simple'\n}",
+        "exit_code": 1,
+        "error": null
+      }
+    },
+    {
+      "test": "markt-browser",
+      "result": {
+        "output": "AssertionError [ERR_ASSERTION]: Stand-Klick darf nicht ausschließlich im Rosa-Gespräch enden\n    at /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/markt-browser.cjs:10:9 {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: 0,\n  expected: true,\n  operator: '==',\n  diff: 'simple'\n}",
+        "exit_code": 1,
+        "error": null
+      }
+    },
+    {
+      "test": "versand-browser",
+      "result": {
+        "output": "AssertionError [ERR_ASSERTION]: Versand braucht eintippbare Menge\n\n0 !== 1\n\n    at /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/versand-browser.cjs:8:9 {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: 0,\n  expected: 1,\n  operator: 'strictEqual',\n  diff: 'simple'\n}",
+        "exit_code": 1,
+        "error": null
+      }
+    },
+    {
+      "test": "hinweise-browser",
+      "result": {
+        "output": "AssertionError [ERR_ASSERTION]: Hinweise brauchen sichtbaren Einklappknopf\n\n0 !== 1\n\n    at /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/hinweise-browser.cjs:6:9 {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: 0,\n  expected: 1,\n  operator: 'strictEqual',\n  diff: 'simple'\n}",
+        "exit_code": 1,
+        "error": null
+      }
+    },
+    {
+      "test": "riesenpflanzen-browser",
+      "result": {
+        "output": "AssertionError [ERR_ASSERTION]: Normalernte separat\n\n11 !== 1\n\n    at /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/riesenpflanzen-browser.cjs:7:9 {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: 11,\n  expected: 1,\n  operator: 'strictEqual',\n  diff: 'simple'\n}",
+        "exit_code": 1,
+        "error": null
+      }
+    }
+  ]
+}

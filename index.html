@@ -46,6 +46,7 @@ button:focus-visible{outline:3px solid var(--moon);outline-offset:2px}
 #ebar{flex:1;height:9px;background:#d8c49a;border:2px solid var(--woodD);border-radius:2px;overflow:hidden}
 #efill{height:100%;width:100%;background:#6fbf4a;box-shadow:inset 0 2px 0 rgba(255,255,255,.35);transition:width .3s}
 #enum{font-variant-numeric:tabular-nums;min-width:52px;text-align:right}
+#questBox{display:flex;align-items:stretch;gap:4px;width:min(350px,calc(100vw - 20px));pointer-events:none}#questBox.collapsed{width:auto}#questBox #quest{flex:1;min-width:0;width:auto}#qToggle{pointer-events:auto;min-width:44px;min-height:44px;font-weight:800;font-size:18px;touch-action:manipulation}#questBox.collapsed #qToggle{font-size:13px;padding:4px 10px}
 #quest{pointer-events:auto;text-align:left;padding:6px 10px 6px 34px;position:relative;width:min(300px,calc(100vw - 20px));box-sizing:border-box}
 #quest::before{content:"!";position:absolute;left:8px;top:50%;transform:translateY(-50%);width:16px;height:16px;background:var(--moon);border:2px solid var(--woodD);font-family:var(--pix);font-weight:700;font-size:12px;display:grid;place-items:center;line-height:1;color:var(--woodD)}
 #qTitle{font-family:var(--pix);font-weight:600;font-size:15px;line-height:1.15}
@@ -187,7 +188,7 @@ button:focus-visible{outline:3px solid var(--moon);outline-offset:2px}
 .savedinfo{text-align:center;color:#fff1c4;font-weight:800;margin:0;text-shadow:0 2px 0 #141633}
 @media (min-height:760px){#hud{padding-top:calc(env(safe-area-inset-top,0px) + 12px)}}
 @media (prefers-reduced-motion:reduce){#note,#fade,#quick{transition:none}#banner.show{animation-duration:.01s}#dlg::after{animation:none}}
-.storage-row{border-top:1px solid var(--woodL);padding:12px 0}.storage-row input{width:80px;min-height:40px}.storage-row .btns{flex-wrap:wrap;margin-top:8px}.storage-row .btn{min-height:44px}#depth{max-width:calc(100vw - 20px);font-size:13px;line-height:1.4;padding:6px 9px;box-sizing:border-box}
+#panel input[data-confirm]{width:80px;min-height:44px;box-sizing:border-box;font-size:16px}.transfer-actions{margin:10px 0}#panel label:has(input[data-confirm]){display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:8px 0}.storage-row{border-top:1px solid var(--woodL);padding:12px 0}.storage-row input{width:80px;min-height:40px}.storage-row .btns{flex-wrap:wrap;margin-top:8px}.storage-row .btn{min-height:44px}#depth{max-width:calc(100vw - 20px);font-size:13px;line-height:1.4;padding:6px 9px;box-sizing:border-box}
 </style>
 
 <canvas id="game"></canvas>
@@ -201,7 +202,7 @@ button:focus-visible{outline:3px solid var(--moon);outline-offset:2px}
     <div id="ebox"><span>Energie</span><div id="ebar"><div id="efill"></div></div><span id="enum">100/100</span></div>
   </div>
   <div class="card" id="depth" hidden></div>
-  <button class="card" id="quest"><div id="qTitle"></div><div id="qProg"></div></button>
+  <div id="questBox"><button class="card" id="quest"><div id="qTitle"></div><div id="qProg"></div></button><button class="card" id="qToggle" type="button" aria-controls="quest" aria-expanded="true" aria-label="Hinweise einklappen">−</button></div>
 </div>
 
 <div id="flash"></div>

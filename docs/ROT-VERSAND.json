@@ -1,0 +1,5 @@
+{
+  "output": "AssertionError [ERR_ASSERTION]: Versand braucht eintippbare Menge\n\n0 !== 1\n\n    at /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/versand-browser.cjs:8:9 {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: 0,\n  expected: 1,\n  operator: 'strictEqual',\n  diff: 'simple'\n}",
+  "exit_code": 1,
+  "error": null
+}
