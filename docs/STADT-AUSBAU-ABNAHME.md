@@ -1,5 +1,8 @@
 # Stadt und Wohnraum – technische Teilabnahme (Entwicklung, nicht veröffentlicht)
 
+## Pausenstand – nachfolgende Abschnitte sind historischer Teilstand
+**Auf Nutzerwunsch sofort pausiert.** Neuer Ausbau ist als Entwicklungszwischenstand implementiert, aber noch nicht vollständig abgenommen. Verbindlicher Fortsetzungsbericht: `docs/STADT-FORTSETZUNG-PAUSE.md`. Der zuletzt begonnene Gesamtrunner war **rot**, nicht grün: `docs/ROT-DESKTOP-FIXTURE.json` und aktuelles `GRUEN-TESTS.json` mit `passed:false`. Gezielter Desktop-Nachlauf danach grün; neuer Gesamtlauf bewusst nicht gestartet. Keine Veröffentlichung.
+
 ## Umfang dieser Übergabe
 **Teilpaket, keine Gesamterledigung des Stadtauftrags.** Die während der Arbeit priorisierten Fehler/Nachträge (Transfermengen und Rücknahme, Markt, einklappbare Hinweise, Riesenpflanzen) und die echte Wohnraumverbesserung werden hier geprüft. Bahnhof, neue Stadt, Bauplätze/Mietsystem und Restaurantausbau sind **noch nicht implementiert**. Dafür wurden keine Attrappen oder unbenutzbaren Menüs angelegt. Unabhängige Abnahme bleibt bei Hermes.
 
@@ -72,4 +75,3 @@ Kein Merge, kein Deploy, keine öffentliche Vorschau. Testserver ausschließlich
 - F1 vor Änderung mit `tests/panel-focus.cjs` rot (Fokus BODY); nach Änderung mobil/Desktop grün. Entfernte Eingaben erhalten einen benachbarten verbleibenden Fokus, sonst Schließen. Nur zuvor im Panel befindlicher Fokus wird übernommen; `preventScroll` und vorhandene Scrollanker bleiben. Tab/Shift-Tab bleiben im modalen Panel.
 - F2: Whitespace in `tests/transfer-scroll.cjs:26` entfernt. Die frühere Aussage zu einem leeren Arbeitsbaum war **kein** Nachweis für den Commitbereich. Ab jetzt `git diff --check 926f78e..HEAD` (vor Commit zusätzlich `git diff --check 926f78e`).
 - Desktoprest: vollständige unabhängige Kette als `tests/desktop-rest.cjs` nachgeführt, 1440×900/3D Exit 0. Nach Hauseingang regulär Boden `(7,7)` und `(4,6)` anklicken: Kamera folgt der Figur, Kühlschrankziel ist dann über `elementFromPoint` als CANVAS bestätigt und echt anklickbar. Kein Teleport, kein HUD-Verstecken, kein Produktionsfix nötig. Kochen aus Kühlschrank, obere Etage/Rückweg, Versand/Rücknahme/Reload/Nacht/Auszahlung/Reload, synthetischer Markttag und separates Rosa-Gespräch grün. Gesehene Bilder: `janinas-moon-fortsetzung/own-fridge-1440.png`, `own-upper-1440.png`, `own-market-1440.png` im Scratch. Originalspielstände weiterhin nicht nachgewiesen.
-

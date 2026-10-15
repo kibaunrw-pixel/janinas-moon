@@ -14,7 +14,10 @@ Lokaler sauberer Stand `926f78e60e25b0b915d35e4bb5d5faec5bf0427d`, zuvor `feat/h
 - Restaurant mit größerem kaufbarem Sortiment und tatsächlicher abendlicher tagabhängiger Besucherrotation.
 - Altstände und Inventarbilanzen schützen. Neue Karten inklusive Wegweiser prüfen. Bestehenden Runner erweitern und ausführen, Desktop/Mobil 2D/3D mit angesehenen Screenshots; Befehle und Grenzen in STADT-AUSBAU-ABNAHME.md.
 
-## Verifizierter Teilstand dieser Übergabe
+## Aktueller Pausenstatus
+Auf Nutzerwunsch sofort gesicherter, **unvollständig abgenommener Entwicklungszwischenstand**. Bahnhof/Stadt/Bau/Miete, Restaurantrotation und freie irreversible Teilgaben sind inzwischen implementiert; bisherige offene Liste unten ist historisch. Maßgeblicher Arbeits-/Prüfstatus und offene Kriterien: `STADT-FORTSETZUNG-PAUSE.md`. Kein neuer Gesamtlauf, kein Livegang.
+
+## Verifizierter Teilstand dieser Übergabe (historisch)
 Transfer-/Marktfehler und die nachgereichten Prioritäten (Rücknahme, freie Mengen in Lager/Versand/Markt, minimierbare Hinweise, Riesenpflanzen) sowie begehbare Wohnetagen sind implementiert. Vollständiger Runner: 37 Befehle, Exit 0; Nachweise in STADT-AUSBAU-ABNAHME.md und GRUEN-TESTS.json. Bahnhof/Stadt/Bau/Vermietung/Restaurant und freie Mengen für irreversible Gaben/Aufträge bleiben ausdrücklich offen; keine Gesamtabnahme behauptet.
 
 ## Übergaberegel

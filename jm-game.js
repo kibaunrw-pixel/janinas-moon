@@ -546,6 +546,9 @@ function bushAct(o){
 /* ================= Objekte ================= */
 function objAct(o){
   const a=o.act;
+  if(a==='train')return openTrain();
+  if(a==='station_hint')return note('Dorfbahnhof: dem Weg nach Osten folgen. Lindenstadt ist mit dem Zug erreichbar.');
+  if(a.startsWith('plot:'))return openPlot(Number(a.slice(5)));
   if(a==="house") return travel({to:"haus",tx:7,ty:9});
   if(a==="house_up") return travel({to:"haus_oben",tx:3,ty:8});
   if(a==="house_down") return travel({to:"haus",tx:16,ty:5});
@@ -604,7 +607,8 @@ function endDay(passedOut){
   S.cows.forEach(cw=>{ if(S.trough.c>0){ S.trough.c--; cw.milk=true; } });
   S.day++; S.min=360;
   const se=season(); const notes=[];
-  if(JM.Ausbau.finishHouse(S)){MAPS=JM.buildMaps();JM.Ausbau.applyHouse(MAPS,S.house.level);notes.push('Timo hat den Hausausbau abgeschlossen! Stufe '+S.house.level+' · mehr Raum und +10 maximale Energie.');}
+  const rent=JM.Stadt.advance(S);JM.Stadt.apply(MAPS,S);if(rent)notes.push("Tagesmiete aus Lindenstadt: "+rent+" G");
+  if(JM.Ausbau.finishHouse(S)){MAPS=JM.buildMaps();JM.Ausbau.applyHouse(MAPS,S.house.level);JM.Stadt.apply(MAPS,S);notes.push('Timo hat den Hausausbau abgeschlossen! Stufe '+S.house.level+' · mehr Raum und +10 maximale Energie.');}
   if(se!==oldSe){
     notes.push(JM.SEASONS[se]+" beginnt!");
     let died=0; for(const k in S.field){ const f=S.field[k]; const [x,y]=k.split(",").map(Number); if(f.c&&MAPS.farm.t[y][x]!==T.GLAS&&!CROPS[f.c.k].se.includes(se)){ f.c=null; died++; } }
@@ -682,6 +686,7 @@ function makeBoard(){
 
 /* ================= Bewohner ================= */
 function npcPlace(id){
+  const special=JM.Stadt.location(S,id,!!festActive());if(special)return "away";
   const N=NPCS[id], st=S.npc[id];
   const f=festActive();
   if(f){ const spots={mei:[13,12],lin:[18,12],rosa:[15,13],paula:[13,9],henk:[18,9],timo:[17,14]}; return spots[id]; }
@@ -698,7 +703,12 @@ function npcPlaceAll(snap){
   for(const id in NPCS){
     let a=NPCA[id]; if(!a) a=NPCA[id]={id,x:0,y:0,vis:false,dir:0,flip:false,frame:0,ft:0,path:[],goal:null,state:"off",moving:false};
     const pl=npcPlace(id); a.state=Array.isArray(pl)?"out":pl;
-    if(M.id!=="village"){ a.vis=false; continue; }
+    const special=JM.Stadt.location(S,id,!!festActive());
+    if(special){
+      if(M.id!==special.map){a.vis=false;a.path=[];continue;}
+      if(snap||!a.vis){a.x=special.x;a.y=special.y;a.path=[];}a.vis=true;a.goal=[special.x,special.y];continue;
+    }
+    if(M.id!=="village"){ a.vis=false;a.path=[]; continue; }
     if(Array.isArray(pl)){
       if(snap||!a.vis){ if(snap){ a.x=pl[0]; a.y=pl[1]; } else { const d=homeDoor(id); a.x=d[0]; a.y=d[1]; } a.vis=true; }
       a.goal=pl;
@@ -709,7 +719,7 @@ function npcPlaceAll(snap){
 }
 let lastNpcMin=-1;
 function npcUpdate(dt){
-  if(M.id!=="village") return;
+  if(!["village","stadt","i_nudelhaus"].includes(M.id)) return;
   const m10=Math.floor(S.min/10);
   if(m10!==lastNpcMin){ lastNpcMin=m10; npcPlaceAll(false); }
   for(const id in NPCA){
@@ -764,7 +774,9 @@ function talk(id){
   if(hearts10(id)>=5&&!S.flags["h5_"+id]&&JM.HEART[id]){ const H=JM.HEART[id]; S.flags["h5_"+id]=true; const seq=H.lines.map(t=>({who:id,text:fmtD(t)})); seq.push({who:null,text:"Ein besonderer Moment mit "+NPCS[id].n+". Du bekommst: "+Object.entries(H.items).map(([k,n])=>n+"× "+ITEMS[k].n).join(", ")+".",fn:()=>{ for(const k in H.items) give(k,H.items[k]); addPts(id,50); sfx("fanfare"); }}); dialog(seq,()=>{ emit("talk_"+id); emit("talk",id); }); saveSoon(); return; }
   const N=NPCS[id], st=S.npc[id], tier=hearts10(id)>=6?2:hearts10(id)>=3?1:0, b=N.bday;
   let line;
-  if(b[0]===season()&&b[1]===dayIn()) line="Heute ist mein Geburtstag! Schön, dass du vorbeischaust.";
+  const dinner=JM.Stadt.guests(S,!!festActive()).includes(id)&&M.id==='i_nudelhaus';
+  if(dinner)line=N.dinner||({mei:'Heute lasse ich die Küche kalt. Lins Pak Choi schmeckt fast wie bei meiner Mutter.',rosa:'Bei einer Schale Suppe lässt sich besser über die Zukunft des Dorfes reden.',paula:'Die Tiere sind versorgt. Jetzt ist Zeit für Frühlingsrollen und ein gutes Gespräch.',henk:'Nach einem Tag am Fluss tut eine heiße Nudelsuppe gut.',timo:'Drei Nächte braucht so ein Stadthaus. Hier erhole ich mich vom Hämmern.'}[id]);
+  else if(b[0]===season()&&b[1]===dayIn()) line="Heute ist mein Geburtstag! Schön, dass du vorbeischaust.";
   else if(S.weather==="rain"&&rnd()<.5) line=N.rain;
   else line=pick(N.lines[tier].concat(tier?N.lines[tier-1]:[]));
   if(st.talk!==S.day){ st.talk=S.day; addPts(id,20); }
@@ -837,15 +849,14 @@ function mondbaum(){
   }
   openBundles();
 }
-function bundleDeliver(bid,k){
-  const B=JM.BUNDLES.find(b=>b.id===bid), got=S.bundles[bid]||(S.bundles[bid]={});
-  const need=B.need[k]-(got[k]||0); const n=Math.min(need,S.inv[k]||0); if(n<=0) return;
-  take(k,n); got[k]=(got[k]||0)+n; sfx("pick");
-  if(Object.keys(B.need).every(i=>(got[i]||0)>=B.need[i])&&!S.bundleDone[bid]){
-    S.bundleDone[bid]=true; sfx("fanfare"); bundleReward(bid); emit("bundle"); burst(13.5,18,"#f6e6a0",24,true);
+function bundleDeliver(bid,k,n){
+  const result=JM.Ausbau.donateBundle(S,bid,k,n);if(!result){note('Bitte eine verfügbare positive ganze Teilmenge wählen.');return;}
+  hotbarSoon();sfx("pick");
+  if(result==='complete'){
+    sfx("fanfare"); bundleReward(bid); emit("bundle"); burst(13.5,18,"#f6e6a0",24,true);
     if(JM.BUNDLES.every(b=>S.bundleDone[b.id])){ give("mondstein",1); S.mailQ.push({from:"rosa",t:"Der Mondbaum leuchtet!",b:"Liebe "+S.name+",\n\ngestern Nacht hat der ganze Wald geleuchtet. Alle im Dorf haben es gesehen. Was auch immer du getan hast: Danke!\n\nRosa"}); }
   }
-  saveSoon(); refreshPanel(openBundles);
+  save(true); refreshPanel(openBundles);
 }
 function bundleReward(bid){
   const msg={fr:"Der Baum schenkt dir 3 Sprinkler. Mei verkauft ab jetzt auch welche.",ho:"Du fühlst dich stärker. Maximale Energie +30.",fl:"Zwischen den Wurzeln liegt eine goldene Angel!",so:"Zwischen den Wurzeln steht eine große Gießkanne.",he:"Ein warmes Leuchten zieht Richtung Hof. Das Gewächshaus ist repariert!"}[bid];
@@ -935,7 +946,7 @@ function questKeep(){
   if(q.id==="lin") k.pakchoi=1;
   if(q.id==="lieblingsessen") Object.assign(k,JM.RECIPES[0].need);
   if(q.id==="gabe") JM.BUNDLES.forEach(B=>{ if(S.bundleDone[B.id]) return; const got=S.bundles[B.id]||{}; for(const i in B.need) k[i]=Math.max(k[i]||0,B.need[i]-(got[i]||0)); });
-  if(S.board&&!S.board.done) k[S.board.k]=Math.max(k[S.board.k]||0,S.board.n);
+  if(S.board&&!S.board.done) k[S.board.k]=Math.max(k[S.board.k]||0,S.board.n-(S.board.delivered||0));
   return k;
 }
 function questAlready(q){
@@ -1009,6 +1020,7 @@ function questTarget(){
     let id=tg.slice(4);
     if(id==="unmet") id=["lin","rosa","paula","henk"].find(i=>!S.npc[i].met);
     if(!id) return null;
+    const special=JM.Stadt.location(S,id,!!festActive());if(special)return {map:special.map,x:special.x,y:special.y};
     const pl=npcPlace(id);
     if(Array.isArray(pl)){ const a=NPCA[id]; return (M.id==="village"&&a&&a.vis)?{map:"village",x:a.x,y:a.y-1,live:true}:{map:"village",x:pl[0],y:pl[1]-1}; }
     if(pl==="in") return {map:"i_"+NPCS[id].home,x:6,y:2};
@@ -1024,6 +1036,12 @@ function routeTarget(t){
   if(t.map==="haus"){ if(M.id==="farm") return {map:"farm",x:5,y:6,exit:true}; t={map:"farm",x:5,y:6}; }
   else if(t.map.startsWith("i_")){ const o=MAPS.village.obj.find(o=>o.act==="shop:"+t.map.slice(2)); if(M.id==="village") return {map:"village",x:o.door[0],y:o.door[1]-1,exit:true}; t={map:"village",x:o.door[0],y:o.door[1]}; }
   if(t.map===M.id) return t;
+  if(M.id==='stadt')return {map:M.id,x:14,y:19,exit:true};
+  if(M.id==='bahnhof')return {map:M.id,x:t.map==='stadt'?11:0,y:t.map==='stadt'?8:9,exit:true};
+  if(t.map==='stadt'||t.map==='bahnhof'){
+    if(M.id==='village')return {map:M.id,x:31,y:14,exit:true};
+    t={map:'village',x:31,y:14};
+  }
   // Höhlenebenen (hoehle2 … hoehle10) fehlten hier: der Wegweiser warf auf jeder anderen Karte
   // einen Fehler und stoppte damit die Spielschleife. Jetzt gilt für alle Ebenen die Höhlenlogik:
   // zu einem Minenziel geht es tiefer (obere Leiter), zu jedem anderen Ziel über die untere Leiter hinaus.
@@ -1280,6 +1298,15 @@ const ic=(k,cls)=>`<canvas class="${cls||"ic"}" data-ic="${k}"></canvas>`;
 const closeBtn=`<button class="btn alt wide" data-a="close">Schließen</button>`;
 const heartRow=(n,max)=>`<span class="hearts">${"♥".repeat(n)}<i>${"♥".repeat((max||10)-n)}</i></span>`;
 
+function openTrain(){
+ const city=M.id==='stadt',target=city?'bahnhof':'stadt';
+ openPanel(`<h2>${city?'Bahnhof Lindenstadt':'Dorfbahnhof'}</h2><p>Regionalzug nach ${city?'Mondtal':'Lindenstadt'}. Fahrt: 30 Spielminuten. Die Gemeinde übernimmt den Fahrpreis. Rückfahrten sind jederzeit möglich.</p><button class="btn wide" data-a="ride">Nach ${city?'Mondtal':'Lindenstadt'} fahren</button>${closeBtn}`,{ride:()=>{if(!['stadt','bahnhof'].includes(M.id))return;closePanel();S.min=Math.min(1430,S.min+30);travel({to:target,tx:city?10:13,ty:city?9:18});}});
+}
+function openPlot(i){
+ const X=JM.Stadt,p=S.city.plots[i],place=X.places[i],phase=X.phase(S,i),c=X.cost;
+ const names=['Freier Bauplatz','Fundament','Holzrahmen','Dacharbeiten','Bezugsfertig'];
+ openPanel(`<h2>${place.n}</h2><p>${names[phase]}${p.tenant?' · vermietet an '+esc(NPCS[p.tenant].n):''}</p><p>Kleines Mietshaus: ${c.money} G, ${c.holz} Bauholz und ${c.stein} Stein. Bauzeit: ${c.days} Nächte. Tagesmiete: ${c.rent} G ab dem Morgen nach Einzug, automatisch einmal pro Spieltag.</p><p>Holz: ${S.inv.holz||0} · Stein: ${S.inv.stein||0} · Geld: ${S.money} G</p><p class="sub">Holz täglich im Mondwald oder aus Ästen auf dem Hof; Stein in der erneuerbaren Mondhöhle. Kein Rückkauf bezahlter Bauten. Die drei kleinen Häuser haben zunächst keine betretbaren Innenräume.</p>${phase===0?'<button class="btn wide" data-a="build">Haus verbindlich bauen</button>':phase<4?`<p>Noch ${Math.max(0,p.due-S.day)} Nächte. Materialien sind bezahlt.</p>`:!p.tenant?`<button class="btn wide" data-a="rent">An ${NPCS[['ida','noah','mara'][i]].n} vermieten</button>`:`<p>Zuletzt abgerechnet: Spieltag ${p.lastRent}. ${esc(NPCS[p.tenant].n)} ist tagsüber vor dem Haus und gelegentlich abends bei Lin.</p>`}${closeBtn}`,{build:()=>{if(!X.order(S,i)){note('Nicht genug Material oder Geld; kein zweiter Bauauftrag möglich.');return;}X.apply(MAPS,S);setMap('stadt',Math.round(P.x),Math.round(P.y));save(true);refreshPanel(()=>openPlot(i));},rent:()=>{if(!X.rent(S,i))return;X.apply(MAPS,S);setMap('stadt',Math.round(P.x),Math.round(P.y));save(true);refreshPanel(()=>openPlot(i));}});
+}
 function openHouse(){
   const unread=S.mail.filter(m=>!m.read).length;
   openPanel(`<h2>Zuhause</h2><p class="sub">${JM.WEEKL[weekday()]}, ${dayIn()}. ${JM.SEASONS[season()]} · Jahr ${year()}</p>
@@ -1428,21 +1455,13 @@ function openStall(){
     hud(); save(true); refreshPanel(openStall); }});
 }
 function openBoard(){
-  const B=S.board;
-  if(!B){ note("Die Anschlagtafel ist leer. Lerne zuerst die Leute im Dorf kennen."); return; }
-  const N=NPCS[B.who];
-  openPanel(`<h2>Anschlagtafel</h2><p class="sub">Ein Wunsch für heute</p>
-    <div class="row">${ic(B.k)}<div class="tx"><b>${esc(N.n)} sucht ${B.n}× ${esc(ITEMS[B.k].n)}</b><small>So bekommst du es: ${esc(srcHint(B.k))}</small><small>Belohnung: ${B.rew} G und Freundschaft · Du hast: ${S.inv[B.k]||0}</small></div></div>
-    ${B.done?`<p class="hint">Erledigt! Danke dir.</p>`:`<button class="btn wide" data-a="give" ${has(B.k,B.n)?"":"disabled"}>Abgeben</button>`}${closeBtn}`,
-  {give:()=>{ if(!has(B.k,B.n)) return; take(B.k,B.n); B.done=true; S.money+=B.rew; emit("board"); addPts(B.who,60); sfx("fanfare"); note(N.n+" bedankt sich. +"+B.rew+" G"); saveSoon(); openBoard(); }});
+ const B=S.board;if(!B){note('Die Anschlagtafel ist leer. Lerne zuerst die Leute im Dorf kennen.');return;}
+ const N=NPCS[B.who],got=B.delivered||0,max=Math.min(B.n-got,S.inv[B.k]||0);
+ openPanel(`<h2>Anschlagtafel</h2><p class="sub">Ein Wunsch für heute · Teilgaben bleiben bis zum Tagesende. Endgültige Abgabe, nicht zurücknehmbar.</p><div class="row">${ic(B.k)}<div class="tx"><b>${esc(N.n)} sucht ${B.n}× ${esc(ITEMS[B.k].n)}</b><small>Abgegeben: ${got}/${B.n} · Rucksack: ${S.inv[B.k]||0}</small><small>${esc(srcHint(B.k))}</small><small>Belohnung bei vollständiger Abgabe: ${B.rew} G und Freundschaft</small></div></div>${B.done?'<p class="hint">Erledigt! Danke dir.</p>':`<label>Teilmenge · max. ${max}<input id="board-qty" type="text" inputmode="numeric" pattern="[0-9]*" data-confirm="give" data-k="board" value="1" aria-label="Auftrag Teilmenge"></label><button class="btn wide" data-a="give" data-k="board" ${max?'':'disabled'}>Menge endgültig abgeben</button>`}${closeBtn}`,{give:()=>{const result=JM.Ausbau.donateBoard(S,JM.Ausbau.quantity($('board-qty')?.value,max));if(!result){note('Bitte eine verfügbare positive ganze Teilmenge wählen.');return;}hotbarSoon();if(result==='complete'){emit('board');addPts(B.who,60);sfx('fanfare');note(N.n+' bedankt sich. +'+B.rew+' G');}save(true);refreshPanel(openBoard);}});
 }
 function openBundles(){
-  const rows=JM.BUNDLES.map(B=>{
-    const got=S.bundles[B.id]||{}, done=S.bundleDone[B.id];
-    const items=Object.entries(B.need).map(([k,n])=>{ const g=got[k]||0, ok=g>=n; return `<button class="chip ${ok?"ok":""}" data-a="give" data-k="${B.id}:${k}" ${ok||!S.inv[k]?"disabled":""}>${ic(k,"ic s")}<span>${g}/${n}</span></button>`; }).join("");
-    return `<div class="bundle ${done?"done":""}"><b>${B.n}</b>${done?`<small>Erfüllt · ${esc(B.rew)}</small>`:`<small>Belohnung: ${esc(B.rew)}</small><div class="chips">${items}</div>`}</div>`;
-  }).join("");
-  openPanel(`<h2>Der Mondbaum</h2><p class="sub">Tippe auf eine Zutat, um sie abzulegen.</p>${rows}${closeBtn}`,{give:k=>{ const [b,i]=k.split(":"); bundleDeliver(b,i); }});
+ const rows=JM.BUNDLES.map(B=>{const got=S.bundles[B.id]||{},done=S.bundleDone[B.id];const items=Object.entries(B.need).map(([k,n])=>{const g=got[k]||0,max=Math.min(n-g,S.inv[k]||0),key=B.id+':'+k;return `<section class="storage-row">${ic(k)}<b>${esc(ITEMS[k].n)} · ${g}/${n}</b>${g>=n?'<p>Erfüllt</p>':`<label>Teilmenge · max. ${max}<input type="text" inputmode="numeric" pattern="[0-9]*" id="bundle-qty-${B.id}-${k}" data-confirm="give" data-k="${key}" value="1" aria-label="Gabe ${esc(ITEMS[k].n)}"></label><button class="btn" data-a="give" data-k="${key}" ${max?'':'disabled'}>Menge endgültig abgeben</button>`}</section>`;}).join('');return `<div class="bundle ${done?'done':''}"><b>${B.n}</b><small>${done?'Erfüllt · ':'Belohnung: '}${esc(B.rew)}</small>${done?'':items}</div>`;}).join('');
+ openPanel(`<h2>Der Mondbaum</h2><p class="sub">Freie Teilgaben. Endgültig und nicht zurücknehmbar; die Belohnung gibt es nur einmal nach vollständiger Gabe.</p>${rows}${closeBtn}`,{give:key=>{const [b,k]=key.split(':'),B=JM.BUNDLES.find(x=>x.id===b),max=Math.min(B.need[k]-(S.bundles[b]?.[k]||0),S.inv[k]||0);bundleDeliver(b,k,JM.Ausbau.quantity($('bundle-qty-'+b+'-'+k)?.value,max));}});
 }
 function openBook(tab){
   const tabs=[["quest","Aufgaben"],["map","Karte"],["cal","Kalender"],["friends","Freunde"],["coll","Sammlung"],["ach","Erfolge"],["opt","Optionen"]];
@@ -1983,7 +2002,7 @@ function startGame(st,isNew){
   S=migrate(st); demo=false; ZOOM=S.zoom||1; resize();
   dogSprites();
   MAPS=JM.buildMaps();
-  JM.Ausbau.finishHouse(S);JM.Ausbau.applyHouse(MAPS,S.house.level);
+  JM.Ausbau.finishHouse(S);JM.Ausbau.applyHouse(MAPS,S.house.level);JM.Stadt.apply(MAPS,S);
   setMap(S.map||"farm",S.px,S.py);
   if(!walkT(Math.round(P.x),Math.round(P.y))) setMap("farm",5,8);
   $("title").hidden=true; $("hud").hidden=false; $("bottom").hidden=false;

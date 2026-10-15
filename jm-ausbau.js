@@ -14,6 +14,19 @@ X.transfer=function(s,k,n,into){
  a[k]-=n;if(!a[k])delete a[k];b[k]=(b[k]||0)+n;return true;
 };
 X.quantity=function(value,max){if(!/^\d+$/.test(String(value)))return null;const n=Number(value);return Number.isSafeInteger(n)&&n>0&&n<=max?n:null;};
+X.donateBoard=function(s,n){
+ const b=s.board,got=b?.delivered||0;
+ if(!b||b.done||!Number.isSafeInteger(n)||n<=0||n>b.n-got||(s.inv[b.k]||0)<n)return false;
+ s.inv[b.k]-=n;if(!s.inv[b.k])delete s.inv[b.k];b.delivered=got+n;
+ if(b.delivered<b.n)return 'partial';b.done=true;s.money+=b.rew;return 'complete';
+};
+X.donateBundle=function(s,bid,k,n){
+ const b=JM.BUNDLES.find(b=>b.id===bid),got=s.bundles[bid]||{};
+ if(!b||s.bundleDone[bid]||!b.need[k]||!Number.isSafeInteger(n)||n<=0||n>b.need[k]-(got[k]||0)||(s.inv[k]||0)<n)return false;
+ s.inv[k]-=n;if(!s.inv[k])delete s.inv[k];got[k]=(got[k]||0)+n;s.bundles[bid]=got;
+ if(!Object.entries(b.need).every(([i,need])=>(got[i]||0)>=need))return 'partial';
+ s.bundleDone[bid]=true;return 'complete';
+};
 X.shipTransfer=function(s,k,n,into){
  if(!JM.ITEMS[k]||!JM.SHIPPABLE(k)||!Number.isSafeInteger(n)||n<=0)return false;
  const a=into?s.inv:s.ship,b=into?s.ship:s.inv;

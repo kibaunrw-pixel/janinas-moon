@@ -256,6 +256,8 @@ function prop(mg,mgE,o,se,st){
   const x=o.x+(o.w||1)/2, z=o.y+(o.h||1)/2, k=o.k, snow=se===3;
   const wood="#a8743f", woodD="#7a4e2a", woodL="#c8945a";
   switch(k){
+    case 'bau1':case 'bau2':case 'bau3':{const phase=+k.slice(3),w=o.w||5,d=o.h||4;mg.box(x,.12,z,w,.24,d,'#ada391');if(phase>=2){for(const dx of [-w/2+.2,0,w/2-.2])for(const dz of [-d/2+.2,d/2-.2])mg.box(x+dx,1.1,z+dz,.12,2,.12,woodD);for(const dz of [-d/2+.2,d/2-.2]){mg.box(x,2.05,z+dz,w,.12,.12,wood);mg.box(x,1,z+dz,w,.12,.12,wood);}}if(phase===3){mg.box(x,1.1,z,w-.3,1.8,d-.3,'#dcc3a0');for(const side of [-1,1])mg.add(GEO.box,M4(x+side*w/4,2.4,z,w*.6,.12,d+.3,0,0,side*.5),'#b85b48');mg.box(x,.75,z+d/2,.65,1.4,.05,woodD);}return;}
+    case 'zug':mg.box(x,.65,z,3.8,1.1,1.4,'#3e6578');mg.box(x,1.25,z,4,.15,1.5,'#b14f42');for(const dx of [-1.4,-.5,.5,1.4])mgE.box(x+dx,.85,z+.71,.6,.4,.02,'#b5dbe6');for(const dx of [-1.2,1.2])for(const dz of [-.7,.7])mg.sph(x+dx,.2,z+dz,.25,.25,.1,'#32343d');return;
     case "mailbox": mg.box(x,.35,z+.1,.08,.7,.08,woodD); mg.box(x,.75,z+.1,.32,.24,.44,"#3f6ad8"); mg.cyl(x,.87,z+.1,.16,.44,"#3f6ad8",Math.PI/2); if(st.unread){ mg.box(x+.2,.95,z+.15,.03,.3,.03,"#c42a2a"); mg.box(x+.2,1.05,z+.22,.03,.1,.14,"#e8483a"); } return;
     case "box": mg.box(x,.28,z,.82,.5,.62,wood); for(let i=0;i<3;i++) mg.box(x,.12+i*.16,z+.315,.84,.03,.01,woodD); mg.box(x,.56,z,.9,.08,.7,woodL); return;
     case "doghouse": mg.box(x,.32,z,.75,.6,.7,"#e8d49e"); mg.add(GEO.box,M4(x-.2,.75,z,.5,.08,.82,0,0,.75),snow?"#ffffff":"#c8553d"); mg.add(GEO.box,M4(x+.2,.75,z,.5,.08,.82,0,0,-.75),snow?"#ffffff":"#c8553d"); mg.box(x,.27,z+.355,.32,.38,.02,"#3a2a2a"); return;
@@ -487,7 +489,7 @@ function glasshouse(mg,se,ok){
   if(ok) for(let i=0;i<w;i++) mg.box(x0+i+.5,.8,z0+.02,.9,1.3,.02,"#cfeaf6"); else for(const i of [1,4]) mg.box(x0+i+.5,.8,z0+.02,.9,1.3,.02,"#7a8a96");
 }
 function addPick(x,y,w,h,ht,o){ const m=new THREE.Mesh(GEO.box,MATS.inv||(MATS.inv=new THREE.MeshBasicMaterial({visible:false}))); m.scale.set(w,ht,h); m.position.set(x+w/2,ht/2,y+h/2); m.userData.obj=o; world.add(m); pick.push(m); }
-function key0(){ const M=E.M, S=E.S; return M.id+"|"+M.w+'x'+M.h+'|'+(S.house?.level||0)+'|'+E.season()+"|"+(S.flags.glas?1:0)+"|"+Object.keys(S.bundleDone).length+"|"+E.unread()+"|"+E.marketDay()+"|"+(S.trough.h>0)+(S.trough.c>0)+"|"+E.cooking()+"|"+E.tvOn(); }
+function key0(){ const M=E.M, S=E.S; return M.id+"|"+(M.houseLevel||0)+"|"+M.w+'x'+M.h+'|'+(S.house?.level||0)+'|'+E.season()+"|"+(S.flags.glas?1:0)+"|"+Object.keys(S.bundleDone).length+"|"+E.unread()+"|"+E.marketDay()+"|"+(S.trough.h>0)+(S.trough.c>0)+"|"+E.cooking()+"|"+E.tvOn(); }
 function dynState(){ const S=E.S; return {unread:E.unread(),troughH:S.trough.h>0,troughC:S.trough.c>0,market:E.marketDay(),cooking:E.cooking(),tv:E.tvOn()}; }
 function dynKey(){
   const M=E.M, S=E.S; let k=M.id+E.season();
