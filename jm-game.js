@@ -1249,7 +1249,16 @@ function refreshPanel(render){
  const anchors=ordered.map(e=>({key:token(e),y:e.getBoundingClientRect().top-box.top}));
  render();
  const next=controls();for(const e of next)if(values.has(e.id))e.value=values.get(e.id);
- const focused=next.find(e=>token(e)===focus&&!e.disabled);if(focused)focused.focus({preventScroll:true});
+ // A removed row cannot retain its token. Keep only an existing panel focus,
+ // preferring nearby controls before a matching direction or the close button.
+ if(focus){
+  const neighbours=old.slice().sort((a,b)=>Math.abs(old.indexOf(a)-old.indexOf(active))-Math.abs(old.indexOf(b)-old.indexOf(active))||old.indexOf(b)-old.indexOf(a));
+  const focused=next.find(e=>token(e)===focus&&!e.disabled)
+   ||neighbours.map(e=>next.find(n=>token(n)===token(e)&&!n.disabled)).find(Boolean)
+   ||next.find(e=>!e.disabled&&e.dataset.confirm===active.dataset.confirm)
+   ||panel.querySelector('[data-a="close"]');
+  if(focused)focused.focus({preventScroll:true});
+ }
  const anchor=anchors.map(a=>({...a,el:next.find(e=>token(e)===a.key)})).find(a=>a.el);
  panel.scrollTop=anchor?panel.scrollTop+anchor.el.getBoundingClientRect().top-box.top-anchor.y:top;
 }
@@ -1258,6 +1267,13 @@ function closePanel(){ veil.hidden=true; UI.panel=false; hud(); hotbar(); update
 function closeAll(){ closePanel(); $("dlg").hidden=true; UI.dialog=false; DQ=[]; }
 veil.addEventListener("pointerdown",e=>{ if(e.target===veil) closePanel(); });
 panel.addEventListener("click",e=>{ const b=e.target.closest("[data-a]"); if(!b||e.detail>1) return; const a=b.dataset.a; sfx("blip"); if(a==="close") return closePanel(); if(PH[a]){panelAction=b;try{PH[a](b.dataset.k,b);}finally{panelAction=null;}} });
+panel.addEventListener('keydown',e=>{
+ if(e.key!=='Tab'||!UI.panel)return;
+ const nodes=Array.from(panel.querySelectorAll('button:not([disabled]),input:not([disabled]),[tabindex="0"]')).filter(n=>!n.hidden);
+ const first=nodes[0],last=nodes[nodes.length-1];
+ if(e.shiftKey&&document.activeElement===first){e.preventDefault();last?.focus();}
+ else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first?.focus();}
+});
 // Enter confirms exactly once; no implicit form submission or held-key repeat.
 panel.addEventListener("keydown",e=>{if(e.key!=="Enter"||!e.target.matches("input[data-confirm]"))return;e.preventDefault();e.stopPropagation();if(e.repeat)return;const input=e.target;const b=Array.from(panel.querySelectorAll("[data-a]")).find(b=>b.dataset.a===input.dataset.confirm&&b.dataset.k===input.dataset.k);if(b&&!b.disabled)b.click();});
 const ic=(k,cls)=>`<canvas class="${cls||"ic"}" data-ic="${k}"></canvas>`;

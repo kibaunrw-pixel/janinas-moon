@@ -23,7 +23,7 @@ for(const viewport of [{width:390,height:844},{width:1440,height:900}])for(const
  const ship=page.locator(`[data-a="ship1"][data-k="${lastKey}"]`);await ship.scrollIntoViewIfNeeded();const shipBefore=await ship.boundingBox();await ship.click();const shipAfter=await ship.boundingBox();assert.ok(Math.abs(shipAfter.y-shipBefore.y)<3,'Versand behält Position und Auswahl');
  await page.locator('[data-a="shipall1"]').click();assert.equal(await page.locator(`[data-a="sel"][data-k="${lastKey}"]`).count(),0,'letzter geleerter Bestand verschwindet');assert.equal(await page.evaluate(k=>JMDEBUG.S.ship[k],lastKey),12,'keine Duplikate');
  // Fallback am Listenende: gültige Position statt Sprung nach oben.
- 
+
  assert.ok(await page.locator('#panel').evaluate(e=>e.scrollTop>0&&e.scrollTop<=Math.max(0,e.scrollHeight-e.clientHeight)+1),'verschwundene Auswahl erhält gültigen geklemmten Kontext');
  await page.getByRole('button',{name:'Schließen',exact:true}).click();await page.evaluate(()=>JMDEBUG.openBag('bag'));assert.equal(await page.locator('#panel').evaluate(e=>e.scrollTop),0);
  await page.getByRole('button',{name:'Schließen',exact:true}).click();await page.evaluate(()=>JMDEBUG.tap(1,3));await page.getByRole('heading',{name:'Kühlschrank',exact:true}).waitFor();assert.equal(await page.locator('#panel').evaluate(e=>e.scrollTop),0);assert.equal(await page.locator('#qty-'+k).inputValue(),'1','neuer Besuch hat frische Mengenauswahl');
