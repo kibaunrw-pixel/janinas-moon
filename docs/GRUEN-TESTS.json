@@ -1,0 +1,140 @@
+{
+  "node": "v26.7.0",
+  "chrome": "installierter Chrome, frische isolierte Playwright-Kontexte",
+  "commands": [
+    {
+      "command": "node --check jm-data.js",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check jm-ausbau.js",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check jm-art.js",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check jm-game.js",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check jm-3d.js",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check sw.js",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/ausbau.test.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/browser.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/picking.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/regression.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/offline.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/shops.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/run-all.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --test tests/ausbau.test.cjs",
+      "exitCode": 0,
+      "stdout": "✔ Kochen verbraucht beide Lager atomar, auch konkrete plus Sammelfische (1.109125ms)\n✔ Alle konkreten Rezeptzutaten sind ganzjährig ohne Wiederverkaufsgewinn kaufbar (0.175708ms)\n✔ Zehn Höhlenebenen: sichere Wege, persistente Abbaubilanz, Reload, neuer Besuch (6.06125ms)\n✔ Neue Erze sind nutzbar; jeder magische Fisch ist wirklich auswählbar und verkäuflich (0.240583ms)\n✔ Alte Saves migrieren ohne Progressionsverlust; leere alte Höhle bleibt leer (1.035875ms)\n✔ Zimmermann: Ressourcen, einmalige Kosten, Bauzeit, Reload und sichtbare Räume (1.533167ms)\n✔ Alte unerreichbare Sammelobjekte werden ohne Verlust erreichbar versetzt (3.963833ms)\n✔ Komplett gekaufte Zutaten erzeugen auch am maximalen Marktbonus keine Endlosschleife (0.212958ms)\n✔ Lebensmitteltransfer erhält Bilanz und lehnt ungültige Mengen ab (0.316041ms)\nℹ tests 9\nℹ suites 0\nℹ pass 9\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 74.542375\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node tests/browser.cjs",
+      "exitCode": 0,
+      "stdout": "Beleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/magischer-teich-3d-390.png\nBeleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/teich-angelplatz-3d-390.png\nBeleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/haus-stufe1-3d-390.png\nBrowser Kühlschrank/Küche/Mine/Zimmermann/Holz/Export { width: 390, height: 844 } OK\nBeleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/magischer-teich-3d-1440.png\nBeleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/teich-angelplatz-3d-1440.png\nBeleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/haus-stufe1-3d-1440.png\nBrowser Kühlschrank/Küche/Mine/Zimmermann/Holz/Export { width: 1440, height: 900 } OK\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node tests/picking.cjs",
+      "exitCode": 0,
+      "stdout": "Feld-Repro { width: 390, height: 844 } {\n  pick: { wx: 4.5, wy: 10.5, collectible: true },\n  screen: [ 137.06265258846, 330.4536777995199, true ],\n  el: '<canvas id=\"game\" width=\"390\" height=\"844\"></canvas>',\n  p: { x: 5, y: 11 },\n  ui: { ui: { panel: false, dialog: false, fade: false }, fish: null }\n}\n3D Socke künstlicher Repro + Tierüberlappung/Feld/Doppeltipp { width: 390, height: 844 } OK\nFeld-Repro { width: 1440, height: 900 } {\n  pick: { wx: 4.5, wy: 10.5, collectible: true },\n  screen: [ 515.8898212462055, 200.33728104880916, true ],\n  el: '<canvas id=\"game\" width=\"1440\" height=\"900\"></canvas>',\n  p: { x: 5, y: 11 },\n  ui: { ui: { panel: false, dialog: false, fade: false }, fish: null }\n}\n3D Socke künstlicher Repro + Tierüberlappung/Feld/Doppeltipp { width: 1440, height: 900 } OK\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node tests/regression.cjs",
+      "exitCode": 0,
+      "stdout": "Beleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/kuehlschrank-2d-390.png\nBeleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/zimmermann-stufe1-2d-390.png\nBeleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/haus-stufe1-2d-390.png\nBeleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/zimmermann-stufe2-2d-390.png\nBeleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/haus-stufe2-2d-390.png\nBeleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/haus-stufe2-3d-390.png\n2D Mengen/Reload/Abbau/Durchlauf/Bett/beide Ausbauten { width: 390, height: 844 } OK\nBeleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/kuehlschrank-2d-1440.png\nBeleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/zimmermann-stufe1-2d-1440.png\nBeleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/haus-stufe1-2d-1440.png\nBeleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/zimmermann-stufe2-2d-1440.png\nBeleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/haus-stufe2-2d-1440.png\nBeleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/haus-stufe2-3d-1440.png\n2D Mengen/Reload/Abbau/Durchlauf/Bett/beide Ausbauten { width: 1440, height: 900 } OK\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node tests/offline.cjs",
+      "exitCode": 0,
+      "stdout": "Offline-Start mit Ausbau-Modul OK\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node tests/shops.cjs",
+      "exitCode": 0,
+      "stdout": "Laden: 5×-Kauf bilanziert; Timo Öffnungsgrenzen und Sonntag/Regen OK\n",
+      "stderr": "",
+      "error": null
+    }
+  ],
+  "passed": true
+}

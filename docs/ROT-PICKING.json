@@ -1,0 +1,7 @@
+{
+  "baseline": "34c59e5",
+  "command": "BASE_URL=http://127.0.0.1:8766/ node tests/picking.cjs",
+  "exitCode": 1,
+  "stdout": "",
+  "stderr": "AssertionError [ERR_ASSERTION]: Sprite-Mitte muss Sockenkachel statt Gebäude/Boden treffen\n\n8 !== 7\n\n    at /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/picking.cjs:8:48 {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: 8,\n  expected: 7,\n  operator: 'strictEqual',\n  diff: 'simple'\n}\n"
+}

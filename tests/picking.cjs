@@ -1,7 +1,7 @@
 const {chromium}=require(process.env.PLAYWRIGHT_PATH||'playwright');const assert=require('node:assert/strict');
 (async()=>{const browser=await chromium.launch({channel:'chrome',headless:true});try{for(const viewport of [{width:390,height:844},{width:1440,height:900}]){
  const context=await browser.newContext({viewport,deviceScaleFactor:1});const page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(String(e)));
- await page.goto('http://127.0.0.1:8765/');await page.waitForFunction(()=>window.JMDEBUG&&JM.R3?.ok);
+ await page.goto(process.env.BASE_URL||'http://127.0.0.1:8765/');await page.waitForFunction(()=>window.JMDEBUG&&JM.R3?.ok);
  await page.evaluate(()=>{const d=JMDEBUG,s=d.newState('Auswahltest',[{name:'Lilly',fell:'weiss'},{name:'Coco',fell:'apricot'}]);s.sound=false;s.music=false;s.min=720;s.flags.letter=true;s.mess=[{map:'farm',x:2,y:7,k:'socke'}];d.startGame(s,false);});
  await page.waitForTimeout(1200);
  const hit=await page.evaluate(()=>{const p=JM.R3.proj(2.5,7.5,.42);return {p,hit:JM.R3.pick(p[0],p[1])};});

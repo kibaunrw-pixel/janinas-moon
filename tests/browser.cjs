@@ -24,7 +24,7 @@ const assert=require('node:assert/strict');
  await page.evaluate(()=>JMDEBUG.tap(24,2));await page.waitForFunction(()=>JMDEBUG.M.id==='hoehle');
  for(let depth=2;depth<=10;depth++){await page.evaluate(()=>JMDEBUG.tap(10,2));await page.waitForFunction(d=>JMDEBUG.M.depth===d,depth,{timeout:15000});}
  assert.equal(await page.evaluate(()=>JMDEBUG.M.id),'hoehle10');await snap('magischer-teich-3d');
- await page.evaluate(()=>JMDEBUG.tap(13,7));await page.waitForFunction(()=>JMDEBUG.busy.fish==='wait');await snap('teich-angelplatz-3d');
+ await page.evaluate(()=>JMDEBUG.tap(11,7));await page.waitForFunction(()=>JMDEBUG.idle);for(let i=0;i<3;i++)await page.locator('#zOut').click();await page.waitForTimeout(500);const waterPixel=await page.evaluate(()=>JM.R3.proj(15.5,7.5,.04));await page.mouse.click(waterPixel[0],waterPixel[1]);await page.waitForFunction(()=>JMDEBUG.busy.fish==='wait');await snap('teich-angelplatz-3d');
  assert.ok(['sternenschuppe','kristallforelle'].includes(await page.evaluate(()=>JMDEBUG.FISH.k)));
  const selected=await page.evaluate(()=>JMDEBUG.FISH.k);
  await page.waitForFunction(()=>JMDEBUG.busy.fish==='bite');await page.mouse.click(viewport.width/2,viewport.height/2);
@@ -43,6 +43,7 @@ const assert=require('node:assert/strict');
  // Beschleunigt nur das Testtempo, nicht die Bauabschlussfunktion.
  for(let i=0;i<2;i++){await page.evaluate(()=>JMDEBUG.endDay(false));await page.waitForFunction(()=>!JMDEBUG.busy.ui.fade,{timeout:10000});}
  assert.equal(await page.evaluate(()=>JMDEBUG.S.house.level),1);assert.equal(await page.evaluate(()=>JMDEBUG.M.w),18);
+ await page.waitForTimeout(350);const fridgeHit=await page.evaluate(()=>{const p=JM.R3.proj(14.5,3.5,1);return JM.R3.pick(p[0],p[1]);});assert.equal(Math.floor(fridgeHit.wx),14);assert.equal(Math.floor(fridgeHit.wy),3,'3D muss nach Bauabschluss den neuen Kühlschrank statt veralteter Raumgeometrie auswählen');
  await snap('haus-stufe1-3d');
  const wood=await page.evaluate(()=>{const d=JMDEBUG;d.setMap('farm',5,8);const entry=Object.entries(d.S.field).find(([,f])=>f.o==='branch');const [x,y]=entry[0].split(',').map(Number);const before=d.S.inv.holz||0;d.doField(x,y);return (d.S.inv.holz||0)-before;});assert.equal(wood,2);
  await page.evaluate(()=>JMDEBUG.openBook('opt'));

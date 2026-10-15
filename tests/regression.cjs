@@ -30,5 +30,7 @@ const out=process.env.EVIDENCE_DIR||'/Users/reneklomfas/.hermes/cache/scratch/ja
  assert.equal(await page.evaluate(()=>JMDEBUG.S.house.level),level);assert.equal(await page.evaluate(()=>JMDEBUG.M.w),14+level*4);await snap('haus-stufe'+level+'-2d');
  await page.evaluate(()=>JMDEBUG.tap(14,3));await page.getByRole('heading',{name:'Kühlschrank',exact:true}).waitFor();assert.equal(await page.evaluate(()=>JMDEBUG.S.fridge.ei),6);await page.getByRole('button',{name:'Schließen',exact:true}).click();
  }
+ await page.evaluate(()=>JMDEBUG.openBook('opt'));await page.locator('[data-a="gfx"]').click();await page.getByRole('button',{name:'Schließen',exact:true}).click();await page.waitForFunction(()=>JM.R3?.ok);for(let i=0;i<3;i++)await page.locator('#zOut').click();await page.evaluate(()=>JMDEBUG.tap(18,5));await page.waitForFunction(()=>JMDEBUG.idle);await page.waitForTimeout(500);
+ const benchPixel=await page.evaluate(()=>JM.R3.proj(19.5,3.5,.55));await page.mouse.click(benchPixel[0],benchPixel[1]);await page.getByRole('heading',{name:'Werkbank',exact:true}).waitFor();await page.getByRole('button',{name:'Schließen',exact:true}).click();await snap('haus-stufe2-3d');
  assert.equal(await page.evaluate(()=>JMDEBUG.S.maxE),120);assert.deepEqual(errors,[]);console.log('2D Mengen/Reload/Abbau/Durchlauf/Bett/beide Ausbauten',viewport,'OK');await context.close();
  }}finally{await browser.close();}})().catch(e=>{console.error(e);process.exitCode=1});

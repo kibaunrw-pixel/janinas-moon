@@ -688,7 +688,7 @@ function npcPlace(id){
   let place="off";
   for(const [t,p] of sched) if(S.min>=t) place=p;
   if(S.min<sched[0][0]) place="off";
-  if(place!=="off"&&place!=="in"&&S.weather==="rain"&&id!=="henk") place="in";
+  if(place!=="off"&&place!=="in"&&S.weather==="rain"&&id!=="henk"&&id!=='timo') place="in";
   return place;
 }
 function homeDoor(id){ const o=MAPS.village.obj.find(o=>o.act==="shop:"+NPCS[id].home); return o?o.door:[15,13]; }
@@ -920,6 +920,7 @@ function emit(ev,arg){
   dailyEmit(ev,arg);
   const q=curQ(); if(!q) return;
   if(q.ev!==ev) return;
+  if(q.id==='nachbarn'&&!['lin','rosa','paula','henk'].includes(arg))return;
   if(q.uniq){ const k=String(arg); if(S.quest.seen.includes(k)) return; S.quest.seen.push(k); }
   S.quest.p++;
   if(S.quest.p>=q.n) completeQuest(); else updateQuestUI();
@@ -1127,7 +1128,7 @@ function hud(){
   const e=S.energy/S.maxE; $("efill").style.width=(e*100)+"%"; $("efill").style.background=e<.25?"#d9583f":e<.5?"#e8b83a":"#6fbf4a";
   $("enum").textContent=Math.round(S.energy)+"/"+S.maxE;
   $('depth').hidden=!M.cave;
-  $('depth').textContent=M.cave?'Ebene '+M.depth+'/10 · '+M.title+' · Leitern: oben tiefer, unten zurück':'';
+  $('depth').textContent=M.cave?'Ebene '+M.depth+'/10 · '+M.title+' · '+(M.depth===10?'Teich im Osten · Leiter unten zurück':'Leitern: oben tiefer, unten zurück'):'';
   drawWx();
 }
 function drawWx(){
@@ -1146,6 +1147,7 @@ function updateQuestUI(){
   let sub=q.n>1?S.quest.p+"/"+q.n:"";
   if(q.tg==="rene"&&!renePlan().map) sub=fmtD("{von} ist bei der Arbeit, ab 16:30 Uhr zu Hause");
   if(q.id==="mondfest"){ const Y=JM.DPS*4, left=((2*JM.DPS+13)-((S.day-1)%Y)+Y)%Y; if(left>0) sub="noch "+left+(left===1?" Tag":" Tage"); else if(left===0) sub="heute ab 18 Uhr"; }
+  if(q.tg==='mess')sub+=(sub?' · ':'')+(S.mess.length?S.mess.length+' Sachen liegen noch auf Hof und im Haus':'Heute liegt nichts herum · morgen gibt es neue Sachen');
   const t=questTarget(); if(t&&t.map!==M.id) sub=(sub?sub+" · ":"")+({farm:"auf dem Hof",village:"im Dorf",forest:"im Wald",haus:"im Haus",hoehle:"in der Höhle"}[t.map]||(t.map.indexOf("i_")===0?"im Laden":"in der Nähe"));
   if(S.daily&&S.daily.day===S.day&&S.daily.goals.length){ const d=S.daily.goals.filter(g=>g.p>=JM.DAILY.find(x=>x.k===g.k).n).length; sub=(sub?sub+" · ":"")+"Tagesziele "+d+"/"+S.daily.goals.length; }
   $("qProg").textContent=sub;

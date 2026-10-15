@@ -484,7 +484,7 @@ function glasshouse(mg,se,ok){
   if(ok) for(let i=0;i<w;i++) mg.box(x0+i+.5,.8,z0+.02,.9,1.3,.02,"#cfeaf6"); else for(const i of [1,4]) mg.box(x0+i+.5,.8,z0+.02,.9,1.3,.02,"#7a8a96");
 }
 function addPick(x,y,w,h,ht,o){ const m=new THREE.Mesh(GEO.box,MATS.inv||(MATS.inv=new THREE.MeshBasicMaterial({visible:false}))); m.scale.set(w,ht,h); m.position.set(x+w/2,ht/2,y+h/2); m.userData.obj=o; world.add(m); pick.push(m); }
-function key0(){ const M=E.M, S=E.S; return M.id+"|"+E.season()+"|"+(S.flags.glas?1:0)+"|"+Object.keys(S.bundleDone).length+"|"+E.unread()+"|"+E.marketDay()+"|"+(S.trough.h>0)+(S.trough.c>0)+"|"+E.cooking()+"|"+E.tvOn(); }
+function key0(){ const M=E.M, S=E.S; return M.id+"|"+M.w+'x'+M.h+'|'+(S.house?.level||0)+'|'+E.season()+"|"+(S.flags.glas?1:0)+"|"+Object.keys(S.bundleDone).length+"|"+E.unread()+"|"+E.marketDay()+"|"+(S.trough.h>0)+(S.trough.c>0)+"|"+E.cooking()+"|"+E.tvOn(); }
 function dynState(){ const S=E.S; return {unread:E.unread(),troughH:S.trough.h>0,troughC:S.trough.c>0,market:E.marketDay(),cooking:E.cooking(),tv:E.tvOn()}; }
 function dynKey(){
   const M=E.M, S=E.S; let k=M.id+E.season();
