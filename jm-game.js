@@ -365,6 +365,9 @@ function tapAt(wx,wy,tx,ty){
   if(ms){ goTo(adjGoal(tx,ty,true),()=>tidy(ms),{x:tx,y:ty}); return; }
   const egg0=M.id==="farm"&&S.eggs.find(g=>g.x===tx&&g.y===ty);
   if(egg0){ goTo(adjGoal(tx,ty,true),()=>pickEgg(egg0),{x:tx,y:ty}); return; }
+  // Sichtbare Sammelfunde haben wie Socken und Eier Vorrang vor überlappenden Figuren.
+  const fo=(S.forage[M.id]||[]).find(f=>f.x===tx&&f.y===ty);
+  if(fo){ goTo(adjGoal(tx,ty,true),()=>pickForage(fo),{x:tx,y:ty}); return; }
   const fixture=objAt(tx,ty);
   if(fixture&&['stove','fridge'].includes(fixture.act)){
     goTo((x,y)=>Math.abs(x-fixture.x)+Math.abs(y-fixture.y)===1,()=>objAct(fixture),{x:tx,y:ty});return;
@@ -379,8 +382,6 @@ function tapAt(wx,wy,tx,ty){
     if(h.k==="cow"){ const a=h.c; goTo(adjGoal(Math.round(a.x),Math.round(a.y)),()=>{ faceTo(Math.round(a.x),Math.round(a.y)); cowAct(a); }); return; }
   }
   if(tx<0||ty<0||tx>=M.w||ty>=M.h) return;
-  const fo=(S.forage[M.id]||[]).find(f=>f.x===tx&&f.y===ty);
-  if(fo){ goTo(adjGoal(tx,ty,true),()=>pickForage(fo),{x:tx,y:ty}); return; }
   const egg=M.id==="farm"&&S.eggs.find(g=>g.x===tx&&g.y===ty);
   if(egg){ goTo(adjGoal(tx,ty,true),()=>pickEgg(egg),{x:tx,y:ty}); return; }
   const rk=M.cave&&(S.rocks||[]).find(r=>r.x===tx&&r.y===ty);

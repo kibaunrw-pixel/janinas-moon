@@ -11,5 +11,18 @@ const {chromium}=require(process.env.PLAYWRIGHT_PATH||'playwright');const assert
  const fieldBefore=await page.evaluate(()=>JSON.stringify(JMDEBUG.S.field['4,10']));
  await page.evaluate(()=>{JMDEBUG.setMap('farm',5,11);JMDEBUG.S.mess=[{map:'farm',x:4,y:10,k:'socke'}];const d=JMDEBUG.DOGS[0];d.x=d.tx=4;d.y=d.ty=10;d.timer=999;});await page.waitForTimeout(500);
  const p2=await page.evaluate(()=>JM.R3.proj(4.5,10.5,.42));console.log('Feld-Repro',viewport,await page.evaluate(p=>({pick:JM.R3.pick(p[0],p[1]),screen:p,el:document.elementFromPoint(p[0],p[1])?.outerHTML.slice(0,180),p:{x:JMDEBUG.P.x,y:JMDEBUG.P.y},ui:JMDEBUG.busy}),p2));await page.mouse.dblclick(p2[0],p2[1]);await page.waitForFunction(()=>JMDEBUG.S.mess.length===0).catch(async e=>{console.log('Feld-Fehlerzustand',await page.evaluate(()=>({mess:JMDEBUG.S.mess,stats:JMDEBUG.S.stats,ui:JMDEBUG.busy,p:{x:JMDEBUG.P.x,y:JMDEBUG.P.y,path:JMDEBUG.P.path},hold:JMDEBUG.S.hold})));throw e;});assert.equal(await page.evaluate(()=>JMDEBUG.S.stats.tidy),2);assert.equal(await page.evaluate(()=>JSON.stringify(JMDEBUG.S.field['4,10'])),fieldBefore,'Sammelobjekt darf nicht Feldarbeit starten');
- assert.deepEqual(errors,[]);console.log('3D Socke künstlicher Repro + Tierüberlappung/Feld/Doppeltipp',viewport,'OK');await context.close();
+ // Normale Sammelfunde nutzen S.forage statt S.mess: beide Pfade brauchen Vorrang vor Tieren.
+ for(const item of ['pilz','holz']){
+  await page.evaluate(k=>{const d=JMDEBUG;d.setMap('farm',4,11);d.S.forage.farm=[{x:4,y:10,k}];d.S.mess=[];d.S.hold='auto';for(const dog of d.DOGS){dog.x=dog.tx=4;dog.y=dog.ty=10;dog.timer=999;}},item);
+  await page.waitForTimeout(500);
+  const before=await page.evaluate(k=>JMDEBUG.S.inv[k]||0,item);
+  const target=await page.evaluate(()=>{const p=JM.R3.proj(4.5,10.5,.42);return {p,pick:JM.R3.pick(p[0],p[1]),element:document.elementFromPoint(p[0],p[1])?.id};});
+  assert.equal(target.element,'game');assert.equal(target.pick.collectible,true);
+  await page.mouse.click(target.p[0],target.p[1]);
+  await page.waitForFunction(()=>JMDEBUG.S.forage.farm.length===0||JMDEBUG.busy.ui.dialog,{timeout:10000});
+  assert.equal(await page.evaluate(()=>JMDEBUG.busy.ui.dialog),false,item+': Fund darf keinen Hundedialog öffnen');
+  assert.equal(await page.evaluate(()=>JMDEBUG.S.forage.farm.length),0);
+  assert.equal(await page.evaluate(k=>JMDEBUG.S.inv[k]||0,item),before+1,item+': genau ein Fund im Inventar');
+ }
+ assert.deepEqual(errors,[]);console.log('3D Socke/Sammelfunde/Bauholz + Tierüberlappung/Feld/Doppeltipp',viewport,'OK');await context.close();
  }}finally{await browser.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

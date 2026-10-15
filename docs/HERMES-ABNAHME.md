@@ -19,6 +19,8 @@ Der erste Gesamtlauf hing nach den Erfolgsmeldungen beider Viewports des Regress
 
 ## Noch offen
 
-Ein frischer Prüfer liest den Diff und führt eigene Gegenproben aus (Auftrag `deleg_72d0208c`). Endabnahme deshalb noch nicht erteilt. Original-Sockenspielstand, echtes iPhone/Safari, Aktualisierung einer bestehenden iOS-PWA und Langzeitbalancing bleiben ungeprüft. Weitere Wunschpakete sind im Rechercheplan offen, nicht durch dieses Fundament erledigt.
+Die unabhängige Prüfung (`deleg_72d0208c`) fand einen P2: normale `S.forage`-Funde wurden trotz korrektem 3D-Treffer vom überlappenden Hund abgefangen. Der bisherige Sockentest deckte nur `S.mess` ab. Parent erweiterte zuerst `tests/picking.cjs` um Pilz und Bauholz unter Hunden; vor dem Fix Exit 1 mit `pilz: Fund darf keinen Hundedialog öffnen`, `true !== false`. Anschließend wurde ausschließlich der bestehende Sammelfund-Block in `tapAt()` vor die Figurenprüfung verschoben. Derselbe Test wurde in beiden Viewports grün, danach nochmals der gesamte 19-Befehle-Lauf einschließlich aller Browserprüfungen. Die unabhängige Gegenprobe des engen Fixes läuft unter `deleg_c5c4ac61`; Endabnahme bis deren Ergebnis zurückgehalten.
+
+Original-Sockenspielstand, echtes iPhone/Safari, Aktualisierung einer bestehenden iOS-PWA und Langzeitbalancing bleiben ungeprüft. Weitere Wunschpakete sind im Rechercheplan offen, nicht durch dieses Fundament erledigt.
 
 Kein Merge, kein Deploy, keine öffentliche Vorschau erzeugt. Lokaler Prüfserver: `http://127.0.0.1:8765/`.
