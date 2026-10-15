@@ -24,3 +24,17 @@ Die unabhängige Prüfung (`deleg_72d0208c`) fand einen P2: normale `S.forage`-F
 Original-Sockenspielstand, echtes iPhone/Safari, Aktualisierung einer bestehenden iOS-PWA und Langzeitbalancing bleiben ungeprüft. Weitere Wunschpakete sind im Rechercheplan offen, nicht durch dieses Fundament erledigt.
 
 Kein Merge, kein Deploy, keine öffentliche Vorschau erzeugt. Lokaler Prüfserver: `http://127.0.0.1:8765/`.
+
+## Offener Befund 15.10.2026 – Höhlen-Softlock nicht erklärt
+
+René meldete am Abend: „stecke in der hoelle feste kann nichts mehr machen“. Nachfrage: **Menüs (Tagebuch/Rucksack) reagierten weiter.** Der zuvor als sicher benannte Umweg Tagebuch → Karte → Dein Hof half in **seinem** Spielstand **nicht**; im isolierten Prüfstand reiste derselbe Weg dagegen korrekt (Map `hoehle5` → `farm`, Inventar und Geld unverändert, keine Konsolenfehler). Es handelte sich also nicht um den getesteten Standardfall.
+
+Danach meldete René ohne weitere Änderung: „klappt wieder“. **Die Ursache ist damit nicht gefunden, nur der Zustand ist verschwunden.** Kein Produktionsfehler behauptet, **keine Produktionsdatei geändert** – eine Änderung ohne belegte Ursache wäre ein Symptom-Patch.
+
+Nicht beantwortet und für die Aufklärung nötig: Ebene, Version/Stand (alte öffentliche Fassung oder `feat/hofausbau-fundament`), Gerät (Mac oder Handy), Zustand der Kutsche kurz vor dem Feststecken, ein Screenshot und ein Spielstand-Export. Nur wo der Fehler tatsächlich sichtbar war, lässt sich der Ablauf einordnen.
+
+**Kleiner eigener Befund (niedrig, reproduziert):** Direkt nach einer Kutschenreise blieb kurzzeitig die Höhlen-Anzeige im HUD stehen („Ebene 5/10 · Silberrast“), bis der nächste HUD-Takt griff. Das ist eine Anzeige-Verzögerung, **keine** belegte Ursache des Feststeckens.
+
+**Abgebrochener Aufklärungsauftrag:** die unabhängige Höhlen-Untersuchung (`deleg_31302a6f`) brach nach 11 Schritten mit HTTP 429 ab – Codex-Kontingent erschöpft, Reset laut Meldung 06:23. Teilstand: keine Befunde, keine Repoänderung. Die echten Bildschirm-Leiterwege wurden dadurch **weiterhin nicht** unabhängig geprüft; die älteren Browserprüfungen nutzten teils `JMDEBUG.tap` statt echter Bildschirmklicks.
+
+**Nächster Schritt:** denselben Prüfauftrag nach dem Kontingent-Reset neu starten und René nach Screenshot, Ebene, Version und Gerät fragen. Erst danach entscheiden, ob etwas zu beheben ist.
