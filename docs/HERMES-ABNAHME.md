@@ -1,8 +1,8 @@
 # Hermes-Abnahme – erster Ausbau
 
-## Zwischenstand: technische Nachprüfung grün, unabhängiges Urteil ausstehend
+## Urteil: erstes Ausbaupaket technisch abgenommen, nicht veröffentlicht
 
-Geprüfte Produktionsbasis: `5d1cf9dbc548b350fa9b83f529f1f54a443a62f0` auf `feat/hofausbau-fundament`. `main` und `gh-pages` beim Remote-Abgleich weiterhin unverändert auf `be89e040bb14a74790dd85ccb8eaf844f43366b8`.
+Geprüfte Produktionsbasis: `5d1cf9dbc548b350fa9b83f529f1f54a443a62f0`, anschließend enger Sammelfund-Fix `f97ce3f1ee0ec0bf99e6adb610a49f41c79d95ec` auf `feat/hofausbau-fundament`. `main` und `gh-pages` beim Remote-Abgleich weiterhin unverändert auf `be89e040bb14a74790dd85ccb8eaf844f43366b8`. Das Urteil gilt für das definierte erste Paket im geprüften Chrome-/Vorschauumfang, nicht für die gesamte Wunschliste oder ungeprüfte iOS-Hardware.
 
 ## Selbst nachgeprüft
 
@@ -19,7 +19,7 @@ Der erste Gesamtlauf hing nach den Erfolgsmeldungen beider Viewports des Regress
 
 ## Noch offen
 
-Die unabhängige Prüfung (`deleg_72d0208c`) fand einen P2: normale `S.forage`-Funde wurden trotz korrektem 3D-Treffer vom überlappenden Hund abgefangen. Der bisherige Sockentest deckte nur `S.mess` ab. Parent erweiterte zuerst `tests/picking.cjs` um Pilz und Bauholz unter Hunden; vor dem Fix Exit 1 mit `pilz: Fund darf keinen Hundedialog öffnen`, `true !== false`. Anschließend wurde ausschließlich der bestehende Sammelfund-Block in `tapAt()` vor die Figurenprüfung verschoben. Derselbe Test wurde in beiden Viewports grün, danach nochmals der gesamte 19-Befehle-Lauf einschließlich aller Browserprüfungen. Die unabhängige Gegenprobe des engen Fixes läuft unter `deleg_c5c4ac61`; Endabnahme bis deren Ergebnis zurückgehalten.
+Die unabhängige Prüfung (`deleg_72d0208c`) fand einen P2: normale `S.forage`-Funde wurden trotz korrektem 3D-Treffer vom überlappenden Hund abgefangen. Der bisherige Sockentest deckte nur `S.mess` ab. Parent erweiterte zuerst `tests/picking.cjs` um Pilz und Bauholz unter Hunden; vor dem Fix Exit 1 mit `pilz: Fund darf keinen Hundedialog öffnen`, `true !== false`. Anschließend wurde ausschließlich der bestehende Sammelfund-Block in `tapAt()` vor die Figurenprüfung verschoben. Derselbe Test wurde in beiden Viewports grün, danach nochmals der gesamte 19-Befehle-Lauf einschließlich aller Browserprüfungen. Die unabhängige Gegenprobe des engen Fixes (`deleg_c5c4ac61`) wurde unverändert mobil und am Rechner ausgeführt: korrekter Sammel-Raycaster-Treffer, genau ein Pilz im Inventar, Fund entfernt, kein Hundedialog; nach weiteren 1,5 Sekunden weiterhin korrekt. Beide Prozesse Exit 0. Der P2 ist damit behoben. Bauholz ist im erweiterten Elternlauf geprüft; die unabhängige Gegenprobe betraf ausdrücklich den separaten Pilzfall. Als wiederverwendbare Prüflehre wurde im Skill `canvas-game-regression` festgehalten, jeden getrennten Sammeldatenpfad bis zur tatsächlichen Aktion zu prüfen.
 
 Original-Sockenspielstand, echtes iPhone/Safari, Aktualisierung einer bestehenden iOS-PWA und Langzeitbalancing bleiben ungeprüft. Weitere Wunschpakete sind im Rechercheplan offen, nicht durch dieses Fundament erledigt.
 
