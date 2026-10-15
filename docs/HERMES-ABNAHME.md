@@ -38,3 +38,23 @@ Nicht beantwortet und für die Aufklärung nötig: Ebene, Version/Stand (alte ö
 **Abgebrochener Aufklärungsauftrag:** die unabhängige Höhlen-Untersuchung (`deleg_31302a6f`) brach nach 11 Schritten mit HTTP 429 ab – Codex-Kontingent erschöpft, Reset laut Meldung 06:23. Teilstand: keine Befunde, keine Repoänderung. Die echten Bildschirm-Leiterwege wurden dadurch **weiterhin nicht** unabhängig geprüft; die älteren Browserprüfungen nutzten teils `JMDEBUG.tap` statt echter Bildschirmklicks.
 
 **Nächster Schritt:** denselben Prüfauftrag nach dem Kontingent-Reset neu starten und René nach Screenshot, Ebene, Version und Gerät fragen. Erst danach entscheiden, ob etwas zu beheben ist.
+
+## Livegang 15.10.2026 (Renés Freigabe)
+
+René hat am 15.10.2026 freigegeben: „jetzt kann es live gehen“. Ausgeliefert ist `8aff1d886b3365216a34c7e0f06f5b38e57ce2f7` auf `main` und `gh-pages` (Fast-Forward, kein Force-Push, nichts gelöscht). Vorheriger Live-Stand `be89e04` ist als Tag `live-vor-ausbau` gesichert; Rücknahme wäre ein neuer Commit zurück auf diesen Stand, kein Force-Push.
+
+Live-Verifikation, nicht nur Push-Erfolg:
+- `jm-ausbau.js`, `index.html`, `sw.js` live per HTTP 200; `index.html` lädt `jm-ausbau.js`, `sw.js` führt es im Precache.
+- Alle fünf Kern-Dateien live **byte-identisch** zu `8aff1d8` (SHA-256-Vergleich) – kein Cache- oder Deploy-Mischstand.
+- Echter Nutzerweg auf der Live-Adresse: Spielstart → Reise in den Mondwald → Höhle per Bildschirmklick betreten → HUD „Ebene 1/10 · Eingangskammer“ → obere Leiter per Bildschirmklick → „Ebene 2/10 · Kupferadern“. Sechsmaliger Ebenenwechsel wiederholt, ohne Fehler. Kühlschrank und Küche am Rechner/Handy-Layout geöffnet.
+- Testweise 3D-Darstellung: `R3.proj` selbst aufgerufen, solange das 3D-Modul noch nicht bereit war, wirft in **meinem Prüfcode** einen Fehler (`matrixWorldInverse`). Das ist ein Fehler meiner Messung, kein Spielverhalten; `use3D()` fängt einen fehlgeschlagenen 3D-Aufbau intern ab und fällt auf 2D zurück.
+
+## Ungeklärt: einmaliger Laufzeitfehler auf der Live-Seite
+
+In einem Live-Prüflauf trat **einmal** `Uncaught TypeError: Cannot read properties of undefined (reading 'farm')` auf; unmittelbar danach war die Spielfigur in diesem Lauf eingefroren (Menüs reagierten weiter). **Dieser Fehler ließ sich anschließend nicht reproduzieren:** sechsmaliger Ebenenwechsel, wiederholtes Betreten/Verlassen und Erschöpfung in der Höhle liefen ohne Fehler; eine Wiederholung mit der tatsächlichen Live-Adresse ebenfalls nicht. Der `MAPS`-Zugriff auf `.farm` existiert nur in `jm-game.js`; die einzige Neuzuweisung von `MAPS` liegt im Tageswechsel beim Hausausbau.
+
+Bewertung: **nicht behoben, nicht erklärt.** Möglich ist ein Mischzustand während der ersten Aktivierung des neuen Service-Workers (die Seite lud unmittelbar nach dem Deploy), aber das ist eine Vermutung und **kein Beweis** – beweisbar ist nur, dass der Fehler einmal auftrat und danach nicht wieder. Bei einem erneuten Auftreten sind Screenshot, Ebene, Gerät und Spielstand-Export nötig; ohne diese Angaben wäre jede Änderung ein Symptom-Patch.
+
+## Neu abgelegte Prüfskripte
+
+`tests/cave-floor-change.cjs` und `tests/erschoepfung-in-hoehle.cjs` halten die hier tatsächlich ausgeführten Prüfungen fest (Ebenenwechsel per Bildschirmklick, Erschöpfung in der Höhle, Bewegung danach). **Kein Produktionscode wurde für diese Untersuchung geändert.**
