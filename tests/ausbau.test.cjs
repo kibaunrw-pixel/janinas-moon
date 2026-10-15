@@ -51,6 +51,15 @@ test('Zimmermann: Ressourcen, einmalige Kosten, Bauzeit, Reload und sichtbare R�
  assert.equal(s.maxE,120);assert.equal(JM.Ausbau.orderHouse(s,3),false);
  const maps=JM.buildMaps();assert.ok(maps.village.obj.some(o=>o.act==='shop:zimmerei'));assert.equal(maps.i_zimmerei.owner,'timo');
 });
+test('Alte unerreichbare Sammelobjekte werden ohne Verlust erreichbar versetzt',()=>{
+ const maps=JM.buildMaps(),s={mess:[{map:'farm',x:0,y:0,k:'socke',id:'alt'},{map:'haus',x:0,y:0,k:'tasse'}],forage:{farm:[]}};
+ assert.equal(typeof JM.Ausbau.repairCollectibles,'function');assert.equal(JM.Ausbau.repairCollectibles(s,maps.farm),1);
+ assert.equal(s.mess.length,2);assert.equal(s.mess[0].id,'alt');assert.ok(JM.WALK.has(maps.farm.t[s.mess[0].y][s.mess[0].x]));assert.equal(s.mess[1].x,0);
+ assert.equal(JM.Ausbau.repairCollectibles(s,maps.farm),0);
+});
+test('Komplett gekaufte Zutaten erzeugen auch am maximalen Marktbonus keine Endlosschleife',()=>{
+ for(const r of JM.RECIPES){if(r.need.fisch)continue;const cost=Object.entries(r.need).reduce((sum,[k,n])=>sum+JM.SHOPS.markt.stock.find(s=>s.k===k).p*n,0);assert.ok(cost>=Math.round(JM.ITEMS[r.k].sell*1.7),r.k+': '+cost+' Einkauf unter Marktverkauf');}
+});
 test('Lebensmitteltransfer erhält Bilanz und lehnt ungültige Mengen ab',()=>{
  assert.ok(JM.Ausbau,'Ausbau-Produktionslogik fehlt');
  const s={inv:{ei:7,kupfer:4},fridge:{ei:2}};

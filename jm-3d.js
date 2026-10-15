@@ -517,7 +517,7 @@ function buildDyn(){
   if(M.cave) for(const r of (S.rocks||[])){ const c={stein:"#8a8078",kupfer:"#c8783a",eisen:'#b2bac3',silber:'#eef4ff',amethyst:"#a868d8",mondquarz:"#cfe6ff"}[r.k]||"#8a8078"; mg.add(GEO.sphLo,M4(r.x+.5,.25,r.y+.5,.4,.3,.36,.2,h01(r.x,r.y,1)*3,0),"#7a7068"); if(r.k!=="stein") for(let i=0;i<3;i++) mg.add(GEO.cone8,M4(r.x+.35+i*.15,.45,r.y+.5+(i%2)*.1,.06,.25,.06,0,0,(i-1)*.4),c); addPickDyn(r.x,r.y,1,1,.6,null); }
   if(mg.pos.length) dyn.add(mg.mesh());
   const items=[...(S.forage[M.id]||[]).map(f=>[f.k,f.x,f.y]),...S.mess.filter(m=>m.map===M.id).map(m=>[m.k,m.x,m.y])];
-  for(const [k,x,y] of items){ const s=iconSprite(k); s.position.set(x+.5,.4,y+.5); s.userData.x=x; dyn.add(s); dyn.userData.bob.push(s); const sh=new THREE.Mesh(new THREE.CircleGeometry(.18,12),MATS.sh||(MATS.sh=new THREE.MeshBasicMaterial({color:"#000",transparent:true,opacity:.18,depthWrite:false}))); sh.rotation.x=-Math.PI/2; sh.position.set(x+.5,.012,y+.5); dyn.add(sh); }
+  for(const [k,x,y] of items){ const s=iconSprite(k); s.material.depthTest=false;s.renderOrder=20;s.position.set(x+.5,.4,y+.5); s.userData.x=x;s.userData.collectible={x,y}; dyn.add(s); dyn.userData.bob.push(s); const sh=new THREE.Mesh(new THREE.CircleGeometry(.18,12),MATS.sh||(MATS.sh=new THREE.MeshBasicMaterial({color:"#000",transparent:true,opacity:.18,depthWrite:false}))); sh.rotation.x=-Math.PI/2; sh.position.set(x+.5,.012,y+.5); dyn.add(sh); }
   dkey=dynKey();
 }
 function addPickDyn(x,y,w,h,ht,o){ const m=new THREE.Mesh(GEO.box,MATS.inv||(MATS.inv=new THREE.MeshBasicMaterial({visible:false}))); m.scale.set(w,ht,h); m.position.set(x+w/2,ht/2,y+h/2); m.userData.obj=o; dyn.add(m); }
@@ -704,7 +704,10 @@ R3.proj=function(x,z,h){ _v.set(x,h||0,z).project(camera); return [(_v.x*.5+.5)*
 const ray=new THREE.Raycaster(), ndc=new THREE.Vector2(), plane=new THREE.Plane(new V3(0,1,0),0);
 R3.pick=function(cx,cy){
   ndc.set(cx/innerWidth*2-1,-(cy/innerHeight)*2+1); ray.setFromCamera(ndc,camera);
-  // Figuren zuerst
+  // Sichtbare Sammelsprites haben eine eigene Trefferfläche an ihrer tatsächlichen Höhe.
+  const found=ray.intersectObjects(dyn?dyn.children.filter(c=>c.userData.collectible):[],false);
+  if(found.length){const p=found[0].object.userData.collectible;return {wx:p.x+.5,wy:p.y+.5,collectible:true};}
+  // Figuren danach
   const groups=[...ACT.values()].map(r=>r.g);
   const hits=ray.intersectObjects(groups,true);
   if(hits.length){ let o=hits[0].object; while(o&&!o.userData.actor) o=o.parent; if(o&&o.userData.actor){ const a=o.userData.actor; return {wx:a.x+.5,wy:a.y+.5,actor:o.userData.actorId}; } }

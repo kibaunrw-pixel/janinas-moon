@@ -31,6 +31,9 @@ for(const k of new Set(JM.RECIPES.flatMap(r=>Object.keys(r.need)).filter(k=>k!==
  if(stock){delete stock.winter;stock.d='Ganzjähriger Küchenvorrat';}
  else JM.SHOPS.markt.stock.push({k,p:Math.ceil(JM.ITEMS[k].sell*2.2),d:'Ganzjähriger Küchenvorrat · Eigenanbau/Tierhaltung lohnt sich'});
 }
+// Reiner Einkauf → Kochen → Samstagsstand darf nicht ohne Zeit/Rohstoffbeschaffung Geld drucken.
+const pantryPrices={weizen:160,zwiebel:90,pakchoi:150,huhn:340,ei:140,milch:200};
+for(const s of JM.SHOPS.markt.stock)if(pantryPrices[s.k])s.p=pantryPrices[s.k];
 const caveId=d=>d===1?'hoehle':'hoehle'+d;
 JM.MINE_THEMES=[
  ['Eingangskammer','#9a886f',['stein','stein','kupfer']],
@@ -134,5 +137,14 @@ X.applyHouse=function(maps,level){if(!level)return;
  if(level>=2){m.obj.push({k:'workbench',x:19,y:3,w:2,act:'craft'},{k:'table',x:18,y:7,w:2,act:'deco'});for(const o of m.obj.filter(o=>o.x>=18))for(let x=o.x;x<o.x+(o.w||1);x++)m.t[o.y][x]=JM.T.BLOCK;}
  for(let y=5;y<=8;y++)for(let x=15;x<m.w-2;x++)if(m.t[y][x]!==JM.T.BLOCK)m.t[y][x]=JM.T.TEPPICH;
  m.windows.push([16,1]);if(level>=2)m.windows.push([20,1]);
+};
+X.repairCollectibles=function(s,m){
+ const dirs=[[1,0],[-1,0],[0,1],[0,-1]],q=[m.spawn],seen=new Set([m.spawn.join(',')]);
+ for(let i=0;i<q.length;i++){const [x,y]=q[i];for(const [dx,dy] of dirs){const nx=x+dx,ny=y+dy,k=nx+','+ny;if(!seen.has(k)&&JM.WALK.has(m.t[ny]?.[nx])){seen.add(k);q.push([nx,ny]);}}}
+ const objects=[...(s.mess||[]).filter(o=>o.map===m.id),...((s.forage||{})[m.id]||[])],occupied=new Set(objects.map(o=>o.x+','+o.y));let changed=0;
+ for(const o of objects){if(seen.has(o.x+','+o.y)||dirs.some(([dx,dy])=>seen.has((o.x+dx)+','+(o.y+dy))))continue;
+ const choices=q.filter(([x,y])=>!occupied.has(x+','+y)&&!m.exits.some(e=>e.x===x&&e.y===y)).sort((a,b)=>(Math.abs(a[0]-o.x)+Math.abs(a[1]-o.y))-(Math.abs(b[0]-o.x)+Math.abs(b[1]-o.y)));
+ if(choices.length){[o.x,o.y]=choices[0];occupied.add(o.x+','+o.y);changed++;}
+ }return changed;
 };
 })();

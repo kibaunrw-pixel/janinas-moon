@@ -260,6 +260,7 @@ function setMap(id,x,y){
   camSnap=true; CRIT=[];
   JM.Ausbau.enterMine(S,id,MAPS,rnd);
   M=MAPS[id]; P.x=x; P.y=y; P.path=[]; P.act=null; P.queue=[]; aim=null;
+  if(JM.Ausbau.repairCollectibles(S,M)&&!demo)note('Ein verirrter Fund liegt jetzt am nächsten erreichbaren Weg. Nichts ging verloren.');
   if(M.cave) hudSoon();
   buildGround(); spawnAnimals(); npcPlaceAll(true); FX=[]; FLT=[];
 }
@@ -331,7 +332,7 @@ cv.addEventListener("pointerdown",e=>{
   if(paused()) return;
   const {wx,wy}=toWorld(e.clientX,e.clientY), tx=Math.floor(wx), ty=Math.floor(wy);
   ptr={id:e.pointerId,mode:"tap",last:key(tx,ty),t:performance.now()};
-  if(isField(tx,ty)&&!hitActor(wx,wy)&&!S.eggs.some(g=>g.x===tx&&g.y===ty)){
+  if(isField(tx,ty)&&!S.mess.some(m=>m.map===M.id&&m.x===tx&&m.y===ty)&&!(S.forage[M.id]||[]).some(f=>f.x===tx&&f.y===ty)&&!hitActor(wx,wy)&&!S.eggs.some(g=>g.x===tx&&g.y===ty)){
     if(P.queue.length===0&&!P.act){ P.path=[]; }
     ptr.mode="swipe"; P.queue=[[tx,ty]]; P.act=null; aim={x:tx,y:ty};
     return;
@@ -1425,6 +1426,7 @@ function openBook(tab){
     const all=Object.keys(ITEMS).filter(k=>JM.SHIPPABLE(k)&&ITEMS[k].cat!=="dish");
     const got=all.filter(k=>S.shipLog[k]||S.fishLog[k]);
     body=`<p class="sub">${got.length} von ${all.length} Dingen verkauft oder gefangen</p><div class="grid">${all.map(k=>`<div class="cell ${S.shipLog[k]||S.fishLog[k]?"":"sil"}">${ic(k)}<span>${S.shipLog[k]||S.fishLog[k]||""}</span></div>`).join("")}</div>
+      <h3>Magischer Teich · Ebene 10</h3><p class="sub">Sternenschuppe und Kristallforelle leben nur dort. Mit Henks Angel am Ufer angeln; beide sind zu jeder Tageszeit fangbar.</p><p>${['sternenschuppe','kristallforelle'].map(k=>esc(ITEMS[k].n)+': '+(S.fishLog[k]||0)+' gefangen').join('<br>')}</p>
       <h3>Gekocht</h3><p class="sub">${JM.RECIPES.filter(r=>S.cookLog[r.k]).map(r=>esc(ITEMS[r.k].n)).join(", ")||"Noch nichts"}</p>
       <h3>Mondbaum</h3><p class="sub">${Object.keys(S.bundleDone).length} von ${JM.BUNDLES.length} Gaben erfüllt</p>
       <p class="sub">Verdient insgesamt: ${S.stats.earned.toLocaleString("de-DE")} G</p>`;
@@ -1437,12 +1439,14 @@ function openBook(tab){
       <div class="row"><div class="tx"><b>Ansicht</b><small>Oder mit zwei Fingern oder den Knöpfen + und − zoomen</small></div><div class="btns">${[["Nah",1.25],["Normal",1],["Weit",.75],["Übersicht",.5]].map(([n,z])=>`<button class="btn ${(S.zoom||1)===z?"":"alt"}" data-a="zoom" data-k="${z}">${n}</button>`).join("")}</div></div>
       <div class="row" id="photoRow" hidden><div class="tx"><b>Foto vom Hof</b><small>Speichert ein Bild von diesem Moment</small></div><button class="btn alt" data-a="photo">Foto</button></div>
       <div class="row"><div class="tx"><b>Gespeichert</b><small>Automatisch, und immer beim Schlafen</small></div></div>
+      <div class="row"><div class="tx"><b>Spielstand-Sicherung</b><small>JSON-Datei mit deinem vollständigen Hof, Vorräten und Ausbau. Sicher aufbewahren.</small></div><button class="btn alt" data-a="backup">Sicherung exportieren</button></div>
       <div class="row"><div class="tx"><b>Neuer Hof</b><small>Beginnt von vorn. Der jetzige Hof geht verloren.</small></div><button class="btn danger" data-a="reset">Neu</button></div>
       <p class="sub center">Janinas Moon · Für ${esc(S.name)}, von ${esc(JM.CONFIG.von)}</p>`;
   }
   const nav=tabs.map(([k,l])=>`<button class="tab ${k===tab?"on":""}" data-a="tab" data-k="${k}">${l}</button>`).join("");
   openPanel(`<h2>Tagebuch</h2><div class="tabs">${nav}</div>${body}${closeBtn}`,
   {tab:k=>openBook(k), zoom:k=>{ S.zoom=+k; ZOOM=S.zoom; resize(); saveSoon(); openBook("opt"); }, go:k=>{ const pl=PH_GO.find(p=>p[0]===k); closePanel(); S.min=Math.min(1430,S.min+30); fadeQuick(()=>{ setMap(k,pl[3],pl[4]); banner(pl[1]); updateQuestUI(); saveSoon(); }); }, snd:()=>{ S.sound=!S.sound; saveSoon(); openBook("opt"); }, mus:()=>{ S.music=!S.music; saveSoon(); openBook("opt"); }, gfx:()=>{ S.gfx=S.gfx==="2d"?"3d":"2d"; camSnap=true; saveSoon(); openBook("opt"); },
+   backup:()=>{save(true);const blob=new Blob([JSON.stringify(S,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='janinas-moon-tag-'+S.day+'.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);note('Sicherung als JSON exportiert.');},
    photo:takePhoto,
    reset:(k,b)=>{ if(b.dataset.armed){ try{ localStorage.removeItem(SAVE_KEY); }catch(e){} if(dbRef) dbRef.set({json:"",t:0}).catch(()=>{}); location.reload(); return; } b.dataset.armed="1"; b.textContent="Sicher? Nochmal tippen"; }});
   if(tab==="opt") downloadsReady.then(d=>{ const r=$("photoRow"); if(d&&r) r.hidden=false; });
@@ -1583,6 +1587,7 @@ function spawnMess(){
   S.mess=out;
 }
 function tidy(m){
+  if(!S.mess.includes(m))return;
   S.mess=S.mess.filter(x=>x!==m); S.stats.tidy=(S.stats.tidy||0)+1; sfx("pick"); burst(m.x,m.y,"#f4f1ea",5);
   note(pick(JM.RENE.tidy[m.k])+" Weggeräumt."); emit("tidy"); saveSoon();
 }
