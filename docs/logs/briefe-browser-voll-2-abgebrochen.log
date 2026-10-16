@@ -1,0 +1,13 @@
+Briefe schatz-390-2d OK {"money":5300}
+Briefe schatz-390-3d OK {"money":5300}
+Briefe schatz-1440-2d OK {"money":5300}
+Briefe schatz-1440-3d OK {"money":5300}
+Wegversuch wiederholt haus7-390-2d { x: 6, y: 8, r: [ 104, 302 ] }
+Briefe haus7-390-2d OK {"money":4620}
+Briefe haus7-390-3d OK {"money":4620}
+Briefe haus7-1440-2d OK {"money":4620}
+Wegversuch wiederholt haus7-1440-3d { x: 9, y: 8, r: [ 278.2450154326712, 400.18119854296646, 1 ] }
+page.waitForFunction: Target page, context or browser has been closed
+    at map (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/briefe-browser.cjs:30:32)
+    at toFarm (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/briefe-browser.cjs:38:65)
+    at async /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/briefe-browser.cjs:112:2
