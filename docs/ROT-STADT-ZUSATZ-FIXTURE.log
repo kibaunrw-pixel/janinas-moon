@@ -1,0 +1,7 @@
+page.evaluate: TypeError: Cannot read properties of undefined (reading 'cave')
+    at X.enterMine (http://127.0.0.1:8765/jm-ausbau.js:104:8)
+    at Object.setMap (http://127.0.0.1:8765/jm-game.js:261:13)
+    at eval (eval at evaluate (:291:30), <anonymous>:1:120)
+    at UtilityScript.evaluate (<anonymous>:293:16)
+    at UtilityScript.<anonymous> (<anonymous>:1:44)
+    at /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/stadt-zusatz.cjs:9:104

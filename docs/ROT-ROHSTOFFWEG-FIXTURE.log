@@ -1,0 +1,5 @@
+page.evaluate: TypeError: Cannot read properties of undefined (reading 'filter')
+    at eval (eval at evaluate (:291:30), <anonymous>:1:29)
+    at UtilityScript.evaluate (<anonymous>:293:16)
+    at UtilityScript.<anonymous> (<anonymous>:1:44)
+    at /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/rohstoffweg.cjs:9:105
