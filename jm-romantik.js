@@ -18,14 +18,14 @@ const hh=m=>Math.floor(m/60)+(m%60?':'+String(m%60).padStart(2,'0'):'');
 const met=(s,id)=>!!(s.npc&&s.npc[id]&&s.npc[id].met);
 
 R.PLACES={
- see:{map:'forest',n:'am Waldsee',obj:{k:'picknick',x:16,y:21,w:2,h:1},rene:[18,21],spot:[15,21]},
- wiese:{map:'farm',n:'auf der Wiese am Teich',obj:{k:'picknick',x:18,y:24,w:2,h:1},rene:[20,24],spot:[17,24]},
- stadt:{map:'stadt',n:'am Stadtbrunnen in Lindenstadt',obj:{k:'bistro',x:10,y:15,w:2,h:1},rene:[12,15],spot:[9,15]}};
+ see:{map:'forest',n:'am Waldsee',kurz:'Waldsee',obj:{k:'picknick',x:16,y:21,w:2,h:1},rene:[18,21],spot:[15,21]},
+ wiese:{map:'farm',n:'auf der Wiese am Teich',kurz:'Wiese am Teich',obj:{k:'picknick',x:18,y:18,w:2,h:1},rene:[20,18],spot:[17,18]},// nördlich vom Teich; Beete (FELD) und Gewächshaus (GLAS 16–21,24–26) bleiben frei
+ stadt:{map:'stadt',n:'am Stadtbrunnen in Lindenstadt',kurz:'Stadtbrunnen Lindenstadt',obj:{k:'bistro',x:10,y:15,w:2,h:1},rene:[12,15],spot:[9,15]}};
 R.SLOTS={mittag:{n:'12 Uhr',from:720,to:900},abend:{n:'17 Uhr',from:1020,to:1200},ausflug:{n:'17 Uhr',from:1020,to:1260}};
 R.KINDS={picknick:{places:['see','wiese'],slots:['mittag','abend']},ausflug:{places:['stadt'],slots:['ausflug']}};
 R.HOME={rene:[7,5],spot:[4,5]};
 R.BDAY={from:600,to:960,rosa:[10,9],mei:[13,9],table:{k:'geburtstagstisch',x:11,y:9,w:2,h:1},spot:[12,8],gift:{items:{tee:2,rolle:2}},card:{items:{erdbeere:3}}};
-R.BANK={k:'herzbank',x:21,y:24,w:2,h:1};
+R.BANK={k:'herzbank',x:21,y:17,w:2,h:1};// am Teich, neben dem Picknickplatz
 R.DEF={jb:{s:2,d:6},jt:{s:1,d:12}};
 R.JT_FROM=1080;R.JT_TO=1410;
 
@@ -51,7 +51,7 @@ const dateNow=s=>{const d=pending(s);return d&&d.day===s.day&&s.min>=d.from-30&&
 R.canPropose=(s,kind)=>reneMet(s)&&!pending(s)&&!!R.KINDS[kind]&&(kind!=='ausflug'||s.rom.pick.n>=1);
 R.options=function(s,kind){if(!R.canPropose(s,kind))return [];const K=R.KINDS[kind],out=[];
  for(const pl of K.places)for(const sl of K.slots){const S0=R.SLOTS[sl],day=s.min<S0.from-60?s.day:s.day+1;
-  out.push({k:[kind,pl,sl,day].join('|'),t:cap(R.PLACES[pl].n)+', '+(day===s.day?'heute':'morgen')+' um '+S0.n});}
+  out.push({k:[kind,pl,sl,day].join('|'),t:R.PLACES[pl].kurz+' · '+(day===s.day?'heute':'morgen')+' '+S0.n});}
  return out;};
 R.propose=function(s,key,via){R.migrate(s);const opt=R.options(s,String(key).split('|')[0]).find(o=>o.k===key);if(!opt)return {ok:false,msg:'Diese Verabredung ist gerade nicht möglich.'};
  const [k,place,slot,day]=key.split('|'),S0=R.SLOTS[slot];
@@ -118,6 +118,7 @@ R.mvEnd=function(s,how){const m=s.rom.mv;if(!['ausweichen','hinweis'].includes(m
   say(null,'Das Missverständnis ist ausgeräumt. Die Herzbank steht jetzt am Teich auf dem Hof.')]};};
 
 /* ---------- Gespräche ---------- */
+R.jbPending=s=>!!s.rom&&reneMet(s)&&R.jbToday(s)&&!R.jbRec(s).rene;
 R.reneTalk=function(s){R.migrate(s);if(!reneMet(s))return null;
  return (R.jbToday(s)&&!R.jbRec(s).rene?R.bdayRene(s):null)||R.dateScene(s)||R.jtScene(s)||R.mvTalk(s)||R.reminder(s);};
 R.reminder=function(s){const d=pending(s);if(!d||d.day<s.day||(d.day===s.day&&s.min>=d.from-30))return null;const p=R.PLACES[d.place];

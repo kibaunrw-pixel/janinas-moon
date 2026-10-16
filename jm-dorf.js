@@ -133,7 +133,10 @@ D.paarStep=function(s,how){const m=s.dorf.paar;if(m.st!=='hinweis'||!['brief','f
   :{lines:[say('timo','Du hast recht. Frag sie bitte, ob sie mich treffen will. Den Rest schaffe ich.'),say(null,'Frag Mei, ob sie Timo treffen möchte.')]};};
 
 /* ---------- Gespräche: Vorrang und neue Zeilen ---------- */
-D.talk=function(s,id){D.migrate(s);return D.secretTalk(s,id)||D.streitTalk(s,id)||D.paarTalk(s,id)||D.freundTalk(s,id);};
+/* Laufende Geschichten (Streit, Verkuppeln) gehen vor, damit ein neues Geheimnis sie nicht unterbricht; danach Geheimnisse, dann neue Geschichten. */
+D.talk=function(s,id){D.migrate(s);const d=s.dorf;
+ const run=(d.streit.st&&d.streit.st!=='versoehnt'?D.streitTalk(s,id):null)||(d.paar.st&&d.paar.st!=='paar'?D.paarTalk(s,id):null);
+ return run||D.secretTalk(s,id)||D.streitTalk(s,id)||D.paarTalk(s,id)||D.freundTalk(s,id);};
 D.extraLines=function(s,id){D.migrate(s);const d=s.dorf,o=[];
  if(id==='mei'){if(d.paar.st==='paar')o.push('Timo hat mir einen Holzvogel geschnitzt. Er steht jetzt neben der Kasse.','Abends mit Timo ist mein Lieblingsmoment. Du weißt schon, warum.');if(d.sec.mei.st>=3)o.push('Im Herbst fahre ich ans Meer. Ich zähle schon die Tage.');}
  if(id==='timo'&&d.paar.st==='paar')o.push('Mei und ich gehen sonntags spazieren. Danke noch mal, {name}.','Ich schnitze gerade ein Regal für Meis Postkarten.');
@@ -193,9 +196,11 @@ X.night=function(s,info,rng){X.migrate(s);D.migrate(s);const fresh=s.post.lastDa
 /* Als Paar stehen Mei und Timo abends von 18 bis 19:30 Uhr am Treffpunkt; am Tag des Treffens bis 20 Uhr. */
 const paarEvening=(s,p)=>p.st==='paar'&&s.min>=1080&&s.min<(p.day===s.day?D.meetTo:1170);
 const loc0=St.location;
-St.location=function(s,id,festival){const r=loc0(s,id,festival);if(r||festival||!s||!s.dorf)return r;
+St.location=function(s,id,festival){
+ // Das verabredete Treffen hat Vorrang vor dem Abendessen bei Lin (sonst säßen beide im Nudelhaus); Feste gehen vor.
+ if(!festival&&s&&s.dorf&&(id==='mei'||id==='timo')){const p=s.dorf.paar;if((p.st==='treffen'&&meetNow(s,p))||(p.st==='paar'&&p.day===s.day&&paarEvening(s,p))){const q=D.MEET[p.place];return {map:'village',x:q[id][0],y:q[id][1]};}}
+ const r=loc0(s,id,festival);if(r||festival||!s||!s.dorf)return r;
  const p=s.dorf.paar;
- if((id==='mei'||id==='timo')&&p.st==='treffen'&&meetNow(s,p)){const q=D.MEET[p.place];return {map:'village',x:q[id][0],y:q[id][1]};}
  if((id==='mei'||id==='timo')&&paarEvening(s,p)){const q=D.MEET[p.place]||D.MEET.brunnen;return {map:'village',x:q[id][0],y:q[id][1]};}
  if((id==='lin'||id==='paula')&&s.dorf.streit.st==='versoehnt'&&cal.wd(s)===2&&s.min>=960&&s.min<1080)return {map:'village',x:id==='lin'?20:21,y:12};
  return null;};

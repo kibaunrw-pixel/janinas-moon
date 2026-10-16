@@ -135,7 +135,7 @@ test('W25: Verabredung im Tagebuch (Wiese am Hof, morgen 17 Uhr); verpasst → f
  assert.ok(R.propose(s,k.k).ok);assert.equal(R.options(s,'picknick').length,0,'nur eine Verabredung gleichzeitig');
  assert.ok(!maps(s).farm.obj.some(o=>o.k==='picknick'),'heute noch keine Decke');
  night(s);const f=maps(s).farm;const deck=f.obj.find(o=>o.k==='picknick');assert.ok(deck);
- const plain=J.buildMaps().farm;for(const [x,y] of [[deck.x,deck.y],[deck.x+1,deck.y],R.PLACES.wiese.spot,R.PLACES.wiese.rene])assert.ok(J.WALK.has(plain.t[y][x])&&plain.t[y][x]!==J.T.FELD,'kein Beet unter der Decke '+x+','+y);
+ const plain=J.buildMaps().farm;for(const [x,y] of [[deck.x,deck.y],[deck.x+1,deck.y],R.PLACES.wiese.spot,R.PLACES.wiese.rene])assert.ok(J.WALK.has(plain.t[y][x])&&plain.t[y][x]!==J.T.FELD&&plain.t[y][x]!==J.T.GLAS,'kein Beet und kein Gewächshaus unter der Decke '+x+','+y);
  s.min=1050;reachTarget(s,'Wiese');night(s);assert.equal(s.rom.date,null);assert.equal(s.rom.missed,1);
  const l=s.mail.find(m=>m.t==='Schade um gestern');assert.ok(l&&l.rom.ask==='picknick');assert.ok(!/schuld/i.test(l.b));
  assert.ok(!maps(s).farm.obj.some(o=>o.k==='picknick'),'Decke wieder weg');assert.ok(R.letterChoices(s,l).length>0);
@@ -148,6 +148,7 @@ test('W26: Missverständnis nach dem Picknick – Ausweichen, Timos Hinweis, Auf
  r=R.npcTalk(s,'timo');assert.match(texts(r),/Holz gekauft/);assert.equal(s.rom.mv.st,'hinweis');
  const m=reload(s);r=R.reneTalk(m);r=choose(r,1);assert.equal(m.rom.mv.st,'fertig');assert.match(texts(r),/Niemals/);assert.ok(r.refresh);
  const f=maps(m).farm;const bank=f.obj.find(o=>o.k==='herzbank');assert.ok(bank);assert.equal(f.t[bank.y][bank.x],J.T.BLOCK);
+ const plain=J.buildMaps().farm;for(let x=bank.x;x<bank.x+bank.w;x++)assert.ok([J.T.GRAS,J.T.TUFF,J.T.BLUME].includes(plain.t[bank.y][x]),'Bank steht auf Wiese, nicht im Gewächshaus');
  assert.ok(R.extraLines(m).some(t=>/Bank/.test(t)));assert.equal(R.mvEnd(m,'ehrlich'),null);
  const e=m.energy;assert.match(R.act(m,'bank').note,/Energie \+10/);assert.equal(m.energy,e+10);R.act(m,'bank');assert.equal(m.energy,e+10,'einmal am Tag');
  night(m);assert.ok(m.mail.some(x=>x.t==='Zur Herzbank'));
@@ -191,7 +192,7 @@ test('W38: Geburtstage – Bewohner freuen sich über passende Geschenke und dan
  const re=reload(j);assert.equal(R.bdayRene(re),null,'Reload: kein zweiter Kuchen');
  j.min=590;assert.equal(St.location(j,'rosa',false),null);j.min=700;const lr=St.location(j,'rosa',false),lm=St.location(j,'mei',false);assert.equal(lr.map,'farm');assert.equal(lm.map,'farm');
  const f=maps(j).farm,tb=f.obj.find(o=>o.k==='geburtstagstisch');assert.ok(tb);assert.ok(adj([lr.x,lr.y],[tb.x,tb.y])&&adj([lm.x,lm.y],[tb.x+1,tb.y])&&adj(R.BDAY.spot,[tb.x+1,tb.y]));
- for(const [x,y] of [[lr.x,lr.y],[lm.x,lm.y],R.BDAY.spot])assert.ok(J.WALK.has(f.t[y][x])&&f.t[y][x]!==J.T.FELD,'frei '+x+','+y);
+ for(const [x,y] of [[lr.x,lr.y],[lm.x,lm.y],R.BDAY.spot,[tb.x,tb.y],[tb.x+1,tb.y]]){const t0=J.buildMaps().farm.t[y][x];assert.ok(J.WALK.has(t0)&&t0!==J.T.FELD&&t0!==J.T.GLAS,'frei '+x+','+y);}
  reachTarget(j,'Besuch');r=R.npcTalk(j,'mei');assert.match(texts(r),/Überraschung/);assert.equal(j.inv.tee,2);assert.equal(R.npcTalk(j,'rosa'),null);assert.equal(R.party(reload(j)),null);
  j.min=1000;assert.equal(St.location(j,'rosa',false),null,'Besuch geht wieder');
  night(j);assert.ok(!maps(j).farm.obj.some(o=>o.k==='geburtstagstisch'));assert.ok(j.mail.some(m=>m.t==='Noch ein Geburtstagsbrief'));
