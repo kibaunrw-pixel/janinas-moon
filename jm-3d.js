@@ -720,13 +720,21 @@ R3.pick=function(cx,cy){
   // Sichtbare Sammelsprites haben eine eigene Trefferfläche an ihrer tatsächlichen Höhe.
   const found=ray.intersectObjects(dyn?dyn.children.filter(c=>c.userData.collectible):[],false);
   if(found.length){const p=found[0].object.userData.collectible;return {wx:p.x+.5,wy:p.y+.5,collectible:true};}
-  // Figuren danach
+  // Gegenstand vor Figur (Renés Entscheidung): Es zählt, was der Strahl zuerst trifft. Ein sichtbarer
+  // Gegenstand (Briefkasten, Kiste, Möbel) gewinnt also auch, wenn eine Figur daneben oder dahinter steht;
+  // eine Figur nur, wenn ihr Modell selbst vorne getroffen wird (z. B. Rosa vor ihrem Marktstand).
+  // Früher gewann jede Figur irgendwo auf dem Strahl, und das Spiel prüfte danach zusätzlich die Nähe.
+  // Die eigene Spielfigur ist nie Ziel. Der Bodenpunkt wird mitgegeben, damit das Spiel ein Beet
+  // unter einer Figur erkennen kann.
+  const pt=new V3(), ground=ray.ray.intersectPlane(plane,pt)?{wx:pt.x,wy:pt.z}:null;
   const groups=[...ACT.values()].map(r=>r.g);
-  const hits=ray.intersectObjects(groups,true);
-  if(hits.length){ let o=hits[0].object; while(o&&!o.userData.actor) o=o.parent; if(o&&o.userData.actor){ const a=o.userData.actor; return {wx:a.x+.5,wy:a.y+.5,actor:o.userData.actorId}; } }
+  let act=null;
+  for(const h of ray.intersectObjects(groups,true)){ let o=h.object; while(o&&!o.userData.actor) o=o.parent; if(o&&o.userData.actor&&o.userData.actorId!=="P"){ act={id:o.userData.actorId,a:o.userData.actor,d:h.distance}; break; } }
   const objs=ray.intersectObjects(pick.concat(dyn?dyn.children.filter(c=>c.material===MATS.inv):[]),false);
-  if(objs.length){ const m=objs[0].object, o=m.userData.obj; if(o){ return {wx:o.x+Math.floor((o.w||1)/2)+.5,wy:o.y+(o.h||1)-.5}; } const p=m.position; return {wx:p.x,wy:p.z}; }
-  const pt=new V3(); if(ray.ray.intersectPlane(plane,pt)) return {wx:pt.x,wy:pt.z};
+  const ob=objs.length?objs[0]:null;
+  if(ob&&(!act||ob.distance<act.d)){ const m=ob.object, o=m.userData.obj; if(o){ return {wx:o.x+Math.floor((o.w||1)/2)+.5,wy:o.y+(o.h||1)-.5,obj:true}; } const p=m.position; return {wx:p.x,wy:p.z,obj:true}; }
+  if(act) return {wx:act.a.x+.5,wy:act.a.y+.5,actor:act.id,ground};
+  if(ground) return {wx:ground.wx,wy:ground.wy};
   return null;
 };
 R3.dbg=()=>({sun:sun.intensity,hemi:hemi.intensity,amb:amb.intensity,min:E.S.min,glow:MATS.vce&&MATS.vce.emissiveIntensity});

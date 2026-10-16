@@ -305,7 +305,7 @@ function travel(ex){
 
 /* ================= Eingabe ================= */
 let ptr=null;
-function toWorld(cx,cy){ if(use3D()){ const r=JM.R3.pick(cx,cy); if(r) return r; } return {wx:(cx*DPR/SC+cam.x)/16, wy:(cy*DPR/SC+cam.y)/16}; }
+function toWorld(cx,cy){ if(use3D()){ const r=JM.R3.pick(cx,cy); if(r){ r.d3=true; return r; } } return {wx:(cx*DPR/SC+cam.x)/16, wy:(cy*DPR/SC+cam.y)/16}; }
 // Zoomen mit zwei Fingern (und Mausrad am Rechner)
 const PINCH={pts:new Map(),d0:0,z0:1,on:false};
 const ZMIN=.45, ZMAX=1.6;
@@ -332,14 +332,16 @@ cv.addEventListener("pointerdown",e=>{
   if(!paused()&&starHit(e.clientX,e.clientY)) return;
   if(FISH.phase==="wait"||FISH.phase==="bite"){ fishTap(); return; }
   if(paused()) return;
-  const {wx,wy}=toWorld(e.clientX,e.clientY), tx=Math.floor(wx), ty=Math.floor(wy);
+  LASTIN=gameT;
+  const sel=resolvePick(toWorld(e.clientX,e.clientY)), {wx,wy}=sel, tx=Math.floor(wx), ty=Math.floor(wy);
   ptr={id:e.pointerId,mode:"tap",last:key(tx,ty),t:performance.now()};
-  if(isField(tx,ty)&&!S.mess.some(m=>m.map===M.id&&m.x===tx&&m.y===ty)&&!(S.forage[M.id]||[]).some(f=>f.x===tx&&f.y===ty)&&!hitActor(wx,wy)&&!S.eggs.some(g=>g.x===tx&&g.y===ty)){
+  // Gegenstand vor Figur: Ein Beet unter dem Finger wird bearbeitet, auch wenn eine Figur daneben steht.
+  if(isField(tx,ty)&&!S.mess.some(m=>m.map===M.id&&m.x===tx&&m.y===ty)&&!(S.forage[M.id]||[]).some(f=>f.x===tx&&f.y===ty)&&!sel.actor&&!S.eggs.some(g=>g.x===tx&&g.y===ty)){
     if(P.queue.length===0&&!P.act){ P.path=[]; }
     ptr.mode="swipe"; P.queue=[[tx,ty]]; P.act=null; aim={x:tx,y:ty};
     return;
   }
-  tapAt(wx,wy,tx,ty);
+  tapAt(wx,wy,tx,ty,sel.actor);
   ptr.mode="walk";
 });
 cv.addEventListener("pointermove",e=>{
@@ -351,17 +353,38 @@ cv.addEventListener("pointermove",e=>{
 });
 addEventListener("pointerup",e=>{ if(ptr&&ptr.id===e.pointerId) ptr=null; });
 addEventListener("pointercancel",()=>{ ptr=null; });
+/* 2D: Trefferfläche = gezeichnetes Sprite (Füße am unteren Kachelrand, siehe Figurenzeichnung).
+   Figuren werden nur noch gewählt, wenn unter dem Finger kein Gegenstand liegt (siehe tapAt). */
 function hitActor(wx,wy){
-  const hit=(a,h)=>Math.abs(wx-(a.x+.5))<.75&&wy>a.y-(h||1)+.3&&wy<a.y+1.2;
-  if(RA.vis&&hit(RA,1.4)) return {k:"rene"};
-  if(M.owner&&npcPlace(M.owner)==="in"){ const [nx,ny]=M.npcAt; if(Math.abs(wx-(nx+.5))<.9&&wy>ny-1&&wy<ny+1.4) return {k:"shopnpc",id:M.owner}; }
-  for(const id in NPCA){ const n=NPCA[id]; if(n.vis&&hit(n,1.4)) return {k:"npc",id}; }
-  for(const d of DOGS) if(hit(d,.8)) return {k:"dog",d};
-  for(const h of HENS) if(hit(h,.6)) return {k:"hen",h};
-  for(const c of COWS) if(Math.abs(wx-(c.x+.5))<1.1&&wy>c.y-.6&&wy<c.y+1.2) return {k:"cow",c};
+  const hit=(a,hw,top)=>Math.abs(wx-(a.x+.5))<hw&&wy>a.y-top&&wy<a.y+1;
+  if(RA.vis&&hit(RA,.55,.75)) return {k:"rene"};
+  if(M.owner&&npcPlace(M.owner)==="in"){ const [nx,ny]=M.npcAt; if(hit({x:nx,y:ny},.55,.75)) return {k:"shopnpc",id:M.owner}; }
+  for(const id in NPCA){ const n=NPCA[id]; if(n.vis&&hit(n,.55,.75)) return {k:"npc",id}; }
+  for(const d of DOGS) if(hit(d,.7,.3)) return {k:"dog",d};
+  for(const h of HENS) if(hit(h,.5,0)) return {k:"hen",h};
+  for(const c of COWS) if(hit(c,1,.5)) return {k:"cow",c};
   return null;
 }
-function tapAt(wx,wy,tx,ty){
+/* 3D: Figur nur, wenn der Strahl ihr Modell trifft (R3.pick liefert die Kennung). Liegt unter der Figur
+   ein Beet oder Fund, gewinnt der Boden. 2D: Figurwahl erst in tapAt nach allen Gegenständen. */
+function flatAt(x,y){ return isField(x,y)||S.mess.some(m=>m.map===M.id&&m.x===x&&m.y===y)||(S.forage[M.id]||[]).some(f=>f.x===x&&f.y===y)||(M.id==="farm"&&S.eggs.some(g=>g.x===x&&g.y===y)); }
+function actorById(id){
+  if(id==="rene") return RA.vis?{k:"rene"}:null;
+  if(id.startsWith("npc:")) return NPCA[id.slice(4)]?{k:"npc",id:id.slice(4)}:null;
+  if(id.startsWith("shop:")) return {k:"shopnpc",id:id.slice(5)};
+  let m=/^dog(\d+)$/.exec(id); if(m){ const d=DOGS.find(d=>d.i===Number(m[1])); return d?{k:"dog",d}:null; }
+  m=/^hen(\d+):/.exec(id); if(m) return HENS[Number(m[1])]?{k:"hen",h:HENS[Number(m[1])]}:null;
+  m=/^cow(\d+)$/.exec(id); if(m) return COWS[Number(m[1])]?{k:"cow",c:COWS[Number(m[1])]}:null;
+  return null;
+}
+function resolvePick(pk){
+  if(pk.actor){ const g=pk.ground; if(g&&flatAt(Math.floor(g.wx),Math.floor(g.wy))) return {wx:g.wx,wy:g.wy,actor:null};
+    return {wx:pk.wx,wy:pk.wy,actor:actorById(pk.actor)}; }
+  return {wx:pk.wx,wy:pk.wy,actor:pk.d3?null:undefined};
+}
+/* Vorrang: Funde (Socke, Ei, Sammelfund) → Gegenstände/Felsen unter dem Finger → Figur → Wasser/Baum/Boden.
+   actor: in 3D vom Strahl bestimmt (null = keine Figur getroffen), sonst undefined → 2D-Spritetest. */
+function tapAt(wx,wy,tx,ty,actor){
   P.queue=[];
   const ms=S.mess.find(m=>m.map===M.id&&m.x===tx&&m.y===ty);
   if(ms){ goTo(adjGoal(tx,ty,true),()=>tidy(ms),{x:tx,y:ty}); return; }
@@ -370,11 +393,17 @@ function tapAt(wx,wy,tx,ty){
   // Sichtbare Sammelfunde haben wie Socken und Eier Vorrang vor überlappenden Figuren.
   const fo=(S.forage[M.id]||[]).find(f=>f.x===tx&&f.y===ty);
   if(fo){ goTo(adjGoal(tx,ty,true),()=>pickForage(fo),{x:tx,y:ty}); return; }
-  const fixture=objAt(tx,ty);
-  if(fixture&&['stove','fridge'].includes(fixture.act)){
-    goTo((x,y)=>Math.abs(x-fixture.x)+Math.abs(y-fixture.y)===1,()=>objAct(fixture),{x:tx,y:ty});return;
+  const inside=tx>=0&&ty>=0&&tx<M.w&&ty<M.h;
+  const rk=inside&&M.cave&&(S.rocks||[]).find(r=>r.x===tx&&r.y===ty);
+  if(rk){ goTo(adjGoal(tx,ty),()=>{ faceTo(tx,ty); mineRock(rk); },{x:tx,y:ty}); return; }
+  const o=inside&&objAt(tx,ty);
+  if(o){
+    if(['stove','fridge'].includes(o.act)) goTo((x,y)=>Math.abs(x-o.x)+Math.abs(y-o.y)===1,()=>objAct(o),{x:tx,y:ty});
+    else if(o.door) goTo((x,y)=>x===o.door[0]&&y===o.door[1],()=>{ P.dir=1; objAct(o); },{x:o.door[0],y:o.door[1]-1});
+    else goTo((x,y)=>x>=o.x-1&&x<=o.x+(o.w||1)&&y>=o.y-1&&y<=o.y+(o.h||1)&&!(x>=o.x&&x<o.x+(o.w||1)&&y>=o.y&&y<o.y+(o.h||1)),()=>{ faceTo(o.x,o.y); objAct(o); },{x:o.x,y:o.y});
+    return;
   }
-  const h=hitActor(wx,wy);
+  const h=actor===undefined?hitActor(wx,wy):actor;
   if(h){
     if(h.k==="rene"){ goTo(adjGoal(Math.round(RA.x),Math.round(RA.y)),()=>{ faceTo(Math.round(RA.x),Math.round(RA.y)); reneTalk(); }); return; }
     if(h.k==="shopnpc"){ if(!S.npc[h.id].met) npcInteract(h.id); else openShop(M.shop); return; }
@@ -383,17 +412,7 @@ function tapAt(wx,wy,tx,ty){
     if(h.k==="hen"){ const a=h.h; goTo(adjGoal(Math.round(a.x),Math.round(a.y),true),()=>{ faceTo(Math.round(a.x),Math.round(a.y)); petHen(a); }); return; }
     if(h.k==="cow"){ const a=h.c; goTo(adjGoal(Math.round(a.x),Math.round(a.y)),()=>{ faceTo(Math.round(a.x),Math.round(a.y)); cowAct(a); }); return; }
   }
-  if(tx<0||ty<0||tx>=M.w||ty>=M.h) return;
-  const egg=M.id==="farm"&&S.eggs.find(g=>g.x===tx&&g.y===ty);
-  if(egg){ goTo(adjGoal(tx,ty,true),()=>pickEgg(egg),{x:tx,y:ty}); return; }
-  const rk=M.cave&&(S.rocks||[]).find(r=>r.x===tx&&r.y===ty);
-  if(rk){ goTo(adjGoal(tx,ty),()=>{ faceTo(tx,ty); mineRock(rk); },{x:tx,y:ty}); return; }
-  const o=objAt(tx,ty);
-  if(o){
-    if(o.door) goTo((x,y)=>x===o.door[0]&&y===o.door[1],()=>{ P.dir=1; objAct(o); },{x:o.door[0],y:o.door[1]-1});
-    else goTo((x,y)=>x>=o.x-1&&x<=o.x+(o.w||1)&&y>=o.y-1&&y<=o.y+(o.h||1)&&!(x>=o.x&&x<o.x+(o.w||1)&&y>=o.y&&y<o.y+(o.h||1)),()=>{ faceTo(o.x,o.y); objAct(o); },{x:o.x,y:o.y});
-    return;
-  }
+  if(!inside) return;
   if(isWater(tx,ty)){
     const near=(x,y)=>{ for(const [dx,dy] of [[0,-1],[0,1],[-1,0],[1,0]]) if(isWater(x+dx,y+dy)&&Math.abs(x+dx-tx)+Math.abs(y+dy-ty)<=5) return [x+dx,y+dy]; return null; };
     goTo((x,y)=>walkT(x,y)&&!!near(x,y),()=>{ const w=near(Math.round(P.x),Math.round(P.y))||[tx,ty]; faceTo(w[0],w[1]); waterAct(w[0],w[1]); },{x:tx,y:ty}); return; }
@@ -562,7 +581,7 @@ function objAct(o){
   if(a==="wardrobe") return openWardrobe();
   if(a==="craft") return openCraft();
   if(a==="fridge") return openFridge();
-  if(a==="counter") return M.shop?openShop(M.shop):note("Die Arbeitsplatte. "+JM.CONFIG.von+" hat Krümel hinterlassen.");
+  if(a==="counter"){ if(M.shop&&M.owner&&npcPlace(M.owner)==="in"&&!S.npc[M.owner].met) return npcInteract(M.owner); return M.shop?openShop(M.shop):note("Die Arbeitsplatte. "+JM.CONFIG.von+" hat Krümel hinterlassen."); }
   if(a==="plant") return note("Eine Zimmerpflanze. Sie sieht durstig aus.");
   if(a==="shelf") return note("Ein Regal voller Kram.");
   if(a==="deco") return note(pick(["Gemütlich hier.","Hier riecht es gut."]));
@@ -1667,6 +1686,10 @@ function update(dt){
   for(const k in FESTFX) if(FESTFX[k]>0) FESTFX[k]-=dt*(UI.dialog?0:1);
   if(Math.floor(gameT*2)!==Math.floor((gameT-dt)*2)){ recheckQuest(); updateQuestUI(); }
 }
+/* René spricht die Spielerin nur von sich aus an, wenn sie ruhig steht: kein Laufweg, keine
+   vorgemerkte Aktion, keine Feldreihe, kein gehaltener Finger und seit 2 s kein Tipp. */
+let LASTIN=-99;
+function playerCalm(){ return !P.path.length&&!P.act&&!P.queue.length&&P.busy<=0&&!ptr&&gameT-LASTIN>2; }
 const RA={x:2,y:4,dir:0,flip:false,frame:0,ft:0,path:[],vis:false,map:null,moving:false,cuddle:false,timer:0,goal:null};
 function renePlan(){
   if(!S) return {map:null};
@@ -1685,7 +1708,8 @@ function reneUpdate(dt){
   if(!RA.vis||RA.map!==M.id||RA.mode!==pl.mode&&!RA.path.length&&Math.hypot(RA.x-pl.pos[0],RA.y-pl.pos[1])>6){ RA.x=pl.pos[0]; RA.y=pl.pos[1]; RA.path=[]; }
   RA.vis=true; RA.map=M.id; RA.mode=pl.mode;
   // Kuscheln
-  if(!RA.cuddle&&S.rene.met&&S.rene.cudToday<2&&!paused()&&P.queue.length===0&&rnd()<dt/75) { RA.cuddle=true; RA.path=[]; }
+  if(!RA.cuddle&&S.rene.met&&S.rene.cudToday<2&&!paused()&&playerCalm()&&rnd()<dt/75) { RA.cuddle=true; RA.path=[]; }
+  if(RA.cuddle&&!paused()&&!playerCalm()){ RA.cuddle=false; RA.path=[]; }
   let goal=pl.pos;
   if(RA.cuddle){ goal=null; const px=Math.round(P.x), py=Math.round(P.y); if(Math.abs(Math.round(RA.x)-px)+Math.abs(Math.round(RA.y)-py)<=1&&!RA.path.length){ RA.cuddle=false; reneCuddle(); }
     else if(!RA.path.length){ const p=bfs(RA.x,RA.y,adjGoal(px,py),2000); RA.path=p||[]; if(!p) RA.cuddle=false; } }

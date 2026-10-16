@@ -1,0 +1,16 @@
+MARKET_SEED {
+  map: 'village',
+  p: [ 13, 14 ],
+  cam: { x: -24, y: 96.55833333333334 },
+  scale: 3,
+  ui: { panel: false, dialog: false, fade: false },
+  gfx: '3d',
+  visibility: 'visible'
+}
+locator.waitFor: Timeout 30000ms exceeded.
+Call log:
+  - waiting for getByRole('heading', { name: 'Rosa am Markttag', exact: true }) to be visible
+
+    at /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/desktop-rest.cjs:44:378 {
+  name: 'TimeoutError'
+}

@@ -1,0 +1,65 @@
+ROT  390-2d briefkasten-rene-davor Gespräch statt Briefkasten: René
+Hast du mein
+ROT  390-2d versandkiste-hund-daneben Gespräch statt Versandkiste: A
+A scha
+ROT  390-2d beet-rene-daneben Gespräch statt Beet: René
+Weißt 
+ROT  390-2d moebel-rene-daneben Gespräch statt Bett: René
+Du rie
+GRÜN 390-2d rene-selbst-getroffen René: René
+Ich hab mal 
+GRÜN 390-2d hund-selbst-getroffen Hund: A
+A schaut dic
+ROT  390-2d rene-unterbricht-laufweg-nicht René unterbricht den Laufweg: René
+Komm mal
+GRÜN 390-2d rene-kuschelt-wenn-ruhig Kuscheln: René
+Ich hab dich
+GRÜN 390-2d keine-fehler []
+ROT  390-3d briefkasten-rene-davor Gespräch statt Briefkasten: René
+Weißt 
+ROT  390-3d versandkiste-hund-daneben Gespräch statt Versandkiste: A
+A scha
+ROT  390-3d beet-rene-daneben Gespräch statt Beet: René
+Hast d
+GRÜN 390-3d moebel-rene-daneben Möbel: Schlafen gehen?
+GRÜN 390-3d rene-selbst-getroffen René: René
+GRÜN 390-3d hund-selbst-getroffen Hund: A
+A schaut dic
+ROT  390-3d rene-unterbricht-laufweg-nicht René unterbricht den Laufweg: René
+Ich hab 
+GRÜN 390-3d rene-kuschelt-wenn-ruhig Kuscheln: René
+Pause! Kurz 
+GRÜN 390-3d keine-fehler []
+ROT  1440-2d briefkasten-rene-davor Gespräch statt Briefkasten: René
+Ich ma
+ROT  1440-2d versandkiste-hund-daneben Gespräch statt Versandkiste: A
+A scha
+ROT  1440-2d beet-rene-daneben Gespräch statt Beet: René
+Ich ha
+ROT  1440-2d moebel-rene-daneben Gespräch statt Bett: René
+Hast d
+GRÜN 1440-2d rene-selbst-getroffen René: René
+GRÜN 1440-2d hund-selbst-getroffen Hund: A
+A schaut dic
+ROT  1440-2d rene-unterbricht-laufweg-nicht René unterbricht den Laufweg: René
+Ich hab 
+GRÜN 1440-2d rene-kuschelt-wenn-ruhig Kuscheln: René
+Ich hab dich
+GRÜN 1440-2d keine-fehler []
+ROT  1440-3d briefkasten-rene-davor Gespräch statt Briefkasten: René
+Lilly un
+ROT  1440-3d versandkiste-hund-daneben Gespräch statt Versandkiste: A
+A sc
+ROT  1440-3d beet-rene-daneben Gespräch statt Beet: René
+Ich hab 
+GRÜN 1440-3d moebel-rene-daneben Möbel: Schlafen gehen?
+GRÜN 1440-3d rene-selbst-getroffen René: René
+Lilly und Co
+GRÜN 1440-3d hund-selbst-getroffen Hund: A
+ROT  1440-3d rene-unterbricht-laufweg-nicht René unterbricht den Laufweg: René
+Pause! K
+GRÜN 1440-3d rene-kuschelt-wenn-ruhig Kuscheln: René
+Komm mal her
+GRÜN 1440-3d keine-fehler []
+ROT: 18 von 36 Fällen
+EXIT 1
