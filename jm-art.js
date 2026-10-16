@@ -416,7 +416,32 @@ A.prop=function(kind,se,extra){
   if(kind==='truhe'||kind==='truhe_offen'){const open=kind==='truhe_offen';c=cnv(18,16);g=G(c);g.r(1,7,16,8,'#8a5a33');g.r(1,7,16,1,'#a8743f');g.r(1,10,16,1,'#6b4423');g.r(3,7,1,8,'#c9a46a');g.r(14,7,1,8,'#c9a46a');
    if(open){g.r(1,1,16,4,'#6b4423');g.r(2,5,14,2,'#2b1e18');}else{g.r(1,3,16,5,'#a8743f');g.r(1,3,16,1,'#c58d52');g.r(8,6,2,3,'#f6d55c');}}
   if(kind==='steintafel'){c=cnv(16,22);g=G(c);g.r(2,3,12,18,'#8f8a80');g.r(2,3,12,2,'#a9a39b');g.ell(8,3,6,2,'#8f8a80');g.disc(8,8,3,'#cfe6ff');g.disc(9,7,3,'#8f8a80');for(let i=0;i<3;i++)g.r(4,13+i*2,8,1,'#6a655e');}
-  if(kind==='zug'){c=cnv(66,38);g=G(c);g.r(2,7,62,24,'#3e6578');g.r(3,25,60,6,'#d4bd84');for(let i=0;i<4;i++)g.r(6+i*14,10,10,9,'#b5dbe6');for(const x of [11,49]){g.disc(x,32,5,'#32343d');g.disc(x,32,2,'#aaaaa2');}g.r(0,3,66,5,'#b14f42');g.r(52,0,5,6,'#333b40');}
+  /* Dorfbahnhof (Etappe 1b): Gleise auf Schotter (laufen 40 Kacheln über den Kartenrand hinaus), Bahnsteigkante,
+     Zug aus Lok und Wagen auf den Schienen, Bahnhofsgebäude mit Uhr und Ortsschild, Bank, Kübel, Gepäck, Fahrplantafel. */
+  if(kind==='gleis'){c=cnv(96*16,44);g=G(c);g.r(0,2,c.width,28,'#8e877c');for(let i=0;i<c.width;i+=3)g.p(i,4+((i*7)%23),i%2?'#a39c90':'#77716a');
+   for(let x=2;x<c.width;x+=8){g.r(x,5,5,22,'#6b4a33');g.r(x,5,5,1,'#82603f');}for(const y of [8,21]){g.r(0,y,c.width,3,'#7d8690');g.r(0,y,c.width,1,'#c9d0d8');}
+   // Bahnsteigkante (erhöht, helle Sicherheitslinie) unter dem Gleis: liegt auf der begehbaren Bahnsteigzeile
+   const k0=(c.width>>1)-128;g.r(k0,30,256,4,'#8f887c');g.r(k0,34,256,10,se===3?'#e8e6e2':'#cfc7b8');g.r(k0,36,256,2,'#f8f6ef');for(let x=k0;x<k0+256;x+=16)g.r(x,38,1,6,'#b8b0a2');return c;}
+  if(kind==='zug'){c=cnv(96,44);g=G(c);
+   // Lok (links): Führerhaus, Kessel, Schornstein, Puffer; Wagen (rechts): Fenster, Tür, Dach. Räder sitzen auf der vorderen Schiene (Sprite-Zeile 36).
+   g.r(2,14,30,18,'#2f4d5c');g.r(2,14,30,2,'#4a7486');g.r(4,8,14,8,'#2f4d5c');g.r(3,6,16,3,'#b14f42');g.r(6,10,9,5,'#b5dbe6');g.r(22,6,5,9,'#333b40');g.r(21,5,7,2,'#4a4f55');g.r(0,26,3,4,'#32343d');
+   g.r(36,8,58,24,'#3e6578');g.r(36,8,58,2,'#5a8aa0');g.r(35,4,60,5,'#b14f42');g.r(35,4,60,1,'#d0685a');for(let i=0;i<4;i++)g.r(39+i*13,13,9,8,'#b5dbe6');for(let i=0;i<4;i++)g.r(39+i*13,13,9,2,'#e6f5fa');
+   g.r(88,13,4,17,'#2c4a59');g.r(36,26,58,3,'#d4bd84');g.r(32,26,4,3,'#555a60');
+   for(const x of [8,24,44,58,74,88]){g.disc(x,33,4,'#32343d');g.disc(x,33,1.5,'#aaaaa2');}g.r(4,32,26,1,'#7a7f86');}
+  if(kind==='bahnhofhaus_dorf'||kind==='bahnhofhaus_stadt'){const dorf=kind==='bahnhofhaus_dorf',W=dorf?64:64,H=dorf?72:60;c=cnv(W+4,H+8);g=G(c);const base=H+6,wallTop=base-(dorf?40:34),wall=se===3?'#ebe3d2':'#efe3c8';
+   g.r(2,wallTop,W,base-wallTop,wall);g.r(2,wallTop,W,2,'#ffffff');for(let y=wallTop+6;y<base;y+=6)g.r(2,y,W,1,'#e0d2b0');
+   // Dach mit Überstand und Ziegelreihen
+   for(let i=0;i<14;i++)g.r(i,wallTop-2-i*1.6,W+4-i*2,2,i%2?'#a8443a':'#8f3a31');g.r(0,wallTop-2,W+4,3,'#6e2c26');if(se===3)g.r(8,wallTop-24,W-12,3,'#ffffff');
+   // Uhr im Giebel, Ortsschild über der Tür, Tür und Fenster
+   const cx=2+W/2;g.disc(cx,wallTop-10,6.5,'#3a3a44');g.disc(cx,wallTop-10,5.5,'#ffffff');g.r(cx,wallTop-14,1,4,'#2b2b33');g.r(cx,wallTop-10,3,1,'#2b2b33');
+   g.r(cx-26,wallTop+4,52,10,'#2f4d5c');g.r(cx-25,wallTop+5,50,8,'#f4f1ea');const x=g.ctx;x.fillStyle='#2f4d5c';x.font='bold 7px monospace';x.textAlign='center';x.textBaseline='middle';x.fillText(dorf?'Dorfbahnhof':'Lindenstadt',cx,wallTop+9.5);
+   g.r(cx-6,base-18,12,18,'#5a3f2c');g.r(cx-5,base-17,10,16,'#7a5638');g.p(cx+3,base-9,'#f6d55c');for(const wx of [8,W-12])g.r(wx,base-20,10,10,'#b5dbe6');for(const wx of [8,W-12])g.r(wx,base-20,10,2,'#e6f5fa');
+   g.r(0,base,W+4,3,'#8f887c');}
+  if(kind==='ortsschild_dorf'||kind==='ortsschild_stadt'){c=cnv(50,24);g=G(c);g.r(6,10,2,14,'#3a3a44');g.r(42,10,2,14,'#3a3a44');g.r(1,1,48,11,'#2f4d5c');g.r(2,2,46,9,'#f4f1ea');const x=g.ctx;x.fillStyle='#2f4d5c';x.font='bold 7px monospace';x.textAlign='center';x.textBaseline='middle';x.fillText(kind==='ortsschild_dorf'?'Dorfbahnhof':'Lindenstadt',25,7);}
+  if(kind==='fahrplan'){c=cnv(16,28);g=G(c);g.r(7,14,2,14,'#3a3a44');g.r(1,1,14,15,'#f3c34a');g.r(2,2,12,13,'#fffaf0');g.r(3,3,10,2,'#2f4d5c');for(let i=0;i<4;i++){g.r(3,7+i*2,4,1,'#5a5a64');g.r(9,7+i*2,4,1,'#b14f42');}}
+  if(kind==='bank'){c=cnv(32,16);g=G(c);g.r(2,4,28,3,'#a8743f');g.r(2,4,28,1,'#c58d52');g.r(2,8,28,3,'#8a5a33');g.r(4,11,2,5,'#3a3a44');g.r(26,11,2,5,'#3a3a44');}
+  if(kind==='blumenkuebel'){c=cnv(14,16);g=G(c);g.r(2,8,10,8,'#8f6a4a');g.r(2,8,10,2,'#a8805a');g.ell(7,7,6,4,se===3?'#e8eef2':'#5a8a3a');if(se!==3){g.disc(4,5,1.6,'#e0476a');g.disc(9,4,1.6,'#f6d55c');g.disc(7,7,1.4,'#ffffff');}}
+  if(kind==='gepaeck'){c=cnv(16,18);g=G(c);g.r(1,12,14,3,'#5a5a64');g.disc(3,16,2,'#32343d');g.disc(13,16,2,'#32343d');g.r(2,4,8,8,'#8a4a2e');g.r(2,4,8,1,'#a85f3a');g.r(9,7,6,5,'#3f6a8a');g.r(4,2,4,2,'#3a2a20');}
   if(kind==="box"){ c=cnv(18,20); g=G(c); g.r(1,6,16,13,"#a8743f"); g.r(1,6,16,2,"#c58d52"); g.r(1,11,16,1,"#8a5a33"); g.r(1,15,16,1,"#8a5a33"); g.r(2,7,1,12,"#8a5a33"); g.r(15,7,1,12,"#8a5a33"); g.r(0,3,18,4,"#7a4f2b"); g.r(0,3,18,1,"#9a6a3c"); g.r(7,4,4,2,"#f3d77a"); if(se===3) g.r(0,2,18,2,"#ffffff"); }
   if(kind==="mailbox"){ c=cnv(14,24); g=G(c); g.r(6,10,2,13,"#6b4423"); g.r(1,3,12,8,"#3f5a8a"); g.r(1,3,12,2,"#5a7ab0"); g.r(2,6,10,1,"#2c4066"); if(extra){ g.r(11,0,2,6,"#d9473a"); g.r(12,0,2,2,"#d9473a"); } if(se===3) g.r(1,2,12,1,"#ffffff"); }
   if(kind==="board"){ c=cnv(20,30); g=G(c); g.r(2,8,2,21,"#6b4423"); g.r(16,8,2,21,"#6b4423"); g.r(0,4,20,16,"#8a5a33"); g.r(1,5,18,14,"#a8743f"); g.r(3,7,6,7,"#f4ead8"); g.r(10,6,7,6,"#f6e6a0"); g.r(11,13,6,5,"#f4ead8"); g.r(4,9,4,1,"#9a8a7a"); g.r(4,11,3,1,"#9a8a7a"); g.r(11,8,5,1,"#9a8a7a"); g.r(5,7,1,1,"#d9473a"); g.r(13,6,1,1,"#3f5a8a"); g.r(0,2,20,3,"#6b4423"); if(se===3) g.r(0,1,20,2,"#ffffff"); }

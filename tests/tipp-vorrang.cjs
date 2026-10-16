@@ -25,9 +25,9 @@ for(const v of VIEWS){const [w,gfx]=v.split('-'),viewport=w==='390'?{width:390,h
  /* 3D: wie eine Spielerin auf den sichtbaren Teil des Gegenstands tippen. Gesucht wird ein Punkt über dem Gegenstand,
     an dem der Strahl keine Figur trifft (alter und neuer Stand liefern dann dieselbe Kachel). Steht die Figur sichtbar
     davor, gilt sie als getroffen (Gegenprobe Markt in desktop-rest). */
- async function objectPoint(tx,ty,hs){if(gfx!=='3d')return null;return p.evaluate(({tx,ty,hs})=>{for(const h of hs)for(const dx of [0,-.25,.25])for(const dz of [0,-.25,.2]){const r=JM.R3.proj(tx+.5+dx,ty+.5+dz,h).map(n=>n/devicePixelRatio),k=JM.R3.pick(r[0],r[1]);
-  if(k&&!k.actor&&!k.collectible&&Math.floor(k.wx)===tx&&Math.floor(k.wy)===ty)return r;}return null;},{tx,ty,hs});}
- async function clickObj(tx,ty,wx,wy,hs){if(gfx!=='3d')return clickAt(wx,wy,0);const px=await objectPoint(tx,ty,hs);if(!px)throw Error('Gegenstand '+tx+','+ty+' nirgends sichtbar');
+ async function objectPoint(tx,ty,hs,fx=tx,fy=ty,fw=1,fh=1){if(gfx!=='3d')return null;return p.evaluate(({tx,ty,hs,fx,fy,fw,fh})=>{for(const h of hs)for(const dx of [0,-.25,.25])for(const dz of [0,-.25,.2]){const r=JM.R3.proj(tx+.5+dx,ty+.5+dz,h).map(n=>n/devicePixelRatio),k=JM.R3.pick(r[0],r[1]);
+  if(k&&!k.actor&&!k.collectible&&Math.floor(k.wx)>=fx&&Math.floor(k.wx)<fx+fw&&Math.floor(k.wy)>=fy&&Math.floor(k.wy)<fy+fh)return r;}return null;},{tx,ty,hs,fx,fy,fw,fh});}
+ async function clickObj(tx,ty,wx,wy,hs,fp){if(gfx!=='3d')return clickAt(wx,wy,0);const px=await objectPoint(tx,ty,hs,...(fp||[]));if(!px)throw Error('Gegenstand '+tx+','+ty+' nirgends sichtbar');
   const el=await p.evaluate(([x,y])=>document.elementFromPoint(x,y)?.tagName,px);if(el!=='CANVAS')throw Error('verdeckt '+el);await p.mouse.click(...px);return px;}
  async function clickAt(wx,wy,h){const px=await screen(wx,wy,h);const el=await p.evaluate(([x,y])=>document.elementFromPoint(x,y)?.tagName,px);
   if(!(px[0]>0&&px[0]<viewport.width&&px[1]>0&&px[1]<viewport.height)||el!=='CANVAS')throw Error('Ziel nicht klickbar '+JSON.stringify({px,el}));await p.mouse.click(...px);return px;}
@@ -55,7 +55,7 @@ for(const v of VIEWS){const [w,gfx]=v.split('-'),viewport=w==='390'?{width:390,h
  // Fall 4: Möbel im Haus. Um 22:10 steht René werktags am Bett (renePlan „bed“, Ziel 10,4); Tipp auf das Bett (11–12,3–4).
  await run('moebel-rene-daneben',async()=>{await p.evaluate(()=>{JMDEBUG.S.min=1330;JMDEBUG.setMap('haus',8,6);});await p.waitForTimeout(700);await place({rene:[10,4]});
   if(!await p.evaluate(()=>JMDEBUG.RA.vis&&JMDEBUG.M.id==='haus'))throw Error('René nicht im Haus sichtbar');
-  await clickObj(12,4,11.2,4.5,[.4,.6,.8]);const u=await waitUi(u=>u.dialog||u.panel,12000);await shot('moebel');
+  await clickObj(12,4,11.2,4.5,[.4,.6,.8],[11,3,2,2]);const u=await waitUi(u=>u.dialog||u.panel,12000);await shot('moebel');
   if(u.dialog)throw Error('Gespräch statt Bett: '+u.dlg);if(u.h2!=='Schlafen gehen?')throw Error('kein Bett '+JSON.stringify(u));return 'Möbel: '+u.h2;});
  // Gegenproben: Figur selbst getroffen → Gespräch.
  await run('rene-selbst-getroffen',async()=>{await p.evaluate(()=>{JMDEBUG.S.min=1000;JMDEBUG.setMap('farm',5,8);});await p.waitForTimeout(600);await place({rene:[7,9],dog:[3,7],dog2:[2,7]});

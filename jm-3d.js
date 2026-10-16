@@ -252,6 +252,11 @@ function building(mg,mgE,o,se){
 }
 
 /* ---------- Requisiten ---------- */
+// Beschriftete Schilder (Ortsschild, Bahnhofsname) als kleine Textur in Spielpalette; hängt an der aktuellen Welt.
+function signPlane(txt,w,h,x,y,z){ const c=document.createElement("canvas"); c.width=512; c.height=Math.max(32,Math.round(512*h/w)); const g=c.getContext("2d");
+  g.fillStyle="#f4f1ea"; g.fillRect(0,0,c.width,c.height); g.strokeStyle="#2f4d5c"; g.lineWidth=Math.round(c.height*.12); g.strokeRect(0,0,c.width,c.height);
+  g.fillStyle="#2f4d5c"; g.font="bold "+Math.round(c.height*.58)+"px sans-serif"; g.textAlign="center"; g.textBaseline="middle"; g.fillText(txt,c.width/2,c.height/2+2);
+  const t=new THREE.CanvasTexture(c); t.colorSpace=THREE.SRGBColorSpace; const m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshLambertMaterial({map:t})); m.position.set(x,y,z); world.add(m); return m; }
 function prop(mg,mgE,o,se,st){
   const x=o.x+(o.w||1)/2, z=o.y+(o.h||1)/2, k=o.k, snow=se===3;
   const wood="#a8743f", woodD="#7a4e2a", woodL="#c8945a";
@@ -273,7 +278,28 @@ function prop(mg,mgE,o,se,st){
     case 'truhe':case 'truhe_offen':{const open=k==='truhe_offen';mg.box(x,.22,z,.8,.42,.5,wood);for(const dx of [-.3,.3])mg.box(x+dx,.22,z+.255,.06,.44,.01,'#c9a46a');
      if(open)mg.box(x,.62,z-.25,.8,.4,.06,woodD);else{mg.box(x,.5,z,.82,.16,.52,woodL);mg.box(x,.38,z+.27,.1,.12,.02,'#f6d55c');}return;}
     case 'steintafel':mg.box(x,.6,z,.7,1.2,.18,'#8f8a80');mgE.sph(x,.95,z+.1,.12,.12,.03,'#cfe6ff');return;
-    case 'zug':mg.box(x,.65,z,3.8,1.1,1.4,'#3e6578');mg.box(x,1.25,z,4,.15,1.5,'#b14f42');for(const dx of [-1.4,-.5,.5,1.4])mgE.box(x+dx,.85,z+.71,.6,.4,.02,'#b5dbe6');for(const dx of [-1.2,1.2])for(const dz of [-.7,.7])mg.sph(x+dx,.2,z+dz,.25,.25,.1,'#32343d');return;
+    /* Dorfbahnhof (Etappe 1b): Schotterbett mit Schwellen und zwei Schienen, die über den Kartenrand hinauslaufen;
+       erhöhter Bahnsteig mit heller Sicherheitskante; Zug (Lok + Wagen) mit Rädern auf den Schienen. */
+    case 'gleis':{const L=(o.w||16)+60;mg.box(x,.06,z,L,.12,1.9,snow?'#d8d6d0':'#8e877c');for(let xx=x-L/2+.25;xx<x+L/2;xx+=.5)mg.box(xx,.135,z,.16,.05,1.45,'#6b4a33');
+     for(const dz of [-.45,.45]){mg.box(x,.19,z+dz,L,.07,.07,'#9aa3ad');mg.box(x,.226,z+dz,L,.012,.05,'#d4dae0');}
+     // erhöhter Bahnsteig (zwei Zeilen) mit dunkler Kante zum Gleis und heller Sicherheitslinie
+     const w=o.w||16,pz=o.y+(o.h||2);mg.box(x,.04,pz+1,w,.08,2,snow?'#e8e6e2':'#cfc7b8');mg.box(x,.04,pz+.005,w,.08,.01,'#8f887c');mg.box(x,.085,pz+.3,w,.01,.14,'#f8f6ef');return;}
+    case 'zug':{const tz=o.y;
+     const lx=o.x+1.2;mg.box(lx+.2,.62,tz,2.1,.45,1.05,'#2f4d5c');mg.cyl(lx+.55,.98,tz,.36,1.3,'#2f4d5c',0,Math.PI/2);mg.box(lx-.45,1.12,tz,.85,.95,1.12,'#2f4d5c');mg.box(lx-.45,1.64,tz,1.05,.09,1.26,'#b14f42');
+     mgE.box(lx-.45,1.2,tz+.57,.5,.32,.02,'#b5dbe6');mg.cyl(lx+.95,1.45,tz,.1,.45,'#333b40');mg.box(lx+1.3,.55,tz,.1,.2,.8,'#555a60');
+     const cx=o.x+4.2;mg.box(cx,1,tz,3.3,.95,1.18,'#3e6578');mg.box(cx,1.53,tz,3.45,.12,1.3,'#b14f42');mg.box(cx,.6,tz+.595,3.3,.08,.01,'#d4bd84');mg.box(cx,.6,tz-.595,3.3,.08,.01,'#d4bd84');
+     for(const dx of [-1.15,-.4,.35,1.1])for(const side of [1,-1])mgE.box(cx+dx,1.1,tz+side*.6,.5,.36,.02,'#b5dbe6');mg.box(cx+1.45,.95,tz+.6,.3,.75,.02,'#2c4a59');mg.box(o.x+2.55,.62,tz,.25,.2,.5,'#555a60');
+     for(const wx of [lx-.6,lx+.3,lx+1,cx-1.2,cx-.6,cx+.6,cx+1.2])for(const dz of [-.45,.45])mg.cyl(wx,.3,tz+dz,.17,.07,'#32343d',Math.PI/2,0);return;}
+    case 'bahnhofhaus_dorf':case 'bahnhofhaus_stadt':{const w=o.w||4,d=o.h||4,zf=z+(d-.4)/2;mg.box(x,.9,z,w-.3,1.8,d-.4,snow?'#ebe3d2':'#efe3c8');mg.box(x,.06,z,w-.1,.12,d-.2,'#8f887c');
+     for(let i=0;i<5;i++)mg.box(x,1.9+i*.2,z,w+.2-i*.7,.2,d+.2-i*.75,i%2?'#a8443a':'#8f3a31');if(snow)mg.box(x,2.92,z,w-3,.06,d-2.6,'#ffffff');
+     mg.box(x,.55,zf+.01,.55,1.1,.04,'#5a3f2c');for(const dx of [-w/2+.75,w/2-.75]){mgE.box(x+dx,.95,zf+.01,.6,.55,.03,'#b5dbe6');mg.box(x+dx,.66,zf+.04,.7,.06,.08,'#8a5a33');}
+     const ty=3.2,tf=z+.33;mg.box(x,ty-.15,z,.62,.75,.62,snow?'#ebe3d2':'#efe3c8');mg.cone(x,ty+.42,z,.48,.45,'#8f3a31');mg.cyl(x,ty,tf+.005,.24,.04,'#3a3a44',Math.PI/2,0);mgE.cyl(x,ty,tf+.025,.2,.03,'#ffffff',Math.PI/2,0);mg.box(x,ty+.06,tf+.05,.025,.13,.01,'#2b2b33');mg.box(x+.05,ty,tf+.05,.1,.025,.01,'#2b2b33');
+     signPlane(k==='bahnhofhaus_dorf'?'Dorfbahnhof':'Lindenstadt',Math.min(2.4,w-.6),.32,x,1.25,zf+.03);for(const dx of [-w/2+.35,w/2-.35])mg.box(x+dx,.25,zf+.25,.35,.5,.35,'#8f6a4a');return;}
+    case 'ortsschild_dorf':case 'ortsschild_stadt':{for(const dx of [-.7,.7])mg.box(x+dx,.55,z,.07,1.1,.07,'#3a3a44');mg.box(x,1.02,z,1.6,.42,.06,'#2f4d5c');signPlane(k==='ortsschild_dorf'?'Dorfbahnhof':'Lindenstadt',1.5,.34,x,1.02,z+.035);return;}
+    case 'fahrplan':mg.box(x,.55,z,.08,1.1,.08,'#3a3a44');mg.box(x,1.08,z,.62,.72,.05,'#f3c34a');mg.box(x,1.08,z+.03,.54,.64,.01,'#fffaf0');mg.box(x,1.32,z+.04,.44,.08,.01,'#2f4d5c');for(let i=0;i<4;i++){mg.box(x-.12,1.18-i*.1,z+.04,.18,.03,.01,'#5a5a64');mg.box(x+.13,1.18-i*.1,z+.04,.16,.03,.01,'#b14f42');}return;
+    case 'bank':{const w=o.w||2;mg.box(x,.4,z,w-.3,.08,.45,wood);mg.box(x,.68,z-.2,w-.3,.3,.06,woodD);for(const dx of [-(w-.5)/2,(w-.5)/2])mg.box(x+dx,.2,z,.08,.4,.4,'#3a3a44');return;}
+    case 'blumenkuebel':mg.cyl(x,.25,z,.28,.5,'#8f6a4a');mg.sph(x,.58,z,.3,.18,.3,snow?'#e8eef2':'#5a8a3a');if(!snow)[[-.12,'#e0476a'],[.1,'#f6d55c'],[0,'#ffffff']].forEach(([dx,cl],i)=>mg.sph(x+dx,.72,z+(i-1)*.08,.07,.07,.07,cl));return;
+    case 'gepaeck':mg.box(x,.3,z,.75,.06,.5,'#5a5a64');for(const dx of [-.3,.3])mg.cyl(x+dx,.12,z+.27,.1,.04,'#32343d',Math.PI/2,0);mg.box(x-.12,.52,z,.4,.4,.3,'#8a4a2e');mg.box(x+.2,.48,z+.02,.3,.3,.25,'#3f6a8a');return;
     case "mailbox": mg.box(x,.35,z+.1,.08,.7,.08,woodD); mg.box(x,.75,z+.1,.32,.24,.44,"#3f6ad8"); mg.cyl(x,.87,z+.1,.16,.44,"#3f6ad8",Math.PI/2); if(st.unread){ mg.box(x+.2,.95,z+.15,.03,.3,.03,"#c42a2a"); mg.box(x+.2,1.05,z+.22,.03,.1,.14,"#e8483a"); } return;
     case "box": mg.box(x,.28,z,.82,.5,.62,wood); for(let i=0;i<3;i++) mg.box(x,.12+i*.16,z+.315,.84,.03,.01,woodD); mg.box(x,.56,z,.9,.08,.7,woodL); return;
     case "doghouse": mg.box(x,.32,z,.75,.6,.7,"#e8d49e"); mg.add(GEO.box,M4(x-.2,.75,z,.5,.08,.82,0,0,.75),snow?"#ffffff":"#c8553d"); mg.add(GEO.box,M4(x+.2,.75,z,.5,.08,.82,0,0,-.75),snow?"#ffffff":"#c8553d"); mg.box(x,.27,z+.355,.32,.38,.02,"#3a2a2a"); return;
@@ -478,7 +504,7 @@ function buildWorld(){
     if(BSTYLE[o.k]){ const ls=building(mg,mgE,o,se); ls.forEach(l=>lightsSrc.push(l)); addPick(o.x,o.y,o.w,o.h,2.6,o); continue; }
     if(o.k==="mondbaum"){ mondbaum(mg,mgE,o,se,Object.keys(S.bundleDone).length); addPick(o.x,o.y,2,2,3,o); continue; }
     if(o.k==="bush") continue; // dynamisch (Beeren)
-    prop(mg,mgE,o,se,st); addPick(o.x,o.y,o.w||1,o.h||1,o.k==="lamp"?1.7:1.1,o);
+    prop(mg,mgE,o,se,st); addPick(o.x,o.y,o.w||1,o.h||1,o.k==="lamp"?1.7:o.k.startsWith("bahnhofhaus")?2.6:o.k==="zug"?1.7:o.k==="gleis"?.3:1.1,o);
     if(o.k==="lamp") lightsSrc.push([o.x+.5,1.45,o.y+.5,true]);
   }
   if(M.id==="farm") glasshouse(mg,se,S.flags.glas);
@@ -740,7 +766,9 @@ R3.pick=function(cx,cy){
   for(const h of ray.intersectObjects(groups,true)){ let o=h.object; while(o&&!o.userData.actor) o=o.parent; if(o&&o.userData.actor&&o.userData.actorId!=="P"){ act={id:o.userData.actorId,a:o.userData.actor,d:h.distance}; break; } }
   const objs=ray.intersectObjects(pick.concat(dyn?dyn.children.filter(c=>c.material===MATS.inv):[]),false);
   const ob=objs.length?objs[0]:null;
-  if(ob&&(!act||ob.distance<act.d)){ const m=ob.object, o=m.userData.obj; if(o){ return {wx:o.x+Math.floor((o.w||1)/2)+.5,wy:o.y+(o.h||1)-.5,obj:true}; } const p=m.position; return {wx:p.x,wy:p.z,obj:true}; }
+  if(ob&&(!act||ob.distance<act.d)){ const m=ob.object, o=m.userData.obj;
+    // Getroffene Stelle innerhalb der Grundfläche: bei breiten Objekten (Gleis unter dem Zug) entscheidet die Kachel unter dem Finger.
+    if(o){ const w=o.w||1,h=o.h||1,cl=(v,a,b)=>Math.min(b,Math.max(a,v)); return {wx:cl(ob.point.x,o.x+.05,o.x+w-.05),wy:cl(ob.point.z,o.y+.05,o.y+h-.05),obj:true}; } const p=m.position; return {wx:p.x,wy:p.z,obj:true}; }
   if(act) return {wx:act.a.x+.5,wy:act.a.y+.5,actor:act.id,ground};
   if(ground) return {wx:ground.wx,wy:ground.wy};
   return null;

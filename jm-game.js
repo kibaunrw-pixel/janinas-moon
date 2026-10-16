@@ -597,6 +597,7 @@ function objAct(o){
   if(a==="stall") return openStall();
   if(a==="fountain") return note(pick(["Das Wasser glitzert in der Sonne.","Jemand hat eine Münze in den Brunnen geworfen.","Ein ruhiger Ort zum Durchatmen."]));
   if(a==="lamp") return note("Eine alte Straßenlaterne.");
+  if(a==="bahnsteig") return note(pick([(M.title||"Bahnhof")+": Bitte hinter der weißen Linie warten.","Die Gleise glänzen in der Sonne. Der nächste Zug kommt bestimmt.","Eine Bank, ein paar Blumen, ein Koffer: Hier wartet man gern."]));
   if(a==="mondbaum") return mondbaum();
   if(a==='mine_down'||a==='mine_up'){const d=M.depth+(a==='mine_down'?1:-1);return travel({to:d===1?'hoehle':'hoehle'+d,tx:10,ty:a==='mine_down'?14:3});}
   if(a==="cave_in") return travel({to:"hoehle",tx:10,ty:14});
@@ -1920,6 +1921,8 @@ function render(){
     if(o.k==="bush"){ const ber=season()===1&&(S.bush[M.id+":"+o.x+","+o.y]||0)<=S.day; const spr=lazy(SPR.bush,se+(ber?"b":""),()=>A.bush(se,ber)); cast(spr,o.x*16-2-CX,o.y*16-2-CY); L.push({y:by,d:()=>bx.drawImage(spr,o.x*16-2-CX,o.y*16-2-CY)}); continue; }
     let spr;
     if(["house","coop","barn","markt","nudelhaus","rathaus","tierhof","huette"].includes(o.k)){ const B=lazy(SPR.bld,o.k+se+(night?"n":""),()=>A.building(o.k,se,night)); spr=B.c; cast(spr,o.x*16-B.ox-CX,(o.y+(o.h||1))*16-spr.height+2-CY); L.push({y:by,d:()=>bx.drawImage(spr,o.x*16-B.ox-CX,(o.y+(o.h||1))*16-spr.height+2-CY)}); continue; }
+    // Bahnhof: Gleise samt Bahnsteigkante liegen flach am Boden (immer unter Figuren und Zug, ohne Schlagschatten)
+    if(o.k==="gleis"){ const sp=lazy(SPR.prop,o.k+se,()=>A.prop(o.k,se)); L.push({y:-1,d:()=>bx.drawImage(sp,o.x*16+(o.w||1)*8-(sp.width>>1)-CX,o.y*16-CY)}); continue; }
     if(o.k==="mondbaum"){ const glow=Object.keys(S.bundleDone).length; spr=lazy(SPR.prop,"mb"+se+glow,()=>A.prop("mondbaum",se,glow)); cast(spr,o.x*16+16-36-CX,(o.y+2)*16-spr.height+4-CY); L.push({y:by,d:()=>bx.drawImage(spr,o.x*16+16-36-CX,(o.y+2)*16-spr.height+4-CY)}); continue; }
     const extra=o.k==="stove"?(renePlan().mode==="cook"&&RA.vis):o.k==="tv"?(S.min>=1080&&S.min<1380):o.k==="stall"?marketDay():o.k==="mailbox"?unread:o.k==="trough"?(o.act==="trough_h"?S.trough.h>0:S.trough.c>0):o.k==="lamp"?night:false;
     spr=lazy(SPR.prop,o.k+se+(extra?1:0),()=>A.prop(o.k,se,extra));
