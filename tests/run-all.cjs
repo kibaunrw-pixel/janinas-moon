@@ -1,9 +1,9 @@
 /* Reproduzierbarer lokaler Abnahmelauf, keine persönlichen Browserprofile. */
 const fs=require('node:fs'),path=require('node:path'),{spawnSync}=require('node:child_process');
 const root=path.join(__dirname,'..'),results=[];
-const logic=['ausbau','wohnraum','versand','markt','riesenpflanzen','abgaben','stadt','briefe','ereignisse'].map(f=>'tests/'+f+'.test.cjs');
+const logic=['ausbau','wohnraum','versand','markt','riesenpflanzen','abgaben','stadt','briefe','ereignisse','etappe2'].map(f=>'tests/'+f+'.test.cjs');
 const browsers=['browser','picking','tipp-vorrang','regression','offline','shops','mine-rueckweg','transfer-scroll','panel-focus','desktop-rest','versand-browser','markt-browser','hinweise-browser','wohnraum-browser','riesenpflanzen-browser','abgaben-browser','restaurant-browser','stadt-browser','stadt-zusatz','karten-fallback','rohstoffweg','briefe-browser','ereignisse-browser','bahnhof-browser'];
-const syntax=['jm-data.js','jm-ausbau.js','jm-stadt.js','jm-post.js','jm-ereignisse.js','jm-art.js','jm-game.js','jm-3d.js','sw.js',...logic,...browsers.map(f=>'tests/'+f+'.cjs'),'tests/run-all.cjs'];
+const syntax=['jm-data.js','jm-ausbau.js','jm-stadt.js','jm-post.js','jm-ereignisse.js','jm-dorf.js','jm-romantik.js','jm-art.js','jm-game.js','jm-3d.js','sw.js',...logic,...browsers.map(f=>'tests/'+f+'.cjs'),'tests/run-all.cjs'];
 /* Lange Browserwege (Sekunden): mehrere Spieltage mit echten Pointerwegen in vier Ansichten. */
 const LONG={'tests/stadt-browser.cjs':1800,'tests/rohstoffweg.cjs':1200,'tests/briefe-browser.cjs':3000,'tests/ereignisse-browser.cjs':4000,'tests/stadt-zusatz.cjs':600};
 const commands=[...Array.from(new Set(syntax)).map(f=>['--check',f]),['--test',...logic],...browsers.map(f=>['tests/'+f+'.cjs'])];

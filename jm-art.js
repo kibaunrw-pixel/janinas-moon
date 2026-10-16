@@ -408,6 +408,20 @@ A.prop=function(kind,se,extra){
   if(kind==='erdhuegel'){c=cnv(16,10);g=G(c);g.ell(8,7,7,3,'#7a5a3a');g.ell(8,6,5,2,'#94704a');g.p(5,6,'#5a4030');g.p(10,5,'#5a4030');g.p(8,7,'#5a4030');}
   // Briefkasten-Ereignisse W61–W65: Zettel an der Tür, Koffer am Bahnsteig, Waldtür im Hang, Truhe, Steintafel
   if(kind==='zettel'){c=cnv(12,22);g=G(c);g.r(5,8,2,14,'#6b4423');g.r(1,2,10,9,'#f4ead8');g.r(1,2,10,1,'#fffaf0');g.r(3,4,6,1,'#7a6a5a');g.r(3,6,5,1,'#7a6a5a');g.r(3,8,6,1,'#7a6a5a');g.r(5,1,2,2,'#d9473a');}
+  // Etappe 2 Romantik und Dorf: Picknickdecke mit Korb, Bistrotisch, Geburtstagstisch, Herzbank, Kerzentisch zum Jahrestag
+  if(kind==='picknick'){c=cnv(32,13);g=G(c);g.r(0,4,32,9,'#f4ead8');for(let i=0;i<8;i++)for(let j=0;j<3;j++)if((i+j)%2)g.r(i*4,4+j*3,4,3,'#d9473a');g.r(0,12,32,1,'#c9b89a');
+   g.ell(7,9,4,2,'#ffffff');g.disc(6,8,1.3,'#e0304a');g.disc(8.5,9,1.3,'#e0304a');g.p(6,7,'#4f8a3a');g.r(13,3,3,7,'#3f6a8a');g.r(13,3,3,1,'#5a86a8');
+   g.r(20,4,9,6,'#b07a3e');g.r(20,6,9,1,'#8a5a2a');g.r(20,8,9,1,'#8a5a2a');g.line(21,4,24,0,'#8a5a2a',1);g.line(24,0,28,4,'#8a5a2a',1);g.r(21,4,7,1,'#e8476a');}
+  if(kind==='bistro'){c=cnv(32,26);g=G(c);for(const L of [1,24]){const back=L<16?L:L+5;g.r(back,6,2,19,'#7a4e2a');g.r(L,15,7,2,'#a8743f');g.r(L+(L<16?5:0),17,1,8,'#6b4423');g.r(L+(L<16?1:6),17,1,8,'#6b4423');}
+   g.r(15,15,2,10,'#3a3a44');g.r(12,24,8,1,'#3a3a44');g.ell(16,13,8,3,'#f4ead8');for(const dx of [-6,-2,2,6])g.r(16+dx-1,14,2,2,'#d9473a');
+   g.r(15,6,2,6,'#f4ead8');g.r(15,3,2,3,'#ffd34a');g.p(15,2,'#fff3b0');g.r(10,8,2,4,'#cfe6ff');g.r(20,8,2,4,'#cfe6ff');g.r(10,8,2,1,'#b0365a');g.r(20,8,2,1,'#b0365a');}
+  if(kind==='geburtstagstisch'){c=cnv(32,30);g=G(c);g.r(1,14,30,8,'#a8743f');g.r(1,14,30,2,'#c58d52');g.r(3,22,3,8,'#6b4423');g.r(26,22,3,8,'#6b4423');g.r(3,15,26,5,'#f4ead8');
+   g.r(9,6,13,9,'#f6e0c8');g.r(9,6,13,2,'#ffffff');g.r(9,11,13,1,'#e8a0b0');for(const x of [11,15,19])g.disc(x+.5,6,1.2,'#e0304a');for(const x of [12,15,18]){g.r(x,1,1,4,'#8fc0ea');g.p(x,0,'#ffd34a');}
+   g.r(24,8,6,6,'#8a5aa8');g.r(26,8,2,6,'#f6d55c');g.r(24,10,6,1,'#f6d55c');g.r(25,6,1,2,'#f6d55c');g.r(28,6,1,2,'#f6d55c');}
+  if(kind==='herzbank'){c=cnv(32,16);g=G(c);g.r(2,3,28,4,'#a8743f');g.r(2,3,28,1,'#c58d52');g.r(2,8,28,3,'#8a5a33');g.r(4,11,2,5,'#3a3a44');g.r(26,11,2,5,'#3a3a44');
+   g.r(14,4,2,1,'#c9304a');g.r(17,4,2,1,'#c9304a');g.r(14,5,5,1,'#c9304a');g.r(15,6,3,1,'#c9304a');g.p(16,7,'#c9304a');g.r(4,13,1,3,'#5a8a3a');g.p(4,12,'#f6d55c');g.r(28,13,1,3,'#5a8a3a');g.p(28,12,'#e8476a');}
+  if(kind==='tisch_jt'){const b=A.prop('table',se);c=cnv(b.width,b.height+8);g=G(c);c.getContext('2d').drawImage(b,0,8);
+   for(const x of [7,25]){g.r(x,7,2,8,'#f4ead8');g.r(x,4,2,3,'#ffd34a');g.p(x,3,'#fff3b0');}g.r(15,9,4,6,'#cfe6ff');g.r(16,4,1,6,'#3f7a3a');g.disc(16.5,4,2.2,'#d9304a');g.p(16,3,'#f08aa0');return c;}
   if(kind==='koffer'){c=cnv(16,14);g=G(c);g.r(1,4,14,9,'#8a4a2e');g.r(1,4,14,2,'#a85f3a');g.r(6,1,4,1,'#3a2a20');g.r(5,1,1,4,'#3a2a20');g.r(10,1,1,4,'#3a2a20');g.r(4,4,1,9,'#c9a46a');g.r(11,4,1,9,'#c9a46a');g.r(7,8,3,3,'#f4ead8');}
   if(kind==='waldtuer'||kind==='waldtuer_offen'){const open=kind==='waldtuer_offen';c=cnv(34,30);g=G(c);g.ell(17,22,17,10,'#5d7a3a');g.ell(17,18,15,12,'#6f8f45');
    g.r(8,8,18,21,'#7d776e');g.r(8,8,18,2,'#97918a');g.ell(17,9,9,5,'#7d776e');g.r(11,11,12,18,open?'#1e1a18':'#5a4a3a');g.ell(17,11,6,3,open?'#1e1a18':'#5a4a3a');

@@ -1,0 +1,261 @@
+# Rot-Lauf: tests/etappe2.test.cjs (Stand Etappe 2) gegen Commit 2690fda, 2026-10-16 20:15
+2690fda docs(logs): briefe-browser-Nachläufe Etappe 1b, zwei Ausreißer unter Parallellast einzeln grün
+TAP version 13
+# Subtest: Migration: Altspielstand ohne neue Felder behält Besitz, bekommt leere Geschichten und Standarddaten
+not ok 1 - Migration: Altspielstand ohne neue Felder behält Besitz, bekommt leere Geschichten und Standarddaten
+  ---
+  duration_ms: 1.312
+  type: 'test'
+  location: '/Users/reneklomfas/.hermes/cache/scratch/jm2/alt-2690fda/tests/etappe2.test.cjs:23:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'sec')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (/Users/reneklomfas/.hermes/cache/scratch/jm2/alt-2690fda/tests/etappe2.test.cjs:30:68)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: W01: vier Bewohner, je drei Teile nach Herzen, ein Teil pro Tag, Lohn genau einmal, Reload mitten in der Geschichte
+not ok 2 - W01: vier Bewohner, je drei Teile nach Herzen, ein Teil pro Tag, Lohn genau einmal, Reload mitten in der Geschichte
+  ---
+  duration_ms: 0.256167
+  type: 'test'
+  location: '/Users/reneklomfas/.hermes/cache/scratch/jm2/alt-2690fda/tests/etappe2.test.cjs:38:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'SEC')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (/Users/reneklomfas/.hermes/cache/scratch/jm2/alt-2690fda/tests/etappe2.test.cjs:39:74)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: W02: Streit Lin–Paula mit Szene und Versöhnung; Folgegespräche und Orte ändern sich; Freundschaft Rosa–Henk
+not ok 3 - W02: Streit Lin–Paula mit Szene und Versöhnung; Folgegespräche und Orte ändern sich; Freundschaft Rosa–Henk
+  ---
+  duration_ms: 0.280083
+  type: 'test'
+  location: '/Users/reneklomfas/.hermes/cache/scratch/jm2/alt-2690fda/tests/etappe2.test.cjs:53:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'streitTalk')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (/Users/reneklomfas/.hermes/cache/scratch/jm2/alt-2690fda/tests/etappe2.test.cjs:55:17)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: W04: Tratsch nur über echte Ereignisse, nie von Beteiligten, jede Meldung einmal
+not ok 4 - W04: Tratsch nur über echte Ereignisse, nie von Beteiligten, jede Meldung einmal
+  ---
+  duration_ms: 0.300209
+  type: 'test'
+  location: '/Users/reneklomfas/.hermes/cache/scratch/jm2/alt-2690fda/tests/etappe2.test.cjs:71:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'gossip')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (/Users/reneklomfas/.hermes/cache/scratch/jm2/alt-2690fda/tests/etappe2.test.cjs:72:81)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: W06: Mei und Timo – Hinweis, Brief, Treffen mit Ortswahl, Entscheidung, Paar; verpasstes Treffen neu ausmachen
+not ok 5 - W06: Mei und Timo – Hinweis, Brief, Treffen mit Ortswahl, Entscheidung, Paar; verpasstes Treffen neu ausmachen
+  ---
+  duration_ms: 0.897333
+  type: 'test'
+  location: '/Users/reneklomfas/.hermes/cache/scratch/jm2/alt-2690fda/tests/etappe2.test.cjs:88:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'sec')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (/Users/reneklomfas/.hermes/cache/scratch/jm2/alt-2690fda/tests/etappe2.test.cjs:89:42)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: W25/W28: Picknick per Brief verabreden, Decke auf der Karte, Szene mit Auswahl, Erinnerung, Brief danach – alles einmal
+not ok 6 - W25/W28: Picknick per Brief verabreden, Decke auf der Karte, Szene mit Auswahl, Erinnerung, Brief danach – alles einmal
+  ---
+  duration_ms: 0.781333
+  type: 'test'
+  location: '/Users/reneklomfas/.hermes/cache/scratch/jm2/alt-2690fda/tests/etappe2.test.cjs:111:1'
+  failureType: 'testCodeFailure'
+  error: 'Einladung von René: Ein Bauwunsch für Lindenstadt|Neues aus dem Markt'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/Users/reneklomfas/.hermes/cache/scratch/jm2/alt-2690fda/tests/etappe2.test.cjs:113:86)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: W25: Verabredung im Tagebuch (Wiese am Hof, morgen 17 Uhr); verpasst → freundlicher Brief und neue Wahl
+not ok 7 - W25: Verabredung im Tagebuch (Wiese am Hof, morgen 17 Uhr); verpasst → freundlicher Brief und neue Wahl
+  ---
+  duration_ms: 0.137333
+  type: 'test'
+  location: '/Users/reneklomfas/.hermes/cache/scratch/jm2/alt-2690fda/tests/etappe2.test.cjs:132:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'options')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (/Users/reneklomfas/.hermes/cache/scratch/jm2/alt-2690fda/tests/etappe2.test.cjs:133:40)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: W26: Missverständnis nach dem Picknick – Ausweichen, Timos Hinweis, Auflösung mit Herzbank, neue Gespräche
+not ok 8 - W26: Missverständnis nach dem Picknick – Ausweichen, Timos Hinweis, Auflösung mit Herzbank, neue Gespräche
+  ---
+  duration_ms: 0.103667
+  type: 'test'
+  location: '/Users/reneklomfas/.hermes/cache/scratch/jm2/alt-2690fda/tests/etappe2.test.cjs:144:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot set properties of undefined (setting 'pick')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (/Users/reneklomfas/.hermes/cache/scratch/jm2/alt-2690fda/tests/etappe2.test.cjs:145:27)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: W30: Ausflug nach Lindenstadt – nach dem ersten Picknick, Tisch am Stadtbrunnen, Auswahl, Erinnerung und Brief
+not ok 9 - W30: Ausflug nach Lindenstadt – nach dem ersten Picknick, Tisch am Stadtbrunnen, Auswahl, Erinnerung und Brief
+  ---
+  duration_ms: 0.382625
+  type: 'test'
+  location: '/Users/reneklomfas/.hermes/cache/scratch/jm2/alt-2690fda/tests/etappe2.test.cjs:157:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot set properties of undefined (setting 'pick')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (/Users/reneklomfas/.hermes/cache/scratch/jm2/alt-2690fda/tests/etappe2.test.cjs:158:27)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: W31: Jahrestag – gespeichertes Datum, jedes Jahr eine Szene mit Kerzen, nie doppelt (Reload, Datumswechsel)
+not ok 10 - W31: Jahrestag – gespeichertes Datum, jedes Jahr eine Szene mit Kerzen, nie doppelt (Reload, Datumswechsel)
+  ---
+  duration_ms: 0.392334
+  type: 'test'
+  location: '/Users/reneklomfas/.hermes/cache/scratch/jm2/alt-2690fda/tests/etappe2.test.cjs:168:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'jtToday')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (/Users/reneklomfas/.hermes/cache/scratch/jm2/alt-2690fda/tests/etappe2.test.cjs:169:58)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: W38: Geburtstage – Bewohner freuen sich über passende Geschenke und danken; Janina bekommt Post, Kuchen und Besuch, einmal pro Jahr
+not ok 11 - W38: Geburtstage – Bewohner freuen sich über passende Geschenke und danken; Janina bekommt Post, Kuchen und Besuch, einmal pro Jahr
+  ---
+  duration_ms: 0.25375
+  type: 'test'
+  location: '/Users/reneklomfas/.hermes/cache/scratch/jm2/alt-2690fda/tests/etappe2.test.cjs:181:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'isBday')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (/Users/reneklomfas/.hermes/cache/scratch/jm2/alt-2690fda/tests/etappe2.test.cjs:182:45)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: Post: mit allen neuen Briefen bleiben es 1–3 Briefe pro Nacht über 60 Nächte; alle Wegweiserziele erreichbar
+not ok 12 - Post: mit allen neuen Briefen bleiben es 1–3 Briefe pro Nacht über 60 Nächte; alle Wegweiserziele erreichbar
+  ---
+  duration_ms: 0.1775
+  type: 'test'
+  location: '/Users/reneklomfas/.hermes/cache/scratch/jm2/alt-2690fda/tests/etappe2.test.cjs:201:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'date')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (/Users/reneklomfas/.hermes/cache/scratch/jm2/alt-2690fda/tests/etappe2.test.cjs:205:12)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: René: Verabredung beeinflusst Tagesplan nur im Zeitfenster; ohne Verabredung kein Eingriff
+not ok 13 - René: Verabredung beeinflusst Tagesplan nur im Zeitfenster; ohne Verabredung kein Eingriff
+  ---
+  duration_ms: 0.064834
+  type: 'test'
+  location: '/Users/reneklomfas/.hermes/cache/scratch/jm2/alt-2690fda/tests/etappe2.test.cjs:212:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'plan')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (/Users/reneklomfas/.hermes/cache/scratch/jm2/alt-2690fda/tests/etappe2.test.cjs:213:32)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..13
+# tests 13
+# suites 0
+# pass 0
+# fail 13
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 62.297958
+EXIT 1

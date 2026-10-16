@@ -744,7 +744,7 @@ function npcPlaceAll(snap){
 }
 let lastNpcMin=-1;
 function npcUpdate(dt){
-  if(!["village","stadt","i_nudelhaus","bahnhof"].includes(M.id)) return;
+  if(!["village","stadt","i_nudelhaus","bahnhof","farm"].includes(M.id)) return; // Hof: nur Geburtstagsbesuch (jm-romantik.js)
   const m10=Math.floor(S.min/10);
   if(m10!==lastNpcMin){ lastNpcMin=m10; npcPlaceAll(false); }
   for(const id in NPCA){
@@ -801,12 +801,16 @@ function npcInteract(id,conversationOnly){
 function talk(id){
   if(hearts10(id)>=5&&!S.flags["h5_"+id]&&JM.HEART[id]){ const H=JM.HEART[id]; S.flags["h5_"+id]=true; const seq=H.lines.map(t=>({who:id,text:fmtD(t)})); seq.push({who:null,text:"Ein besonderer Moment mit "+NPCS[id].n+". Du bekommst: "+Object.entries(H.items).map(([k,n])=>n+"× "+ITEMS[k].n).join(", ")+".",fn:()=>{ for(const k in H.items) give(k,H.items[k]); addPts(id,50); sfx("fanfare"); }}); dialog(seq,()=>{ emit("talk_"+id); emit("talk",id); }); saveSoon(); return; }
   const N=NPCS[id], st=S.npc[id], tier=hearts10(id)>=6?2:hearts10(id)>=3?1:0, b=N.bday;
-  let line;
+  // Etappe 2: Geheimnisse, Beziehungen, Verkuppeln, Geburtstagsbesuch (Logik in jm-dorf.js/jm-romantik.js)
+  const story=JM.Rom.npcTalk(S,id)||JM.Dorf.talk(S,id);
+  if(story){ if(st.talk!==S.day){ st.talk=S.day; addPts(id,20); } runPost(story); save(true); emit("talk_"+id); emit("talk",id); return; }
+  let line, gossip;
   const dinner=JM.Stadt.guests(S,!!festActive()).includes(id)&&M.id==='i_nudelhaus';
   if(dinner)line=N.dinner||({mei:'Heute lasse ich die Küche kalt. Lins Pak Choi schmeckt fast wie bei meiner Mutter.',rosa:'Bei einer Schale Suppe lässt sich besser über die Zukunft des Dorfes reden.',paula:'Die Tiere sind versorgt. Jetzt ist Zeit für Frühlingsrollen und ein gutes Gespräch.',henk:'Nach einem Tag am Fluss tut eine heiße Nudelsuppe gut.',timo:'Drei Nächte braucht so ein Stadthaus. Hier erhole ich mich vom Hämmern.'}[id]);
   else if(b[0]===season()&&b[1]===dayIn()) line="Heute ist mein Geburtstag! Schön, dass du vorbeischaust.";
+  else if(st.talk!==S.day&&(gossip=JM.Dorf.gossip(S,id))) line=gossip;
   else if(S.weather==="rain"&&rnd()<.5) line=N.rain;
-  else line=pick(N.lines[tier].concat(tier?N.lines[tier-1]:[]));
+  else { const ex=JM.Dorf.extraLines(S,id); line=ex.length&&rnd()<.6?pick(ex):pick(N.lines[tier].concat(tier?N.lines[tier-1]:[])); }
   if(st.talk!==S.day){ st.talk=S.day; addPts(id,20); }
   dialog([{who:id,text:fmtD(line)}],()=>{ emit("talk_"+id); emit("talk",id); });
   saveSoon();
@@ -823,6 +827,7 @@ function giveGift(id,k){
   addPts(id,pts); sfx(lv==="hate"?"bad":"gift");
   const a=NPCA[id]; if(a&&lv!=="hate") hearts(a.x,a.y-1.2);
   let txt=N.gift[lv]; if(bday&&lv!=="hate") txt="Ein Geburtstagsgeschenk? Du bist ein Schatz! "+txt;
+  const bt=bday&&JM.Dorf.bdayGift(S,id,k,lv); if(bt) txt=bt+(lv!=="hate"?" "+N.gift[lv]:"");
   dialog([{who:id,text:txt}],()=>{ emit("gift_"+id+"_"+k); emit("gift"); });
   saveSoon();
 }
@@ -1135,6 +1140,17 @@ function photo(){
 }
 function burst(x,y,c,n,drop){ for(let i=0;i<n;i++) FX.push({x:x*16+8,y:y*16+10,vx:(rnd()-.5)*50,vy:-rnd()*50-15,l:.5+rnd()*.3,c,g:drop?160:120,s:1+(rnd()<.3?1:0)}); }
 function hearts(x,y,c){ for(let i=0;i<3;i++) FX.push({heart:true,x:x*16+4+i*5,y:y*16-4-i*3,vx:(rnd()-.5)*6,vy:-14-rnd()*6,l:1.2,c:c||"#e8476a",g:0}); }
+/* Etappe 2: Herzchen über Figuren einer Szene, Funkeln an Szenenobjekten (Picknickdecke, Kerzen, Kuchen, Herzbank).
+   Läuft über dieselbe Effektliste wie alle Partikel und erscheint deshalb in 2D und 3D. */
+function actorPos(id){ if(id==="rene") return RA.vis?[RA.x,RA.y]:null; if(id==="player") return [P.x,P.y]; const a=NPCA[id]; return a&&a.vis?[a.x,a.y]:null; }
+function sceneHearts(ids){ for(const id of ids){ const p=actorPos(id); if(p) hearts(p[0],p[1]-1.2); } }
+const ROMK={picknick:"#fff2a8",bistro:"#ffd36a",geburtstagstisch:"#ffd36a",tisch_jt:"#ffd36a",herzbank:"#ff9fb8"};
+let romT=0;
+function romFx(dt){ romT-=dt; if(romT>0||!S) return; romT=.7;
+  for(const o of M.obj){ const c=ROMK[o.k]; if(!c) continue; const w=o.w||1; FX.push({x:(o.x+.2+rnd()*(w-.4))*16,y:o.y*16+2+rnd()*6,vx:(rnd()-.5)*6,vy:-8-rnd()*6,l:.9,c,g:0,s:1}); }
+  if(JM.Rom.hearts(S)&&RA.vis&&rnd()<.6) hearts(RA.x,RA.y-1.2);
+  for(const id of JM.Dorf.glow(S,M.id)) if(rnd()<.35){ const p=actorPos(id); if(p) hearts(p[0],p[1]-1.2,"#ff8fb0"); }
+}
 function floatItem(x,y,k){ FLT.push({x:x*16+8,y:y*16,k,l:1.3}); }
 
 /* ================= Ton & Musik ================= */
@@ -1448,7 +1464,7 @@ function openShop(id){
      else { give(k,n); note(n+"× "+ITEMS[k].n+" gekauft."); }
      hud(); saveSoon(); refreshPanel(()=>openShop(id)); }});
 }
-const MAILKIND={miete:"Mietquittung",anfrage:"Mietanfrage",auftrag:"Bauauftrag",dank:"Dank",geschenk:"Geschenk",bewertung:"Bewertung",gruss:"Gruß",geheim:"Geheimnis"};
+const MAILKIND={miete:"Mietquittung",anfrage:"Mietanfrage",auftrag:"Bauauftrag",dank:"Dank",geschenk:"Geschenk",bewertung:"Bewertung",gruss:"Gruß",geheim:"Geheimnis",romantik:"Von Herzen",geburtstag:"Geburtstag"};
 function mailFrom(m){ return m.from==="von"?JM.CONFIG.von:NPCS[m.from]?NPCS[m.from].n:m.from; }
 function attText(a){ return [a.money?a.money+" G":"",...Object.entries(a.items||{}).map(([k,n])=>n+"× "+ITEMS[k].n)].filter(Boolean).join(", "); }
 function openMail(showAll){
@@ -1467,11 +1483,12 @@ function openLetter(i){
   if(!m.kind){ closePanel(); dialog([{who:m.from==="von"?"von":null,text:m.b}],openMail); return; }
   const a=m.att, o=m.offer; let act="";
   if(a) act=a.taken?`<p class="sub">Beilage genommen (Spieltag ${a.taken}).</p>`:`<button class="btn wide" data-a="claim">Beilage nehmen: ${esc(attText(a))}</button>`;
+  if(m.rom&&m.rom.ask){ const ops=JM.Rom.letterChoices(S,m); act+=m.rom.done?`<p class="sub">Verabredet. Du findest den Termin im Kalender und im Tagebuch unter „Herz“.</p>`:ops.length?`<p class="sub">Wähle Ort und Uhrzeit:</p>`+ops.map(x=>`<button class="btn wide" data-a="rom" data-k="${esc(x.k)}">${esc(x.t)}</button>`).join(""):`<p class="sub">Gerade ist schon etwas verabredet. Antworten kannst du, sobald ihr euch gesehen habt.</p>`; }
   if(o) act=o.done?`<p class="sub">${o.done==="zugesagt"?"Du hast zugesagt. "+esc(mailFrom(m))+" wohnt jetzt im "+esc(JM.Stadt.places[o.plot].n)+".":"Das Haus ist inzwischen vergeben."}</p>`:`<button class="btn wide" data-a="accept">Zusagen: ${esc(mailFrom(m))} zieht ein</button>`;
   openPanel(`<h2>${esc(m.t)}</h2><p class="sub">von ${esc(mailFrom(m))}${MAILKIND[m.kind]?" · "+MAILKIND[m.kind]:""}</p><div class="letter">${esc(m.b).replace(/\n/g,"<br>")}</div>${act}<button class="btn alt wide" data-a="back">Zurück zum Briefkasten</button>${closeBtn}`,
   {claim:()=>{ const got=JM.Post.claim(S,i); if(!got) return; hud(); hotbar(); save(true); sfx("gift"); note("Beilage genommen: "+attText(got)); refreshPanel(()=>openLetter(i)); },
    accept:()=>{ const ok=JM.Post.accept(S,i); JM.Stadt.apply(MAPS,S); if(M.id==="stadt") setMap("stadt",Math.round(P.x),Math.round(P.y)); save(true); note(ok?mailFrom(m)+" zieht ein. Die Miete kommt ab übermorgen früh.":"Das Haus ist schon vergeben."); refreshPanel(()=>openLetter(i)); },
-   back:()=>openMail()});
+   back:()=>openMail(), rom:k=>{ const r=JM.Rom.letterAnswer(S,i,k); note(r.msg); if(r.ok){ sfx("gift"); refreshPost(); } refreshPanel(()=>openLetter(i)); }});
   if(changed&&m.mis) setTimeout(()=>note("Ein neues Geheimnis. Der Wegweiser zeigt dir den Weg."),300);
 }
 /* Geheimnis-Missionen an Weltobjekten (Logik in jm-post.js) */
@@ -1480,12 +1497,15 @@ function refreshPost(){ JM.Stadt.apply(MAPS,S); setMap(M.id,Math.round(P.x),Math
 function runPost(r){
   if(!r) return;
   if(r.refresh){ hud(); hotbar(); refreshPost(); }
+  else if(r.hud){ hud(); hotbar(); save(true); updateQuestUI(); }
   if(r.banner) banner(r.banner); if(r.sfx) sfx(r.sfx);
+  if(r.fx) sceneHearts(r.fx);
   const after=()=>{ if(r.travel) travel(r.travel); };
   if(r.panel){ const H={}, P0=r.panel;
     const btns=(P0.buttons||[]).map(b=>{ H[b.a]=()=>{ closePanel(); runPost(b.fn()); }; return `<button class="btn wide" data-a="${esc(b.a)}" ${b.off?"disabled":""}>${esc(b.t)}</button>`; }).join("");
     openPanel(`<h2>${esc(P0.t)}</h2>${(P0.p||[]).map(x=>`<p>${esc(x)}</p>`).join("")}${btns}${closeBtn}`,H); return; }
-  if(r.lines&&r.lines.length) dialog(r.lines.map(l=>({who:l.who,text:fmtD(l.text)})),after);
+  // Etappe 2: Auswahl in der letzten Zeile führt das nächste Skript aus (Logik in jm-dorf.js/jm-romantik.js)
+  if(r.lines&&r.lines.length) dialog(r.lines.map(l=>({who:l.who,text:fmtD(l.text),choices:l.choices&&l.choices.map(c=>({t:fmtD(c.t),fn:()=>{ const nx=c.fn(); save(true); runPost(nx); }}))})),after);
   else { if(r.note) note(r.note); after(); }
 }
 function postAct(a){
@@ -1558,7 +1578,7 @@ function openBundles(){
  openPanel(`<h2>Der Mondbaum</h2><p class="sub">Freie Teilgaben. Endgültig und nicht zurücknehmbar; die Belohnung gibt es nur einmal nach vollständiger Gabe.</p>${rows}${closeBtn}`,{give:key=>{const [b,k]=key.split(':'),B=JM.BUNDLES.find(x=>x.id===b),max=Math.min(B.need[k]-(S.bundles[b]?.[k]||0),S.inv[k]||0);bundleDeliver(b,k,JM.Ausbau.quantity($('bundle-qty-'+b+'-'+k)?.value,max));}});
 }
 function openBook(tab){
-  const tabs=[["quest","Aufgaben"],["map","Karte"],["cal","Kalender"],["friends","Freunde"],["coll","Sammlung"],["ach","Erfolge"],["opt","Optionen"]];
+  const tabs=[["quest","Aufgaben"],["map","Karte"],["cal","Kalender"],["herz","Herz"],["friends","Freunde"],["coll","Sammlung"],["ach","Erfolge"],["opt","Optionen"]];
   let body="";
   if(tab==="quest"){
     const q=curQ();
@@ -1578,10 +1598,11 @@ function openBook(tab){
     for(let d=1;d<=JM.DPS;d++){
       const f=JM.FESTS.find(x=>x.s===se&&x.d===d); const b=JM.NPC_ORDER.find(id=>NPCS[id].bday[0]===se&&NPCS[id].bday[1]===d);
       const wd=JM.WEEK[(d-1+(S.day-dayIn()))%7];
-      cells+=`<div class="day ${d===dayIn()?"today":""} ${d<dayIn()?"past":""}"><span>${d}</span><small>${wd}</small>${wd==="Sa"&&!f?`<em class="mk">Markt</em>`:""}${f?`<em class="fest">${esc(f.n)}</em>`:""}${b?`<em class="bd">${esc(NPCS[b].n)}</em>`:""}</div>`;
+      cells+=`<div class="day ${d===dayIn()?"today":""} ${d<dayIn()?"past":""}"><span>${d}</span><small>${wd}</small>${wd==="Sa"&&!f?`<em class="mk">Markt</em>`:""}${f?`<em class="fest">${esc(f.n)}</em>`:""}${b?`<em class="bd">${esc(NPCS[b].n)}</em>`:""}${JM.Rom.calMarks(S,se,d).map(t=>`<em class="bd rom">${esc(t)}</em>`).join("")}</div>`;
     }
     body=`<h3>${JM.SEASONS[se]} · Jahr ${year()}</h3><div class="cal">${cells}</div><p class="sub">Feste beginnen auf dem Dorfplatz. An Geburtstagen zählen Geschenke dreifach.</p>`;
   }
+  if(tab==="herz") body=JM.Rom.diary(S,esc)+JM.Dorf.diary(S,esc);
   if(tab==="friends"){
     body=`<div class="row"><canvas class="pt" data-pt="dog0"></canvas><div class="tx"><b>${esc(dogName(0))}</b>${heartRow(S.dogH[0])}<small>${S.dogPet[0]===S.day?"Heute gestreichelt":"Noch nicht gestreichelt"}</small></div></div>
       <div class="row"><canvas class="pt" data-pt="dog1"></canvas><div class="tx"><b>${esc(dogName(1))}</b>${heartRow(S.dogH[1])}<small>${S.dogPet[1]===S.day?"Heute gestreichelt":"Noch nicht gestreichelt"}</small></div></div>`;
@@ -1613,7 +1634,8 @@ function openBook(tab){
   }
   const nav=tabs.map(([k,l])=>`<button class="tab ${k===tab?"on":""}" data-a="tab" data-k="${k}">${l}</button>`).join("");
   openPanel(`<h2>Tagebuch</h2><div class="tabs">${nav}</div>${body}${closeBtn}`,
-  {tab:k=>openBook(k), zoom:k=>{ S.zoom=+k; ZOOM=S.zoom; resize(); saveSoon(); openBook("opt"); }, go:k=>{ const pl=PH_GO.find(p=>p[0]===k); closePanel(); S.min=Math.min(1430,S.min+30); fadeQuick(()=>{ setMap(k,pl[3],pl[4]); banner(pl[1]); updateQuestUI(); saveSoon(); }); }, snd:()=>{ S.sound=!S.sound; saveSoon(); openBook("opt"); }, mus:()=>{ S.music=!S.music; saveSoon(); openBook("opt"); }, gfx:()=>{ S.gfx=S.gfx==="2d"?"3d":"2d"; camSnap=true; saveSoon(); openBook("opt"); },
+  {tab:k=>openBook(k), rom:k=>{ const r=JM.Rom.propose(S,k,"tagebuch"); note(r.msg); if(r.ok){ sfx("gift"); refreshPost(); } openBook("herz"); },
+   romdate:k=>{ const r=JM.Rom.setDate(S,k,$("romS-"+k).value,$("romD-"+k).value); note(r.msg); if(r.ok) refreshPost(); openBook("herz"); }, zoom:k=>{ S.zoom=+k; ZOOM=S.zoom; resize(); saveSoon(); openBook("opt"); }, go:k=>{ const pl=PH_GO.find(p=>p[0]===k); closePanel(); S.min=Math.min(1430,S.min+30); fadeQuick(()=>{ setMap(k,pl[3],pl[4]); banner(pl[1]); updateQuestUI(); saveSoon(); }); }, snd:()=>{ S.sound=!S.sound; saveSoon(); openBook("opt"); }, mus:()=>{ S.music=!S.music; saveSoon(); openBook("opt"); }, gfx:()=>{ S.gfx=S.gfx==="2d"?"3d":"2d"; camSnap=true; saveSoon(); openBook("opt"); },
    backup:()=>{save(true);const blob=new Blob([JSON.stringify(S,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='janinas-moon-tag-'+S.day+'.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);note('Sicherung als JSON exportiert.');},
    photo:takePhoto,
    reset:(k,b)=>{ if(b.dataset.armed){ try{ localStorage.removeItem(SAVE_KEY); }catch(e){} if(dbRef) dbRef.set({json:"",t:0}).catch(()=>{}); location.reload(); return; } b.dataset.armed="1"; b.textContent="Sicher? Nochmal tippen"; }});
@@ -1699,7 +1721,7 @@ function update(dt){
     if(h.timer<=0){ h.timer=1+rnd()*3; if(rnd()<.35){ h.peck=.8; h.tx=h.x; h.ty=h.y; } else { h.tx=box.x0+rnd()*(box.x1-box.x0); h.ty=(h.deco?box.y0:box.y0+1)+rnd()*(box.y1-box.y0-(h.deco?0:1)); } }
     moveA(h,h.tx,h.ty,.9,dt,.15); }
   for(const c of COWS){ c.timer-=dt; const box=M.pasture; if(c.timer<=0){ c.timer=2+rnd()*4; c.tx=box.x0+rnd()*(box.x1-box.x0); c.ty=box.y0+1+rnd()*(box.y1-box.y0-1); } moveA(c,c.tx,c.ty,.6,dt,.25); }
-  npcUpdate(dt); reneUpdate(dt);
+  npcUpdate(dt); reneUpdate(dt); romFx(dt);
   fishUpdate(dt);
   for(const p of FX){ p.l-=dt; p.x+=p.vx*dt; p.y+=p.vy*dt; p.vy+=p.g*dt; } FX=FX.filter(p=>p.l>0);
   for(const f of FLT){ f.l-=dt; f.y-=18*dt; } FLT=FLT.filter(f=>f.l>0);
@@ -1714,6 +1736,7 @@ const RA={x:2,y:4,dir:0,flip:false,frame:0,ft:0,path:[],vis:false,map:null,movin
 function renePlan(){
   if(!S) return {map:null};
   const f=festActive(); if(f&&f.id==="mond") return {map:"village",pos:[16,14],mode:"fest"};
+  const rp=JM.Rom.plan(S); if(rp) return rp; // Verabredung oder Jahrestag (jm-romantik.js)
   const we=weekday()>=5, m=S.min;
   const sch=we?[[420,"haus",[2,4],"cook"],[600,"farm",[8,9],"wander"],[780,"haus",[6,6],"sit"],[840,"farm",[10,8],"wander"],[1140,"haus",[2,4],"cook"],[1260,"haus",[6,6],"sit"],[1380,null]]
               :[[360,"haus",[2,4],"cook"],[540,null,null,"work"],[990,"farm",[8,9],"wander"],[1140,"haus",[6,6],"sit"],[1320,"haus",[10,4],"bed"],[1410,null]];
@@ -1728,7 +1751,7 @@ function reneUpdate(dt){
   if(!RA.vis||RA.map!==M.id||RA.mode!==pl.mode&&!RA.path.length&&Math.hypot(RA.x-pl.pos[0],RA.y-pl.pos[1])>6){ RA.x=pl.pos[0]; RA.y=pl.pos[1]; RA.path=[]; }
   RA.vis=true; RA.map=M.id; RA.mode=pl.mode;
   // Kuscheln
-  if(!RA.cuddle&&S.rene.met&&S.rene.cudToday<2&&!paused()&&playerCalm()&&rnd()<dt/75) { RA.cuddle=true; RA.path=[]; }
+  if(!RA.cuddle&&pl.mode!=="date"&&pl.mode!=="jt"&&S.rene.met&&S.rene.cudToday<2&&!paused()&&playerCalm()&&rnd()<dt/75) { RA.cuddle=true; RA.path=[]; }
   if(RA.cuddle&&!paused()&&!playerCalm()){ RA.cuddle=false; RA.path=[]; }
   let goal=pl.pos;
   if(RA.cuddle){ goal=null; const px=Math.round(P.x), py=Math.round(P.y); if(Math.abs(Math.round(RA.x)-px)+Math.abs(Math.round(RA.y)-py)<=1&&!RA.path.length){ RA.cuddle=false; reneCuddle(); }
@@ -1750,10 +1773,13 @@ function reneTalk(){
   const pl=renePlan(); RA.dir=Math.round(P.y)<Math.round(RA.y)?1:Math.round(P.y)>Math.round(RA.y)?0:2; RA.flip=P.x<RA.x;
   if(!S.rene.met){ S.rene.met=true; S.rene.bf=S.day; S.energy=Math.min(S.maxE,S.energy+20);
     dialog([{who:"rene",text:fmtD("Guten Morgen, {name}! Na, wie gefällt dir unser Hof? Ich hab Rührei gemacht, iss erst mal was.")},{who:"rene",text:"Ich muss gleich los zur Arbeit. Und falls du irgendwo eine Socke findest... die gehört mir. Vermutlich."},{who:null,text:"Energie +20"}],()=>{ emit("talk_rene"); emit("talk","rene"); hud(); saveSoon(); }); return; }
+  // Etappe 2: Geburtstag, Verabredung, Jahrestag, Missverständnis (Logik in jm-romantik.js)
+  const rt=JM.Rom.reneTalk(S); if(rt){ runPost(rt); save(true); emit("talk","rene"); return; }
   if(pl.mode==="cook"&&S.rene.bf!==S.day){ S.rene.bf=S.day; S.energy=Math.min(S.maxE,S.energy+20); const wk=Math.floor((S.day-1)/7);
     if(weekday()>=5&&S.rene.wk!==wk){ S.rene.wk=wk; give("nudeln",1); dialog([{who:"rene",text:"Wochenende! Heute hab ich gekocht: deine Nudeln mit Tempura-Chicken. Eine Portion ist für später."},{who:null,text:"Du bekommst Chinesische Nudeln mit Tempura-Chicken. Energie +20"}],()=>{ hud(); saveSoon(); }); return; }
     dialog([{who:"rene",text:pick(JM.RENE.breakfast)},{who:null,text:"Energie +20"}],()=>{ hud(); emit("talk","rene"); saveSoon(); }); return; }
-  dialog([{who:"rene",text:fmtD(pick(weekday()>=5?JM.RENE.lines.concat(JM.RENE.weekend):JM.RENE.lines))}],()=>{ emit("talk","rene"); });
+  const ex=JM.Rom.extraLines(S);
+  dialog([{who:"rene",text:fmtD(ex.length&&rnd()<.5?pick(ex):pick(weekday()>=5?JM.RENE.lines.concat(JM.RENE.weekend):JM.RENE.lines))}],()=>{ emit("talk","rene"); });
 }
 function spawnMess(){
   const n=weekday()>=5?3:2, out=[];
