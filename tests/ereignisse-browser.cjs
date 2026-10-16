@@ -20,13 +20,20 @@ async function click(x,y,h=.05,actorOk=false){await p.waitForTimeout(450);
   if(gfx==='3d'){const r=JM.R3.proj(x+.5,y+.5,h).map(n=>n/devicePixelRatio),hit=JM.R3.pick(...r);return hit&&hit.actor&&hit.actor!=='P'?String(hit.actor):null;}
   const a=actors.find(a=>Math.abs(x-a.x)<1.2&&y+.5>a.y-1.3&&y+.5<a.y+1.4);return a?(a.id||a.name||'figur'):null;},{x,y,h,gfx});if(!blocker)break;if(i===59)throw Error('Ziel dauerhaft verdeckt von '+blocker+' '+JSON.stringify({x,y}));await p.waitForTimeout(500);}const pixel=await p.evaluate(({x,y,h,gfx})=>gfx==='3d'?JM.R3.proj(x+.5,y+.5,h).map(n=>n/devicePixelRatio):[(x*16+8-Math.round(JMDEBUG.cam.x))*JMDEBUG.scale,(y*16+8-Math.round(JMDEBUG.cam.y))*JMDEBUG.scale],{x,y,h,gfx});
  assert.ok(pixel[0]>0&&pixel[0]<viewport.width&&pixel[1]>0&&pixel[1]<viewport.height,'sichtbares Ziel '+JSON.stringify({x,y,pixel,gfx}));assert.equal(await p.evaluate(([x,y])=>document.elementFromPoint(x,y)?.tagName,pixel),'CANVAS','freies Weltziel '+JSON.stringify({x,y,pixel}));await p.mouse.click(...pixel);}
-async function walk(x,y){await p.waitForTimeout(500);
+/* Ergänzung gegenüber briefe-browser: Liegt das Ziel außerhalb des Bildes (3D am Rechner nah gezoomt), geht die Figur
+   wie eine Spielerin erst auf den sichtbaren freien Boden, der dem Ziel am nächsten ist (keine Teleports). */
+async function stepToward(x,y){const t=await p.evaluate(({x,y,gfx})=>{const d=JMDEBUG,m=d.M,out=[];for(let ty=0;ty<m.h;ty++)for(let tx=0;tx<m.w;tx++){if(!JM.WALK.has(m.t[ty][tx])||m.exits.some(e=>e.x===tx&&e.y===ty))continue;
+  const r=gfx==='3d'?JM.R3.proj(tx+.5,ty+.5,.01).map(n=>n/devicePixelRatio):[(tx*16+8-Math.round(d.cam.x))*d.scale,(ty*16+8-Math.round(d.cam.y))*d.scale];if(r[0]<20||r[0]>=innerWidth-20||r[1]<130||r[1]>=innerHeight-130||document.elementFromPoint(r[0],r[1])?.tagName!=='CANVAS')continue;
+  if(gfx==='3d'){const h=JM.R3.pick(...r);if(!h||h.obj||h.actor||h.collectible||Math.floor(h.wx)!==tx||Math.floor(h.wy)!==ty)continue;}out.push({tx,ty,r,dist:Math.hypot(tx-x,ty-y)});}out.sort((a,b)=>a.dist-b.dist);return out[0]||null;},{x,y,gfx});
+ if(!t)return false;await p.mouse.click(...t.r);await p.waitForTimeout(300);await p.waitForFunction(()=>JMDEBUG.idle,null,{timeout:15000});await p.waitForTimeout(800);return true;}
+async function walk(x,y,n=0){await p.waitForTimeout(500);
  for(let attempt=0;attempt<12;attempt++){const target=await p.evaluate(({x,y,gfx})=>{const d=JMDEBUG,m=d.M,actors=[...Object.values(JM.ENG.NPCA).filter(a=>a.vis),...(d.RA.vis?[d.RA]:[]),...d.DOGS];
   for(const [dx,dy] of [[0,0],[0,1],[1,0],[-1,0],[0,-1],[1,1],[-1,1]]){const tx=x+dx,ty=y+dy;if(!JM.WALK.has(m.t[ty]?.[tx])||m.exits.some(e=>e.x===tx&&e.y===ty)||(m.id==='farm'&&JM.ENG.isField(tx,ty))||(d.S.forage[m.id]||[]).some(f=>f.x===tx&&f.y===ty)||actors.some(a=>Math.abs(tx-a.x)<1&&ty+.5>a.y-1.1&&ty+.5<a.y+1.2))continue;
    const r=gfx==='3d'?JM.R3.proj(tx+.5,ty+.5,.01).map(n=>n/devicePixelRatio):[(tx*16+8-Math.round(d.cam.x))*d.scale,(ty*16+8-Math.round(d.cam.y))*d.scale];if(r[0]<1||r[0]>=innerWidth-1||r[1]<1||r[1]>=innerHeight-1||document.elementFromPoint(r[0],r[1])?.tagName!=='CANVAS')continue;
    if(gfx==='3d'){const hit=JM.R3.pick(...r);if(!hit||hit.collectible||(hit.actor&&hit.actor!=='P')||Math.floor(hit.wx)!==tx||Math.floor(hit.wy)!==ty)continue;}return {x:tx,y:ty,r};}return null;},{x,y,gfx});
   if(!target){await p.waitForTimeout(400);continue;}await p.mouse.click(...target.r);
   try{await p.waitForFunction(({x,y})=>Math.abs(JMDEBUG.P.x-x)<.1&&Math.abs(JMDEBUG.P.y-y)<.1&&JMDEBUG.idle,target,{timeout:10000});return;}catch(e){if(attempt<4&&await S(()=>JMDEBUG.idle&&!JMDEBUG.busy.ui.panel&&!JMDEBUG.busy.ui.dialog)){console.error('Wegversuch wiederholt',tag,target);continue;}console.error('WEG',tag,target,await p.evaluate(()=>({map:JMDEBUG.M.id,p:[JMDEBUG.P.x,JMDEBUG.P.y],busy:JSON.stringify(JMDEBUG.busy),dlg:document.querySelector('#dlg')?.innerText})));await shot('wegproblem-'+seg);throw e;}}
+ if(n<6&&await stepToward(x,y))return walk(x,y,n+1);
  throw Error('kein sichtbarer freier Boden nahe '+x+','+y+' '+tag);}
 async function map(id){await p.waitForFunction(id=>JMDEBUG.M.id===id&&!JMDEBUG.busy.ui.fade,id,{timeout:20000});await alive(id);}
 // Spielschleife läuft nach jedem Kartenwechsel weiter (Animationszeit und Uhr steigen), auch mit aktivem Missionsziel.
@@ -78,7 +85,7 @@ const money=()=>S(()=>JMDEBUG.S.money);
 if(seg==='vermisst'){
  assert.equal(await S(()=>JMDEBUG.S.post.m.vermisst.st),'suche');assert.equal(await money(),before.money+60,'Miete von Ida trotz Verschwinden');
  await farmToVillage();await villageSouthEast();await toCity();assert.equal(await S(()=>JM.ENG.NPCA.ida?.vis||false),false,'Ida nicht in der Stadt');
- await walk(7,8);row.shots.push(await shot('vermisst-zettel'));await click(7,7,.7);await p.waitForFunction(()=>JMDEBUG.busy.ui.dialog);await dialogs();assert.equal(await S(()=>JMDEBUG.S.post.m.vermisst.st),'spur');
+ await walk(13,14);await walk(13,10);await walk(9,10);await walk(7,8);row.shots.push(await shot('vermisst-zettel'));await click(7,7,.7);await p.waitForFunction(()=>JMDEBUG.busy.ui.dialog);await dialogs();assert.equal(await S(()=>JMDEBUG.S.post.m.vermisst.st),'spur');
  await stadtToBahnhof();await p.waitForFunction(()=>JM.ENG.NPCA.ida?.vis,null,{timeout:20000});assert.ok(await S(()=>JMDEBUG.M.obj.some(o=>o.k==='koffer')));
  await walk(8,8);row.shots.push(await shot('vermisst-bahnhof'));const m0=await money(),t0=await S(()=>JMDEBUG.S.inv.tee||0);
  await talkTo('ida');await p.waitForFunction(()=>JMDEBUG.busy.ui.dialog);row.shots.push(await shot('vermisst-wiedersehen'));await dialogs();
@@ -89,7 +96,7 @@ if(seg==='vermisst'){
 }
 if(seg==='verkauf'){
  assert.equal(await S(()=>JMDEBUG.S.post.m.verkauf.st),'angebot');const plot=await S(()=>JMDEBUG.S.post.m.verkauf.plot);assert.equal(plot,0);
- await farmToVillage();await villageSouthEast();await toCity();await walk(12,8);await walk(4,8);row.shots.push(await shot('verkauf-ruine'));
+ await farmToVillage();await villageSouthEast();await toCity();await walk(13,14);await walk(13,10);await walk(12,8);await walk(8,10);await walk(4,8);row.shots.push(await shot('verkauf-ruine'));
  await click(5,5,1);await p.getByRole('heading',{name:'Verlassenes Haus · Lindenhof',exact:true}).waitFor();const m0=await money();
  await p.locator('[data-a="kaufen"]').dblclick({delay:80});await p.waitForFunction(()=>JMDEBUG.S.post.m.verkauf.st==='fertig');await p.waitForTimeout(600);await dialogs();
  assert.deepEqual(await S(()=>({money:JMDEBUG.S.money,ready:JMDEBUG.S.city.plots[0].ready,k:JMDEBUG.M.obj.find(o=>o.act==='plot:0'&&o.k!=='board')?.k,ruin:JMDEBUG.M.obj.some(o=>o.act==='post:ev:haus62')})),{money:m0-900,ready:true,k:'house',ruin:false});

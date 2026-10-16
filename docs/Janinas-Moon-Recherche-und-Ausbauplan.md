@@ -173,11 +173,11 @@ Status „umgesetzt“ heißt: im Entwicklungszweig `feat/stadt-und-wohnraum` (M
 | W58 | Mitternachtseinladung am alten Brunnen | Nur 23–24 Uhr am alten Brunnen; tagsüber passiert nichts. | umgesetzt |
 | W59 | Altes Dokument | Folgt auf die Mitternacht am Brunnen. | umgesetzt |
 | W60 | Brief von einem Geist | Folgt auf die Mitternacht; führt zur Brunnenreparatur (300 G, 15 Stein, 5 Kupfererz), danach Wasserstelle. | umgesetzt |
-| W61 | Ereignis: Mieter verschwunden | Eigene Geschichte mit Auflösung, Miete darf nicht still ausfallen. | offen |
-| W62 | Ereignis: verlassenes Haus zu verkaufen | Mit W39/W44/W55 verknüpfen, kein doppelter Hauszähler. | offen |
-| W63 | Ereignis: reicher Fremder will die Villa kaufen | Zuerst klären, welche Villa gemeint ist; Entscheidung mit Folgen. | offen |
-| W64 | Ereignis: geheime Tür im Wald | Neuer Ort mit Rückweg und Wegweiser. | offen |
-| W65 | Ereignis: mysteriöser Bewohner | Eigene Figur mit Tagesplan und aufzulösendem Geheimnis. | offen |
+| W61 | Ereignis: Mieter verschwunden | Brief von Rosa → Zettel an der Haustür in Lindenstadt → Mieter am Dorfbahnhof gefunden (er war bei seiner kranken Schwester). Mietvertrag bleibt bestehen, Miete läuft weiter (vorausbezahlt), 150 G + 2 Tee genau einmal. `jm-ereignisse.js` | gebaut, Prüfung durch Hermes offen |
+| W62 | Ereignis: verlassenes Haus zu verkaufen | Nur mit freiem Bauplatz: Ruine auf dem Bauplatz, Kauf 900 G macht genau diesen Bauplatz bezugsfertig (dieselbe `city.plots`-Zählung wie W39/W44, danach normale Mietanfrage), Ablehnen schließt ohne Kosten ab; wird der Platz anderweitig bebaut, endet das Ereignis ohne Kosten. | gebaut, Prüfung durch Hermes offen |
+| W63 | Ereignis: reicher Fremder will die Villa mieten | Geklärt: „die Villa“ ist Haus Nr. 7 (nur wenn Elva dort wohnt). Herr Falk wartet 9–20 Uhr am Stadtbrunnen; Entscheidung: Elva bleibt (+150 Freundschaft, Dankesbrief mit Mondstein) oder Vermittlung eines Zimmers bei Lin (250 G). Elva verliert in keinem Fall ihr Haus. | gebaut, Prüfung durch Hermes offen |
+| W64 | Ereignis: geheime Tür im Wald | Brief von Henk → Steintür im Nordwesten des Mondwalds → neue Karte `waldtuer` (Gewölbe) mit Truhe (200 G, 2 Mondquarz, einmal) und Steintafel (Ankündigung Vollmondwald); Rückweg über den Ausgang, Tür bleibt offen, Wegweiser löst die neue Karte auf. Der Vollmondwald selbst ist nicht gebaut. | gebaut, Prüfung durch Hermes offen |
+| W65 | Ereignis: mysteriöser Bewohner | Jonas mit Tagesplan (Bahnhof 7–11, Dorfbrunnen 11–16, Stadtplatz 16–21 Uhr); an allen drei Orten mit ihm reden löst das Geheimnis (Hedwigs Enkel, Verbindung zu W60), 250 G + Mondstein einmal; danach bleibt er Bewohner. | gebaut, Prüfung durch Hermes offen |
 
 ## 5. Konkreter Bauvorschlag: Höhle mit zehn Ebenen
 

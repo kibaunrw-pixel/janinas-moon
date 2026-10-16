@@ -1,0 +1,4 @@
+Ereignis verkauf-390-2d OK {"money":4100}
+Error: kein sichtbarer freier Boden nahe 4,8 verkauf-390-3d
+    at walk (/Users/reneklomfas/.hermes/cache/scratch/jm-snapC/tests/ereignisse-browser.cjs:30:8)
+    at async /Users/reneklomfas/.hermes/cache/scratch/jm-snapC/tests/ereignisse-browser.cjs:92:81

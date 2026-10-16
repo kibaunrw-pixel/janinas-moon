@@ -59,7 +59,7 @@ X.ELIG=Object.assign(X.ELIG||{},{
 Object.assign(X.START,{
  vermisst:s=>{const i=tenantPlot(s),t=plots(s)[i].tenant,m=M(s).vermisst;m.plot=i;m.who=t;const n=J.NPCS[t].n;
   return letter(s,{from:'rosa',mis:'vermisst',t:n+' ist verschwunden',
-   b:fill(s,'Liebe {name},\n\nseit gestern hat niemand mehr '+n+' gesehen. Im Haus '+placeName(i)+' in Lindenstadt brennt kein Licht, und die Tür ist zu.\n\nDie Miete liegt trotzdem pünktlich in deinem Briefkasten, '+n+' hat wohl vorausbezahlt. Aber ich mache mir Sorgen. Schaust du an der Haustür nach?\n\nRosa')});},
+   b:fill(s,'Liebe {name},\n\nseit gestern hat niemand mehr '+n+' gesehen. Im Haus '+placeName(i)+' in Lindenstadt brennt kein Licht, und die Tür ist zu.\n\nDie Miete kommt trotzdem jeden Morgen pünktlich an, '+n+' hat wohl vorausbezahlt. Aber ich mache mir Sorgen. Schaust du an der Haustür nach?\n\nRosa')});},
  verkauf:s=>{const i=freePlot(s),m=M(s).verkauf;m.plot=i;
   return letter(s,{from:'rosa',mis:'verkauf',t:'Ein Haus zu verkaufen',
    b:fill(s,'Liebe {name},\n\nauf dem Bauplatz '+placeName(i)+' in Lindenstadt steht doch noch ein altes, verlassenes Haus. Die Erben wohnen weit weg und möchten es loswerden: '+X.price62+' G, so wie es ist.\n\nEin Neubau kostet 1500 G und viel Material. Sieh es dir an der Straße an und entscheide selbst.\n\nRosa')});},

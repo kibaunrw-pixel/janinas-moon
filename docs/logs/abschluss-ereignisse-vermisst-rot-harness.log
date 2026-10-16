@@ -1,0 +1,6 @@
+Ereignis vermisst-390-2d OK {"money":5210}
+Ereignis vermisst-390-3d OK {"money":5210}
+Ereignis vermisst-1440-2d OK {"money":5210}
+Error: kein sichtbarer freier Boden nahe 7,8 vermisst-1440-3d
+    at walk (/Users/reneklomfas/.hermes/cache/scratch/jm-snapC/tests/ereignisse-browser.cjs:30:8)
+    at async /Users/reneklomfas/.hermes/cache/scratch/jm-snapC/tests/ereignisse-browser.cjs:81:2
