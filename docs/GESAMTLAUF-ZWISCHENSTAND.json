@@ -236,6 +236,31 @@
   },
   {
     "command": "node tests/desktop-rest.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node tests/versand-browser.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node tests/markt-browser.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node tests/hinweise-browser.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node tests/wohnraum-browser.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node tests/riesenpflanzen-browser.cjs",
     "exitCode": 1,
     "error": null
   }
