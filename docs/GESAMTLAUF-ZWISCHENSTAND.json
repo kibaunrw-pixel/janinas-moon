@@ -261,6 +261,36 @@
   },
   {
     "command": "node tests/riesenpflanzen-browser.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node tests/abgaben-browser.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node tests/restaurant-browser.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node tests/stadt-browser.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node tests/stadt-zusatz.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node tests/karten-fallback.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node tests/rohstoffweg.cjs",
     "exitCode": 1,
     "error": null
   }

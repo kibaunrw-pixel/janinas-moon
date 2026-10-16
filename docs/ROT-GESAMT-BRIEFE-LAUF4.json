@@ -1,0 +1,420 @@
+{
+  "node": "v22.23.2",
+  "chrome": "installierter Chrome, frische isolierte Playwright-Kontexte",
+  "commands": [
+    {
+      "command": "node --check jm-data.js",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check jm-ausbau.js",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check jm-stadt.js",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check jm-post.js",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check jm-art.js",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check jm-game.js",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check jm-3d.js",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check sw.js",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/ausbau.test.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/wohnraum.test.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/versand.test.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/markt.test.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/riesenpflanzen.test.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/abgaben.test.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/stadt.test.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/briefe.test.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/browser.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/picking.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/regression.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/offline.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/shops.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/mine-rueckweg.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/transfer-scroll.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/panel-focus.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/desktop-rest.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/versand-browser.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/markt-browser.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/hinweise-browser.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/wohnraum-browser.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/riesenpflanzen-browser.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/abgaben-browser.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/restaurant-browser.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/stadt-browser.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/stadt-zusatz.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/karten-fallback.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/rohstoffweg.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/briefe-browser.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/run-all.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --test tests/ausbau.test.cjs tests/wohnraum.test.cjs tests/versand.test.cjs tests/markt.test.cjs tests/riesenpflanzen.test.cjs tests/abgaben.test.cjs tests/stadt.test.cjs tests/briefe.test.cjs",
+      "exitCode": 0,
+      "stdout": "TAP version 13\n# Subtest: Anschlagtafel nimmt ausdrückliche Teilmengen, belohnt genau einmal\nok 1 - Anschlagtafel nimmt ausdrückliche Teilmengen, belohnt genau einmal\n  ---\n  duration_ms: 13.395583\n  type: 'test'\n  ...\n# Subtest: Mondbaum zählt Teilgaben und meldet Fertigstellung genau einmal\nok 2 - Mondbaum zählt Teilgaben und meldet Fertigstellung genau einmal\n  ---\n  duration_ms: 0.661417\n  type: 'test'\n  ...\n# Subtest: Kochen verbraucht beide Lager atomar, auch konkrete plus Sammelfische\nok 3 - Kochen verbraucht beide Lager atomar, auch konkrete plus Sammelfische\n  ---\n  duration_ms: 1.390375\n  type: 'test'\n  ...\n# Subtest: Alle konkreten Rezeptzutaten sind ganzjährig ohne Wiederverkaufsgewinn kaufbar\nok 4 - Alle konkreten Rezeptzutaten sind ganzjährig ohne Wiederverkaufsgewinn kaufbar\n  ---\n  duration_ms: 0.783125\n  type: 'test'\n  ...\n# Subtest: Zehn Höhlenebenen: sichere Wege, persistente Abbaubilanz, Reload, neuer Besuch\nok 5 - Zehn Höhlenebenen: sichere Wege, persistente Abbaubilanz, Reload, neuer Besuch\n  ---\n  duration_ms: 14.814625\n  type: 'test'\n  ...\n# Subtest: Neue Erze sind nutzbar; jeder magische Fisch ist wirklich auswählbar und verkäuflich\nok 6 - Neue Erze sind nutzbar; jeder magische Fisch ist wirklich auswählbar und verkäuflich\n  ---\n  duration_ms: 1.052917\n  type: 'test'\n  ...\n# Subtest: Alte Saves migrieren ohne Progressionsverlust; leere alte Höhle bleibt leer\nok 7 - Alte Saves migrieren ohne Progressionsverlust; leere alte Höhle bleibt leer\n  ---\n  duration_ms: 3.236042\n  type: 'test'\n  ...\n# Subtest: Zimmermann: Ressourcen, einmalige Kosten, Bauzeit, Reload und sichtbare Räume\nok 8 - Zimmermann: Ressourcen, einmalige Kosten, Bauzeit, Reload und sichtbare Räume\n  ---\n  duration_ms: 12.519334\n  type: 'test'\n  ...\n# Subtest: Alte unerreichbare Sammelobjekte werden ohne Verlust erreichbar versetzt\nok 9 - Alte unerreichbare Sammelobjekte werden ohne Verlust erreichbar versetzt\n  ---\n  duration_ms: 10.813541\n  type: 'test'\n  ...\n# Subtest: Komplett gekaufte Zutaten erzeugen auch am maximalen Marktbonus keine Endlosschleife\nok 10 - Komplett gekaufte Zutaten erzeugen auch am maximalen Marktbonus keine Endlosschleife\n  ---\n  duration_ms: 0.26075\n  type: 'test'\n  ...\n# Subtest: Lebensmitteltransfer erhält Bilanz und lehnt ungültige Mengen ab\nok 11 - Lebensmitteltransfer erhält Bilanz und lehnt ungültige Mengen ab\n  ---\n  duration_ms: 0.605459\n  type: 'test'\n  ...\n# Subtest: Modul vorhanden und Altspielstand ohne Postfelder bleibt vollständig erhalten\nok 12 - Modul vorhanden und Altspielstand ohne Postfelder bleibt vollständig erhalten\n  ---\n  duration_ms: 4.535875\n  type: 'test'\n  ...\n# Subtest: Jede Nacht 1–3 neue Briefe, Geheimnis kommt spätestens nach fünf Tagen, keine Doppelzustellung\nok 13 - Jede Nacht 1–3 neue Briefe, Geheimnis kommt spätestens nach fünf Tagen, keine Doppelzustellung\n  ---\n  duration_ms: 4.515166\n  type: 'test'\n  ...\n# Subtest: Miete kommt genau einmal (Stadtabrechnung), Brief ist nur Quittung; Bewertung beeinflusst Miete nachvollziehbar\nok 14 - Miete kommt genau einmal (Stadtabrechnung), Brief ist nur Quittung; Bewertung beeinflusst Miete nachvollziehbar\n  ---\n  duration_ms: 0.998792\n  type: 'test'\n  ...\n# Subtest: Mietanfrage verknüpft fertigen Bauplatz; Zusage genau einmal, auch nach Reload\nok 15 - Mietanfrage verknüpft fertigen Bauplatz; Zusage genau einmal, auch nach Reload\n  ---\n  duration_ms: 1.14525\n  type: 'test'\n  ...\n# Subtest: Bauauftrag: Wunsch → echter Bau → Dankbrief mit 150 G, Beilage genau einmal\nok 16 - Bauauftrag: Wunsch → echter Bau → Dankbrief mit 150 G, Beilage genau einmal\n  ---\n  duration_ms: 0.672875\n  type: 'test'\n  ...\n# Subtest: Geschenkbrief: echter Gegenstand genau einmal\nok 17 - Geschenkbrief: echter Gegenstand genau einmal\n  ---\n  duration_ms: 0.194041\n  type: 'test'\n  ...\n# Subtest: Mission Schatzkarte: Brief → Rätsel → erreichbarer Hügel → Schatz genau einmal\nok 18 - Mission Schatzkarte: Brief → Rätsel → erreichbarer Hügel → Schatz genau einmal\n  ---\n  duration_ms: 10.600667\n  type: 'test'\n  ...\n# Subtest: Mission Haus Nr. 7: Brief → Besuch → Schlüssel → Renovierung (Geld, Material, zwei Nächte) → Elva zieht ein\nok 19 - Mission Haus Nr. 7: Brief → Besuch → Schlüssel → Renovierung (Geld, Material, zwei Nächte) → Elva zieht ein\n  ---\n  duration_ms: 7.785292\n  type: 'test'\n  ...\n# Subtest: Mission Mitternacht am alten Brunnen: nur 23–24 Uhr, Dokument, Geisterbrief, Reparatur einmalig\nok 20 - Mission Mitternacht am alten Brunnen: nur 23–24 Uhr, Dokument, Geisterbrief, Reparatur einmalig\n  ---\n  duration_ms: 12.708708\n  type: 'test'\n  ...\n# Subtest: Alle Missionsziele liegen auf vorhandenen Karten und erreichbaren Kacheln\nok 21 - Alle Missionsziele liegen auf vorhandenen Karten und erreichbaren Kacheln\n  ---\n  duration_ms: 15.204083\n  type: 'test'\n  ...\n# Subtest: Markt öffnet nach Spielkalender Samstag 9 bis vor 15 Uhr, nicht an Festtagen\nok 22 - Markt öffnet nach Spielkalender Samstag 9 bis vor 15 Uhr, nicht an Festtagen\n  ---\n  duration_ms: 2.519791\n  type: 'test'\n  ...\n# Subtest: Freie Marktteilmenge rechnet den sichtbaren Stückpreis atomar und nur am offenen Markt ab\nok 23 - Freie Marktteilmenge rechnet den sichtbaren Stückpreis atomar und nur am offenen Markt ab\n  ---\n  duration_ms: 0.943583\n  type: 'test'\n  ...\n# Subtest: Riesen-Ernte bleibt eigene Sorte mit Größenbonus statt fünf normalen Stücken\nok 24 - Riesen-Ernte bleibt eigene Sorte mit Größenbonus statt fünf normalen Stücken\n  ---\n  duration_ms: 2.737958\n  type: 'test'\n  ...\n# Subtest: Größenstapel erhalten Transfer-/Reload-Bilanz; Markt und Tagesversand verwenden selben Basispreis\nok 25 - Größenstapel erhalten Transfer-/Reload-Bilanz; Markt und Tagesversand verwenden selben Basispreis\n  ---\n  duration_ms: 0.645083\n  type: 'test'\n  ...\n# Subtest: Materialbau dauert drei Nächte; Mieter und Tagesmiete überstehen Reload ohne Exploit\nok 26 - Materialbau dauert drei Nächte; Mieter und Tagesmiete überstehen Reload ohne Exploit\n  ---\n  duration_ms: 2.052\n  type: 'test'\n  ...\n# Subtest: Restaurantkarte erweitert; Abendgäste wechseln ohne doppelte Bewohner\nok 27 - Restaurantkarte erweitert; Abendgäste wechseln ohne doppelte Bewohner\n  ---\n  duration_ms: 0.604083\n  type: 'test'\n  ...\n# Subtest: Drei Häuser: vollständige Altbestände bleiben bei wiederholter Migration erhalten\nok 28 - Drei Häuser: vollständige Altbestände bleiben bei wiederholter Migration erhalten\n  ---\n  duration_ms: 0.811792\n  type: 'test'\n  ...\n# Subtest: Alle neuen NPC-Ziele sind an jedem Spieltag/Zeitfenster erreichbar, Gäste eindeutig\nok 29 - Alle neuen NPC-Ziele sind an jedem Spieltag/Zeitfenster erreichbar, Gäste eindeutig\n  ---\n  duration_ms: 24.905541\n  type: 'test'\n  ...\n# Subtest: Dorf führt über Bahnhof in erste Stadt und zurück, Altbesitz bleibt\nok 30 - Dorf führt über Bahnhof in erste Stadt und zurück, Altbesitz bleibt\n  ---\n  duration_ms: 3.22325\n  type: 'test'\n  ...\n# Subtest: Versand ist bearbeitbare Warteschlange mit atomarer Teilrücknahme bis zur einmaligen Abholung\nok 31 - Versand ist bearbeitbare Warteschlange mit atomarer Teilrücknahme bis zur einmaligen Abholung\n  ---\n  duration_ms: 3.980792\n  type: 'test'\n  ...\n# Subtest: Direkte Mengen: nur ganze positive sichere Zahlen bis Bestand\nok 32 - Direkte Mengen: nur ganze positive sichere Zahlen bis Bestand\n  ---\n  duration_ms: 0.353791\n  type: 'test'\n  ...\n# Subtest: Bezahlte Hausstufen erhalten kostenlos obere Etage, sichere Treppe und eigene Einrichtung\nok 33 - Bezahlte Hausstufen erhalten kostenlos obere Etage, sichere Treppe und eigene Einrichtung\n  ---\n  duration_ms: 7.523167\n  type: 'test'\n  ...\n1..33\n# tests 33\n# suites 0\n# pass 33\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 179.527333\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node tests/browser.cjs",
+      "exitCode": 0,
+      "stdout": "Beleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/magischer-teich-3d-390.png\nBeleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/teich-angelplatz-3d-390.png\nBeleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/haus-stufe1-3d-390.png\nBrowser Kühlschrank/Küche/Mine/Zimmermann/Holz/Export { width: 390, height: 844 } OK\nBeleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/magischer-teich-3d-1440.png\nBeleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/teich-angelplatz-3d-1440.png\nBeleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/haus-stufe1-3d-1440.png\nBrowser Kühlschrank/Küche/Mine/Zimmermann/Holz/Export { width: 1440, height: 900 } OK\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node tests/picking.cjs",
+      "exitCode": 0,
+      "stdout": "Feld-Repro { width: 390, height: 844 } {\n  pick: { wx: 4.5, wy: 10.5, collectible: true },\n  screen: [ 137.06265258846, 330.4536777995199, true ],\n  el: '<canvas id=\"game\" width=\"390\" height=\"844\"></canvas>',\n  p: { x: 5, y: 11 },\n  ui: { ui: { panel: false, dialog: false, fade: false }, fish: null }\n}\n3D Socke/Sammelfunde/Bauholz + Tierüberlappung/Feld/Doppeltipp { width: 390, height: 844 } OK\nFeld-Repro { width: 1440, height: 900 } {\n  pick: { wx: 4.5, wy: 10.5, collectible: true },\n  screen: [ 515.8898212462055, 200.33728104880916, true ],\n  el: '<canvas id=\"game\" width=\"1440\" height=\"900\"></canvas>',\n  p: { x: 5, y: 11 },\n  ui: { ui: { panel: false, dialog: false, fade: false }, fish: null }\n}\n3D Socke/Sammelfunde/Bauholz + Tierüberlappung/Feld/Doppeltipp { width: 1440, height: 900 } OK\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node tests/regression.cjs",
+      "exitCode": 0,
+      "stdout": "Beleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/kuehlschrank-2d-390.png\nBeleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/zimmermann-stufe1-2d-390.png\nBeleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/haus-stufe1-2d-390.png\nBeleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/zimmermann-stufe2-2d-390.png\nBeleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/haus-stufe2-2d-390.png\nBeleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/haus-stufe2-3d-390.png\n2D Mengen/Reload/Abbau/Durchlauf/Bett/beide Ausbauten { width: 390, height: 844 } OK\nBeleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/kuehlschrank-2d-1440.png\nBeleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/zimmermann-stufe1-2d-1440.png\nBeleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/haus-stufe1-2d-1440.png\nBeleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/zimmermann-stufe2-2d-1440.png\nBeleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/haus-stufe2-2d-1440.png\nBeleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/haus-stufe2-3d-1440.png\n2D Mengen/Reload/Abbau/Durchlauf/Bett/beide Ausbauten { width: 1440, height: 900 } OK\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node tests/offline.cjs",
+      "exitCode": 0,
+      "stdout": "Frischer isolierter Offline-Tab: Ausbau und Stadt geladen, Hof gestartet, drei Bauplätze migriert, Briefkasten (JM.Post) mit drei offenen Missionen geladen. Kein Bestands-PWA-Nachweis.\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node tests/shops.cjs",
+      "exitCode": 0,
+      "stdout": "Laden: 5×-Kauf bilanziert; Timo Öffnungsgrenzen und Sonntag/Regen OK\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node tests/mine-rueckweg.cjs",
+      "exitCode": 0,
+      "stdout": "Höhlenebene 2+: Schleife läuft, Wegweiser ok, Rückweg ok {\"vor\":[10,14],\"nach\":[10,13],\"ziel\":\"nicht exportiert\",\"zurueck\":{\"map\":\"hoehle\",\"depth\":1}}\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node tests/transfer-scroll.cjs",
+      "exitCode": 0,
+      "stdout": "Transfer-Kontext 390 2d OK\nTransfer-Kontext 390 3d OK\nTransfer-Kontext 1440 2d OK\nTransfer-Kontext 1440 3d OK\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node tests/panel-focus.cjs",
+      "exitCode": 0,
+      "stdout": "F1 Versand/Markt letzte Zeile, Tab und ohne vorherigen Panelfokus 390 OK\nF1 Versand/Markt letzte Zeile, Tab und ohne vorherigen Panelfokus 1440 OK\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node tests/desktop-rest.cjs",
+      "exitCode": 0,
+      "stdout": "MARKET_SEED {\n  map: 'village',\n  p: [ 13, 14 ],\n  cam: { x: -24, y: 96.55833333333334 },\n  scale: 3,\n  ui: { panel: false, dialog: false, fade: false },\n  gfx: '3d',\n  visibility: 'visible'\n}\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node tests/versand-browser.cjs",
+      "exitCode": 0,
+      "stdout": "Versand Menge/Enter/Teilrücknahme/Doppelklick/Reload/Tagesverkauf 390 OK\nVersand Menge/Enter/Teilrücknahme/Doppelklick/Reload/Tagesverkauf 1440 OK\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node tests/markt-browser.cjs",
+      "exitCode": 0,
+      "stdout": "Markt echter Pointer/Teilmenge/Rosa/Grenzen 390 2d OK\nMarkt echter Pointer/Teilmenge/Rosa/Grenzen 390 3d OK\nMarkt echter Pointer/Teilmenge/Rosa/Grenzen 1440 2d OK\nMarkt echter Pointer/Teilmenge/Rosa/Grenzen 1440 3d OK\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node tests/hinweise-browser.cjs",
+      "exitCode": 0,
+      "stdout": "Hinweise Mondfest/Tagesziele kompakt/Weltklick/Reload/Wechsel 390 2d OK\nHinweise Mondfest/Tagesziele kompakt/Weltklick/Reload/Wechsel 390 3d OK\nHinweise Mondfest/Tagesziele kompakt/Weltklick/Reload/Wechsel 1440 2d OK\nHinweise Mondfest/Tagesziele kompakt/Weltklick/Reload/Wechsel 1440 3d OK\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node tests/wohnraum-browser.cjs",
+      "exitCode": 0,
+      "stdout": "Altbau Haus→Treppe→Wohnetage→Hof 390 2d Stufe 1 OK\nAltbau Haus→Treppe→Wohnetage→Hof 390 2d Stufe 2 OK\nAltbau Haus→Treppe→Wohnetage→Hof 390 3d Stufe 1 OK\nAltbau Haus→Treppe→Wohnetage→Hof 390 3d Stufe 2 OK\nAltbau Haus→Treppe→Wohnetage→Hof 1440 2d Stufe 1 OK\nAltbau Haus→Treppe→Wohnetage→Hof 1440 2d Stufe 2 OK\nAltbau Haus→Treppe→Wohnetage→Hof 1440 3d Stufe 1 OK\nAltbau Haus→Treppe→Wohnetage→Hof 1440 3d Stufe 2 OK\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node tests/riesenpflanzen-browser.cjs",
+      "exitCode": 0,
+      "stdout": "Riesen-Ernte/Name/Vorrat/Teilmenge/Entnahme/Reload 390 2d OK\nRiesen-Ernte/Name/Vorrat/Teilmenge/Entnahme/Reload 390 3d OK\nRiesen-Ernte/Name/Vorrat/Teilmenge/Entnahme/Reload 1440 2d OK\nRiesen-Ernte/Name/Vorrat/Teilmenge/Entnahme/Reload 1440 3d OK\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node tests/abgaben-browser.cjs",
+      "exitCode": 0,
+      "stdout": "Teilgaben validiert/Teilmenge/Reload/einmalige Belohnung 390 OK\nTeilgaben validiert/Teilmenge/Reload/einmalige Belohnung 1440 OK\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node tests/restaurant-browser.cjs",
+      "exitCode": 0,
+      "stdout": "Restaurant 8 390 2d paula,timo Käufe/Essen/eigene Gespräche/keine Duplikate OK\nRestaurant 9 390 2d henk,mei Käufe/Essen/eigene Gespräche/keine Duplikate OK\nRestaurant 8 390 3d paula,timo Käufe/Essen/eigene Gespräche/keine Duplikate OK\nRestaurant 9 390 3d henk,mei Käufe/Essen/eigene Gespräche/keine Duplikate OK\nRestaurant 8 1440 2d paula,timo Käufe/Essen/eigene Gespräche/keine Duplikate OK\nRestaurant 9 1440 2d henk,mei Käufe/Essen/eigene Gespräche/keine Duplikate OK\nRestaurant 8 1440 3d paula,timo Käufe/Essen/eigene Gespräche/keine Duplikate OK\nRestaurant 9 1440 3d henk,mei Käufe/Essen/eigene Gespräche/keine Duplikate OK\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node tests/stadt-browser.cjs",
+      "exitCode": 0,
+      "stdout": "Stadt Reise/Bau/drei Nächte/Mieter/Miete/Reload/Rückkehr 390 2d {\"money\":3560,\"last\":13,\"day\":13}\nStadt Reise/Bau/drei Nächte/Mieter/Miete/Reload/Rückkehr 390 3d {\"money\":3560,\"last\":13,\"day\":13}\nStadt Reise/Bau/drei Nächte/Mieter/Miete/Reload/Rückkehr 1440 2d {\"money\":3560,\"last\":13,\"day\":13}\nStadt Reise/Bau/drei Nächte/Mieter/Miete/Reload/Rückkehr 1440 3d {\"money\":3560,\"last\":13,\"day\":13}\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node tests/stadt-zusatz.cjs",
+      "exitCode": 0,
+      "stdout": "Zusatz Karten/Aufgaben/Animation/3 Häuser/Phasen/NPC-Zeiten/Mietbilanz 390 2d OK\nZusatz Karten/Aufgaben/Animation/3 Häuser/Phasen/NPC-Zeiten/Mietbilanz 390 3d OK\nZusatz Karten/Aufgaben/Animation/3 Häuser/Phasen/NPC-Zeiten/Mietbilanz 1440 2d OK\nZusatz Karten/Aufgaben/Animation/3 Häuser/Phasen/NPC-Zeiten/Mietbilanz 1440 3d OK\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node tests/karten-fallback.cjs",
+      "exitCode": 0,
+      "stdout": "Unbekannte Karten-ID → sicherer Start auf dem Hof OK\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node tests/rohstoffweg.cjs",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "AssertionError [ERR_ASSERTION]: {\"error\":\"kein Weg\",\"map\":\"forest\",\"sx\":16,\"sy\":15,\"x\":24,\"y\":15}\n    at walk (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/rohstoffweg.cjs:6:1684)\n    at async adj (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/rohstoffweg.cjs:7:365)\n    at async /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/rohstoffweg.cjs:12:253 {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: false,\n  expected: true,\n  operator: '==',\n  diff: 'simple'\n}\n",
+      "error": null
+    }
+  ],
+  "passed": false
+}
