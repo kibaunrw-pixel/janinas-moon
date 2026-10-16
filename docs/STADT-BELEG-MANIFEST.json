@@ -1,306 +1,445 @@
 {
- "codeCommit": "66725d0ce4e86dae50b9e77b0cee704ad5b0c4e1",
- "passed": true,
- "commandCount": 37,
- "syntaxCount": 24,
- "browserCount": 12,
- "screenshots": [
-  {
-   "path": "docs/belege/stadt-ausbau/hinweise-kompakt-390-3d.png",
-   "bytes": 310759,
-   "sha256": "690af8aceb2ac65a4b0869302d513414d8bb18952265e54568ef682e55f52f5a"
+  "codeCommit": "66725d0ce4e86dae50b9e77b0cee704ad5b0c4e1",
+  "passed": true,
+  "commandCount": 37,
+  "syntaxCount": 24,
+  "browserCount": 12,
+  "screenshots": [
+    {
+      "path": "docs/belege/stadt-ausbau/hinweise-kompakt-390-3d.png",
+      "bytes": 310759,
+      "sha256": "690af8aceb2ac65a4b0869302d513414d8bb18952265e54568ef682e55f52f5a"
+    },
+    {
+      "path": "docs/belege/stadt-ausbau/hinweise-offen-1440-2d.png",
+      "bytes": 314077,
+      "sha256": "2b4f1c119db673808db86f3dc840b037e9992d1484828d8cac929b554f3c5e16"
+    },
+    {
+      "path": "docs/belege/stadt-ausbau/markttag-390-3d.png",
+      "bytes": 115788,
+      "sha256": "9d33f596b25e9c41bd1553462e409be843a451e8cd28343f972505b65984cc6a"
+    },
+    {
+      "path": "docs/belege/stadt-ausbau/riesenernte-1440-3d.png",
+      "bytes": 678443,
+      "sha256": "f460e793861285594fc01f1d42339a8e5d3ecd2dd4c8b0b9486afc7ee056ddd3"
+    },
+    {
+      "path": "docs/belege/stadt-ausbau/transfer-390-2d.png",
+      "bytes": 47843,
+      "sha256": "5b6d0d6b211a339d822222978ec39211141653534773d5714b65f64919ad2d91"
+    },
+    {
+      "path": "docs/belege/stadt-ausbau/versand-editierbar-390.png",
+      "bytes": 64605,
+      "sha256": "fe1065a54155987eb9f77b92653f3c30b4c22da8ef14159d92ab005fee053f4a"
+    },
+    {
+      "path": "docs/belege/stadt-ausbau/wohnetage-stufe1-390-2d.png",
+      "bytes": 195079,
+      "sha256": "feafe7e012c480b14dc742fa3f8077004a0311f163d982e87df0f9399a78bc65"
+    },
+    {
+      "path": "docs/belege/stadt-ausbau/wohnetage-stufe2-1440-3d.png",
+      "bytes": 474939,
+      "sha256": "7807f9c44353ba6a62805e734668a2d2b0f46743bbfab82a1d8d1b06b3ff2bad"
+    }
+  ],
+  "briefkastenEtappe": {
+    "basis": "403c9a9",
+    "hinweis": "Bilder aus Einzelläufen der Browserwege (briefe-browser, stadt-browser, stadt-zusatz); jedes Bild vor Aufnahme angesehen. Kein Abnahmeurteil.",
+    "screenshots": [
+      {
+        "path": "docs/belege/briefe/brief-schatz-390-2d.png",
+        "bytes": 286318,
+        "sha256": "647b0cbefd884291c00add3f13ef75fd966dfe40be88ce50f4bc7f994cf7f859",
+        "angesehen": true,
+        "inhalt": "Brief „Eine zerknitterte Karte“ vollständig lesbar, Knöpfe Zurück/Schließen, Aufgabe oben"
+      },
+      {
+        "path": "docs/belege/briefe/briefkasten-schatz-390-2d.png",
+        "bytes": 196954,
+        "sha256": "3963460ab2298ccff54f6636c308d40a7c07cebfd642ed2c3acf2aa051c362a7",
+        "angesehen": true,
+        "inhalt": "Briefkasten mobil: „1 ungelesen · 19 Briefe“, Neu-Abschnitt mit Geheimnisbrief, gelesene Briefe darunter, kein waagrechter Überlauf"
+      },
+      {
+        "path": "docs/belege/briefe/brunnen-mitternacht-1440-3d.png",
+        "bytes": 710069,
+        "sha256": "ee00d0bf2e6d3457f700ee185c5c914f43d43714165da4c6706ae2d570a8fabd",
+        "angesehen": true,
+        "inhalt": "Nachtbeleuchtung am alten (kaputten) Brunnen, Dialog beginnt; HUD-Uhr zeigt wegen Zeit-Fixture noch 06:30"
+      },
+      {
+        "path": "docs/belege/briefe/brunnen-repariert-1440-3d.png",
+        "bytes": 698151,
+        "sha256": "1d97d7f805385be5594b1af4ef0c4c7bef1f3e183b48ac57e1562e32063096ff",
+        "angesehen": true,
+        "inhalt": "Reparierter Brunnen mit rotem Dach und Wasser in 3D, Geld 4.700 G"
+      },
+      {
+        "path": "docs/belege/briefe/brunnen-repariert-390-2d.png",
+        "bytes": 615981,
+        "sha256": "d1c09d15443fe133acd892b11a98af08fdce896af25ef461cdc83e0e5ca8f0f7",
+        "angesehen": true,
+        "inhalt": "Dorf mobil 2D, reparierter Brunnen klein unten rechts neben der Spielfigur"
+      },
+      {
+        "path": "docs/belege/briefe/haus7-elva-1440-2d.png",
+        "bytes": 584209,
+        "sha256": "c25ee96e7006cd825cf257034f777e97c33f5e6e66cb8584ca5a11369a9f9f9a",
+        "angesehen": true,
+        "inhalt": "Renoviertes Haus Nr. 7 mit Elva und Janina davor (2D Rechner), Geld 4.620 G"
+      },
+      {
+        "path": "docs/belege/briefe/haus7-elva-390-3d.png",
+        "bytes": 728155,
+        "sha256": "b278f53bca21b7ff8ae648cf27aa7aa4704ca5251050fc84c1c68e009b471f5c",
+        "angesehen": true,
+        "inhalt": "Renoviertes Haus Nr. 7 mit Elva davor (3D mobil), Geld 4.620 G"
+      },
+      {
+        "path": "docs/belege/briefe/haus7-renovierung-390-3d.png",
+        "bytes": 692662,
+        "sha256": "0ce465ae8f7d2f255326515367a6c854dd17ea2edb4bf992b27f6dee8d19a93f",
+        "angesehen": true,
+        "inhalt": "Haus Nr. 7 in Renovierung (3D, Dach im Bau), Hinweis „Timo beginnt mit der Renovierung. In 2 Nächten ist sie fertig.“, Geld 4.380 G"
+      },
+      {
+        "path": "docs/belege/briefe/haus7-verlassen-1440-2d.png",
+        "bytes": 576462,
+        "sha256": "a87696c8fffeae90e27c19f07ac9814eaaf3473f6e459c61cf57fd9da5d69a8f",
+        "angesehen": true,
+        "inhalt": "Lindenstadt 2D: Haus Nr. 7 verfallen (vernagelte Fenster), Wegweiser an der Tür, Aufgabe „Haus Nummer 7“"
+      },
+      {
+        "path": "docs/belege/briefe/schatz-gefunden-1440-3d.png",
+        "bytes": 881462,
+        "sha256": "7b92314fa04520fc873ed0bd8bd0c2ca5d2afd3d9964904c24f0b1aad2c94c09",
+        "angesehen": true,
+        "inhalt": "Schatzfund am Rechner in 3D, Dialog und Schriftzug sichtbar, Geld 5.300 G"
+      },
+      {
+        "path": "docs/belege/briefe/schatz-gefunden-390-2d.png",
+        "bytes": 635422,
+        "sha256": "273be4e6fc1ec5175ce63b954cdfcebb0298c1aeca9f16360aa80c7f2e6703dc",
+        "angesehen": true,
+        "inhalt": "„Schatz gefunden!“, Dialog 300 G und 3 Kupfererz, Geld 5.300 G"
+      },
+      {
+        "path": "docs/belege/briefe/schatz-huegel-390-2d.png",
+        "bytes": 616896,
+        "sha256": "7286961a6392301f45fcd561d6848f9c2388f94ece89f8d3de3657812817c542",
+        "angesehen": true,
+        "inhalt": "Mondwald mobil 2D: drei kleine Erdhügel um den Mondbaum, Wegweiser am Baum"
+      },
+      {
+        "path": "docs/belege/stadt-abnahme/drei-haeuser-holzrahmen-390-3d.png",
+        "bytes": 731813,
+        "sha256": "c9560c7eb378c8e559c61f0cd54c47bc616be00698d154a3bb6a0ddad540f44c",
+        "angesehen": true,
+        "inhalt": "Drei Bauplätze in Phase Holzrahmen (3D mobil, frühmorgens dunkel)"
+      },
+      {
+        "path": "docs/belege/stadt-abnahme/drei-haeuser-mieter-1440-2d.png",
+        "bytes": 574489,
+        "sha256": "dcaaad0168b1a01008df03101148dafeaeee8fd729833d7cea56055e4d216ce0",
+        "angesehen": true,
+        "inhalt": "Drei fertige Mietshäuser in Lindenstadt (2D), Fenster beleuchtet, Geld 500 G"
+      },
+      {
+        "path": "docs/belege/stadt-abnahme/stadt-fundament-1440-2d.png",
+        "bytes": 542766,
+        "sha256": "a6cb90b487e44951637f06d1ed4100c019d38cda91b092ac7a657e82b16084d5",
+        "angesehen": true,
+        "inhalt": "Fundament (Baustufe 1) auf dem ersten Bauplatz, Geld 3.500 G (2D)"
+      },
+      {
+        "path": "docs/belege/stadt-abnahme/stadt-miete-390-3d.png",
+        "bytes": 225655,
+        "sha256": "032f665e4af0b3f013b622c17d17571fd443c8f7c5dc1e9b67fdef20bf006415",
+        "angesehen": true,
+        "inhalt": "Zuhause nach Nacht mit Miete, Geld 3.560 G (3D mobil, Raum klein dargestellt)"
+      },
+      {
+        "path": "docs/belege/stadt-abnahme/stadt-vermietet-1440-2d.png",
+        "bytes": 549485,
+        "sha256": "70a84c775956d57d736dd7feba76571682c5093fab10a8ae6a147633c21ae1f1",
+        "angesehen": true,
+        "inhalt": "Ein fertiges Haus mit Mieterin davor, zwei leere Bauplätze, Haus Nr. 7 verfallen (2D)"
+      }
+    ]
   },
-  {
-   "path": "docs/belege/stadt-ausbau/hinweise-offen-1440-2d.png",
-   "bytes": 314077,
-   "sha256": "2b4f1c119db673808db86f3dc840b037e9992d1484828d8cac929b554f3c5e16"
+  "etappe1b": {
+    "basis": "a3e04bd",
+    "hinweis": "Bilder aus Browserläufen tipp-vorrang, ereignisse-browser, bahnhof-browser; jedes Bild angesehen. docs/belege/bahnhof/verdeckt-390-3d.png ist ein Diagnosebild des Prüfaufbaus (offenes Panel), kein Beleg. Kein Abnahmeurteil.",
+    "screenshots": [
+      {
+        "path": "docs/belege/tippvorrang/tipp-390-3d-briefkasten.png",
+        "bytes": 512741,
+        "sha256": "c73a9a2ee284391a6f1ace4da1d12f456854ef6f63fa53d5f979bf8bee248a4f",
+        "angesehen": true,
+        "inhalt": "3D mobil: René steht direkt vor dem Briefkasten, Tipp öffnet Panel „Briefkasten“, kein Gespräch"
+      },
+      {
+        "path": "docs/belege/tippvorrang/tipp-1440-2d-moebel.png",
+        "bytes": 190827,
+        "sha256": "b66b1d1dcc6c6ddbd1fd2e1b80044bbaaa6788b77e8c4a3748e5c97ca28095e0",
+        "angesehen": true,
+        "inhalt": "2D Rechner: René neben dem Bett, Tipp aufs Bett öffnet „Schlafen gehen?“"
+      },
+      {
+        "path": "docs/belege/ereignisse/brief-vermisst-390-2d.png",
+        "bytes": 260159,
+        "sha256": "9ceae56dd5ebdfeb85c98530aaaf8b393bbf210e48222f2ebe1f731681a0f95d",
+        "angesehen": true,
+        "inhalt": "Brief „Ida ist verschwunden“ von Rosa vollständig lesbar, Zurück/Schließen, kein Überlauf"
+      },
+      {
+        "path": "docs/belege/ereignisse/vermisst-zettel-1440-2d.png",
+        "bytes": 550566,
+        "sha256": "4f3eb7c627512254e67e4ef8ac9e6193e262693fd7fb488e4d1065c277a711e6",
+        "angesehen": true,
+        "inhalt": "Lindenstadt: Zettel an der Haustür Lindenhof, Aufgabe „Ida ist verschwunden“, Ida nicht in der Stadt"
+      },
+      {
+        "path": "docs/belege/ereignisse/vermisst-wiedersehen-390-3d.png",
+        "bytes": 816247,
+        "sha256": "394cf5113c25f61f8b86c1dfcee6d9fc03ef98b994bb58143832918de2885ef7",
+        "angesehen": true,
+        "inhalt": "Dorfbahnhof 3D mobil: Banner „Ida ist wieder da“, Dialog von Ida, Zug auf Gleisen"
+      },
+      {
+        "path": "docs/belege/ereignisse/verkauf-gekauft-1440-3d.png",
+        "bytes": 831641,
+        "sha256": "5201b84f54561354ae2a0d06fd76164647215147ed9b71284a3eaaacead6a9f0",
+        "angesehen": true,
+        "inhalt": "3D: gekauftes Haus Lindenhof bezugsfertig, Bautafel davor, 4.100 G"
+      },
+      {
+        "path": "docs/belege/ereignisse/villa-falk-1440-3d.png",
+        "bytes": 905376,
+        "sha256": "9dd5356581830e6644efda11beec9a3e0350b3834e19e58d678479240d5297ec",
+        "angesehen": true,
+        "inhalt": "3D: Herr Falk (?-Abzeichen) am Stadtbrunnen, Aufgabe „Anfrage wegen der Villa“"
+      },
+      {
+        "path": "docs/belege/ereignisse/villa-entscheidung-390-3d.png",
+        "bytes": 331214,
+        "sha256": "9f83988a3c2670d26d24e91772576c706e3e0601118a7c08da138fc264b8ec28",
+        "angesehen": true,
+        "inhalt": "Panel „Herr Falk am Stadtbrunnen“ mit zwei Entscheidungen und Schließen, lesbar"
+      },
+      {
+        "path": "docs/belege/ereignisse/tuer-hang-390-3d.png",
+        "bytes": 854985,
+        "sha256": "8b35202a07a107d5d86e2727e4bc99d55214fe4c58cef1d49fd52bf07e05c624",
+        "angesehen": true,
+        "inhalt": "3D mobil: Steintür im Hang im Nordwesten des Mondwalds, Aufgabe „Eine Tür im Hang“"
+      },
+      {
+        "path": "docs/belege/ereignisse/tuer-hang-1440-2d.png",
+        "bytes": 629234,
+        "sha256": "d8cf6955e0f9da5442498078edb5a05a985499a5b9f52a42f678f0a93c1cd6b7",
+        "angesehen": true,
+        "inhalt": "2D: moosige Steintür im Hang neben der Spielerin"
+      },
+      {
+        "path": "docs/belege/ereignisse/tuer-gewoelbe-1440-2d.png",
+        "bytes": 250945,
+        "sha256": "e19ed8903c00e3376b8ac799295cde857307aa9d4b3b3670eb5b0db8b8a8599a",
+        "angesehen": true,
+        "inhalt": "2D: Gewölbe mit Truhe, Steintafel, Fass und Ausgang"
+      },
+      {
+        "path": "docs/belege/ereignisse/tuer-gewoelbe-1440-3d.png",
+        "bytes": 332714,
+        "sha256": "9dcb4f96b11cf8bdff015f39069c466c0a4a5e4e513817be2e34877b84a3819c",
+        "angesehen": true,
+        "inhalt": "3D: Gewölbe hinter der Waldtür, Truhe mit Zielmarke, Steintafel, Fass, Ausgang unten"
+      },
+      {
+        "path": "docs/belege/ereignisse/bewohner-geheimnis-1440-2d.png",
+        "bytes": 572769,
+        "sha256": "7e22ea06d80138acaebae6d55ae16fc3ca568428e6862e8b28cd845ddc756fad",
+        "angesehen": true,
+        "inhalt": "2D Lindenstadt: Banner „Ein Geheimnis gelüftet“, Dialog von Jonas am Stadtplatz"
+      },
+      {
+        "path": "docs/belege/bahnhof/dorfbahnhof-390-2d.png",
+        "bytes": 454365,
+        "sha256": "c518e382917e7d3ab19f320a4be1c94a10e8ba745cdedb6c7495d50e4480d2de",
+        "angesehen": true,
+        "inhalt": "2D mobil: Gleise über die ganze Breite, Zug (Lok+Wagen) auf Schienen, Bahnsteig mit Kante, Ortsschild, Bank, Laternen, Kübel, Fahrplan, Bahnhofsgebäude mit Uhr"
+      },
+      {
+        "path": "docs/belege/bahnhof/dorfbahnhof-390-3d.png",
+        "bytes": 786609,
+        "sha256": "fa4abebc953a7725de8cf452cfa9c88e4dfc0c6b7c3c08205ad28db3d217875b",
+        "angesehen": true,
+        "inhalt": "3D mobil: Schotter, Schwellen, Schienen bis zum Rand, Zug auf Gleisen, heller Bahnsteig mit Linie, Bank, Laternen, Gebäude"
+      },
+      {
+        "path": "docs/belege/bahnhof/dorfbahnhof-1440-2d.png",
+        "bytes": 501420,
+        "sha256": "7d0798db5df98fa3efc378da848560c175e3cf8e2a883671a5eea4c21a38d08b",
+        "angesehen": true,
+        "inhalt": "2D Rechner: Gleise laufen links und rechts aus dem Bild; Ortsschild in dieser Fassung links knapp beschnitten (danach Schrift verkleinert, nicht erneut fotografiert)"
+      },
+      {
+        "path": "docs/belege/bahnhof/dorfbahnhof-bahnsteig-1440-3d.png",
+        "bytes": 832765,
+        "sha256": "f6f9eb1a900a7af6d791c55318fe45548550b924093a7da816c4e2d0dbaa29e2",
+        "angesehen": true,
+        "inhalt": "3D Rechner nah: Lok und Wagen mit Rädern/Fenstern auf Schienen, Bank, Kübel, Fahrplantafel, Gepäckwagen, Bahnhofsgebäude mit Schild „Dorfbahnhof“ und Uhrtürmchen"
+      },
+      {
+        "path": "docs/belege/bahnhof/bahnhof-lindenstadt-1440-3d.png",
+        "bytes": 973522,
+        "sha256": "cc0cd6f687a09694669c9d992350b64d20c7e41b215ebbbb6dfbad0c83465f0d",
+        "angesehen": true,
+        "inhalt": "3D: Bahnhofsgebäude Lindenstadt mit Schild „Lindenstadt“, Uhrtürmchen, Fahrplantafel"
+      }
+    ]
   },
-  {
-   "path": "docs/belege/stadt-ausbau/markttag-390-3d.png",
-   "bytes": 115788,
-   "sha256": "9d33f596b25e9c41bd1553462e409be843a451e8cd28343f972505b65984cc6a"
-  },
-  {
-   "path": "docs/belege/stadt-ausbau/riesenernte-1440-3d.png",
-   "bytes": 678443,
-   "sha256": "f460e793861285594fc01f1d42339a8e5d3ecd2dd4c8b0b9486afc7ee056ddd3"
-  },
-  {
-   "path": "docs/belege/stadt-ausbau/transfer-390-2d.png",
-   "bytes": 47843,
-   "sha256": "5b6d0d6b211a339d822222978ec39211141653534773d5714b65f64919ad2d91"
-  },
-  {
-   "path": "docs/belege/stadt-ausbau/versand-editierbar-390.png",
-   "bytes": 64605,
-   "sha256": "fe1065a54155987eb9f77b92653f3c30b4c22da8ef14159d92ab005fee053f4a"
-  },
-  {
-   "path": "docs/belege/stadt-ausbau/wohnetage-stufe1-390-2d.png",
-   "bytes": 195079,
-   "sha256": "feafe7e012c480b14dc742fa3f8077004a0311f163d982e87df0f9399a78bc65"
-  },
-  {
-   "path": "docs/belege/stadt-ausbau/wohnetage-stufe2-1440-3d.png",
-   "bytes": 474939,
-   "sha256": "7807f9c44353ba6a62805e734668a2d2b0f46743bbfab82a1d8d1b06b3ff2bad"
+  "etappe2": {
+    "basis": "2690fda",
+    "hinweis": "Bilder aus tests/etappe2-browser.cjs; jedes Bild angesehen. Zwischenstände sind als solche markiert. Kein Abnahmeurteil.",
+    "screenshots": [
+      {
+        "path": "docs/belege/etappe2/picknick-brief-390-2d.png",
+        "bytes": 175538,
+        "sha256": "2bc8c3bac98df3be10f0f7c8b56d9765b1e05af135481458e7f1ff93540152c9",
+        "angesehen": true,
+        "inhalt": "W25/W28 Renés Einladung mit vier Antwortknöpfen (Ort und Uhrzeit), Text vollständig lesbar"
+      },
+      {
+        "path": "docs/belege/etappe2/picknick-szene-390-2d.png",
+        "bytes": 444809,
+        "sha256": "b372a3594221f18edb086d4c1e14755adafe87773fb37f68d02975298c6282af",
+        "angesehen": true,
+        "inhalt": "W25 Szene am Waldsee: Auswahl mit drei Antworten; längste Antwort am rechten Rand abgeschnitten (danach CSS-Umbruch ergänzt, ohne neues Bild)"
+      },
+      {
+        "path": "docs/belege/etappe2/picknick-herzen-390-2d.png",
+        "bytes": 362694,
+        "sha256": "9403cc5681880554d1f1af0a9499371f3384c49bb2c4c4a7f220bccb355d0bdf",
+        "angesehen": true,
+        "inhalt": "W25 nach der Szene: Janina links, René rechts der karierten Decke mit Korb, Funkeln an der Decke"
+      },
+      {
+        "path": "docs/belege/etappe2/picknick-decke-390-2d.png",
+        "bytes": 351283,
+        "sha256": "276dc93601255ea33288dea9b6686d96f798b35fbd4c3edab47a1ad285c8c578",
+        "angesehen": true,
+        "inhalt": "W25 Zwischenstand vor Szenenaufstellung: Decke und Korb am Waldsee, René wartet"
+      },
+      {
+        "path": "docs/belege/etappe2/picknick-decke-390-3d.png",
+        "bytes": 722543,
+        "sha256": "018bb4c5f40a1e9ea3966893d07e5245089a84758f7db7060ac5532734d01db0",
+        "angesehen": true,
+        "inhalt": "W25 3D mobil: Decke liegt flach am Boden, Korb, Thermoskanne, Teller mit Erdbeeren; René daneben"
+      },
+      {
+        "path": "docs/belege/etappe2/herzbank-390-2d.png",
+        "bytes": 358506,
+        "sha256": "6e45faeecf981780bdfa167a03bbcd7ca4b0d6e44fb31e5f70812af15d8cbc11",
+        "angesehen": true,
+        "inhalt": "W26 Herzbank am Teich in 2D"
+      },
+      {
+        "path": "docs/belege/etappe2/herzbank-390-3d.png",
+        "bytes": 672186,
+        "sha256": "4ff2e031ed76aba862cbc87ccab2e7babecc0d625907d7801620e803fbf52987",
+        "angesehen": true,
+        "inhalt": "W26 Herzbank am Teich in 3D, Herz in der Lehne, steht auf der Wiese"
+      },
+      {
+        "path": "docs/belege/etappe2/ausflug-tisch-390-2d.png",
+        "bytes": 354803,
+        "sha256": "baddba2f22decdc07ce8a1f3a1e9ba910a72f1834d5d2a4a29e577efd36698ee",
+        "angesehen": true,
+        "inhalt": "W30 Lindenstadt 17:10: Bistrotisch mit zwei Stühlen und Kerze am Stadtbrunnen, Janina und René zu beiden Seiten"
+      },
+      {
+        "path": "docs/belege/etappe2/ausflug-tisch-390-3d.png",
+        "bytes": 685944,
+        "sha256": "bb1609785bd18c4f30153d22eef787780bb6d67b168601d0bcc2e4bb891facb5",
+        "angesehen": true,
+        "inhalt": "W30 dasselbe in 3D, Tisch und Stühle stehen am Boden"
+      },
+      {
+        "path": "docs/belege/etappe2/jahrestag-kerzen-390-2d.png",
+        "bytes": 196056,
+        "sha256": "7934605f9667c2046e44f3e560d772f5eda29cb737a5629552d92d2b3abb9429",
+        "angesehen": true,
+        "inhalt": "W31 Küchentisch mit zwei Kerzen und Rose, beide an den Tischenden"
+      },
+      {
+        "path": "docs/belege/etappe2/jahrestag-kerzen-390-3d.png",
+        "bytes": 307644,
+        "sha256": "d4257637b07923807f4b98bafe39789f36cce66ffabcf31f019f3ea1933c8cb5",
+        "angesehen": true,
+        "inhalt": "W31 3D mobil: warmes Kerzenlicht auf dem Tisch"
+      },
+      {
+        "path": "docs/belege/etappe2/jahrestag-kerzen-1440-3d.png",
+        "bytes": 602884,
+        "sha256": "93e9b6a503a079eb697c48795b0dae94b5b95a565682bff28316c0d1c3e73c16",
+        "angesehen": true,
+        "inhalt": "W31 3D Rechner: Kerzen, Rose, warmer Lichtschein, Janina links, René rechts"
+      },
+      {
+        "path": "docs/belege/etappe2/geburtstag-besuch-390-2d.png",
+        "bytes": 345642,
+        "sha256": "61b58344348202b9c6733fe2eb53a724d451caf1d3f1107d11781bfe86db16a1",
+        "angesehen": true,
+        "inhalt": "W38 Geburtstagsbesuch: Rosa und Mei am Kuchentisch mit Päckchen vor dem Haus"
+      },
+      {
+        "path": "docs/belege/etappe2/geburtstag-feier-390-3d.png",
+        "bytes": 771228,
+        "sha256": "9c9cb635c4c54e53bf5cc7e2fd94f6052b7a8ddff3eeb2a0e41d903a0649cc4c",
+        "angesehen": true,
+        "inhalt": "W38 3D: Kuchen mit Kerzen und Päckchen; Rosa am linken Bildrand angeschnitten (Kamerafolge), Mei hinter Janina"
+      },
+      {
+        "path": "docs/belege/etappe2/paar-zusammen-390-2d.png",
+        "bytes": 669707,
+        "sha256": "ecbefab6a388c43f8537172e50c78ca52ec685a3132b7e35a755670f3cb3ff60",
+        "angesehen": true,
+        "inhalt": "W06 Mei und Timo nebeneinander am Dorfbrunnen nach der Entscheidung"
+      },
+      {
+        "path": "docs/belege/etappe2/paar-zusammen-1440-3d.png",
+        "bytes": 812370,
+        "sha256": "54a24037fc166244079a29de2350edf0af843daa0f6a4faf6b2ef57e2f1aafb9",
+        "angesehen": true,
+        "inhalt": "W06 3D Rechner nah: Mei und Timo am Brunnen, Janina davor; Herzen in diesem Moment nicht im Bild"
+      },
+      {
+        "path": "docs/belege/etappe2/geheimnis-teil3-390-2d.png",
+        "bytes": 630012,
+        "sha256": "cc72730658986ca573e6548b204e92361389362630508e6da171333e84f4cf0a",
+        "angesehen": true,
+        "inhalt": "W01 Henks dritter Teil (Hedwig), Dialog lesbar"
+      },
+      {
+        "path": "docs/belege/etappe2/geheimnis-tagebuch-390-2d.png",
+        "bytes": 201129,
+        "sha256": "ebdf53099a0dde46ecdfffdad828a4c1b5a584f9788c81a74c9dd3803922ee90",
+        "angesehen": true,
+        "inhalt": "W01 Tagebuch „Herz“ mobil nach Teil 1 (vor Umbruch-CSS der Knöpfe)"
+      },
+      {
+        "path": "docs/belege/etappe2/streit-tagebuch-1440-2d.png",
+        "bytes": 495471,
+        "sha256": "394e24cf041dfbc85972dcd83ac4119ab0a3370bc0fb403edfb649b386d8f5aa",
+        "angesehen": true,
+        "inhalt": "W02/W04 Tagebuch „Herz“ am Rechner: Verabredungsknöpfe, Datumsauswahl, Erinnerungen, Geheimnisse"
+      }
+    ]
   }
- ],
- "briefkastenEtappe": {
-  "basis": "403c9a9",
-  "hinweis": "Bilder aus Einzelläufen der Browserwege (briefe-browser, stadt-browser, stadt-zusatz); jedes Bild vor Aufnahme angesehen. Kein Abnahmeurteil.",
-  "screenshots": [
-   {
-    "path": "docs/belege/briefe/brief-schatz-390-2d.png",
-    "bytes": 286318,
-    "sha256": "647b0cbefd884291c00add3f13ef75fd966dfe40be88ce50f4bc7f994cf7f859",
-    "angesehen": true,
-    "inhalt": "Brief „Eine zerknitterte Karte“ vollständig lesbar, Knöpfe Zurück/Schließen, Aufgabe oben"
-   },
-   {
-    "path": "docs/belege/briefe/briefkasten-schatz-390-2d.png",
-    "bytes": 196954,
-    "sha256": "3963460ab2298ccff54f6636c308d40a7c07cebfd642ed2c3acf2aa051c362a7",
-    "angesehen": true,
-    "inhalt": "Briefkasten mobil: „1 ungelesen · 19 Briefe“, Neu-Abschnitt mit Geheimnisbrief, gelesene Briefe darunter, kein waagrechter Überlauf"
-   },
-   {
-    "path": "docs/belege/briefe/brunnen-mitternacht-1440-3d.png",
-    "bytes": 710069,
-    "sha256": "ee00d0bf2e6d3457f700ee185c5c914f43d43714165da4c6706ae2d570a8fabd",
-    "angesehen": true,
-    "inhalt": "Nachtbeleuchtung am alten (kaputten) Brunnen, Dialog beginnt; HUD-Uhr zeigt wegen Zeit-Fixture noch 06:30"
-   },
-   {
-    "path": "docs/belege/briefe/brunnen-repariert-1440-3d.png",
-    "bytes": 698151,
-    "sha256": "1d97d7f805385be5594b1af4ef0c4c7bef1f3e183b48ac57e1562e32063096ff",
-    "angesehen": true,
-    "inhalt": "Reparierter Brunnen mit rotem Dach und Wasser in 3D, Geld 4.700 G"
-   },
-   {
-    "path": "docs/belege/briefe/brunnen-repariert-390-2d.png",
-    "bytes": 615981,
-    "sha256": "d1c09d15443fe133acd892b11a98af08fdce896af25ef461cdc83e0e5ca8f0f7",
-    "angesehen": true,
-    "inhalt": "Dorf mobil 2D, reparierter Brunnen klein unten rechts neben der Spielfigur"
-   },
-   {
-    "path": "docs/belege/briefe/haus7-elva-1440-2d.png",
-    "bytes": 584209,
-    "sha256": "c25ee96e7006cd825cf257034f777e97c33f5e6e66cb8584ca5a11369a9f9f9a",
-    "angesehen": true,
-    "inhalt": "Renoviertes Haus Nr. 7 mit Elva und Janina davor (2D Rechner), Geld 4.620 G"
-   },
-   {
-    "path": "docs/belege/briefe/haus7-elva-390-3d.png",
-    "bytes": 728155,
-    "sha256": "b278f53bca21b7ff8ae648cf27aa7aa4704ca5251050fc84c1c68e009b471f5c",
-    "angesehen": true,
-    "inhalt": "Renoviertes Haus Nr. 7 mit Elva davor (3D mobil), Geld 4.620 G"
-   },
-   {
-    "path": "docs/belege/briefe/haus7-renovierung-390-3d.png",
-    "bytes": 692662,
-    "sha256": "0ce465ae8f7d2f255326515367a6c854dd17ea2edb4bf992b27f6dee8d19a93f",
-    "angesehen": true,
-    "inhalt": "Haus Nr. 7 in Renovierung (3D, Dach im Bau), Hinweis „Timo beginnt mit der Renovierung. In 2 Nächten ist sie fertig.“, Geld 4.380 G"
-   },
-   {
-    "path": "docs/belege/briefe/haus7-verlassen-1440-2d.png",
-    "bytes": 576462,
-    "sha256": "a87696c8fffeae90e27c19f07ac9814eaaf3473f6e459c61cf57fd9da5d69a8f",
-    "angesehen": true,
-    "inhalt": "Lindenstadt 2D: Haus Nr. 7 verfallen (vernagelte Fenster), Wegweiser an der Tür, Aufgabe „Haus Nummer 7“"
-   },
-   {
-    "path": "docs/belege/briefe/schatz-gefunden-1440-3d.png",
-    "bytes": 881462,
-    "sha256": "7b92314fa04520fc873ed0bd8bd0c2ca5d2afd3d9964904c24f0b1aad2c94c09",
-    "angesehen": true,
-    "inhalt": "Schatzfund am Rechner in 3D, Dialog und Schriftzug sichtbar, Geld 5.300 G"
-   },
-   {
-    "path": "docs/belege/briefe/schatz-gefunden-390-2d.png",
-    "bytes": 635422,
-    "sha256": "273be4e6fc1ec5175ce63b954cdfcebb0298c1aeca9f16360aa80c7f2e6703dc",
-    "angesehen": true,
-    "inhalt": "„Schatz gefunden!“, Dialog 300 G und 3 Kupfererz, Geld 5.300 G"
-   },
-   {
-    "path": "docs/belege/briefe/schatz-huegel-390-2d.png",
-    "bytes": 616896,
-    "sha256": "7286961a6392301f45fcd561d6848f9c2388f94ece89f8d3de3657812817c542",
-    "angesehen": true,
-    "inhalt": "Mondwald mobil 2D: drei kleine Erdhügel um den Mondbaum, Wegweiser am Baum"
-   },
-   {
-    "path": "docs/belege/stadt-abnahme/drei-haeuser-holzrahmen-390-3d.png",
-    "bytes": 731813,
-    "sha256": "c9560c7eb378c8e559c61f0cd54c47bc616be00698d154a3bb6a0ddad540f44c",
-    "angesehen": true,
-    "inhalt": "Drei Bauplätze in Phase Holzrahmen (3D mobil, frühmorgens dunkel)"
-   },
-   {
-    "path": "docs/belege/stadt-abnahme/drei-haeuser-mieter-1440-2d.png",
-    "bytes": 574489,
-    "sha256": "dcaaad0168b1a01008df03101148dafeaeee8fd729833d7cea56055e4d216ce0",
-    "angesehen": true,
-    "inhalt": "Drei fertige Mietshäuser in Lindenstadt (2D), Fenster beleuchtet, Geld 500 G"
-   },
-   {
-    "path": "docs/belege/stadt-abnahme/stadt-fundament-1440-2d.png",
-    "bytes": 542766,
-    "sha256": "a6cb90b487e44951637f06d1ed4100c019d38cda91b092ac7a657e82b16084d5",
-    "angesehen": true,
-    "inhalt": "Fundament (Baustufe 1) auf dem ersten Bauplatz, Geld 3.500 G (2D)"
-   },
-   {
-    "path": "docs/belege/stadt-abnahme/stadt-miete-390-3d.png",
-    "bytes": 225655,
-    "sha256": "032f665e4af0b3f013b622c17d17571fd443c8f7c5dc1e9b67fdef20bf006415",
-    "angesehen": true,
-    "inhalt": "Zuhause nach Nacht mit Miete, Geld 3.560 G (3D mobil, Raum klein dargestellt)"
-   },
-   {
-    "path": "docs/belege/stadt-abnahme/stadt-vermietet-1440-2d.png",
-    "bytes": 549485,
-    "sha256": "70a84c775956d57d736dd7feba76571682c5093fab10a8ae6a147633c21ae1f1",
-    "angesehen": true,
-    "inhalt": "Ein fertiges Haus mit Mieterin davor, zwei leere Bauplätze, Haus Nr. 7 verfallen (2D)"
-   }
-  ]
- },
- "etappe1b": {
-  "basis": "a3e04bd",
-  "hinweis": "Bilder aus Browserläufen tipp-vorrang, ereignisse-browser, bahnhof-browser; jedes Bild angesehen. docs/belege/bahnhof/verdeckt-390-3d.png ist ein Diagnosebild des Prüfaufbaus (offenes Panel), kein Beleg. Kein Abnahmeurteil.",
-  "screenshots": [
-   {
-    "path": "docs/belege/tippvorrang/tipp-390-3d-briefkasten.png",
-    "bytes": 512741,
-    "sha256": "c73a9a2ee284391a6f1ace4da1d12f456854ef6f63fa53d5f979bf8bee248a4f",
-    "angesehen": true,
-    "inhalt": "3D mobil: René steht direkt vor dem Briefkasten, Tipp öffnet Panel „Briefkasten“, kein Gespräch"
-   },
-   {
-    "path": "docs/belege/tippvorrang/tipp-1440-2d-moebel.png",
-    "bytes": 190827,
-    "sha256": "b66b1d1dcc6c6ddbd1fd2e1b80044bbaaa6788b77e8c4a3748e5c97ca28095e0",
-    "angesehen": true,
-    "inhalt": "2D Rechner: René neben dem Bett, Tipp aufs Bett öffnet „Schlafen gehen?“"
-   },
-   {
-    "path": "docs/belege/ereignisse/brief-vermisst-390-2d.png",
-    "bytes": 260159,
-    "sha256": "9ceae56dd5ebdfeb85c98530aaaf8b393bbf210e48222f2ebe1f731681a0f95d",
-    "angesehen": true,
-    "inhalt": "Brief „Ida ist verschwunden“ von Rosa vollständig lesbar, Zurück/Schließen, kein Überlauf"
-   },
-   {
-    "path": "docs/belege/ereignisse/vermisst-zettel-1440-2d.png",
-    "bytes": 550566,
-    "sha256": "4f3eb7c627512254e67e4ef8ac9e6193e262693fd7fb488e4d1065c277a711e6",
-    "angesehen": true,
-    "inhalt": "Lindenstadt: Zettel an der Haustür Lindenhof, Aufgabe „Ida ist verschwunden“, Ida nicht in der Stadt"
-   },
-   {
-    "path": "docs/belege/ereignisse/vermisst-wiedersehen-390-3d.png",
-    "bytes": 816247,
-    "sha256": "394cf5113c25f61f8b86c1dfcee6d9fc03ef98b994bb58143832918de2885ef7",
-    "angesehen": true,
-    "inhalt": "Dorfbahnhof 3D mobil: Banner „Ida ist wieder da“, Dialog von Ida, Zug auf Gleisen"
-   },
-   {
-    "path": "docs/belege/ereignisse/verkauf-gekauft-1440-3d.png",
-    "bytes": 831641,
-    "sha256": "5201b84f54561354ae2a0d06fd76164647215147ed9b71284a3eaaacead6a9f0",
-    "angesehen": true,
-    "inhalt": "3D: gekauftes Haus Lindenhof bezugsfertig, Bautafel davor, 4.100 G"
-   },
-   {
-    "path": "docs/belege/ereignisse/villa-falk-1440-3d.png",
-    "bytes": 905376,
-    "sha256": "9dd5356581830e6644efda11beec9a3e0350b3834e19e58d678479240d5297ec",
-    "angesehen": true,
-    "inhalt": "3D: Herr Falk (?-Abzeichen) am Stadtbrunnen, Aufgabe „Anfrage wegen der Villa“"
-   },
-   {
-    "path": "docs/belege/ereignisse/villa-entscheidung-390-3d.png",
-    "bytes": 331214,
-    "sha256": "9f83988a3c2670d26d24e91772576c706e3e0601118a7c08da138fc264b8ec28",
-    "angesehen": true,
-    "inhalt": "Panel „Herr Falk am Stadtbrunnen“ mit zwei Entscheidungen und Schließen, lesbar"
-   },
-   {
-    "path": "docs/belege/ereignisse/tuer-hang-390-3d.png",
-    "bytes": 854985,
-    "sha256": "8b35202a07a107d5d86e2727e4bc99d55214fe4c58cef1d49fd52bf07e05c624",
-    "angesehen": true,
-    "inhalt": "3D mobil: Steintür im Hang im Nordwesten des Mondwalds, Aufgabe „Eine Tür im Hang“"
-   },
-   {
-    "path": "docs/belege/ereignisse/tuer-hang-1440-2d.png",
-    "bytes": 629234,
-    "sha256": "d8cf6955e0f9da5442498078edb5a05a985499a5b9f52a42f678f0a93c1cd6b7",
-    "angesehen": true,
-    "inhalt": "2D: moosige Steintür im Hang neben der Spielerin"
-   },
-   {
-    "path": "docs/belege/ereignisse/tuer-gewoelbe-1440-2d.png",
-    "bytes": 250945,
-    "sha256": "e19ed8903c00e3376b8ac799295cde857307aa9d4b3b3670eb5b0db8b8a8599a",
-    "angesehen": true,
-    "inhalt": "2D: Gewölbe mit Truhe, Steintafel, Fass und Ausgang"
-   },
-   {
-    "path": "docs/belege/ereignisse/tuer-gewoelbe-1440-3d.png",
-    "bytes": 332714,
-    "sha256": "9dcb4f96b11cf8bdff015f39069c466c0a4a5e4e513817be2e34877b84a3819c",
-    "angesehen": true,
-    "inhalt": "3D: Gewölbe hinter der Waldtür, Truhe mit Zielmarke, Steintafel, Fass, Ausgang unten"
-   },
-   {
-    "path": "docs/belege/ereignisse/bewohner-geheimnis-1440-2d.png",
-    "bytes": 572769,
-    "sha256": "7e22ea06d80138acaebae6d55ae16fc3ca568428e6862e8b28cd845ddc756fad",
-    "angesehen": true,
-    "inhalt": "2D Lindenstadt: Banner „Ein Geheimnis gelüftet“, Dialog von Jonas am Stadtplatz"
-   },
-   {
-    "path": "docs/belege/bahnhof/dorfbahnhof-390-2d.png",
-    "bytes": 454365,
-    "sha256": "c518e382917e7d3ab19f320a4be1c94a10e8ba745cdedb6c7495d50e4480d2de",
-    "angesehen": true,
-    "inhalt": "2D mobil: Gleise über die ganze Breite, Zug (Lok+Wagen) auf Schienen, Bahnsteig mit Kante, Ortsschild, Bank, Laternen, Kübel, Fahrplan, Bahnhofsgebäude mit Uhr"
-   },
-   {
-    "path": "docs/belege/bahnhof/dorfbahnhof-390-3d.png",
-    "bytes": 786609,
-    "sha256": "fa4abebc953a7725de8cf452cfa9c88e4dfc0c6b7c3c08205ad28db3d217875b",
-    "angesehen": true,
-    "inhalt": "3D mobil: Schotter, Schwellen, Schienen bis zum Rand, Zug auf Gleisen, heller Bahnsteig mit Linie, Bank, Laternen, Gebäude"
-   },
-   {
-    "path": "docs/belege/bahnhof/dorfbahnhof-1440-2d.png",
-    "bytes": 501420,
-    "sha256": "7d0798db5df98fa3efc378da848560c175e3cf8e2a883671a5eea4c21a38d08b",
-    "angesehen": true,
-    "inhalt": "2D Rechner: Gleise laufen links und rechts aus dem Bild; Ortsschild in dieser Fassung links knapp beschnitten (danach Schrift verkleinert, nicht erneut fotografiert)"
-   },
-   {
-    "path": "docs/belege/bahnhof/dorfbahnhof-bahnsteig-1440-3d.png",
-    "bytes": 832765,
-    "sha256": "f6f9eb1a900a7af6d791c55318fe45548550b924093a7da816c4e2d0dbaa29e2",
-    "angesehen": true,
-    "inhalt": "3D Rechner nah: Lok und Wagen mit Rädern/Fenstern auf Schienen, Bank, Kübel, Fahrplantafel, Gepäckwagen, Bahnhofsgebäude mit Schild „Dorfbahnhof“ und Uhrtürmchen"
-   },
-   {
-    "path": "docs/belege/bahnhof/bahnhof-lindenstadt-1440-3d.png",
-    "bytes": 973522,
-    "sha256": "cc0cd6f687a09694669c9d992350b64d20c7e41b215ebbbb6dfbad0c83465f0d",
-    "angesehen": true,
-    "inhalt": "3D: Bahnhofsgebäude Lindenstadt mit Schild „Lindenstadt“, Uhrtürmchen, Fahrplantafel"
-   }
-  ]
- }
 }

@@ -76,12 +76,12 @@ Status: **Wunschliste, keine Behauptung vorhandener oder originaler Harvest-Moon
 
 | ID | Wunsch | Umsetzungskriterium |
 |---|---|---|
-| W01 | Jeder Bewohner besitzt ein durch Freundschaft entdeckbares Geheimnis | Mehrstufige persönliche Geschichte mit Voraussetzungen und gespeichertem Fortschritt. |
-| W02 | Bewohner verlieben sich, streiten und schließen Freundschaften | Beziehungen zwischen Bewohnern unabhängig von Spielerherzen; Szenen verändern Folgegespräche. |
-| W03 | Hilfe verändert Haus oder Geschäft | Vorher-/Nachher-Zustand sichtbar und nach Neuladen erhalten. |
-| W04 | Klatsch und Tratsch | Aussagen beziehen sich auf echte Ereignisse, keine unmöglichen oder schon widerlegten Meldungen. |
-| W05 | Neue Bewohner durch Aufgaben | Renovierung/Quest schaltet tatsächlichen Einzug mit Haus, Wegplan und Dialogen frei. |
-| W06 | Zwei heimlich Verliebten helfen zusammenzukommen | Eigene kleine Vermittlungsgeschichte mit Entscheidungen und Abschluss, nicht nur Geschenkzähler. **Entscheidung René 16.10.2026:** wird gebaut, zusammen mit W24 (Dorfbewohner untereinander verkuppeln). Status: offen, noch nicht umgesetzt. |
+| W01 | Jeder Bewohner besitzt ein durch Freundschaft entdeckbares Geheimnis | Mehrstufige persönliche Geschichte mit Voraussetzungen und gespeichertem Fortschritt. **Status Etappe 2 (Branch `feat/stadt-und-wohnraum`, nicht veröffentlicht, unabhängige Prüfung offen):** gebaut für vier Bewohner (Mei, Henk, Paula, Rosa), je drei Teile ab 2/4/6 Herzen, ein Teil pro Tag, Tagebuch „Herz“, Lohn einmal (`jm-dorf.js`). Übrige Bewohner (Lin, Timo, Elva, Jonas, Mieter) haben noch kein Geheimnis. |
+| W02 | Bewohner verlieben sich, streiten und schließen Freundschaften | Beziehungen zwischen Bewohnern unabhängig von Spielerherzen; Szenen verändern Folgegespräche. **Status Etappe 2 (Branch `feat/stadt-und-wohnraum`, nicht veröffentlicht, unabhängige Prüfung offen):** gebaut: Freundschaft Rosa–Henk, Streit und Versöhnung Lin–Paula (Zettel überbringen, Entscheidung), Verliebtheit Mei–Timo (W06); danach andere Gespräche und Aufenthaltsorte, Übersicht im Tagebuch. |
+| W03 | Hilfe verändert Haus oder Geschäft | Vorher-/Nachher-Zustand sichtbar und nach Neuladen erhalten. **Status Etappe 2:** offen (optional, nicht gebaut). |
+| W04 | Klatsch und Tratsch | Aussagen beziehen sich auf echte Ereignisse, keine unmöglichen oder schon widerlegten Meldungen. **Status Etappe 2 (Branch `feat/stadt-und-wohnraum`, nicht veröffentlicht, unabhängige Prüfung offen):** gebaut: 15 Tratschmeldungen, jede an eine Prüfung des Spielstands gebunden (z. B. Jonas ist Hedwigs Enkel, Elva zog ein, Brunnen repariert, Mieter zurück, Paar, Versöhnung, Picknick, Geburtstag), nie von Beteiligten, jede einmal, widerlegter Streit wird nicht mehr erzählt. |
+| W05 | Neue Bewohner durch Aufgaben | Renovierung/Quest schaltet tatsächlichen Einzug mit Haus, Wegplan und Dialogen frei. **Status Etappe 2:** keine neue Arbeit in Etappe 2 (Elva/Jonas aus Etappe 1/1b bestehen). |
+| W06 | Zwei heimlich Verliebten helfen zusammenzukommen | Eigene kleine Vermittlungsgeschichte mit Entscheidungen und Abschluss, nicht nur Geschenkzähler. **Entscheidung René 16.10.2026:** wird gebaut, zusammen mit W24 (Dorfbewohner untereinander verkuppeln). Status Etappe 2: gebaut (Mei und Timo: Hinweis → Timo → Brief und Holzvogel oder Frage → Treffen mit Ortswahl → Entscheidung → Paar; verpasstes Treffen neu ausmachen; abends gemeinsam am Treffpunkt). Ein zweites Paar ist nicht gebaut. |
 
 ### Bild: Geheimnisvoller Wald und Magie
 
@@ -119,14 +119,14 @@ Status: **Wunschliste, keine Behauptung vorhandener oder originaler Harvest-Moon
 
 | ID | Wunsch | Umsetzungskriterium |
 |---|---|---|
-| W24 | Mehrere Charaktere kennenlernen, ausgehen, verlieben | Freundschaft und Partnerschaft getrennt; Umgang mit der bestehenden René-Partnerschaft vor Umsetzung ausdrücklich entscheiden. **Entscheidung René 16.10.2026: beide Stränge.** (1) Janina und René als festes Paar: Picknick, romantische Briefe, Ausflüge, Jahrestage, gemeinsames Haus. (2) Dorfbewohner untereinander verkuppeln (siehe W06). Keine alternativen Spielpartnerschaften. Status: offen, noch nicht umgesetzt. |
-| W25 | Gemeinsame Picknicks | Verabredung, Ort, Zeit und eigene Szene; Termin im Kalender. |
-| W26 | Missverständnisse | Kleine Geschichte mit Auflösung und veränderten Gesprächen. |
-| W27 | Überraschungsbesuche | Nur bei plausibler Tageszeit/Anwesenheit, nicht während blockierender Szenen. |
-| W28 | Romantische Briefe | Briefinhalt an Beziehungsstand und gemeinsame Ereignisse koppeln. |
-| W29 | Nach Hochzeit gemeinsames Haus gestalten | Echte gespeicherte Einrichtung und gemeinsame Freischaltungen. |
-| W30 | Gemeinsame Ausflüge | Spielbare kurze Ereignisse mit Auswahl und Erinnerung im Tagebuch. |
-| W31 | Jahrestage feiern | Gespeichertes Datum, jährliche Szene, keine mehrfach abholbare Tagesbelohnung. |
+| W24 | Mehrere Charaktere kennenlernen, ausgehen, verlieben | Freundschaft und Partnerschaft getrennt; Umgang mit der bestehenden René-Partnerschaft vor Umsetzung ausdrücklich entscheiden. **Entscheidung René 16.10.2026: beide Stränge.** (1) Janina und René als festes Paar: Picknick, romantische Briefe, Ausflüge, Jahrestage, gemeinsames Haus. (2) Dorfbewohner untereinander verkuppeln (siehe W06). Keine alternativen Spielpartnerschaften. Status Etappe 2: beide Stränge gebaut (siehe W25, W26, W28, W30, W31, W06); gemeinsames Haus (W29) offen. |
+| W25 | Gemeinsame Picknicks | Verabredung, Ort, Zeit und eigene Szene; Termin im Kalender. **Status Etappe 2 (Branch `feat/stadt-und-wohnraum`, nicht veröffentlicht, unabhängige Prüfung offen):** gebaut: Verabredung per Brief von René oder im Tagebuch, Ort (Waldsee/Wiese am Teich) und Uhrzeit (12/17 Uhr), Decke mit Korb in 2D/3D, Szene mit Auswahl, Kalender, Erinnerung. |
+| W26 | Missverständnisse | Kleine Geschichte mit Auflösung und veränderten Gesprächen. **Status Etappe 2 (Branch `feat/stadt-und-wohnraum`, nicht veröffentlicht, unabhängige Prüfung offen):** gebaut: Nach dem ersten Picknick weicht René aus, Timo verplappert sich, Auflösung mit Auswahl, Herzbank am Teich, neue Gespräche und Brief. |
+| W27 | Überraschungsbesuche | Nur bei plausibler Tageszeit/Anwesenheit, nicht während blockierender Szenen. **Status Etappe 2:** offen (optional). Teilweise: Geburtstagsbesuch von Rosa und Mei (W38). |
+| W28 | Romantische Briefe | Briefinhalt an Beziehungsstand und gemeinsame Ereignisse koppeln. **Status Etappe 2 (Branch `feat/stadt-und-wohnraum`, nicht veröffentlicht, unabhängige Prüfung offen):** gebaut: Einladungen, Brief nach jedem Picknick/Ausflug/Jahrestag/Geburtstag mit Bezug auf Ort und Wahl, Brief nach verpasster Verabredung, Kuschelzettel; je Erlebnis einmal, höchstens drei Briefe pro Nacht. |
+| W29 | Nach Hochzeit gemeinsames Haus gestalten | Echte gespeicherte Einrichtung und gemeinsame Freischaltungen. **Status Etappe 2:** offen (optional, nicht gebaut). |
+| W30 | Gemeinsame Ausflüge | Spielbare kurze Ereignisse mit Auswahl und Erinnerung im Tagebuch. **Status Etappe 2 (Branch `feat/stadt-und-wohnraum`, nicht veröffentlicht, unabhängige Prüfung offen):** gebaut: Abend in Lindenstadt (Zug), Tisch mit Kerze am Stadtbrunnen, Auswahl (Münze, Tisch, Maras Geige nur mit Mara als Mieterin), Erinnerung und Brief. |
+| W31 | Jahrestage feiern | Gespeichertes Datum, jährliche Szene, keine mehrfach abholbare Tagesbelohnung. **Status Etappe 2 (Branch `feat/stadt-und-wohnraum`, nicht veröffentlicht, unabhängige Prüfung offen):** gebaut: Datum gespeichert (Vorschlag 12. Sommer, im Tagebuch änderbar), jedes Jahr ab 18 Uhr Kerzen am Küchentisch, Szene mit Brief, einmal pro Jahr auch nach Datumswechsel. |
 
 ### Bild: Kleine Überraschungen
 
@@ -138,7 +138,7 @@ Status: **Wunschliste, keine Behauptung vorhandener oder originaler Harvest-Moon
 | W35 | Nebel | Lesbare Wege und anklickbare Gegenstände trotz Effekt; optional seltene Begegnungen. |
 | W36 | Schatzkarten mit kleinen Rätseln | Karte führt zu konkretem erreichbarem Fund; Rätsel und Fundzustand bleiben gespeichert. |
 | W37 | Sammelalbum für Tiere, Pflanzen, Entdeckungen | Vorhandene Fang-, Koch- und Versandprotokolle zusammenführen; unbekannte Einträge und Fundbedingungen anzeigen. |
-| W38 | Geburtstage: überraschen und Geschenke bekommen | Bestehende Bewohnergeburtstage erweitern, auch persönlicher Geburtstag mit glaubwürdigen Besuchen/Geschenken. Bildzeile rechts teilweise abgeschnitten; keine weitere Bedingung daraus abgeleitet. |
+| W38 | Geburtstage: überraschen und Geschenke bekommen | Bestehende Bewohnergeburtstage erweitern, auch persönlicher Geburtstag mit glaubwürdigen Besuchen/Geschenken. Bildzeile rechts teilweise abgeschnitten; keine weitere Bedingung daraus abgeleitet. **Status Etappe 2 (Branch `feat/stadt-und-wohnraum`, nicht veröffentlicht, unabhängige Prüfung offen):** gebaut: Geschenk am Bewohnergeburtstag mit eigener Antwort und Dankesbrief, Tratsch nennt das Lieblingsgeschenk; Janinas Geburtstag (Vorschlag 6. Herbst, im Tagebuch änderbar): Geburtstagspost mit Beilage, Kuchen und Nudeln von René, Besuch von Rosa und Mei mit Geschenkkorb, einmal pro Jahr. |
 | W39 | Verlassene Häuser renovieren, Bewohner ziehen ein | Materialien und Geld einsetzen, echte Bauphase, anschließend bewohnbarer Ort und neuer Alltag. |
 | W40 | Seltene Fische nur bei bestimmtem Wetter | Fangbedingungen dokumentieren und im Spiel andeuten; nicht nur extrem niedrige Zufallschance. |
 | W41 | Nachtmarkt mit seltenen Gegenständen | Feste Termine, echte Besucher und besonderes Angebot; vom bereits existierenden Samstagsstand unterscheiden. |
@@ -261,7 +261,8 @@ Vollmondwald, Regenhändler, magische Pflanzen, Ruinen, geheime Briefe, Schatzka
 ## 9. Offene Entscheidungen – keine Blockade der Recherche
 
 - B04: Was genau fehlt bei den herumliegenden Sachen? Für den späteren Fehlernachweis Screenshot oder betroffenen Spielstand verwenden.
-- Romanzen: **entschieden am 16.10.2026** – beide Stränge (Janina und René als Paar; Dorfbewohner untereinander verkuppeln), siehe W06/W24. Noch nicht gebaut.
+- Romanzen: **entschieden am 16.10.2026** – beide Stränge (Janina und René als Paar; Dorfbewohner untereinander verkuppeln), siehe W06/W24. In Etappe 2 auf dem Entwicklungszweig gebaut, Prüfbericht `docs/ETAPPE-2-ABNAHME.md`; unabhängige Prüfung offen.
+- Janinas Geburtstag und euer Jahrestag: Im Spiel gab es kein Datum. Ich habe Vorschläge gesetzt (6. Herbst, 12. Sommer), weil eine Abfrage beim Start bestehende Spielstände unterbrochen hätte. René sollte die echten Daten im Tagebuch unter „Herz“ eintragen.
 - Eigenes Geschäft: Café als erste konkrete Richtung (Empfehlung); weitere Geschäftsarten bleiben geplant statt vorgetäuscht.
 - Magieentscheidungen: abgeschnittener Bildsatz enthält kein vollständig lesbares gewünschtes Ergebnis.
 - Referenzversion: Falls ein bestimmter Harvest-Moon-Teil gemeint war, dessen Abweichungen gezielt nachrecherchieren. Der aktuelle Plan verwendet die ausdrücklich genannten Referenzen.
