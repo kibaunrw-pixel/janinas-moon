@@ -1,0 +1,9 @@
+Rohstoffe echt gesammelt und zum Hof zurück {"day":10,"holz":4,"stein":12,"runs":1,"money":5070,"energy":76}
+Rohstoffe echt gesammelt und zum Hof zurück {"day":11,"holz":8,"stein":20,"runs":2,"money":5140,"energy":84}
+Rohstoffe echt gesammelt und zum Hof zurück {"day":12,"holz":12,"stein":20,"runs":2,"money":5210,"energy":100}
+Rohstoffe echt gesammelt und zum Hof zurück {"day":13,"holz":16,"stein":20,"runs":2,"money":5210,"energy":100}
+Error: Schritt {"x":9,"y":9} nicht erreicht: {"map":"farm","P":[9,10],"idle":true,"ui":"{\"panel\":false,\"dialog\":false,\"fade\":false}","min":446.3578333333628}
+    at /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/rohstoffweg.cjs:6:2379
+    at async walk (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/rohstoffweg.cjs:6:2017)
+    at async /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/rohstoffweg.cjs:14:496
+EXIT 1

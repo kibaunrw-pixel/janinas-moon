@@ -1,0 +1,376 @@
+node --check jm-data.js → 0
+node --check jm-ausbau.js → 0
+node --check jm-stadt.js → 0
+node --check jm-post.js → 0
+node --check jm-art.js → 0
+node --check jm-game.js → 0
+node --check jm-3d.js → 0
+node --check sw.js → 0
+node --check tests/ausbau.test.cjs → 0
+node --check tests/wohnraum.test.cjs → 0
+node --check tests/versand.test.cjs → 0
+node --check tests/markt.test.cjs → 0
+node --check tests/riesenpflanzen.test.cjs → 0
+node --check tests/abgaben.test.cjs → 0
+node --check tests/stadt.test.cjs → 0
+node --check tests/briefe.test.cjs → 0
+node --check tests/browser.cjs → 0
+node --check tests/picking.cjs → 0
+node --check tests/regression.cjs → 0
+node --check tests/offline.cjs → 0
+node --check tests/shops.cjs → 0
+node --check tests/mine-rueckweg.cjs → 0
+node --check tests/transfer-scroll.cjs → 0
+node --check tests/panel-focus.cjs → 0
+node --check tests/desktop-rest.cjs → 0
+node --check tests/versand-browser.cjs → 0
+node --check tests/markt-browser.cjs → 0
+node --check tests/hinweise-browser.cjs → 0
+node --check tests/wohnraum-browser.cjs → 0
+node --check tests/riesenpflanzen-browser.cjs → 0
+node --check tests/abgaben-browser.cjs → 0
+node --check tests/restaurant-browser.cjs → 0
+node --check tests/stadt-browser.cjs → 0
+node --check tests/stadt-zusatz.cjs → 0
+node --check tests/karten-fallback.cjs → 0
+node --check tests/rohstoffweg.cjs → 0
+node --check tests/briefe-browser.cjs → 0
+node --check tests/run-all.cjs → 0
+node --test tests/ausbau.test.cjs tests/wohnraum.test.cjs tests/versand.test.cjs tests/markt.test.cjs tests/riesenpflanzen.test.cjs tests/abgaben.test.cjs tests/stadt.test.cjs tests/briefe.test.cjs → 0
+TAP version 13
+# Subtest: Anschlagtafel nimmt ausdrückliche Teilmengen, belohnt genau einmal
+ok 1 - Anschlagtafel nimmt ausdrückliche Teilmengen, belohnt genau einmal
+  ---
+  duration_ms: 13.395583
+  type: 'test'
+  ...
+# Subtest: Mondbaum zählt Teilgaben und meldet Fertigstellung genau einmal
+ok 2 - Mondbaum zählt Teilgaben und meldet Fertigstellung genau einmal
+  ---
+  duration_ms: 0.661417
+  type: 'test'
+  ...
+# Subtest: Kochen verbraucht beide Lager atomar, auch konkrete plus Sammelfische
+ok 3 - Kochen verbraucht beide Lager atomar, auch konkrete plus Sammelfische
+  ---
+  duration_ms: 1.390375
+  type: 'test'
+  ...
+# Subtest: Alle konkreten Rezeptzutaten sind ganzjährig ohne Wiederverkaufsgewinn kaufbar
+ok 4 - Alle konkreten Rezeptzutaten sind ganzjährig ohne Wiederverkaufsgewinn kaufbar
+  ---
+  duration_ms: 0.783125
+  type: 'test'
+  ...
+# Subtest: Zehn Höhlenebenen: sichere Wege, persistente Abbaubilanz, Reload, neuer Besuch
+ok 5 - Zehn Höhlenebenen: sichere Wege, persistente Abbaubilanz, Reload, neuer Besuch
+  ---
+  duration_ms: 14.814625
+  type: 'test'
+  ...
+# Subtest: Neue Erze sind nutzbar; jeder magische Fisch ist wirklich auswählbar und verkäuflich
+ok 6 - Neue Erze sind nutzbar; jeder magische Fisch ist wirklich auswählbar und verkäuflich
+  ---
+  duration_ms: 1.052917
+  type: 'test'
+  ...
+# Subtest: Alte Saves migrieren ohne Progressionsverlust; leere alte Höhle bleibt leer
+ok 7 - Alte Saves migrieren ohne Progressionsverlust; leere alte Höhle bleibt leer
+  ---
+  duration_ms: 3.236042
+  type: 'test'
+  ...
+# Subtest: Zimmermann: Ressourcen, einmalige Kosten, Bauzeit, Reload und sichtbare Räume
+ok 8 - Zimmermann: Ressourcen, einmalige Kosten, Bauzeit, Reload und sichtbare Räume
+  ---
+  duration_ms: 12.519334
+  type: 'test'
+  ...
+# Subtest: Alte unerreichbare Sammelobjekte werden ohne Verlust erreichbar versetzt
+ok 9 - Alte unerreichbare Sammelobjekte werden ohne Verlust erreichbar versetzt
+  ---
+  duration_ms: 10.813541
+  type: 'test'
+  ...
+# Subtest: Komplett gekaufte Zutaten erzeugen auch am maximalen Marktbonus keine Endlosschleife
+ok 10 - Komplett gekaufte Zutaten erzeugen auch am maximalen Marktbonus keine Endlosschleife
+  ---
+  duration_ms: 0.26075
+  type: 'test'
+  ...
+# Subtest: Lebensmitteltransfer erhält Bilanz und lehnt ungültige Mengen ab
+ok 11 - Lebensmitteltransfer erhält Bilanz und lehnt ungültige Mengen ab
+  ---
+  duration_ms: 0.605459
+  type: 'test'
+  ...
+# Subtest: Modul vorhanden und Altspielstand ohne Postfelder bleibt vollständig erhalten
+ok 12 - Modul vorhanden und Altspielstand ohne Postfelder bleibt vollständig erhalten
+  ---
+  duration_ms: 4.535875
+  type: 'test'
+  ...
+# Subtest: Jede Nacht 1–3 neue Briefe, Geheimnis kommt spätestens nach fünf Tagen, keine Doppelzustellung
+ok 13 - Jede Nacht 1–3 neue Briefe, Geheimnis kommt spätestens nach fünf Tagen, keine Doppelzustellung
+  ---
+  duration_ms: 4.515166
+  type: 'test'
+  ...
+# Subtest: Miete kommt genau einmal (Stadtabrechnung), Brief ist nur Quittung; Bewertung beeinflusst Miete nachvollziehbar
+ok 14 - Miete kommt genau einmal (Stadtabrechnung), Brief ist nur Quittung; Bewertung beeinflusst Miete nachvollziehbar
+  ---
+  duration_ms: 0.998792
+  type: 'test'
+  ...
+# Subtest: Mietanfrage verknüpft fertigen Bauplatz; Zusage genau einmal, auch nach Reload
+ok 15 - Mietanfrage verknüpft fertigen Bauplatz; Zusage genau einmal, auch nach Reload
+  ---
+  duration_ms: 1.14525
+  type: 'test'
+  ...
+# Subtest: Bauauftrag: Wunsch → echter Bau → Dankbrief mit 150 G, Beilage genau einmal
+ok 16 - Bauauftrag: Wunsch → echter Bau → Dankbrief mit 150 G, Beilage genau einmal
+  ---
+  duration_ms: 0.672875
+  type: 'test'
+  ...
+# Subtest: Geschenkbrief: echter Gegenstand genau einmal
+ok 17 - Geschenkbrief: echter Gegenstand genau einmal
+  ---
+  duration_ms: 0.194041
+  type: 'test'
+  ...
+# Subtest: Mission Schatzkarte: Brief → Rätsel → erreichbarer Hügel → Schatz genau einmal
+ok 18 - Mission Schatzkarte: Brief → Rätsel → erreichbarer Hügel → Schatz genau einmal
+  ---
+  duration_ms: 10.600667
+  type: 'test'
+  ...
+# Subtest: Mission Haus Nr. 7: Brief → Besuch → Schlüssel → Renovierung (Geld, Material, zwei Nächte) → Elva zieht ein
+ok 19 - Mission Haus Nr. 7: Brief → Besuch → Schlüssel → Renovierung (Geld, Material, zwei Nächte) → Elva zieht ein
+  ---
+  duration_ms: 7.785292
+  type: 'test'
+  ...
+# Subtest: Mission Mitternacht am alten Brunnen: nur 23–24 Uhr, Dokument, Geisterbrief, Reparatur einmalig
+ok 20 - Mission Mitternacht am alten Brunnen: nur 23–24 Uhr, Dokument, Geisterbrief, Reparatur einmalig
+  ---
+  duration_ms: 12.708708
+  type: 'test'
+  ...
+# Subtest: Alle Missionsziele liegen auf vorhandenen Karten und erreichbaren Kacheln
+ok 21 - Alle Missionsziele liegen auf vorhandenen Karten und erreichbaren Kacheln
+  ---
+  duration_ms: 15.204083
+  type: 'test'
+  ...
+# Subtest: Markt öffnet nach Spielkalender Samstag 9 bis vor 15 Uhr, nicht an Festtagen
+ok 22 - Markt öffnet nach Spielkalender Samstag 9 bis vor 15 Uhr, nicht an Festtagen
+  ---
+  duration_ms: 2.519791
+  type: 'test'
+  ...
+# Subtest: Freie Marktteilmenge rechnet den sichtbaren Stückpreis atomar und nur am offenen Markt ab
+ok 23 - Freie Marktteilmenge rechnet den sichtbaren Stückpreis atomar und nur am offenen Markt ab
+  ---
+  duration_ms: 0.943583
+  type: 'test'
+  ...
+# Subtest: Riesen-Ernte bleibt eigene Sorte mit Größenbonus statt fünf normalen Stücken
+ok 24 - Riesen-Ernte bleibt eigene Sorte mit Größenbonus statt fünf normalen Stücken
+  ---
+  duration_ms: 2.737958
+  type: 'test'
+  ...
+# Subtest: Größenstapel erhalten Transfer-/Reload-Bilanz; Markt und Tagesversand verwenden selben Basispreis
+ok 25 - Größenstapel erhalten Transfer-/Reload-Bilanz; Markt und Tagesversand verwenden selben Basispreis
+  ---
+  duration_ms: 0.645083
+  type: 'test'
+  ...
+# Subtest: Materialbau dauert drei Nächte; Mieter und Tagesmiete überstehen Reload ohne Exploit
+ok 26 - Materialbau dauert drei Nächte; Mieter und Tagesmiete überstehen Reload ohne Exploit
+  ---
+  duration_ms: 2.052
+  type: 'test'
+  ...
+# Subtest: Restaurantkarte erweitert; Abendgäste wechseln ohne doppelte Bewohner
+ok 27 - Restaurantkarte erweitert; Abendgäste wechseln ohne doppelte Bewohner
+  ---
+  duration_ms: 0.604083
+  type: 'test'
+  ...
+# Subtest: Drei Häuser: vollständige Altbestände bleiben bei wiederholter Migration erhalten
+ok 28 - Drei Häuser: vollständige Altbestände bleiben bei wiederholter Migration erhalten
+  ---
+  duration_ms: 0.811792
+  type: 'test'
+  ...
+# Subtest: Alle neuen NPC-Ziele sind an jedem Spieltag/Zeitfenster erreichbar, Gäste eindeutig
+ok 29 - Alle neuen NPC-Ziele sind an jedem Spieltag/Zeitfenster erreichbar, Gäste eindeutig
+  ---
+  duration_ms: 24.905541
+  type: 'test'
+  ...
+# Subtest: Dorf führt über Bahnhof in erste Stadt und zurück, Altbesitz bleibt
+ok 30 - Dorf führt über Bahnhof in erste Stadt und zurück, Altbesitz bleibt
+  ---
+  duration_ms: 3.22325
+  type: 'test'
+  ...
+# Subtest: Versand ist bearbeitbare Warteschlange mit atomarer Teilrücknahme bis zur einmaligen Abholung
+ok 31 - Versand ist bearbeitbare Warteschlange mit atomarer Teilrücknahme bis zur einmaligen Abholung
+  ---
+  duration_ms: 3.980792
+  type: 'test'
+  ...
+# Subtest: Direkte Mengen: nur ganze positive sichere Zahlen bis Bestand
+ok 32 - Direkte Mengen: nur ganze positive sichere Zahlen bis Bestand
+  ---
+  duration_ms: 0.353791
+  type: 'test'
+  ...
+# Subtest: Bezahlte Hausstufen erhalten kostenlos obere Etage, sichere Treppe und eigene Einrichtung
+ok 33 - Bezahlte Hausstufen erhalten kostenlos obere Etage, sichere Treppe und eigene Einrichtung
+  ---
+  duration_ms: 7.523167
+  type: 'test'
+  ...
+1..33
+# tests 33
+# suites 0
+# pass 33
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 179.527333
+node tests/browser.cjs → 0
+Beleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/magischer-teich-3d-390.png
+Beleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/teich-angelplatz-3d-390.png
+Beleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/haus-stufe1-3d-390.png
+Browser Kühlschrank/Küche/Mine/Zimmermann/Holz/Export { width: 390, height: 844 } OK
+Beleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/magischer-teich-3d-1440.png
+Beleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/teich-angelplatz-3d-1440.png
+Beleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/haus-stufe1-3d-1440.png
+Browser Kühlschrank/Küche/Mine/Zimmermann/Holz/Export { width: 1440, height: 900 } OK
+node tests/picking.cjs → 0
+Feld-Repro { width: 390, height: 844 } {
+  pick: { wx: 4.5, wy: 10.5, collectible: true },
+  screen: [ 137.06265258846, 330.4536777995199, true ],
+  el: '<canvas id="game" width="390" height="844"></canvas>',
+  p: { x: 5, y: 11 },
+  ui: { ui: { panel: false, dialog: false, fade: false }, fish: null }
+}
+3D Socke/Sammelfunde/Bauholz + Tierüberlappung/Feld/Doppeltipp { width: 390, height: 844 } OK
+Feld-Repro { width: 1440, height: 900 } {
+  pick: { wx: 4.5, wy: 10.5, collectible: true },
+  screen: [ 515.8898212462055, 200.33728104880916, true ],
+  el: '<canvas id="game" width="1440" height="900"></canvas>',
+  p: { x: 5, y: 11 },
+  ui: { ui: { panel: false, dialog: false, fade: false }, fish: null }
+}
+3D Socke/Sammelfunde/Bauholz + Tierüberlappung/Feld/Doppeltipp { width: 1440, height: 900 } OK
+node tests/regression.cjs → 0
+Beleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/kuehlschrank-2d-390.png
+Beleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/zimmermann-stufe1-2d-390.png
+Beleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/haus-stufe1-2d-390.png
+Beleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/zimmermann-stufe2-2d-390.png
+Beleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/haus-stufe2-2d-390.png
+Beleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/haus-stufe2-3d-390.png
+2D Mengen/Reload/Abbau/Durchlauf/Bett/beide Ausbauten { width: 390, height: 844 } OK
+Beleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/kuehlschrank-2d-1440.png
+Beleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/zimmermann-stufe1-2d-1440.png
+Beleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/haus-stufe1-2d-1440.png
+Beleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/zimmermann-stufe2-2d-1440.png
+Beleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/haus-stufe2-2d-1440.png
+Beleg /Users/reneklomfas/.hermes/cache/scratch/janinas-moon-abnahme/haus-stufe2-3d-1440.png
+2D Mengen/Reload/Abbau/Durchlauf/Bett/beide Ausbauten { width: 1440, height: 900 } OK
+node tests/offline.cjs → 0
+Frischer isolierter Offline-Tab: Ausbau und Stadt geladen, Hof gestartet, drei Bauplätze migriert, Briefkasten (JM.Post) mit drei offenen Missionen geladen. Kein Bestands-PWA-Nachweis.
+node tests/shops.cjs → 0
+Laden: 5×-Kauf bilanziert; Timo Öffnungsgrenzen und Sonntag/Regen OK
+node tests/mine-rueckweg.cjs → 0
+Höhlenebene 2+: Schleife läuft, Wegweiser ok, Rückweg ok {"vor":[10,14],"nach":[10,13],"ziel":"nicht exportiert","zurueck":{"map":"hoehle","depth":1}}
+node tests/transfer-scroll.cjs → 0
+Transfer-Kontext 390 2d OK
+Transfer-Kontext 390 3d OK
+Transfer-Kontext 1440 2d OK
+Transfer-Kontext 1440 3d OK
+node tests/panel-focus.cjs → 0
+F1 Versand/Markt letzte Zeile, Tab und ohne vorherigen Panelfokus 390 OK
+F1 Versand/Markt letzte Zeile, Tab und ohne vorherigen Panelfokus 1440 OK
+node tests/desktop-rest.cjs → 0
+MARKET_SEED {
+  map: 'village',
+  p: [ 13, 14 ],
+  cam: { x: -24, y: 96.55833333333334 },
+  scale: 3,
+  ui: { panel: false, dialog: false, fade: false },
+  gfx: '3d',
+  visibility: 'visible'
+}
+node tests/versand-browser.cjs → 0
+Versand Menge/Enter/Teilrücknahme/Doppelklick/Reload/Tagesverkauf 390 OK
+Versand Menge/Enter/Teilrücknahme/Doppelklick/Reload/Tagesverkauf 1440 OK
+node tests/markt-browser.cjs → 0
+Markt echter Pointer/Teilmenge/Rosa/Grenzen 390 2d OK
+Markt echter Pointer/Teilmenge/Rosa/Grenzen 390 3d OK
+Markt echter Pointer/Teilmenge/Rosa/Grenzen 1440 2d OK
+Markt echter Pointer/Teilmenge/Rosa/Grenzen 1440 3d OK
+node tests/hinweise-browser.cjs → 0
+Hinweise Mondfest/Tagesziele kompakt/Weltklick/Reload/Wechsel 390 2d OK
+Hinweise Mondfest/Tagesziele kompakt/Weltklick/Reload/Wechsel 390 3d OK
+Hinweise Mondfest/Tagesziele kompakt/Weltklick/Reload/Wechsel 1440 2d OK
+Hinweise Mondfest/Tagesziele kompakt/Weltklick/Reload/Wechsel 1440 3d OK
+node tests/wohnraum-browser.cjs → 0
+Altbau Haus→Treppe→Wohnetage→Hof 390 2d Stufe 1 OK
+Altbau Haus→Treppe→Wohnetage→Hof 390 2d Stufe 2 OK
+Altbau Haus→Treppe→Wohnetage→Hof 390 3d Stufe 1 OK
+Altbau Haus→Treppe→Wohnetage→Hof 390 3d Stufe 2 OK
+Altbau Haus→Treppe→Wohnetage→Hof 1440 2d Stufe 1 OK
+Altbau Haus→Treppe→Wohnetage→Hof 1440 2d Stufe 2 OK
+Altbau Haus→Treppe→Wohnetage→Hof 1440 3d Stufe 1 OK
+Altbau Haus→Treppe→Wohnetage→Hof 1440 3d Stufe 2 OK
+node tests/riesenpflanzen-browser.cjs → 0
+Riesen-Ernte/Name/Vorrat/Teilmenge/Entnahme/Reload 390 2d OK
+Riesen-Ernte/Name/Vorrat/Teilmenge/Entnahme/Reload 390 3d OK
+Riesen-Ernte/Name/Vorrat/Teilmenge/Entnahme/Reload 1440 2d OK
+Riesen-Ernte/Name/Vorrat/Teilmenge/Entnahme/Reload 1440 3d OK
+node tests/abgaben-browser.cjs → 0
+Teilgaben validiert/Teilmenge/Reload/einmalige Belohnung 390 OK
+Teilgaben validiert/Teilmenge/Reload/einmalige Belohnung 1440 OK
+node tests/restaurant-browser.cjs → 0
+Restaurant 8 390 2d paula,timo Käufe/Essen/eigene Gespräche/keine Duplikate OK
+Restaurant 9 390 2d henk,mei Käufe/Essen/eigene Gespräche/keine Duplikate OK
+Restaurant 8 390 3d paula,timo Käufe/Essen/eigene Gespräche/keine Duplikate OK
+Restaurant 9 390 3d henk,mei Käufe/Essen/eigene Gespräche/keine Duplikate OK
+Restaurant 8 1440 2d paula,timo Käufe/Essen/eigene Gespräche/keine Duplikate OK
+Restaurant 9 1440 2d henk,mei Käufe/Essen/eigene Gespräche/keine Duplikate OK
+Restaurant 8 1440 3d paula,timo Käufe/Essen/eigene Gespräche/keine Duplikate OK
+Restaurant 9 1440 3d henk,mei Käufe/Essen/eigene Gespräche/keine Duplikate OK
+node tests/stadt-browser.cjs → 0
+Stadt Reise/Bau/drei Nächte/Mieter/Miete/Reload/Rückkehr 390 2d {"money":3560,"last":13,"day":13}
+Stadt Reise/Bau/drei Nächte/Mieter/Miete/Reload/Rückkehr 390 3d {"money":3560,"last":13,"day":13}
+Stadt Reise/Bau/drei Nächte/Mieter/Miete/Reload/Rückkehr 1440 2d {"money":3560,"last":13,"day":13}
+Stadt Reise/Bau/drei Nächte/Mieter/Miete/Reload/Rückkehr 1440 3d {"money":3560,"last":13,"day":13}
+node tests/stadt-zusatz.cjs → 0
+Zusatz Karten/Aufgaben/Animation/3 Häuser/Phasen/NPC-Zeiten/Mietbilanz 390 2d OK
+Zusatz Karten/Aufgaben/Animation/3 Häuser/Phasen/NPC-Zeiten/Mietbilanz 390 3d OK
+Zusatz Karten/Aufgaben/Animation/3 Häuser/Phasen/NPC-Zeiten/Mietbilanz 1440 2d OK
+Zusatz Karten/Aufgaben/Animation/3 Häuser/Phasen/NPC-Zeiten/Mietbilanz 1440 3d OK
+node tests/karten-fallback.cjs → 0
+Unbekannte Karten-ID → sicherer Start auf dem Hof OK
+node tests/rohstoffweg.cjs → 1
+AssertionError [ERR_ASSERTION]: {"error":"kein Weg","map":"forest","sx":16,"sy":15,"x":24,"y":15}
+    at walk (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/rohstoffweg.cjs:6:1684)
+    at async adj (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/rohstoffweg.cjs:7:365)
+    at async /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/rohstoffweg.cjs:12:253 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+EXIT 1
