@@ -1,0 +1,146 @@
+✖ Modul vorhanden und Altspielstand ohne Postfelder bleibt vollständig erhalten (1.920209ms)
+✖ Jede Nacht 1–3 neue Briefe, Geheimnis kommt spätestens nach fünf Tagen, keine Doppelzustellung (0.475833ms)
+✖ Miete kommt genau einmal (Stadtabrechnung), Brief ist nur Quittung; Bewertung beeinflusst Miete nachvollziehbar (0.17375ms)
+✖ Mietanfrage verknüpft fertigen Bauplatz; Zusage genau einmal, auch nach Reload (0.125833ms)
+✖ Bauauftrag: Wunsch → echter Bau → Dankbrief mit 150 G, Beilage genau einmal (0.133167ms)
+✖ Geschenkbrief: echter Gegenstand genau einmal (0.089875ms)
+✖ Mission Schatzkarte: Brief → Rätsel → erreichbarer Hügel → Schatz genau einmal (0.116958ms)
+✖ Mission Haus Nr. 7: Brief → Besuch → Schlüssel → Renovierung (Geld, Material, zwei Nächte) → Elva zieht ein (0.165166ms)
+✖ Mission Mitternacht am alten Brunnen: nur 23–24 Uhr, Dokument, Geisterbrief, Reparatur einmalig (0.610334ms)
+✖ Alle Missionsziele liegen auf vorhandenen Karten und erreichbaren Kacheln (0.171209ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 0
+ℹ fail 10
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 77.449541
+
+✖ failing tests:
+
+test at tests/briefe.test.cjs:14:1
+✖ Modul vorhanden und Altspielstand ohne Postfelder bleibt vollständig erhalten (1.920209ms)
+  AssertionError [ERR_ASSERTION]: JM.Post fehlt
+  + actual - expected
+  
+  + 'undefined'
+  - 'object'
+  
+      at TestContext.<anonymous> (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/briefe.test.cjs:15:9)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.start (node:internal/test_runner/test:1257:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'undefined',
+    expected: 'object',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/briefe.test.cjs:25:1
+✖ Jede Nacht 1–3 neue Briefe, Geheimnis kommt spätestens nach fünf Tagen, keine Doppelzustellung (0.475833ms)
+  TypeError: Cannot read properties of undefined (reading 'night')
+      at night (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/briefe.test.cjs:11:69)
+      at TestContext.<anonymous> (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/briefe.test.cjs:27:37)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)
+      at Test.postRun (node:internal/test_runner/test:1537:19)
+      at Test.run (node:internal/test_runner/test:1462:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)
+
+test at tests/briefe.test.cjs:38:1
+✖ Miete kommt genau einmal (Stadtabrechnung), Brief ist nur Quittung; Bewertung beeinflusst Miete nachvollziehbar (0.17375ms)
+  TypeError: Cannot read properties of undefined (reading 'night')
+      at night (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/briefe.test.cjs:11:69)
+      at TestContext.<anonymous> (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/briefe.test.cjs:40:32)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)
+      at Test.postRun (node:internal/test_runner/test:1537:19)
+      at Test.run (node:internal/test_runner/test:1462:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7)
+
+test at tests/briefe.test.cjs:51:1
+✖ Mietanfrage verknüpft fertigen Bauplatz; Zusage genau einmal, auch nach Reload (0.125833ms)
+  TypeError: Cannot read properties of undefined (reading 'night')
+      at night (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/briefe.test.cjs:11:69)
+      at TestContext.<anonymous> (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/briefe.test.cjs:53:37)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)
+      at Test.postRun (node:internal/test_runner/test:1537:19)
+      at Test.run (node:internal/test_runner/test:1462:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7)
+
+test at tests/briefe.test.cjs:61:1
+✖ Bauauftrag: Wunsch → echter Bau → Dankbrief mit 150 G, Beilage genau einmal (0.133167ms)
+  TypeError: Cannot read properties of undefined (reading 'night')
+      at night (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/briefe.test.cjs:11:69)
+      at TestContext.<anonymous> (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/briefe.test.cjs:62:52)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)
+      at Test.postRun (node:internal/test_runner/test:1537:19)
+      at Test.run (node:internal/test_runner/test:1462:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7)
+
+test at tests/briefe.test.cjs:70:1
+✖ Geschenkbrief: echter Gegenstand genau einmal (0.089875ms)
+  TypeError: Cannot read properties of undefined (reading 'night')
+      at night (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/briefe.test.cjs:11:69)
+      at TestContext.<anonymous> (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/briefe.test.cjs:71:53)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)
+      at Test.postRun (node:internal/test_runner/test:1537:19)
+      at Test.run (node:internal/test_runner/test:1462:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7)
+
+test at tests/briefe.test.cjs:76:1
+✖ Mission Schatzkarte: Brief → Rätsel → erreichbarer Hügel → Schatz genau einmal (0.116958ms)
+  TypeError: Cannot set properties of undefined (setting 'lastMyst')
+      at TestContext.<anonymous> (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/briefe.test.cjs:77:32)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)
+      at Test.postRun (node:internal/test_runner/test:1537:19)
+      at Test.run (node:internal/test_runner/test:1462:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7)
+
+test at tests/briefe.test.cjs:88:1
+✖ Mission Haus Nr. 7: Brief → Besuch → Schlüssel → Renovierung (Geld, Material, zwei Nächte) → Elva zieht ein (0.165166ms)
+  TypeError: Cannot read properties of undefined (reading 'm')
+      at TestContext.<anonymous> (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/briefe.test.cjs:89:24)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)
+      at Test.postRun (node:internal/test_runner/test:1537:19)
+      at Test.run (node:internal/test_runner/test:1462:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7)
+
+test at tests/briefe.test.cjs:104:1
+✖ Mission Mitternacht am alten Brunnen: nur 23–24 Uhr, Dokument, Geisterbrief, Reparatur einmalig (0.610334ms)
+  TypeError: Cannot read properties of undefined (reading 'm')
+      at TestContext.<anonymous> (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/briefe.test.cjs:105:24)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)
+      at Test.postRun (node:internal/test_runner/test:1537:19)
+      at Test.run (node:internal/test_runner/test:1462:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7)
+
+test at tests/briefe.test.cjs:117:1
+✖ Alle Missionsziele liegen auf vorhandenen Karten und erreichbaren Kacheln (0.171209ms)
+  TypeError: Cannot read properties of undefined (reading 'MISSIONS')
+      at TestContext.<anonymous> (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/briefe.test.cjs:119:102)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)
+      at Test.postRun (node:internal/test_runner/test:1537:19)
+      at Test.run (node:internal/test_runner/test:1462:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7)
+EXIT 1

@@ -257,6 +257,14 @@ function prop(mg,mgE,o,se,st){
   const wood="#a8743f", woodD="#7a4e2a", woodL="#c8945a";
   switch(k){
     case 'bau1':case 'bau2':case 'bau3':{const phase=+k.slice(3),w=o.w||5,d=o.h||4;mg.box(x,.12,z,w,.24,d,'#ada391');if(phase>=2){for(const dx of [-w/2+.2,0,w/2-.2])for(const dz of [-d/2+.2,d/2-.2])mg.box(x+dx,1.1,z+dz,.12,2,.12,woodD);for(const dz of [-d/2+.2,d/2-.2]){mg.box(x,2.05,z+dz,w,.12,.12,wood);mg.box(x,1,z+dz,w,.12,.12,wood);}}if(phase===3){mg.box(x,1.1,z,w-.3,1.8,d-.3,'#dcc3a0');for(const side of [-1,1])mg.add(GEO.box,M4(x+side*w/4,2.4,z,w*.6,.12,d+.3,0,0,side*.5),'#b85b48');mg.box(x,.75,z+d/2,.65,1.4,.05,woodD);}return;}
+    case 'ruine':{const w=o.w||5,d=o.h||4;mg.box(x,1,z,w-.4,2,d-.6,'#9c8f7c');mg.box(x,2.25,z,w-.1,.5,d-.2,'#6e5a4e');mg.box(x,2.65,z,w-1.2,.35,d-1.2,'#5a4a40');
+     mg.box(x,.75,z+d/2-.28,.7,1.5,.06,'#4a3a30');mg.box(x,1.75,z+d/2-.27,.36,.26,.04,'#e8dcc0');
+     for(const dx of [-1.4,1.4]){mg.box(x+dx,1.15,z+d/2-.28,.7,.7,.05,'#3a3430');mg.box(x+dx,1.15,z+d/2-.24,.8,.1,.04,'#a07a50');mg.box(x+dx,1.3,z+d/2-.24,.8,.1,.04,'#a07a50');}
+     mg.sph(x-w/2+.4,.15,z+d/2-.1,.35,.2,.3,'#5a7a3a');mg.sph(x+w/2-.5,.15,z+d/2-.1,.3,.25,.3,'#6f8f45');return;}
+    case 'brunnen_alt':case 'brunnen_neu':{const neu=k==='brunnen_neu';mg.cyl(x,.28,z,.45,.56,neu?'#b3ab9f':'#8f8a80');(neu?mgE:mg).cyl(x,.57,z,.36,.03,neu?(snow?'#e8f0f6':'#5fb4e8'):'#2b2420');
+     if(neu){for(const dx of [-.4,.4])mg.box(x+dx,.9,z,.08,1.1,.08,woodD);mg.box(x,1.48,z,1.1,.08,.7,'#b8302a');mg.box(x,1.1,z,.05,.5,.05,'#d9c9a0');mg.cyl(x,.85,z,.1,.14,wood);}
+     else{mg.box(x-.4,.75,z,.08,.9,.08,woodD);mg.box(x+.1,.62,z+.2,.8,.06,.08,woodD);}return;}
+    case 'erdhuegel':mg.sph(x,.04,z,.42,.2,.42,'#7a5a3a');mg.sph(x+.1,.12,z-.05,.18,.1,.18,'#94704a');return;
     case 'zug':mg.box(x,.65,z,3.8,1.1,1.4,'#3e6578');mg.box(x,1.25,z,4,.15,1.5,'#b14f42');for(const dx of [-1.4,-.5,.5,1.4])mgE.box(x+dx,.85,z+.71,.6,.4,.02,'#b5dbe6');for(const dx of [-1.2,1.2])for(const dz of [-.7,.7])mg.sph(x+dx,.2,z+dz,.25,.25,.1,'#32343d');return;
     case "mailbox": mg.box(x,.35,z+.1,.08,.7,.08,woodD); mg.box(x,.75,z+.1,.32,.24,.44,"#3f6ad8"); mg.cyl(x,.87,z+.1,.16,.44,"#3f6ad8",Math.PI/2); if(st.unread){ mg.box(x+.2,.95,z+.15,.03,.3,.03,"#c42a2a"); mg.box(x+.2,1.05,z+.22,.03,.1,.14,"#e8483a"); } return;
     case "box": mg.box(x,.28,z,.82,.5,.62,wood); for(let i=0;i<3;i++) mg.box(x,.12+i*.16,z+.315,.84,.03,.01,woodD); mg.box(x,.56,z,.9,.08,.7,woodL); return;

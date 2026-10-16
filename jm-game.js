@@ -549,6 +549,7 @@ function objAct(o){
   if(a==='train')return openTrain();
   if(a==='station_hint')return note('Dorfbahnhof: dem Weg nach Osten folgen. Lindenstadt ist mit dem Zug erreichbar.');
   if(a.startsWith('plot:'))return openPlot(Number(a.slice(5)));
+  if(a.startsWith('post:'))return postAct(a.slice(5));
   if(a==="house") return travel({to:"haus",tx:7,ty:9});
   if(a==="house_up") return travel({to:"haus_oben",tx:3,ty:8});
   if(a==="house_down") return travel({to:"haus",tx:16,ty:5});
@@ -627,6 +628,8 @@ function endDay(passedOut){
   // Post
   const fest=JM.FESTS.find(f=>f.s===se&&f.d===dayIn()+1);
   if(fest) S.mailQ.push({from:"rosa",t:fest.n+" morgen!",b:"Liebe "+S.name+",\n\nmorgen ist "+fest.n+"! "+fest.desc+" Es beginnt um "+Math.floor(fest.from/60)+" Uhr auf dem Dorfplatz. Sprich einfach mit mir, wenn du da bist.\n\nRosa"});
+  // Briefkasten (jm-post.js): 1–3 Briefe pro Nacht, Missionsfortsetzungen; Karten danach neu anwenden
+  JM.Post.night(S,{rent},rnd); JM.Stadt.apply(MAPS,S);
   S.mail.push(...S.mailQ); S.mailQ=[];
   for(const id in NPCS){ const b=NPCS[id].bday; if(b[0]===se&&b[1]===dayIn()) notes.push("Heute hat "+NPCS[id].n+" Geburtstag."); }
   S.energy=passedOut?Math.round(S.maxE*.5):S.maxE;
@@ -1000,7 +1003,7 @@ function activateQuest(){
   updateQuestUI();
 }
 function questTarget(){
-  const q=curQ(); if(!q||!q.tg) return null;
+  const q=curQ(); if(!q) return JM.Post.target(S); if(!q.tg) return null;
   const tg=q.tg, F=MAPS.farm, nearest=(fn)=>{ let best=null,bd=1e9; for(let y=0;y<F.h;y++) for(let x=0;x<F.w;x++){ if(F.t[y][x]!==T.FELD) continue; if(fn(fieldAt(x,y)||{})){ const d=Math.abs(x-P.x)+Math.abs(y-P.y); if(d<bd){bd=d;best={map:"farm",x,y};} } } return best; };
   if(tg==="house"){ const q=curQ(); return q.id==="schlafen"?{map:"haus",x:11,y:3}:q.id==="lieblingsessen"?{map:"haus",x:2,y:3}:q.id==="brief"?{map:"haus",x:5,y:5}:{map:"haus",x:7,y:6}; }
   if(tg==="rene"){ const pl=renePlan(); if(!pl.map) return null; return RA.vis?{map:M.id,x:RA.x,y:RA.y-1,live:true}:{map:pl.map,x:pl.pos[0],y:pl.pos[1]-1}; }
@@ -1171,16 +1174,16 @@ function drawWx(){
 }
 function updateQuestUI(){
   if(!S) return;
-  const q=curQ()||(S.daily?.day===S.day&&S.daily.goals.length?{t:"Tagesziele",n:0}:null),el=$("quest"),box=$("questBox"),toggle=$("qToggle");
+  const pg=!curQ()&&JM.Post.goal(S),q=curQ()||(pg?{t:pg.t,n:0,post:pg.sub}:null)||(S.daily?.day===S.day&&S.daily.goals.length?{t:"Tagesziele",n:0}:null),el=$("quest"),box=$("questBox"),toggle=$("qToggle");
   box.hidden=!q;if(!q){el.hidden=true;return;}
   const collapsed=!!S.hintsCollapsed;box.classList.toggle("collapsed",collapsed);el.hidden=collapsed;
   toggle.textContent=collapsed?"Ziele +":"−";toggle.setAttribute("aria-expanded",String(!collapsed));toggle.setAttribute("aria-label",collapsed?"Hinweise aufklappen":"Hinweise einklappen");
   $("qTitle").textContent=fmtD(q.t);
-  let sub=q.n>1?S.quest.p+"/"+q.n:"";
+  let sub=q.post||(q.n>1?S.quest.p+"/"+q.n:"");
   if(q.tg==="rene"&&!renePlan().map) sub=fmtD("{von} ist bei der Arbeit, ab 16:30 Uhr zu Hause");
   if(q.id==="mondfest"){ const Y=JM.DPS*4, left=((2*JM.DPS+13)-((S.day-1)%Y)+Y)%Y; if(left>0) sub="noch "+left+(left===1?" Tag":" Tage"); else if(left===0) sub="heute ab 18 Uhr"; }
   if(q.tg==='mess')sub+=(sub?' · ':'')+(S.mess.length?S.mess.length+' Sachen liegen noch auf Hof und im Haus':'Heute liegt nichts herum · morgen gibt es neue Sachen');
-  const t=questTarget(); if(t&&t.map!==M.id) sub=(sub?sub+" · ":"")+({farm:"auf dem Hof",village:"im Dorf",forest:"im Wald",haus:"im Haus",hoehle:"in der Höhle"}[t.map]||(t.map.indexOf("i_")===0?"im Laden":"in der Nähe"));
+  const t=questTarget(); if(t&&t.map!==M.id) sub=(sub?sub+" · ":"")+({farm:"auf dem Hof",village:"im Dorf",forest:"im Wald",haus:"im Haus",hoehle:"in der Höhle",stadt:"in Lindenstadt",bahnhof:"am Bahnhof"}[t.map]||(t.map.indexOf("i_")===0?"im Laden":"in der Nähe"));
   if(S.daily&&S.daily.day===S.day&&S.daily.goals.length){ const d=S.daily.goals.filter(g=>g.p>=JM.DAILY.find(x=>x.k===g.k).n).length; sub=(sub?sub+" · ":"")+"Tagesziele "+d+"/"+S.daily.goals.length; }
   $("qProg").textContent=sub;
 }
@@ -1305,7 +1308,7 @@ function openTrain(){
 function openPlot(i){
  const X=JM.Stadt,p=S.city.plots[i],place=X.places[i],phase=X.phase(S,i),c=X.cost;
  const names=['Freier Bauplatz','Fundament','Holzrahmen','Dacharbeiten','Bezugsfertig'];
- openPanel(`<h2>${place.n}</h2><p>${names[phase]}${p.tenant?' · vermietet an '+esc(NPCS[p.tenant].n):''}</p><p>Kleines Mietshaus: ${c.money} G, ${c.holz} Bauholz und ${c.stein} Stein. Bauzeit: ${c.days} Nächte. Tagesmiete: ${c.rent} G ab dem Morgen nach Einzug, automatisch einmal pro Spieltag.</p><p>Holz: ${S.inv.holz||0} · Stein: ${S.inv.stein||0} · Geld: ${S.money} G</p><p class="sub">Holz täglich im Mondwald oder aus Ästen auf dem Hof; Stein in der erneuerbaren Mondhöhle. Kein Rückkauf bezahlter Bauten. Die drei kleinen Häuser haben zunächst keine betretbaren Innenräume.</p>${phase===0?'<button class="btn wide" data-a="build">Haus verbindlich bauen</button>':phase<4?`<p>Noch ${Math.max(0,p.due-S.day)} Nächte. Materialien sind bezahlt.</p>`:!p.tenant?`<button class="btn wide" data-a="rent">An ${NPCS[['ida','noah','mara'][i]].n} vermieten</button>`:`<p>Zuletzt abgerechnet: Spieltag ${p.lastRent}. ${esc(NPCS[p.tenant].n)} ist tagsüber vor dem Haus und gelegentlich abends bei Lin.</p>`}${closeBtn}`,{build:()=>{if(!X.order(S,i)){note('Nicht genug Material oder Geld; kein zweiter Bauauftrag möglich.');return;}X.apply(MAPS,S);setMap('stadt',Math.round(P.x),Math.round(P.y));save(true);refreshPanel(()=>openPlot(i));},rent:()=>{if(!X.rent(S,i))return;X.apply(MAPS,S);setMap('stadt',Math.round(P.x),Math.round(P.y));save(true);refreshPanel(()=>openPlot(i));}});
+ openPanel(`<h2>${place.n}</h2><p>${names[phase]}${p.tenant?' · vermietet an '+esc(NPCS[p.tenant].n):''}</p><p>Kleines Mietshaus: ${c.money} G, ${c.holz} Bauholz und ${c.stein} Stein. Bauzeit: ${c.days} Nächte. Tagesmiete: ${c.rent} G ab dem Morgen nach Einzug, automatisch einmal pro Spieltag.</p><p>Holz: ${S.inv.holz||0} · Stein: ${S.inv.stein||0} · Geld: ${S.money} G</p><p class="sub">Holz täglich im Mondwald oder aus Ästen auf dem Hof; Stein in der erneuerbaren Mondhöhle. Kein Rückkauf bezahlter Bauten. Die drei kleinen Häuser haben zunächst keine betretbaren Innenräume.</p>${phase===0?'<button class="btn wide" data-a="build">Haus verbindlich bauen</button>':phase<4?`<p>Noch ${Math.max(0,p.due-S.day)} Nächte. Materialien sind bezahlt.</p>`:!p.tenant?`<button class="btn wide" data-a="rent">An ${NPCS[['ida','noah','mara'][i]].n} vermieten</button>`:`<p>Bewertung: ${p.rating?JM.Post.stars(p.rating)+' ('+p.rating+'/5)':'noch keine (kommt nach einer Woche per Brief)'} · Tagesmiete ${X.rentFor(p)} G</p><p>Zuletzt abgerechnet: Spieltag ${p.lastRent}. ${esc(NPCS[p.tenant].n)} ist tagsüber vor dem Haus und gelegentlich abends bei Lin.</p>`}${closeBtn}`,{build:()=>{if(!X.order(S,i)){note('Nicht genug Material oder Geld; kein zweiter Bauauftrag möglich.');return;}X.apply(MAPS,S);setMap('stadt',Math.round(P.x),Math.round(P.y));save(true);refreshPanel(()=>openPlot(i));},rent:()=>{if(!X.rent(S,i))return;X.apply(MAPS,S);setMap('stadt',Math.round(P.x),Math.round(P.y));save(true);refreshPanel(()=>openPlot(i));}});
 }
 function openHouse(){
   const unread=S.mail.filter(m=>!m.read).length;
@@ -1418,10 +1421,60 @@ function openShop(id){
      else { give(k,n); note(n+"× "+ITEMS[k].n+" gekauft."); }
      hud(); saveSoon(); refreshPanel(()=>openShop(id)); }});
 }
-function openMail(){
-  const list=S.mail.slice().reverse();
-  openPanel(`<h2>Briefkasten</h2>${list.length?list.map((m,i)=>`<button class="row mail ${m.read?"":"new"}" data-a="read" data-k="${S.mail.length-1-i}"><div class="tx"><b>${esc(m.t)}</b><small>von ${esc(m.from==="von"?JM.CONFIG.von:NPCS[m.from]?NPCS[m.from].n:m.from)}</small></div></button>`).join(""):"<p>Keine Post.</p>"}${closeBtn}`,
-  {read:k=>{ const m=S.mail[+k]; m.read=true; if(m.recipe&&!S.recipes.includes(m.recipe)){ S.recipes.push(m.recipe); setTimeout(()=>note("Neues Rezept gelernt: "+ITEMS[m.recipe].n),400); } closePanel(); dialog([{who:m.from==="von"?"von":null,text:m.b}],openMail); saveSoon(); }});
+const MAILKIND={miete:"Mietquittung",anfrage:"Mietanfrage",auftrag:"Bauauftrag",dank:"Dank",geschenk:"Geschenk",bewertung:"Bewertung",gruss:"Gruß",geheim:"Geheimnis"};
+function mailFrom(m){ return m.from==="von"?JM.CONFIG.von:NPCS[m.from]?NPCS[m.from].n:m.from; }
+function attText(a){ return [a.money?a.money+" G":"",...Object.entries(a.items||{}).map(([k,n])=>n+"× "+ITEMS[k].n)].filter(Boolean).join(", "); }
+function openMail(showAll){
+  // Neu zuerst, danach die letzten gelesenen; ältere auf Wunsch. Nichts wird gelöscht.
+  const all=S.mail.map((m,i)=>i).reverse(), unread=all.filter(i=>!S.mail[i].read), read=all.filter(i=>S.mail[i].read), shown=showAll===true?read:read.slice(0,12);
+  const row=i=>{ const m=S.mail[i], k=MAILKIND[m.kind], open=(m.att&&!m.att.taken)||(m.offer&&!m.offer.done); return `<button class="row mail ${m.read?"":"new"}${m.kind==="geheim"?" secret":""}" data-a="read" data-k="${i}"><div class="tx"><b>${esc(m.t)}</b><small>von ${esc(mailFrom(m))}${k?" · "+k:""}${open?" · Antwort/Beilage offen":""}</small></div></button>`; };
+  openPanel(`<h2>Briefkasten</h2><p class="sub">${unread.length} ungelesen · ${S.mail.length} Briefe</p>${S.mail.length?"":"<p>Keine Post.</p>"}${unread.length?"<h3>Neu</h3>"+unread.map(row).join(""):""}${shown.length?"<h3>Gelesen</h3>"+shown.map(row).join(""):""}${read.length>shown.length?`<button class="btn alt wide" data-a="older">Ältere Briefe zeigen (${read.length-shown.length})</button>`:""}${closeBtn}`,
+  {read:k=>openLetter(+k), older:()=>openMail(true)});
+}
+function openLetter(i){
+  const m=S.mail[i]; if(!m) return;
+  const changed=JM.Post.read(S,i);
+  if(m.recipe&&!S.recipes.includes(m.recipe)){ S.recipes.push(m.recipe); setTimeout(()=>note("Neues Rezept gelernt: "+ITEMS[m.recipe].n),400); }
+  if(changed){ JM.Stadt.apply(MAPS,S); if(["stadt","village","forest"].includes(M.id)) setMap(M.id,Math.round(P.x),Math.round(P.y)); updateQuestUI(); }
+  save(true);
+  if(!m.kind){ closePanel(); dialog([{who:m.from==="von"?"von":null,text:m.b}],openMail); return; }
+  const a=m.att, o=m.offer; let act="";
+  if(a) act=a.taken?`<p class="sub">Beilage genommen (Spieltag ${a.taken}).</p>`:`<button class="btn wide" data-a="claim">Beilage nehmen: ${esc(attText(a))}</button>`;
+  if(o) act=o.done?`<p class="sub">${o.done==="zugesagt"?"Du hast zugesagt. "+esc(mailFrom(m))+" wohnt jetzt im "+esc(JM.Stadt.places[o.plot].n)+".":"Das Haus ist inzwischen vergeben."}</p>`:`<button class="btn wide" data-a="accept">Zusagen: ${esc(mailFrom(m))} zieht ein</button>`;
+  openPanel(`<h2>${esc(m.t)}</h2><p class="sub">von ${esc(mailFrom(m))}${MAILKIND[m.kind]?" · "+MAILKIND[m.kind]:""}</p><div class="letter">${esc(m.b).replace(/\n/g,"<br>")}</div>${act}<button class="btn alt wide" data-a="back">Zurück zum Briefkasten</button>${closeBtn}`,
+  {claim:()=>{ const got=JM.Post.claim(S,i); if(!got) return; hud(); hotbar(); save(true); sfx("gift"); note("Beilage genommen: "+attText(got)); refreshPanel(()=>openLetter(i)); },
+   accept:()=>{ const ok=JM.Post.accept(S,i); JM.Stadt.apply(MAPS,S); if(M.id==="stadt") setMap("stadt",Math.round(P.x),Math.round(P.y)); save(true); note(ok?mailFrom(m)+" zieht ein. Die Miete kommt ab übermorgen früh.":"Das Haus ist schon vergeben."); refreshPanel(()=>openLetter(i)); },
+   back:()=>openMail()});
+  if(changed&&m.mis) setTimeout(()=>note("Ein neues Geheimnis. Der Wegweiser zeigt dir den Weg."),300);
+}
+/* Geheimnis-Missionen an Weltobjekten (Logik in jm-post.js) */
+function refreshPost(){ JM.Stadt.apply(MAPS,S); setMap(M.id,Math.round(P.x),Math.round(P.y)); save(true); updateQuestUI(); }
+function postAct(a){
+  const X=JM.Post, pm=S.post.m;
+  if(a.startsWith("huegel:")){ const r=X.dig(S,a.slice(7)); sfx("dig"); if(r.ok){ hud(); hotbar(); refreshPost(); banner("Schatz gefunden!"); sfx("fanfare"); dialog([{who:null,text:r.msg},{who:"player",text:"Wer hier wohl früher seine Ersparnisse vergraben hat?"}]); } else note(r.msg); return; }
+  if(a==="haus7"){ const h=pm.haus7, c=X.cost7;
+    if(h.st==="suche"){ X.look7(S); save(true); updateQuestUI(); return dialog([{who:null,text:"Haus Nummer 7. Die Fenster sind mit Brettern vernagelt, die Tür ist abgeschlossen."},{who:null,text:"Im Staub vor der Tür sind frische Fußspuren. Unter der Schwelle klemmt eine getrocknete Mondblume."},{who:"player",text:"Wer kommt hierher, wenn hier niemand wohnt? Vielleicht bringt die Post eine Antwort."}]); }
+    if(h.st==="schluessel"){
+      if(!h.opened){ h.opened=S.day; save(true); return dialog([{who:null,text:"Der Schlüssel dreht sich schwer im Schloss. Drinnen: Staub, ein umgekippter Stuhl und ein altes Fernrohr am Fenster."},{who:null,text:"Auf dem Tisch liegt ein Sternenbuch. Auf der ersten Seite steht: „Für die nächste Bewohnerin von Nummer 7.“"}],()=>postAct("haus7")); }
+      return openPanel(`<h2>Haus Nummer 7</h2><p>Timo kann das Haus herrichten: ${c.money} G, ${c.holz} Bauholz und ${c.stein} Stein. Bauzeit: ${c.days} Nächte.</p><p>Holz: ${S.inv.holz||0} · Stein: ${S.inv.stein||0} · Geld: ${S.money} G</p><p class="sub">Bezahlt wird sofort und endgültig. Danach zieht jemand ein.</p><button class="btn wide" data-a="renovate" ${X.can7(S)?"":"disabled"}>Renovieren lassen</button>${closeBtn}`,
+        {renovate:()=>{ if(!X.renovate(S)){ note("Nicht genug Geld oder Material."); return; } closePanel(); hud(); hotbar(); refreshPost(); sfx("buy"); note("Timo beginnt mit der Renovierung. In "+c.days+" Nächten ist sie fertig."); }});
+    }
+    if(h.st==="bau") return note("Timo renoviert Haus Nummer 7. Noch "+Math.max(0,h.due-S.day)+" Nächte.");
+    if(h.st==="fertig") return note("Haus Nummer 7. Hier wohnt jetzt Elva, die Sternkundige.");
+    if(h.st==="gesehen"||h.st==="schluesselpost") return note("Die Tür ist verschlossen. Du hast keinen Schlüssel.");
+    return note("Haus Nummer 7. Die Fenster sind vernagelt. Hier wohnt seit Jahren niemand.");
+  }
+  if(a==="brunnen"){ const b=pm.brunnen, c=X.costWell;
+    if(b.st==="einladung"){
+      if(!X.midnight(S)) return note("Der alte Brunnen liegt still. Die Einladung sagt: zwischen 23 und 24 Uhr.");
+      save(true); updateQuestUI();
+      return dialog([{who:null,text:"Der alte Brunnen liegt still. Dann wird das Wasser tief unten hell."},{who:null,text:"Eine durchscheinende Frau sitzt auf dem Brunnenrand. „Hab keine Angst. Ich habe früher in diesem Dorf gewohnt.“"},{who:null,text:"„Dieser Brunnen hat einmal das ganze Dorf versorgt. Seit er zerbrochen ist, ist es hier leiser geworden.“"},{who:null,text:"„Nimm dieses alte Dokument. Darin steht, was das Dorf vergessen hat.“ Es liegt jetzt in deinem Briefkasten."},{who:null,text:"Die Gestalt verblasst. Du bist plötzlich sehr müde und gehst nach Hause."}],()=>endDay(false));
+    }
+    if(b.st==="dokument") return openPanel(`<h2>Der alte Brunnen</h2><p>Laut dem alten Dokument braucht der Brunnen ${c.stein} Stein, ${c.kupfer} Kupfererz und ${c.money} G für den Handwerker.</p><p>Stein: ${S.inv.stein||0} · Kupfererz: ${S.inv.kupfer||0} · Geld: ${S.money} G</p><button class="btn wide" data-a="repair" ${X.canWell(S)?"":"disabled"}>Brunnen reparieren</button>${closeBtn}`,
+      {repair:()=>{ if(!X.repairWell(S)){ note("Nicht genug Geld oder Material."); return; } closePanel(); hud(); hotbar(); refreshPost(); sfx("fanfare"); dialog([{who:"rosa",text:"Der alte Brunnen läuft wieder! Das halbe Dorf ist gekommen, um zuzusehen."},{who:"rosa",text:"In der Dorfchronik steht, dass hier früher alle ihre Kannen gefüllt haben. Ab heute wieder."},{who:null,text:"Am alten Brunnen kannst du jetzt jederzeit deine Gießkanne füllen."}]); }});
+    if(b.st==="fertig"){ S.can.w=S.can.max; hud(); hotbar(); sfx("water"); return note("Frisches Wasser aus dem alten Brunnen. Deine Gießkanne ist voll."); }
+    return note("Ein alter, kaputter Brunnen. Der Eimer hat ein Loch, die Kurbel klemmt.");
+  }
 }
 function openCraft(){
   const rows=JM.CRAFT.map(r=>{ const ok=Object.entries(r.need).every(([k,n])=>has(k,n)); const need=Object.entries(r.need).map(([k,n])=>`<span class="${(S.inv[k]||0)>=n?"ok":"no"}">${n}× ${ITEMS[k].n} (${S.inv[k]||0})</span>`).join(" ");

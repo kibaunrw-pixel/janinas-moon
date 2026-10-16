@@ -26,8 +26,10 @@ X.order=(s,i)=>{if(!valid(i))return false;const p=s.city.plots[i],c=X.cost;
  if(p.ready||p.start!==null||s.money<c.money||(s.inv.holz||0)<c.holz||(s.inv.stein||0)<c.stein)return false;
  s.money-=c.money;for(const k of ['holz','stein']){s.inv[k]-=c[k];if(!s.inv[k])delete s.inv[k];}p.start=s.day;p.due=s.day+c.days;return true;};
 X.rent=(s,i)=>{if(!valid(i))return false;const p=s.city.plots[i];if(!p.ready||p.tenant)return false;p.tenant=['ida','noah','mara'][i];p.since=s.day;p.lastRent=s.day;return true;};
+/* Tagesmiete: Grundmiete plus 10 G je Bewertungsstern über drei (Bewertung kommt per Brief, siehe jm-post.js). */
+X.rentFor=p=>X.cost.rent+Math.max(0,Math.min(5,p.rating||0)-3)*10;
 X.advance=s=>{let earned=0;for(const p of s.city.plots){if(p.start!==null&&!p.ready&&s.day>=p.due)p.ready=true;
- if(p.tenant&&s.day>p.since&&s.day>(p.lastRent||0)){earned+=X.cost.rent;p.lastRent=s.day;}}
+ if(p.tenant&&s.day>p.since&&s.day>(p.lastRent||0)){earned+=X.rentFor(p);p.lastRent=s.day;}}
  s.money+=earned;if(s.stats)s.stats.earned+=earned;return earned;};
 const residents=[
  ['ida','Ida','Buchbinderin','#748eb8','Im Lindenhof binde ich Bücher. Endlich ein eigenes kleines Atelier.','Lin hebt mir immer einen Fensterplatz auf. Ich sammle dort Geschichten für mein nächstes Buch.'],

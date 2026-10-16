@@ -396,6 +396,16 @@ A.building=function(kind,se,night){
 A.prop=function(kind,se,extra){
   let c,g;
   if(/^bau[123]$/.test(kind)){const phase=+kind.slice(3);c=cnv(82,96);g=G(c);g.r(2,69,78,25,'#a49a88');g.r(5,72,72,19,'#c5bba6');for(let i=0;i<5;i++)g.r(5+i*15,72,2,19,'#8b8274');if(phase>=2){for(const x of [5,37,74])g.r(x,30,4,58,'#96613a');g.r(5,30,73,4,'#bf925b');g.r(5,58,73,4,'#bf925b');g.line(7,32,75,85,'#96613a',3);g.line(75,32,7,85,'#96613a',3);}if(phase===3){g.r(7,35,68,38,'#dec5a1');g.r(32,51,17,35,'#77503a');g.r(12,44,12,13,'#a3cee0');g.r(58,44,12,13,'#a3cee0');for(let y=0;y<26;y++)g.r(41-y*1.5,4+y,Math.max(2,y*3),1,y%4?'#b85843':'#d17c57');}g.r(3,87,24,6,'#9c663e');}
+  // Briefkasten-Missionen: verlassenes Haus Nr. 7, alter Brunnen (kaputt/repariert), Schatzhügel
+  if(kind==='ruine'){c=cnv(82,96);g=G(c);g.r(2,84,78,10,'#8a8070');g.r(6,40,70,48,'#9c8f7c');g.r(6,40,70,3,'#b3a690');for(let i=0;i<6;i++)g.r(8+i*12,46+(i%2)*9,6,2,'#867a68');
+   for(let y=0;y<32;y++)g.r(41-y*1.3,8+y,Math.max(2,y*2.6),1,y%3?'#6e5a4e':'#5a4a40');g.r(26,24,9,6,'#2b2420');g.r(50,30,7,5,'#2b2420');
+   for(const wx of [12,56]){g.r(wx,54,14,14,'#3a3430');g.line(wx,56,wx+13,66,'#a07a50',2);g.line(wx,66,wx+13,56,'#a07a50',2);}
+   g.r(34,62,14,26,'#4a3a30');g.r(36,64,10,22,'#5a463a');g.r(38,55,7,6,'#e8dcc0');g.r(39,56,5,1,'#2b1e2a');g.r(42,57,1,3,'#2b1e2a');
+   g.r(4,82,7,4,'#5a7a3a');g.r(70,80,6,6,'#5a7a3a');g.r(64,83,4,3,'#6f8f45');}
+  if(kind==='brunnen_alt'||kind==='brunnen_neu'){const neu=kind==='brunnen_neu';c=cnv(20,28);g=G(c);g.ell(10,22,9,5,neu?'#a8a196':'#8f8a80');g.ell(10,21,7,3,neu?(se===3?'#cfe3f0':'#4f8fcf'):'#3a3430');
+   if(neu){g.r(1,5,2,16,'#8a5a33');g.r(17,5,2,16,'#8a5a33');g.r(0,2,20,4,'#b8302a');g.r(0,2,20,1,'#d9473a');g.r(9,6,1,9,'#d9c9a0');g.r(7,14,5,4,'#8a5a33');}
+   else{g.r(2,8,2,13,'#7a5a3a');g.line(4,10,15,15,'#7a5a3a',2);g.line(6,22,9,25,'#5a5048',1);g.r(14,23,3,2,'#6a6458');}}
+  if(kind==='erdhuegel'){c=cnv(16,10);g=G(c);g.ell(8,7,7,3,'#7a5a3a');g.ell(8,6,5,2,'#94704a');g.p(5,6,'#5a4030');g.p(10,5,'#5a4030');g.p(8,7,'#5a4030');}
   if(kind==='zug'){c=cnv(66,38);g=G(c);g.r(2,7,62,24,'#3e6578');g.r(3,25,60,6,'#d4bd84');for(let i=0;i<4;i++)g.r(6+i*14,10,10,9,'#b5dbe6');for(const x of [11,49]){g.disc(x,32,5,'#32343d');g.disc(x,32,2,'#aaaaa2');}g.r(0,3,66,5,'#b14f42');g.r(52,0,5,6,'#333b40');}
   if(kind==="box"){ c=cnv(18,20); g=G(c); g.r(1,6,16,13,"#a8743f"); g.r(1,6,16,2,"#c58d52"); g.r(1,11,16,1,"#8a5a33"); g.r(1,15,16,1,"#8a5a33"); g.r(2,7,1,12,"#8a5a33"); g.r(15,7,1,12,"#8a5a33"); g.r(0,3,18,4,"#7a4f2b"); g.r(0,3,18,1,"#9a6a3c"); g.r(7,4,4,2,"#f3d77a"); if(se===3) g.r(0,2,18,2,"#ffffff"); }
   if(kind==="mailbox"){ c=cnv(14,24); g=G(c); g.r(6,10,2,13,"#6b4423"); g.r(1,3,12,8,"#3f5a8a"); g.r(1,3,12,2,"#5a7ab0"); g.r(2,6,10,1,"#2c4066"); if(extra){ g.r(11,0,2,6,"#d9473a"); g.r(12,0,2,2,"#d9473a"); } if(se===3) g.r(1,2,12,1,"#ffffff"); }
