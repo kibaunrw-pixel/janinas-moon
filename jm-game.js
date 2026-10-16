@@ -258,6 +258,8 @@ function spawnAnimals(){
 }
 function setMap(id,x,y){
   camSnap=true; CRIT=[];
+  /* Unbekannte Karten-ID (beschädigter Spielstand) darf den Start nicht anhalten: sicher auf den Hof. */
+  if(!MAPS[id]){ console.warn("Unbekannte Karte",id,"– Start auf dem Hof"); id="farm"; x=5; y=8; }
   JM.Ausbau.enterMine(S,id,MAPS,rnd);
   M=MAPS[id]; P.x=x; P.y=y; P.path=[]; P.act=null; P.queue=[]; aim=null;
   if(JM.Ausbau.repairCollectibles(S,M)&&!demo)note('Ein verirrter Fund liegt jetzt am nächsten erreichbaren Weg. Nichts ging verloren.');

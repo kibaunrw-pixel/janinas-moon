@@ -1,0 +1,19 @@
+AssertionError [ERR_ASSERTION]: Start trotz Karte gibtsnicht
++ actual - expected
+
+  {
++   err: "TypeError: Cannot read properties of undefined (reading 'cave')"
+-   map: 'farm',
+-   x: 5,
+-   y: 8
+  }
+
+    at /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/karten-fallback.cjs:9:9 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: [Object],
+  expected: [Object],
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+exit 1
