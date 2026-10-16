@@ -45,5 +45,130 @@
       "bytes": 474939,
       "sha256": "7807f9c44353ba6a62805e734668a2d2b0f46743bbfab82a1d8d1b06b3ff2bad"
     }
-  ]
+  ],
+  "briefkastenEtappe": {
+    "basis": "403c9a9",
+    "hinweis": "Bilder aus Einzelläufen der Browserwege (briefe-browser, stadt-browser, stadt-zusatz); jedes Bild vor Aufnahme angesehen. Kein Abnahmeurteil.",
+    "screenshots": [
+      {
+        "path": "docs/belege/briefe/brief-schatz-390-2d.png",
+        "bytes": 286318,
+        "sha256": "647b0cbefd884291c00add3f13ef75fd966dfe40be88ce50f4bc7f994cf7f859",
+        "angesehen": true,
+        "inhalt": "Brief „Eine zerknitterte Karte“ vollständig lesbar, Knöpfe Zurück/Schließen, Aufgabe oben"
+      },
+      {
+        "path": "docs/belege/briefe/briefkasten-schatz-390-2d.png",
+        "bytes": 196954,
+        "sha256": "3963460ab2298ccff54f6636c308d40a7c07cebfd642ed2c3acf2aa051c362a7",
+        "angesehen": true,
+        "inhalt": "Briefkasten mobil: „1 ungelesen · 19 Briefe“, Neu-Abschnitt mit Geheimnisbrief, gelesene Briefe darunter, kein waagrechter Überlauf"
+      },
+      {
+        "path": "docs/belege/briefe/brunnen-mitternacht-1440-3d.png",
+        "bytes": 710069,
+        "sha256": "ee00d0bf2e6d3457f700ee185c5c914f43d43714165da4c6706ae2d570a8fabd",
+        "angesehen": true,
+        "inhalt": "Nachtbeleuchtung am alten (kaputten) Brunnen, Dialog beginnt; HUD-Uhr zeigt wegen Zeit-Fixture noch 06:30"
+      },
+      {
+        "path": "docs/belege/briefe/brunnen-repariert-1440-3d.png",
+        "bytes": 698151,
+        "sha256": "1d97d7f805385be5594b1af4ef0c4c7bef1f3e183b48ac57e1562e32063096ff",
+        "angesehen": true,
+        "inhalt": "Reparierter Brunnen mit rotem Dach und Wasser in 3D, Geld 4.700 G"
+      },
+      {
+        "path": "docs/belege/briefe/brunnen-repariert-390-2d.png",
+        "bytes": 615981,
+        "sha256": "d1c09d15443fe133acd892b11a98af08fdce896af25ef461cdc83e0e5ca8f0f7",
+        "angesehen": true,
+        "inhalt": "Dorf mobil 2D, reparierter Brunnen klein unten rechts neben der Spielfigur"
+      },
+      {
+        "path": "docs/belege/briefe/haus7-elva-1440-2d.png",
+        "bytes": 584209,
+        "sha256": "c25ee96e7006cd825cf257034f777e97c33f5e6e66cb8584ca5a11369a9f9f9a",
+        "angesehen": true,
+        "inhalt": "Renoviertes Haus Nr. 7 mit Elva und Janina davor (2D Rechner), Geld 4.620 G"
+      },
+      {
+        "path": "docs/belege/briefe/haus7-elva-390-3d.png",
+        "bytes": 728155,
+        "sha256": "b278f53bca21b7ff8ae648cf27aa7aa4704ca5251050fc84c1c68e009b471f5c",
+        "angesehen": true,
+        "inhalt": "Renoviertes Haus Nr. 7 mit Elva davor (3D mobil), Geld 4.620 G"
+      },
+      {
+        "path": "docs/belege/briefe/haus7-renovierung-390-3d.png",
+        "bytes": 692662,
+        "sha256": "0ce465ae8f7d2f255326515367a6c854dd17ea2edb4bf992b27f6dee8d19a93f",
+        "angesehen": true,
+        "inhalt": "Haus Nr. 7 in Renovierung (3D, Dach im Bau), Hinweis „Timo beginnt mit der Renovierung. In 2 Nächten ist sie fertig.“, Geld 4.380 G"
+      },
+      {
+        "path": "docs/belege/briefe/haus7-verlassen-1440-2d.png",
+        "bytes": 576462,
+        "sha256": "a87696c8fffeae90e27c19f07ac9814eaaf3473f6e459c61cf57fd9da5d69a8f",
+        "angesehen": true,
+        "inhalt": "Lindenstadt 2D: Haus Nr. 7 verfallen (vernagelte Fenster), Wegweiser an der Tür, Aufgabe „Haus Nummer 7“"
+      },
+      {
+        "path": "docs/belege/briefe/schatz-gefunden-1440-3d.png",
+        "bytes": 881462,
+        "sha256": "7b92314fa04520fc873ed0bd8bd0c2ca5d2afd3d9964904c24f0b1aad2c94c09",
+        "angesehen": true,
+        "inhalt": "Schatzfund am Rechner in 3D, Dialog und Schriftzug sichtbar, Geld 5.300 G"
+      },
+      {
+        "path": "docs/belege/briefe/schatz-gefunden-390-2d.png",
+        "bytes": 635422,
+        "sha256": "273be4e6fc1ec5175ce63b954cdfcebb0298c1aeca9f16360aa80c7f2e6703dc",
+        "angesehen": true,
+        "inhalt": "„Schatz gefunden!“, Dialog 300 G und 3 Kupfererz, Geld 5.300 G"
+      },
+      {
+        "path": "docs/belege/briefe/schatz-huegel-390-2d.png",
+        "bytes": 616896,
+        "sha256": "7286961a6392301f45fcd561d6848f9c2388f94ece89f8d3de3657812817c542",
+        "angesehen": true,
+        "inhalt": "Mondwald mobil 2D: drei kleine Erdhügel um den Mondbaum, Wegweiser am Baum"
+      },
+      {
+        "path": "docs/belege/stadt-abnahme/drei-haeuser-holzrahmen-390-3d.png",
+        "bytes": 731813,
+        "sha256": "c9560c7eb378c8e559c61f0cd54c47bc616be00698d154a3bb6a0ddad540f44c",
+        "angesehen": true,
+        "inhalt": "Drei Bauplätze in Phase Holzrahmen (3D mobil, frühmorgens dunkel)"
+      },
+      {
+        "path": "docs/belege/stadt-abnahme/drei-haeuser-mieter-1440-2d.png",
+        "bytes": 574489,
+        "sha256": "dcaaad0168b1a01008df03101148dafeaeee8fd729833d7cea56055e4d216ce0",
+        "angesehen": true,
+        "inhalt": "Drei fertige Mietshäuser in Lindenstadt (2D), Fenster beleuchtet, Geld 500 G"
+      },
+      {
+        "path": "docs/belege/stadt-abnahme/stadt-fundament-1440-2d.png",
+        "bytes": 542766,
+        "sha256": "a6cb90b487e44951637f06d1ed4100c019d38cda91b092ac7a657e82b16084d5",
+        "angesehen": true,
+        "inhalt": "Fundament (Baustufe 1) auf dem ersten Bauplatz, Geld 3.500 G (2D)"
+      },
+      {
+        "path": "docs/belege/stadt-abnahme/stadt-miete-390-3d.png",
+        "bytes": 225655,
+        "sha256": "032f665e4af0b3f013b622c17d17571fd443c8f7c5dc1e9b67fdef20bf006415",
+        "angesehen": true,
+        "inhalt": "Zuhause nach Nacht mit Miete, Geld 3.560 G (3D mobil, Raum klein dargestellt)"
+      },
+      {
+        "path": "docs/belege/stadt-abnahme/stadt-vermietet-1440-2d.png",
+        "bytes": 549485,
+        "sha256": "70a84c775956d57d736dd7feba76571682c5093fab10a8ae6a147633c21ae1f1",
+        "angesehen": true,
+        "inhalt": "Ein fertiges Haus mit Mieterin davor, zwei leere Bauplätze, Haus Nr. 7 verfallen (2D)"
+      }
+    ]
+  }
 }
