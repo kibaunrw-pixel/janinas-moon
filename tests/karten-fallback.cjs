@@ -11,4 +11,6 @@ for(const [map,level] of [['gibtsnicht',0],['haus_oben',0]]){
  // Auch ein Laufzeitwechsel auf eine unbekannte ID darf nicht werfen.
  assert.equal(await p.evaluate(()=>{try{JMDEBUG.setMap('gibtsnicht',2,2);return JMDEBUG.M.id;}catch(e){return String(e);}}),'farm');
 }
-assert.deepEqual(errors,[]);console.log('Unbekannte Karten-ID → sicherer Start auf dem Hof OK');}finally{await b.close();}})().catch(e=>{console.error(e);process.exitCode=1;});
+assert.deepEqual(errors,[]);console.log('Unbekannte Karten-ID → sicherer Start auf dem Hof OK');}finally{await b.close();}})().catch(e=>{console.error(e);process.exitCode=1;})
+/* Ausdrücklich beenden: von Chrome gestartete Hilfsprozesse (Crashpad, GoogleUpdater) können die geerbte stderr-Pipe offen halten. */
+.finally(()=>process.exit());

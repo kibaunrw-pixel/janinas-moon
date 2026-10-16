@@ -12,7 +12,12 @@ const c=await b.newContext({viewport,deviceScaleFactor:viewport.width===390?2:1}
 await p.goto(process.env.BASE_URL||'http://127.0.0.1:8765/');await p.waitForFunction(()=>window.JMDEBUG&&JM.R3?.ok&&JM.Post);
 const tag=`${seg}-${viewport.width}-${gfx}`;
 async function shot(name){const f=path.join(out,`${name}-${viewport.width}-${gfx}.png`);await p.waitForTimeout(500);await p.screenshot({path:f});return f;}
-async function click(x,y,h=.05){await p.waitForTimeout(450);const pixel=await p.evaluate(({x,y,h,gfx})=>gfx==='3d'?JM.R3.proj(x+.5,y+.5,h).map(n=>n/devicePixelRatio):[(x*16+8-Math.round(JMDEBUG.cam.x))*JMDEBUG.scale,(y*16+8-Math.round(JMDEBUG.cam.y))*JMDEBUG.scale],{x,y,h,gfx});
+async function click(x,y,h=.05,actorOk=false){await p.waitForTimeout(450);
+ /* Hunde/Figuren können vor einem Objekt stehen und den Klick abfangen (beobachtet: Pudel vor dem Briefkasten → Hundedialog).
+    Dann wie eine Spielerin kurz warten, bis das Ziel frei ist; keine Teleports, keine verdeckten HUDs. */
+ if(!actorOk)for(let i=0;i<60;i++){const blocker=await p.evaluate(({x,y,h,gfx})=>{const d=JMDEBUG,actors=[...Object.values(JM.ENG.NPCA).filter(a=>a.vis),...(d.RA.vis?[d.RA]:[]),...d.DOGS];
+  if(gfx==='3d'){const r=JM.R3.proj(x+.5,y+.5,h).map(n=>n/devicePixelRatio),hit=JM.R3.pick(...r);return hit&&hit.actor&&hit.actor!=='P'?String(hit.actor):null;}
+  const a=actors.find(a=>Math.abs(x-a.x)<1.2&&y+.5>a.y-1.3&&y+.5<a.y+1.4);return a?(a.id||a.name||'figur'):null;},{x,y,h,gfx});if(!blocker)break;if(i===59)throw Error('Ziel dauerhaft verdeckt von '+blocker+' '+JSON.stringify({x,y}));await p.waitForTimeout(500);}const pixel=await p.evaluate(({x,y,h,gfx})=>gfx==='3d'?JM.R3.proj(x+.5,y+.5,h).map(n=>n/devicePixelRatio):[(x*16+8-Math.round(JMDEBUG.cam.x))*JMDEBUG.scale,(y*16+8-Math.round(JMDEBUG.cam.y))*JMDEBUG.scale],{x,y,h,gfx});
  assert.ok(pixel[0]>0&&pixel[0]<viewport.width&&pixel[1]>0&&pixel[1]<viewport.height,'sichtbares Ziel '+JSON.stringify({x,y,pixel,gfx}));assert.equal(await p.evaluate(([x,y])=>document.elementFromPoint(x,y)?.tagName,pixel),'CANVAS','freies Weltziel '+JSON.stringify({x,y,pixel}));await p.mouse.click(...pixel);}
 async function walk(x,y){await p.waitForTimeout(500);
  for(let attempt=0;attempt<12;attempt++){const target=await p.evaluate(({x,y,gfx})=>{const d=JMDEBUG,m=d.M,actors=[...Object.values(JM.ENG.NPCA).filter(a=>a.vis),...(d.RA.vis?[d.RA]:[]),...d.DOGS];
@@ -31,7 +36,8 @@ const S=expr=>p.evaluate(expr);
 async function sleep(){await click(11,3,.5);await p.getByRole('button',{name:'Gute Nacht',exact:true}).click();await p.waitForFunction(()=>!JMDEBUG.busy.ui.fade,null,{timeout:20000});await map('haus');
  /* Fixture: zufällige Tagesziele leeren, damit die Geldbilanz nur Miete/Missionen enthält */await S(()=>{JMDEBUG.S.daily.goals=[];});}
 async function toFarm(){await walk(7,9);await click(7,10);await map('farm');}
-async function toMailbox(){await walk(6,8);await walk(7,8);await click(7,7,.6);await p.getByRole('heading',{name:'Briefkasten',exact:true}).waitFor();}
+async function diag(what){const d=await p.evaluate(()=>{const r=JMDEBUG.M.id;return {map:r,p:[JMDEBUG.P.x,JMDEBUG.P.y],idle:JMDEBUG.idle,busy:JSON.stringify(JMDEBUG.busy),min:JMDEBUG.S.min,dlg:document.querySelector('#dlg')?.innerText,panel:document.querySelector('#panel')?.innerText?.slice(0,200),notes:[...document.querySelectorAll('.note,#note,.toast')].map(n=>n.innerText).join('|')};});console.error('DIAG',what,tag,JSON.stringify(d));await shot('diag-'+what+'-'+seg);}
+async function toMailbox(){await walk(6,8);await walk(7,8);await click(7,7,.6);try{await p.getByRole('heading',{name:'Briefkasten',exact:true}).waitFor({timeout:8000});}catch(e){await diag('briefkasten');throw e;}}
 async function readLetter(title){const row=p.locator('[data-a="read"]',{hasText:title}).first();await row.scrollIntoViewIfNeeded();await row.click();await p.getByRole('heading',{name:title,exact:true}).waitFor();}
 async function backHome(){await walk(9,8);await walk(7,8);await click(5,5,1);await map('haus');}
 async function farmToVillage(){await walk(11,8);await walk(13,8);await walk(13,12);await walk(13,15);await walk(17,15);await walk(22,15);await click(27,15);await map('village');}
@@ -100,7 +106,7 @@ if(seg==='haus7'){
  await toFarm();await toMailbox();await readLetter('Licht in Haus Nummer 7');await close();
  await farmToVillage();await villageSouthEast();await toCity();await cityToHouse7();await p.waitForFunction(()=>JM.ENG.NPCA.elva?.vis);
  assert.equal(await S(()=>JMDEBUG.M.obj.find(o=>o.act==='post:haus7').k),'house');row.shots.push(await shot('haus7-elva'));
- const e=await S(()=>({x:JM.ENG.NPCA.elva.x,y:JM.ENG.NPCA.elva.y}));await click(e.x,e.y,1);await p.waitForFunction(()=>JMDEBUG.busy.ui.dialog);await dialogs();
+ const e=await S(()=>({x:JM.ENG.NPCA.elva.x,y:JM.ENG.NPCA.elva.y}));await click(e.x,e.y,1,true);await p.waitForFunction(()=>JMDEBUG.busy.ui.dialog);await dialogs();
  await reload();assert.equal(await S(()=>JMDEBUG.S.money),fin.money);row.result={money:fin.money};
 }
 if(seg==='brunnen'){
@@ -119,4 +125,7 @@ if(seg==='brunnen'){
  assert.equal(await S(()=>JM.Post.target(JMDEBUG.S)),null);row.result={money:m3.money-300};
 }
 assert.deepEqual(errors,[]);report.push(row);console.log('Briefe',tag,'OK',JSON.stringify(row.result));await c.close();
-}fs.writeFileSync(path.join(out,`briefe-browser-${SEGS.join('-')}.json`),JSON.stringify(report,null,2));}finally{await b.close();}})().catch(e=>{console.error(e);process.exitCode=1;});
+}fs.writeFileSync(path.join(out,`briefe-browser-${SEGS.join('-')}.json`),JSON.stringify(report,null,2));}finally{await b.close();}})().catch(e=>{console.error(e);process.exitCode=1;})
+/* Chrome startet gelegentlich Hilfsprozesse (Crashpad, GoogleUpdater), die die stderr-Pipe erben und offen halten;
+   Node würde dann nach erfolgreichem Lauf nie enden (beobachtet: Prozess hing nach „OK“). Daher ausdrücklich beenden. */
+.finally(()=>process.exit());
