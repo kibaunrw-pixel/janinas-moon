@@ -1,0 +1,6 @@
+Briefe haus7-390-2d OK {"money":4620}
+Wegversuch wiederholt haus7-390-3d { x: 7, y: 8, r: [ 225.45817202571712, 391.5919830711097, 0.5 ] }
+page.waitForFunction: Timeout 30000ms exceeded.
+    at /Users/reneklomfas/.hermes/cache/scratch/jm-snapC/tests/briefe-browser.cjs:115:105 {
+  name: 'TimeoutError'
+}

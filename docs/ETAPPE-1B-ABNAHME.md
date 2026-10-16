@@ -76,7 +76,8 @@ Abschlusslauf gegen den Schnappschuss `5be02f4` (Port 8765), Logs `docs/logs/abs
 | `node tests/ereignisse-browser.cjs verkauf` | erster Lauf 1 (Prüfaufbau: 390/3D „kein sichtbarer freier Boden nahe 4,8“), nach Harness-Ergänzung 0 |
 | `node tests/ereignisse-browser.cjs vermisst` | 390/2D, 390/3D, 1440/2D OK; 1440/3D zweimal Harness-Fehler („kein sichtbarer Boden“); nach Ergänzung `stepToward` Einzellauf `VIEWPORT=1440 GFX=3d` Exit 0. **Kein zusammenhängender Vier-Ansichten-Lauf mit dem endgültigen Harness** |
 | `node tests/briefe-browser.cjs schatz` | 390/2D, 390/3D, 1440/2D OK; 1440/3D **Exit 1** („kein sichtbarer freier Boden nahe 13,12“, lief parallel zu einem zweiten Browserlauf; `docs/logs/abschluss-briefe-schatz-rot-parallel.log`). Einzeln wiederholt (`VIEWPORT=1440 GFX=3d`, gleicher Produktcode, nur Diagnoseausgabe ergänzt): OK. Ursache nicht belegt, Verdacht Lastspitze durch Parallellauf |
-| `node tests/briefe-browser.cjs haus7` / `brunnen` | siehe Nachtrag unten |
+| `node tests/briefe-browser.cjs brunnen` | 0 (alle vier Ansichten) |
+| `node tests/briefe-browser.cjs haus7` | 390/2D OK; 390/3D **Exit 1** (kein Dialog nach Tipp auf Elva innerhalb von 30 s, lief parallel zu einem Diagnoselauf; `docs/logs/abschluss-briefe-haus7-rot-parallel.log`). Einzeln wiederholt 390/3D OK; `VIEWPORT=1440` (2D+3D) Exit 0 (`docs/logs/abschluss-briefe-haus7-1440.log`). Strahlprüfung am Elva-Standort vor Haus Nr. 7 (390/3D, Höhen 0,4–1,2) trifft jedes Mal Elva. Ursache des Ausreißers nicht belegt |
 
 Ein kompletter `run-all`-Lauf wurde wie vereinbart **nicht** gemacht. Neue Einträge in `run-all.cjs`: `tipp-vorrang`, `ereignisse` (Logik), `ereignisse-browser` (4000 s), `bahnhof-browser`, `jm-ereignisse.js` (Syntax).
 
@@ -88,7 +89,7 @@ Nach dem Schnappschuss `5be02f4` habe ich nur noch Folgendes geändert: eine Bri
 ## Offene Punkte
 - Unabhängiger Gesamtlauf (`node tests/run-all.cjs`) durch Hermes.
 - `ereignisse-browser vermisst` einmal vollständig in allen vier Ansichten mit dem endgültigen Harness.
-- Der Ausgang von `briefe-browser` stand bei Berichtsende noch aus.
+- `briefe-browser`: zwei Ausreißer unter Parallellast (schatz 1440/3D, haus7 390/3D), einzeln jeweils grün. Hermes sollte den vollen Aufruf ohne parallele Browserläufe einmal ausführen.
 - Ortsschild 2D: Nach der Verkleinerung der Schrift gibt es kein neues Bild.
 - Romantik, Café, Tiere und der Vollmondwald selbst sind nicht gebaut; die Waldtür ist nur die Vorkammer.
 - Balancing der neuen Belohnungen (150/250/200/250 G, Kaufpreis 900 G) ist ungeprüft.
