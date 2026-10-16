@@ -51,7 +51,7 @@ const assert=require('node:assert/strict');
  const backup=JSON.parse(fs.readFileSync(await download.path(),'utf8'));assert.equal(backup.house.level,1);assert.equal(backup.name,'Testhof');
  assert.deepEqual(errors,[]);console.log('Browser Kühlschrank/Küche/Mine/Zimmermann/Holz/Export',viewport,'OK');
  await context.close();}
- }finally{await browser.close();}
+ }finally{/* Begrenzt: Chrome-Hilfsprozesse (GoogleUpdater, Crashpad) halten sonst Chromes stdio offen und close() endet nie. */await Promise.race([browser.close(),new Promise(r=>setTimeout(r,8000))]);}
 })().catch(e=>{console.error(e);process.exitCode=1})
 /* Ausdrücklich beenden: von Chrome gestartete Hilfsprozesse (Crashpad, GoogleUpdater) können die geerbte stderr-Pipe offen halten. */
 .finally(()=>process.exit());

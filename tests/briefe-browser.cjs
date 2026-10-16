@@ -125,7 +125,7 @@ if(seg==='brunnen'){
  assert.equal(await S(()=>JM.Post.target(JMDEBUG.S)),null);row.result={money:m3.money-300};
 }
 assert.deepEqual(errors,[]);report.push(row);console.log('Briefe',tag,'OK',JSON.stringify(row.result));await c.close();
-}fs.writeFileSync(path.join(out,`briefe-browser-${SEGS.join('-')}.json`),JSON.stringify(report,null,2));}finally{await b.close();}})().catch(e=>{console.error(e);process.exitCode=1;})
+}fs.writeFileSync(path.join(out,`briefe-browser-${SEGS.join('-')}.json`),JSON.stringify(report,null,2));}finally{/* Begrenzt: Chrome-Hilfsprozesse (GoogleUpdater, Crashpad) halten sonst Chromes stdio offen und close() endet nie. */await Promise.race([b.close(),new Promise(r=>setTimeout(r,8000))]);}})().catch(e=>{console.error(e);process.exitCode=1;})
 /* Chrome startet gelegentlich Hilfsprozesse (Crashpad, GoogleUpdater), die die stderr-Pipe erben und offen halten;
    Node würde dann nach erfolgreichem Lauf nie enden (beobachtet: Prozess hing nach „OK“). Daher ausdrücklich beenden. */
 .finally(()=>process.exit());

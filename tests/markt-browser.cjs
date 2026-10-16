@@ -16,6 +16,6 @@ const {chromium}=require(process.env.PLAYWRIGHT_PATH||'playwright'),assert=requi
  await p.evaluate(()=>JMDEBUG.dlgNext());await p.waitForFunction(()=>!JMDEBUG.busy.ui.dialog);
  const rules=await p.evaluate(()=>{const s=JMDEBUG.S;return [[6,539],[6,540],[6,899],[6,900],[5,600],[20,600],[13,600],[8,600]].map(([day,min])=>{s.day=day;s.min=min;return JM.ENG.marketDay();});});assert.deepEqual(rules,[false,true,true,false,false,true,true,false]);
  await p.evaluate(()=>{JMDEBUG.S.day=5;JMDEBUG.S.min=600;});await clickTile(12,11,.7);await p.waitForTimeout(900);assert.equal(await p.getByRole('heading',{name:'Markttag',exact:true}).count(),0,'kein täglicher Markt');assert.deepEqual(errors,[]);console.log('Markt echter Pointer/Teilmenge/Rosa/Grenzen',viewport.width,gfx,'OK');await c.close();
-}}finally{await b.close()}})().catch(e=>{console.error(e);process.exitCode=1})
+}}finally{/* Begrenzt: Chrome-Hilfsprozesse (GoogleUpdater, Crashpad) halten sonst Chromes stdio offen und close() endet nie. */await Promise.race([b.close(),new Promise(r=>setTimeout(r,8000))]);}})().catch(e=>{console.error(e);process.exitCode=1})
 /* Ausdrücklich beenden: von Chrome gestartete Hilfsprozesse (Crashpad, GoogleUpdater) können die geerbte stderr-Pipe offen halten. */
 .finally(()=>process.exit());

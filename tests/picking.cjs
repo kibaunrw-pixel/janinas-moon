@@ -25,6 +25,6 @@ const {chromium}=require(process.env.PLAYWRIGHT_PATH||'playwright');const assert
   assert.equal(await page.evaluate(k=>JMDEBUG.S.inv[k]||0,item),before+1,item+': genau ein Fund im Inventar');
  }
  assert.deepEqual(errors,[]);console.log('3D Socke/Sammelfunde/Bauholz + Tierüberlappung/Feld/Doppeltipp',viewport,'OK');await context.close();
- }}finally{await browser.close();}})().catch(e=>{console.error(e);process.exitCode=1;})
+ }}finally{/* Begrenzt: Chrome-Hilfsprozesse (GoogleUpdater, Crashpad) halten sonst Chromes stdio offen und close() endet nie. */await Promise.race([browser.close(),new Promise(r=>setTimeout(r,8000))]);}})().catch(e=>{console.error(e);process.exitCode=1;})
 /* Ausdrücklich beenden: von Chrome gestartete Hilfsprozesse (Crashpad, GoogleUpdater) können die geerbte stderr-Pipe offen halten. */
 .finally(()=>process.exit());

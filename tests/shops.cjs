@@ -9,6 +9,6 @@ const {chromium}=require(process.env.PLAYWRIGHT_PATH||'playwright');const assert
  }
  await page.evaluate(()=>{const d=JMDEBUG,s=d.newState('Hinweisprobe',[{name:'A',fell:'weiss'},{name:'B',fell:'apricot'}]);s.sound=false;s.music=false;s.qDone=JM.QUESTS.slice(0,JM.QUESTS.findIndex(q=>q.id==='aufraeumen')).map(q=>q.id);d.startGame(s,false);});assert.match(await page.locator('#qProg').innerText(),/Heute liegt nichts herum/);
  await page.evaluate(()=>{const d=JMDEBUG,s=d.newState('Altquest',[{name:'A',fell:'weiss'},{name:'B',fell:'apricot'}]);s.sound=false;s.music=false;s.qDone=JM.QUESTS.slice(0,JM.QUESTS.findIndex(q=>q.id==='nachbarn')).map(q=>q.id);d.startGame(s,false);d.emit('meet','timo');});assert.equal(await page.evaluate(()=>JMDEBUG.S.quest.p),0,'Timo darf die vier ursprünglichen Nachbarn nicht ersetzen');
- console.log('Laden: 5×-Kauf bilanziert; Timo Öffnungsgrenzen und Sonntag/Regen OK');await context.close();}finally{await browser.close();}})().catch(e=>{console.error(e);process.exitCode=1})
+ console.log('Laden: 5×-Kauf bilanziert; Timo Öffnungsgrenzen und Sonntag/Regen OK');await context.close();}finally{/* Begrenzt: Chrome-Hilfsprozesse (GoogleUpdater, Crashpad) halten sonst Chromes stdio offen und close() endet nie. */await Promise.race([browser.close(),new Promise(r=>setTimeout(r,8000))]);}})().catch(e=>{console.error(e);process.exitCode=1})
 /* Ausdrücklich beenden: von Chrome gestartete Hilfsprozesse (Crashpad, GoogleUpdater) können die geerbte stderr-Pipe offen halten. */
 .finally(()=>process.exit());

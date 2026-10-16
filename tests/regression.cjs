@@ -33,6 +33,6 @@ const out=process.env.EVIDENCE_DIR||'/Users/reneklomfas/.hermes/cache/scratch/ja
  await page.evaluate(()=>JMDEBUG.openBook('opt'));await page.locator('[data-a="gfx"]').click();await page.getByRole('button',{name:'Schließen',exact:true}).click();await page.waitForFunction(()=>JM.R3?.ok);for(let i=0;i<3;i++)await page.locator('#zOut').click();await page.evaluate(()=>JMDEBUG.tap(18,5));await page.waitForFunction(()=>JMDEBUG.idle);await page.waitForTimeout(500);
  const benchPixel=await page.evaluate(()=>JM.R3.proj(19.5,3.5,.55));await page.mouse.click(benchPixel[0],benchPixel[1]);await page.getByRole('heading',{name:'Werkbank',exact:true}).waitFor();await page.getByRole('button',{name:'Schließen',exact:true}).click();await snap('haus-stufe2-3d');
  assert.equal(await page.evaluate(()=>JMDEBUG.S.maxE),120);assert.deepEqual(errors,[]);console.log('2D Mengen/Reload/Abbau/Durchlauf/Bett/beide Ausbauten',viewport,'OK');await context.close();
- }}finally{await browser.close();}})().catch(e=>{console.error(e);process.exitCode=1})
+ }}finally{/* Begrenzt: Chrome-Hilfsprozesse (GoogleUpdater, Crashpad) halten sonst Chromes stdio offen und close() endet nie. */await Promise.race([browser.close(),new Promise(r=>setTimeout(r,8000))]);}})().catch(e=>{console.error(e);process.exitCode=1})
 /* Ausdrücklich beenden: von Chrome gestartete Hilfsprozesse (Crashpad, GoogleUpdater) können die geerbte stderr-Pipe offen halten. */
 .finally(()=>process.exit());

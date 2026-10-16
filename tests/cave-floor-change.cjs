@@ -21,5 +21,5 @@ const {chromium}=require(process.env.PLAYWRIGHT_PATH||'playwright');
   const move=await p.evaluate(()=>({p:{x:JMDEBUG.P.x,y:JMDEBUG.P.y},idle:JMDEBUG.idle}));
   console.log(JSON.stringify({before,after,move,seen},null,2));
   await c.close();
- }finally{await b.close();}
+ }finally{/* Begrenzt: Chrome-Hilfsprozesse (GoogleUpdater, Crashpad) halten sonst Chromes stdio offen und close() endet nie. */await Promise.race([b.close(),new Promise(r=>setTimeout(r,8000))]);}
 })().catch(e=>{console.error('HARNESS',e);process.exitCode=1});

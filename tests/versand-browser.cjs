@@ -21,6 +21,6 @@ const out=process.env.EVIDENCE_DIR||'/Users/reneklomfas/.hermes/cache/scratch/ja
  const money=await p.evaluate(()=>JMDEBUG.S.money),price=await p.evaluate(()=>JM.ITEMS.ei.sell);assert.equal(money,500+5*price);assert.equal(await p.evaluate(()=>JMDEBUG.S.shipLog.ei),5);assert.equal(await p.evaluate(()=>JMDEBUG.S.inv.ei),7);assert.equal(await p.evaluate(()=>Object.keys(JMDEBUG.S.ship).length),0);
  await p.reload();await p.getByRole('button',{name:'Weiterspielen',exact:true}).click();assert.equal(await p.evaluate(()=>JMDEBUG.S.money),money);assert.equal(await p.evaluate(()=>Object.keys(JMDEBUG.S.ship).length),0);
  await p.evaluate(()=>JMDEBUG.openBag('ship'));assert.equal(await p.locator('[data-a="shipoutn"]').count(),0,'verkaufte Ware nicht zurückholbar');assert.deepEqual(errors,[]);console.log('Versand Menge/Enter/Teilrücknahme/Doppelklick/Reload/Tagesverkauf',viewport.width,'OK');await c.close();
-}}finally{await b.close()}})().catch(e=>{console.error(e);process.exitCode=1})
+}}finally{/* Begrenzt: Chrome-Hilfsprozesse (GoogleUpdater, Crashpad) halten sonst Chromes stdio offen und close() endet nie. */await Promise.race([b.close(),new Promise(r=>setTimeout(r,8000))]);}})().catch(e=>{console.error(e);process.exitCode=1})
 /* Ausdrücklich beenden: von Chrome gestartete Hilfsprozesse (Crashpad, GoogleUpdater) können die geerbte stderr-Pipe offen halten. */
 .finally(()=>process.exit());

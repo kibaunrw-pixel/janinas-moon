@@ -18,6 +18,6 @@ const out=process.env.EVIDENCE_DIR||'/Users/reneklomfas/.hermes/cache/scratch/ja
  if(level===2){await walk(15,7);await walk(12,7);}await walk(9,8);await walk(5,8);await click(2,8,.6);await p.waitForFunction(()=>JMDEBUG.M.id==='haus');await p.waitForFunction(()=>!JMDEBUG.busy.ui.fade);
  await walk(14,6);await walk(10,8);await walk(7,9);await click(7,10);await p.waitForFunction(()=>JMDEBUG.M.id==='farm');assert.deepEqual(errors,[]);
  console.log('Altbau Haus→Treppe→Wohnetage→Hof',viewport.width,gfx,'Stufe',level,'OK');await c.close();
-}}finally{await b.close()}})().catch(e=>{console.error(e);process.exitCode=1})
+}}finally{/* Begrenzt: Chrome-Hilfsprozesse (GoogleUpdater, Crashpad) halten sonst Chromes stdio offen und close() endet nie. */await Promise.race([b.close(),new Promise(r=>setTimeout(r,8000))]);}})().catch(e=>{console.error(e);process.exitCode=1})
 /* Ausdrücklich beenden: von Chrome gestartete Hilfsprozesse (Crashpad, GoogleUpdater) können die geerbte stderr-Pipe offen halten. */
 .finally(()=>process.exit());

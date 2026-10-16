@@ -34,5 +34,5 @@ const assert=require('node:assert/strict');
   assert.deepEqual(errs,[],'Auch nach dem Ebenenwechsel keine Fehler');
   console.log('Höhlenebene 2+: Schleife läuft, Wegweiser ok, Rückweg ok',JSON.stringify({vor,nach,ziel,zurueck}));
   await c.close();
- }finally{await b.close();}
+ }finally{/* Begrenzt: Chrome-Hilfsprozesse (GoogleUpdater, Crashpad) halten sonst Chromes stdio offen und close() endet nie. */await Promise.race([b.close(),new Promise(r=>setTimeout(r,8000))]);}
 })().catch(e=>{console.error('ROT/FAIL:',e.message);process.exitCode=1});
