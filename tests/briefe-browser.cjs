@@ -37,7 +37,13 @@ async function sleep(){await click(11,3,.5);await p.getByRole('button',{name:'Gu
  /* Fixture: zufällige Tagesziele leeren, damit die Geldbilanz nur Miete/Missionen enthält */await S(()=>{JMDEBUG.S.daily.goals=[];});}
 async function toFarm(){await walk(7,9);await click(7,10);await map('farm');}
 async function diag(what){const d=await p.evaluate(()=>{const r=JMDEBUG.M.id;return {map:r,p:[JMDEBUG.P.x,JMDEBUG.P.y],idle:JMDEBUG.idle,busy:JSON.stringify(JMDEBUG.busy),min:JMDEBUG.S.min,dlg:document.querySelector('#dlg')?.innerText,panel:document.querySelector('#panel')?.innerText?.slice(0,200),notes:[...document.querySelectorAll('.note,#note,.toast')].map(n=>n.innerText).join('|')};});console.error('DIAG',what,tag,JSON.stringify(d));await shot('diag-'+what+'-'+seg);}
-async function toMailbox(){await walk(6,8);await walk(7,8);await click(7,7,.6);try{await p.getByRole('heading',{name:'Briefkasten',exact:true}).waitFor({timeout:8000});}catch(e){await diag('briefkasten');throw e;}}
+/* Hunde können sich zwischen Prüfung und Tipp vor den Briefkasten bewegen (beobachtet im vollen Lauf haus7 390/3D: Dialog „A schaut dich mit großen Augen an.“).
+   Dann wie eine Spielerin: Hundedialog über die Oberfläche schließen und erneut tippen, höchstens dreimal. */
+async function toMailbox(){await walk(6,8);await walk(7,8);
+ for(let attempt=0;;attempt++){await click(7,7,.6);const got=await Promise.race([p.getByRole('heading',{name:'Briefkasten',exact:true}).waitFor({timeout:8000}).then(()=>'panel'),p.waitForFunction(()=>window.JMDEBUG&&JMDEBUG.busy.ui.dialog,null,{timeout:8000}).then(()=>'dialog')]).catch(()=>'nichts');
+  if(got==='panel'||await p.getByRole('heading',{name:'Briefkasten',exact:true}).isVisible())return;if(attempt>=3||got!=='dialog'){await diag('briefkasten');throw Error('Briefkasten nicht geöffnet: '+got);}
+  console.error('Briefkastentipp abgefangen, Versuch',attempt+1,await p.evaluate(()=>document.querySelector('#dlg')?.innerText?.slice(0,60)));
+  const dog=p.locator('#dlg button',{hasText:'Streicheln'});if(await dog.count())await dog.first().click();await dialogs();await p.waitForFunction(()=>JMDEBUG.idle,null,{timeout:10000});if(await S(()=>Math.round(JMDEBUG.P.x)!==7||Math.round(JMDEBUG.P.y)!==8))await walk(7,8);}}
 async function readLetter(title){const row=p.locator('[data-a="read"]',{hasText:title}).first();await row.scrollIntoViewIfNeeded();await row.click();await p.getByRole('heading',{name:title,exact:true}).waitFor();}
 async function backHome(){await walk(9,8);await walk(7,8);await click(5,5,1);await map('haus');}
 async function farmToVillage(){await walk(11,8);await walk(13,8);await walk(13,12);await walk(13,15);await walk(17,15);await walk(22,15);await click(27,15);await map('village');}

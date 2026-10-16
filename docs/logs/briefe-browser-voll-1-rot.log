@@ -1,0 +1,15 @@
+Briefe schatz-390-2d OK {"money":5300}
+Briefe schatz-390-3d OK {"money":5300}
+Briefe schatz-1440-2d OK {"money":5300}
+Briefe schatz-1440-3d OK {"money":5300}
+Briefe haus7-390-2d OK {"money":4620}
+DIAG briefkasten haus7-390-3d {"map":"farm","p":[6,9],"idle":true,"busy":"{\"ui\":{\"panel\":false,\"dialog\":true,\"fade\":false},\"fish\":null}","min":371.49949999999825,"dlg":"A\nA schaut dich mit großen Augen an.\nStreicheln\nMitkommen lassen","panel":"Schlafen gehen?Der Tag endet und das Spiel wird gespeichert. Gegossene Pflanzen wachsen über Nacht.Gute NachtNoch nicht","notes":"Du hast Post im Briefkasten."}
+locator.waitFor: Timeout 8000ms exceeded.
+Call log:
+  - waiting for getByRole('heading', { name: 'Briefkasten', exact: true }) to be visible
+
+    at toMailbox (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/briefe-browser.cjs:40:145)
+    at async /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/briefe-browser.cjs:66:16 {
+  name: 'TimeoutError'
+}
+EXIT 1
