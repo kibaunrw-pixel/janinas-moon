@@ -1,0 +1,70 @@
+TAP version 13
+# Subtest: Altspielstand ohne neue Felder: Besitz unverändert, neue Missionen leer, ältere Missionen unberührt
+ok 1 - Altspielstand ohne neue Felder: Besitz unverändert, neue Missionen leer, ältere Missionen unberührt
+  ---
+  duration_ms: 1.143166
+  type: 'test'
+  ...
+# Subtest: Reihenfolge: neue Ereignisse erst nach den drei alten, nur wenn sinnvoll (Eignung), nie zwei gleichzeitig
+ok 2 - Reihenfolge: neue Ereignisse erst nach den drei alten, nur wenn sinnvoll (Eignung), nie zwei gleichzeitig
+  ---
+  duration_ms: 0.908708
+  type: 'test'
+  ...
+# Subtest: W61 Mieter verschwunden: Zettel → Bahnhof → Wiedersehen; Miete läuft weiter; Belohnung einmal; Mieter bleibt
+ok 3 - W61 Mieter verschwunden: Zettel → Bahnhof → Wiedersehen; Miete läuft weiter; Belohnung einmal; Mieter bleibt
+  ---
+  duration_ms: 9.003209
+  type: 'test'
+  ...
+# Subtest: W61 Belohnungsbilanz: genau +150 G und +2 Tee
+ok 4 - W61 Belohnungsbilanz: genau +150 G und +2 Tee
+  ---
+  duration_ms: 0.19125
+  type: 'test'
+  ...
+# Subtest: W62 Haus zu verkaufen: Ruine auf freiem Bauplatz → Kauf 900 G → derselbe Bauplatz bezugsfertig → Mietanfrage; einmalig
+ok 5 - W62 Haus zu verkaufen: Ruine auf freiem Bauplatz → Kauf 900 G → derselbe Bauplatz bezugsfertig → Mietanfrage; einmalig
+  ---
+  duration_ms: 3.083375
+  type: 'test'
+  ...
+# Subtest: W62 Ablehnen schließt ab, Bauplatz bleibt frei; anderweitig bebaut → Ereignis endet ohne Kosten
+ok 6 - W62 Ablehnen schließt ab, Bauplatz bleibt frei; anderweitig bebaut → Ereignis endet ohne Kosten
+  ---
+  duration_ms: 0.312792
+  type: 'test'
+  ...
+# Subtest: W63 Villa: nur mit bewohntem Haus Nr. 7; Treffen am Stadtbrunnen; Entscheidung genau einmal mit Folgen
+ok 7 - W63 Villa: nur mit bewohntem Haus Nr. 7; Treffen am Stadtbrunnen; Entscheidung genau einmal mit Folgen
+  ---
+  duration_ms: 2.8935
+  type: 'test'
+  ...
+# Subtest: W64 Geheime Tür: Brief → Tür im Mondwald → Gewölbe → Truhe einmal → Tafel kündigt Vollmondwald an → Rückweg
+ok 8 - W64 Geheime Tür: Brief → Tür im Mondwald → Gewölbe → Truhe einmal → Tafel kündigt Vollmondwald an → Rückweg
+  ---
+  duration_ms: 5.2705
+  type: 'test'
+  ...
+# Subtest: W65 Mysteriöser Bewohner: Tagesplan an drei Orten, Geheimnis nach drei Treffen, Belohnung einmal, Jonas bleibt
+ok 9 - W65 Mysteriöser Bewohner: Tagesplan an drei Orten, Geheimnis nach drei Treffen, Belohnung einmal, Jonas bleibt
+  ---
+  duration_ms: 5.360375
+  type: 'test'
+  ...
+# Subtest: Alle neuen Missionsziele liegen auf vorhandenen Karten und erreichbaren Kacheln
+ok 10 - Alle neuen Missionsziele liegen auf vorhandenen Karten und erreichbaren Kacheln
+  ---
+  duration_ms: 19.896542
+  type: 'test'
+  ...
+1..10
+# tests 10
+# suites 0
+# pass 10
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 103.652125

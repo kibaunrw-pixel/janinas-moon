@@ -1,0 +1,8 @@
+{"seg":"geheimnis","width":390,"gfx":"2d","ok":true,"raf":62,"result":{"henk":3}}
+{"seg":"streit","width":390,"gfx":"2d","ok":true,"raf":62,"result":{"streit":"versoehnt"}}
+{"seg":"paar","width":390,"gfx":"2d","ok":true,"raf":62,"result":{"paar":"paar"}}
+{"seg":"picknick","width":390,"gfx":"2d","ok":true,"raf":62,"result":{"pick":1,"mv":"fertig"}}
+{"seg":"ausflug","width":390,"gfx":"2d","ok":true,"raf":61,"result":{"aus":1}}
+{"seg":"jahrestag","width":390,"gfx":"2d","ok":true,"raf":62,"result":{"jt":1}}
+{"seg":"geburtstag","width":390,"gfx":"2d","ok":true,"raf":62,"result":{"jb":true}}
+OK etappe2-browser geheimnis,streit,paar,picknick,ausflug,jahrestag,geburtstag

@@ -1,0 +1,12 @@
+browser-390-2d | env VIEWPORT=390 GFX=2d /Users/reneklomfas/.hermes/node/bin/node tests/etappe2-browser.cjs | Exit 0 | 344 s
+browser-390-3d | env VIEWPORT=390 GFX=3d /Users/reneklomfas/.hermes/node/bin/node tests/etappe2-browser.cjs | Exit 0 | 341 s
+browser-1440-2d | env VIEWPORT=1440 GFX=2d /Users/reneklomfas/.hermes/node/bin/node tests/etappe2-browser.cjs | Exit 0 | 354 s
+browser-1440-3d | env VIEWPORT=1440 GFX=3d /Users/reneklomfas/.hermes/node/bin/node tests/etappe2-browser.cjs | Exit 0 | 368 s
+logik | /Users/reneklomfas/.hermes/node/bin/node --test tests/ausbau.test.cjs tests/wohnraum.test.cjs tests/versand.test.cjs tests/markt.test.cjs tests/riesenpflanzen.test.cjs tests/abgaben.test.cjs tests/stadt.test.cjs tests/briefe.test.cjs tests/ereignisse.test.cjs tests/etappe2.test.cjs | Exit 0 | 1 s
+ereignisse-test | /Users/reneklomfas/.hermes/node/bin/node --test tests/ereignisse.test.cjs | Exit 0 | 0 s
+tipp-vorrang | /Users/reneklomfas/.hermes/node/bin/node tests/tipp-vorrang.cjs | Exit 0 | 79 s
+picking | /Users/reneklomfas/.hermes/node/bin/node tests/picking.cjs | Exit 0 | 11 s
+offline | /Users/reneklomfas/.hermes/node/bin/node tests/offline.cjs | Exit 0 | 3 s
+briefe-browser | /Users/reneklomfas/.hermes/node/bin/node tests/briefe-browser.cjs | Exit 0 | 1594 s
+stadt-browser | /Users/reneklomfas/.hermes/node/bin/node tests/stadt-browser.cjs | Exit 0 | 684 s
+FERTIG

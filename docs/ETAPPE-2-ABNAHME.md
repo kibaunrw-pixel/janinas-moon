@@ -58,8 +58,8 @@ Abschlusslauf nacheinander auf Commit `2e1be04` (Port 8765). Die Logs liegen unt
 | `node tests/tipp-vorrang.cjs` | 0 |
 | `node tests/picking.cjs` | 0 |
 | `node tests/offline.cjs` | 0 |
-| `node tests/briefe-browser.cjs` | ERGEBNIS_BRIEFE |
-| `node tests/stadt-browser.cjs` | ERGEBNIS_STADT |
+| `node tests/briefe-browser.cjs` | 0 (1594 s, alle vier Teile schatz/haus7/brunnen in vier Ansichten) |
+| `node tests/stadt-browser.cjs` | 0 (684 s, keine Wegdiagnose ausgelöst) |
 
 Jeder Browserweg prüft am Ende, dass keine Seitenfehler auftraten und die Spielschleife läuft (rAF-Zähler 61–62 pro Sekunde).
 
