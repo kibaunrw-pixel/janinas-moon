@@ -28,4 +28,6 @@ await p.locator('#market-qty-milch').fill('2');await p.locator('#market-qty-milc
 await close();await click(12,12,.75);await p.getByRole('button',{name:'Mit Rosa reden',exact:true}).click();await p.waitForFunction(()=>JMDEBUG.busy.ui.dialog);rec.rosaConversation=true;
 assert.deepEqual(errors,[]);rec.errors=errors;results.push(rec);fs.writeFileSync(path.join(out,'own-results.json'),JSON.stringify(results,null,2));await c.close();
 }
-}finally{await b.close();}})().catch(e=>{console.error(e);process.exitCode=1;});
+}finally{await b.close();}})().catch(e=>{console.error(e);process.exitCode=1;})
+/* Ausdrücklich beenden: von Chrome gestartete Hilfsprozesse (Crashpad, GoogleUpdater) können die geerbte stderr-Pipe offen halten. */
+.finally(()=>process.exit());

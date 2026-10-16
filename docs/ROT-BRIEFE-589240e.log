@@ -23,10 +23,10 @@ test at tests/briefe.test.cjs:14:1
 ✖ Modul vorhanden und Altspielstand ohne Postfelder bleibt vollständig erhalten (1.920209ms)
   AssertionError [ERR_ASSERTION]: JM.Post fehlt
   + actual - expected
-  
+
   + 'undefined'
   - 'object'
-  
+
       at TestContext.<anonymous> (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/briefe.test.cjs:15:9)
       at Test.runInAsyncScope (node:async_hooks:226:14)
       at Test.run (node:internal/test_runner/test:1397:25)

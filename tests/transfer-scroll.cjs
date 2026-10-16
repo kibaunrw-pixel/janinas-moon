@@ -30,4 +30,6 @@ for(const viewport of [{width:390,height:844},{width:1440,height:900}])for(const
  await page.waitForTimeout(1500);await page.reload();await page.getByRole('button',{name:'Weiterspielen',exact:true}).click();await page.waitForFunction(()=>JMDEBUG.S?.name==='Synthetischer Scrolltest');assert.equal(await page.evaluate(k=>JMDEBUG.S.fridge[k],k),6,'Bestand nach Reload');
  assert.deepEqual(errors,[]);console.log('Transfer-Kontext',viewport.width,gfx,'OK');await context.close();
 }
-}finally{await browser.close()}})().catch(e=>{console.error(e);process.exitCode=1});
+}finally{await browser.close()}})().catch(e=>{console.error(e);process.exitCode=1})
+/* Ausdrücklich beenden: von Chrome gestartete Hilfsprozesse (Crashpad, GoogleUpdater) können die geerbte stderr-Pipe offen halten. */
+.finally(()=>process.exit());

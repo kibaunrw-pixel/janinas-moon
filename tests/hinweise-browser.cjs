@@ -10,4 +10,6 @@ const {chromium}=require(process.env.PLAYWRIGHT_PATH||'playwright'),assert=requi
  await p.screenshot({path:path.join(out,`hinweise-kompakt-${viewport.width}-${gfx}.png`)});
  await p.reload();await p.getByRole('button',{name:'Weiterspielen',exact:true}).click();assert.equal(await p.locator('#quest').isVisible(),false,'Reload behält Minimierung');await p.evaluate(()=>JMDEBUG.endDay(false));await p.waitForFunction(()=>!JMDEBUG.busy.ui.fade,{timeout:10000});assert.equal(await p.locator('#quest').isVisible(),false,'Tages-/Festwechsel klappt nicht auf');
  await p.getByRole('button',{name:'Hinweise aufklappen',exact:true}).click();assert.equal(await p.locator('#qTitle').textContent(),title);assert.match(await p.locator('#qProg').textContent(),/noch 55 Tage/);assert.match(await p.locator('#qProg').textContent(),/Tagesziele/);await p.screenshot({path:path.join(out,`hinweise-offen-${viewport.width}-${gfx}.png`)});assert.deepEqual(errors,[]);console.log('Hinweise Mondfest/Tagesziele kompakt/Weltklick/Reload/Wechsel',viewport.width,gfx,'OK');await c.close();
-}}finally{await b.close()}})().catch(e=>{console.error(e);process.exitCode=1});
+}}finally{await b.close()}})().catch(e=>{console.error(e);process.exitCode=1})
+/* Ausdrücklich beenden: von Chrome gestartete Hilfsprozesse (Crashpad, GoogleUpdater) können die geerbte stderr-Pipe offen halten. */
+.finally(()=>process.exit());

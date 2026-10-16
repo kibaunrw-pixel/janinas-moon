@@ -52,4 +52,6 @@ const assert=require('node:assert/strict');
  assert.deepEqual(errors,[]);console.log('Browser Kühlschrank/Küche/Mine/Zimmermann/Holz/Export',viewport,'OK');
  await context.close();}
  }finally{await browser.close();}
-})().catch(e=>{console.error(e);process.exitCode=1});
+})().catch(e=>{console.error(e);process.exitCode=1})
+/* Ausdrücklich beenden: von Chrome gestartete Hilfsprozesse (Crashpad, GoogleUpdater) können die geerbte stderr-Pipe offen halten. */
+.finally(()=>process.exit());
