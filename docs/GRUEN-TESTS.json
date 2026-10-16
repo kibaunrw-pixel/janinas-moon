@@ -17,6 +17,20 @@
       "error": null
     },
     {
+      "command": "node --check jm-stadt.js",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check jm-post.js",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
       "command": "node --check jm-art.js",
       "exitCode": 0,
       "stdout": "",
@@ -74,6 +88,27 @@
     },
     {
       "command": "node --check tests/riesenpflanzen.test.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/abgaben.test.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/stadt.test.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/briefe.test.cjs",
       "exitCode": 0,
       "stdout": "",
       "stderr": "",
@@ -178,6 +213,55 @@
       "error": null
     },
     {
+      "command": "node --check tests/abgaben-browser.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/restaurant-browser.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/stadt-browser.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/stadt-zusatz.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/karten-fallback.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/rohstoffweg.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "command": "node --check tests/briefe-browser.cjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
       "command": "node --check tests/run-all.cjs",
       "exitCode": 0,
       "stdout": "",
@@ -185,9 +269,9 @@
       "error": null
     },
     {
-      "command": "node --test tests/ausbau.test.cjs tests/wohnraum.test.cjs tests/versand.test.cjs tests/markt.test.cjs tests/riesenpflanzen.test.cjs",
+      "command": "node --test tests/ausbau.test.cjs tests/wohnraum.test.cjs tests/versand.test.cjs tests/markt.test.cjs tests/riesenpflanzen.test.cjs tests/abgaben.test.cjs tests/stadt.test.cjs tests/briefe.test.cjs",
       "exitCode": 0,
-      "stdout": "TAP version 13\n# Subtest: Kochen verbraucht beide Lager atomar, auch konkrete plus Sammelfische\nok 1 - Kochen verbraucht beide Lager atomar, auch konkrete plus Sammelfische\n  ---\n  duration_ms: 1.446167\n  type: 'test'\n  ...\n# Subtest: Alle konkreten Rezeptzutaten sind ganzjährig ohne Wiederverkaufsgewinn kaufbar\nok 2 - Alle konkreten Rezeptzutaten sind ganzjährig ohne Wiederverkaufsgewinn kaufbar\n  ---\n  duration_ms: 0.295083\n  type: 'test'\n  ...\n# Subtest: Zehn Höhlenebenen: sichere Wege, persistente Abbaubilanz, Reload, neuer Besuch\nok 3 - Zehn Höhlenebenen: sichere Wege, persistente Abbaubilanz, Reload, neuer Besuch\n  ---\n  duration_ms: 7.895917\n  type: 'test'\n  ...\n# Subtest: Neue Erze sind nutzbar; jeder magische Fisch ist wirklich auswählbar und verkäuflich\nok 4 - Neue Erze sind nutzbar; jeder magische Fisch ist wirklich auswählbar und verkäuflich\n  ---\n  duration_ms: 0.320584\n  type: 'test'\n  ...\n# Subtest: Alte Saves migrieren ohne Progressionsverlust; leere alte Höhle bleibt leer\nok 5 - Alte Saves migrieren ohne Progressionsverlust; leere alte Höhle bleibt leer\n  ---\n  duration_ms: 2.646667\n  type: 'test'\n  ...\n# Subtest: Zimmermann: Ressourcen, einmalige Kosten, Bauzeit, Reload und sichtbare Räume\nok 6 - Zimmermann: Ressourcen, einmalige Kosten, Bauzeit, Reload und sichtbare Räume\n  ---\n  duration_ms: 3.155042\n  type: 'test'\n  ...\n# Subtest: Alte unerreichbare Sammelobjekte werden ohne Verlust erreichbar versetzt\nok 7 - Alte unerreichbare Sammelobjekte werden ohne Verlust erreichbar versetzt\n  ---\n  duration_ms: 7.127209\n  type: 'test'\n  ...\n# Subtest: Komplett gekaufte Zutaten erzeugen auch am maximalen Marktbonus keine Endlosschleife\nok 8 - Komplett gekaufte Zutaten erzeugen auch am maximalen Marktbonus keine Endlosschleife\n  ---\n  duration_ms: 0.208209\n  type: 'test'\n  ...\n# Subtest: Lebensmitteltransfer erhält Bilanz und lehnt ungültige Mengen ab\nok 9 - Lebensmitteltransfer erhält Bilanz und lehnt ungültige Mengen ab\n  ---\n  duration_ms: 0.391667\n  type: 'test'\n  ...\n# Subtest: Markt öffnet nach Spielkalender Samstag 9 bis vor 15 Uhr, nicht an Festtagen\nok 10 - Markt öffnet nach Spielkalender Samstag 9 bis vor 15 Uhr, nicht an Festtagen\n  ---\n  duration_ms: 1.232958\n  type: 'test'\n  ...\n# Subtest: Freie Marktteilmenge rechnet den sichtbaren Stückpreis atomar und nur am offenen Markt ab\nok 11 - Freie Marktteilmenge rechnet den sichtbaren Stückpreis atomar und nur am offenen Markt ab\n  ---\n  duration_ms: 0.238667\n  type: 'test'\n  ...\n# Subtest: Riesen-Ernte bleibt eigene Sorte mit Größenbonus statt fünf normalen Stücken\nok 12 - Riesen-Ernte bleibt eigene Sorte mit Größenbonus statt fünf normalen Stücken\n  ---\n  duration_ms: 1.780541\n  type: 'test'\n  ...\n# Subtest: Größenstapel erhalten Transfer-/Reload-Bilanz; Markt und Tagesversand verwenden selben Basispreis\nok 13 - Größenstapel erhalten Transfer-/Reload-Bilanz; Markt und Tagesversand verwenden selben Basispreis\n  ---\n  duration_ms: 0.43975\n  type: 'test'\n  ...\n# Subtest: Versand ist bearbeitbare Warteschlange mit atomarer Teilrücknahme bis zur einmaligen Abholung\nok 14 - Versand ist bearbeitbare Warteschlange mit atomarer Teilrücknahme bis zur einmaligen Abholung\n  ---\n  duration_ms: 2.305125\n  type: 'test'\n  ...\n# Subtest: Direkte Mengen: nur ganze positive sichere Zahlen bis Bestand\nok 15 - Direkte Mengen: nur ganze positive sichere Zahlen bis Bestand\n  ---\n  duration_ms: 0.147417\n  type: 'test'\n  ...\n# Subtest: Bezahlte Hausstufen erhalten kostenlos obere Etage, sichere Treppe und eigene Einrichtung\nok 16 - Bezahlte Hausstufen erhalten kostenlos obere Etage, sichere Treppe und eigene Einrichtung\n  ---\n  duration_ms: 10.738\n  type: 'test'\n  ...\n1..16\n# tests 16\n# suites 0\n# pass 16\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 92.340667\n",
+      "stdout": "TAP version 13\n# Subtest: Anschlagtafel nimmt ausdrückliche Teilmengen, belohnt genau einmal\nok 1 - Anschlagtafel nimmt ausdrückliche Teilmengen, belohnt genau einmal\n  ---\n  duration_ms: 1.221333\n  type: 'test'\n  ...\n# Subtest: Mondbaum zählt Teilgaben und meldet Fertigstellung genau einmal\nok 2 - Mondbaum zählt Teilgaben und meldet Fertigstellung genau einmal\n  ---\n  duration_ms: 0.252666\n  type: 'test'\n  ...\n# Subtest: Kochen verbraucht beide Lager atomar, auch konkrete plus Sammelfische\nok 3 - Kochen verbraucht beide Lager atomar, auch konkrete plus Sammelfische\n  ---\n  duration_ms: 0.812583\n  type: 'test'\n  ...\n# Subtest: Alle konkreten Rezeptzutaten sind ganzjährig ohne Wiederverkaufsgewinn kaufbar\nok 4 - Alle konkreten Rezeptzutaten sind ganzjährig ohne Wiederverkaufsgewinn kaufbar\n  ---\n  duration_ms: 0.298792\n  type: 'test'\n  ...\n# Subtest: Zehn Höhlenebenen: sichere Wege, persistente Abbaubilanz, Reload, neuer Besuch\nok 5 - Zehn Höhlenebenen: sichere Wege, persistente Abbaubilanz, Reload, neuer Besuch\n  ---\n  duration_ms: 11.525459\n  type: 'test'\n  ...\n# Subtest: Neue Erze sind nutzbar; jeder magische Fisch ist wirklich auswählbar und verkäuflich\nok 6 - Neue Erze sind nutzbar; jeder magische Fisch ist wirklich auswählbar und verkäuflich\n  ---\n  duration_ms: 1.186583\n  type: 'test'\n  ...\n# Subtest: Alte Saves migrieren ohne Progressionsverlust; leere alte Höhle bleibt leer\nok 7 - Alte Saves migrieren ohne Progressionsverlust; leere alte Höhle bleibt leer\n  ---\n  duration_ms: 1.49225\n  type: 'test'\n  ...\n# Subtest: Zimmermann: Ressourcen, einmalige Kosten, Bauzeit, Reload und sichtbare Räume\nok 8 - Zimmermann: Ressourcen, einmalige Kosten, Bauzeit, Reload und sichtbare Räume\n  ---\n  duration_ms: 2.806833\n  type: 'test'\n  ...\n# Subtest: Alte unerreichbare Sammelobjekte werden ohne Verlust erreichbar versetzt\nok 9 - Alte unerreichbare Sammelobjekte werden ohne Verlust erreichbar versetzt\n  ---\n  duration_ms: 5.640625\n  type: 'test'\n  ...\n# Subtest: Komplett gekaufte Zutaten erzeugen auch am maximalen Marktbonus keine Endlosschleife\nok 10 - Komplett gekaufte Zutaten erzeugen auch am maximalen Marktbonus keine Endlosschleife\n  ---\n  duration_ms: 0.179167\n  type: 'test'\n  ...\n# Subtest: Lebensmitteltransfer erhält Bilanz und lehnt ungültige Mengen ab\nok 11 - Lebensmitteltransfer erhält Bilanz und lehnt ungültige Mengen ab\n  ---\n  duration_ms: 0.45875\n  type: 'test'\n  ...\n# Subtest: Modul vorhanden und Altspielstand ohne Postfelder bleibt vollständig erhalten\nok 12 - Modul vorhanden und Altspielstand ohne Postfelder bleibt vollständig erhalten\n  ---\n  duration_ms: 3.240917\n  type: 'test'\n  ...\n# Subtest: Jede Nacht 1–3 neue Briefe, Geheimnis kommt spätestens nach fünf Tagen, keine Doppelzustellung\nok 13 - Jede Nacht 1–3 neue Briefe, Geheimnis kommt spätestens nach fünf Tagen, keine Doppelzustellung\n  ---\n  duration_ms: 2.236625\n  type: 'test'\n  ...\n# Subtest: Miete kommt genau einmal (Stadtabrechnung), Brief ist nur Quittung; Bewertung beeinflusst Miete nachvollziehbar\nok 14 - Miete kommt genau einmal (Stadtabrechnung), Brief ist nur Quittung; Bewertung beeinflusst Miete nachvollziehbar\n  ---\n  duration_ms: 0.445375\n  type: 'test'\n  ...\n# Subtest: Mietanfrage verknüpft fertigen Bauplatz; Zusage genau einmal, auch nach Reload\nok 15 - Mietanfrage verknüpft fertigen Bauplatz; Zusage genau einmal, auch nach Reload\n  ---\n  duration_ms: 1.162875\n  type: 'test'\n  ...\n# Subtest: Bauauftrag: Wunsch → echter Bau → Dankbrief mit 150 G, Beilage genau einmal\nok 16 - Bauauftrag: Wunsch → echter Bau → Dankbrief mit 150 G, Beilage genau einmal\n  ---\n  duration_ms: 0.767625\n  type: 'test'\n  ...\n# Subtest: Geschenkbrief: echter Gegenstand genau einmal\nok 17 - Geschenkbrief: echter Gegenstand genau einmal\n  ---\n  duration_ms: 0.54375\n  type: 'test'\n  ...\n# Subtest: Mission Schatzkarte: Brief → Rätsel → erreichbarer Hügel → Schatz genau einmal\nok 18 - Mission Schatzkarte: Brief → Rätsel → erreichbarer Hügel → Schatz genau einmal\n  ---\n  duration_ms: 9.535625\n  type: 'test'\n  ...\n# Subtest: Mission Haus Nr. 7: Brief → Besuch → Schlüssel → Renovierung (Geld, Material, zwei Nächte) → Elva zieht ein\nok 19 - Mission Haus Nr. 7: Brief → Besuch → Schlüssel → Renovierung (Geld, Material, zwei Nächte) → Elva zieht ein\n  ---\n  duration_ms: 5.5255\n  type: 'test'\n  ...\n# Subtest: Mission Mitternacht am alten Brunnen: nur 23–24 Uhr, Dokument, Geisterbrief, Reparatur einmalig\nok 20 - Mission Mitternacht am alten Brunnen: nur 23–24 Uhr, Dokument, Geisterbrief, Reparatur einmalig\n  ---\n  duration_ms: 4.111209\n  type: 'test'\n  ...\n# Subtest: Alle Missionsziele liegen auf vorhandenen Karten und erreichbaren Kacheln\nok 21 - Alle Missionsziele liegen auf vorhandenen Karten und erreichbaren Kacheln\n  ---\n  duration_ms: 10.078667\n  type: 'test'\n  ...\n# Subtest: Markt öffnet nach Spielkalender Samstag 9 bis vor 15 Uhr, nicht an Festtagen\nok 22 - Markt öffnet nach Spielkalender Samstag 9 bis vor 15 Uhr, nicht an Festtagen\n  ---\n  duration_ms: 1.252584\n  type: 'test'\n  ...\n# Subtest: Freie Marktteilmenge rechnet den sichtbaren Stückpreis atomar und nur am offenen Markt ab\nok 23 - Freie Marktteilmenge rechnet den sichtbaren Stückpreis atomar und nur am offenen Markt ab\n  ---\n  duration_ms: 0.280167\n  type: 'test'\n  ...\n# Subtest: Riesen-Ernte bleibt eigene Sorte mit Größenbonus statt fünf normalen Stücken\nok 24 - Riesen-Ernte bleibt eigene Sorte mit Größenbonus statt fünf normalen Stücken\n  ---\n  duration_ms: 1.759041\n  type: 'test'\n  ...\n# Subtest: Größenstapel erhalten Transfer-/Reload-Bilanz; Markt und Tagesversand verwenden selben Basispreis\nok 25 - Größenstapel erhalten Transfer-/Reload-Bilanz; Markt und Tagesversand verwenden selben Basispreis\n  ---\n  duration_ms: 0.464917\n  type: 'test'\n  ...\n# Subtest: Materialbau dauert drei Nächte; Mieter und Tagesmiete überstehen Reload ohne Exploit\nok 26 - Materialbau dauert drei Nächte; Mieter und Tagesmiete überstehen Reload ohne Exploit\n  ---\n  duration_ms: 1.02225\n  type: 'test'\n  ...\n# Subtest: Restaurantkarte erweitert; Abendgäste wechseln ohne doppelte Bewohner\nok 27 - Restaurantkarte erweitert; Abendgäste wechseln ohne doppelte Bewohner\n  ---\n  duration_ms: 0.505792\n  type: 'test'\n  ...\n# Subtest: Drei Häuser: vollständige Altbestände bleiben bei wiederholter Migration erhalten\nok 28 - Drei Häuser: vollständige Altbestände bleiben bei wiederholter Migration erhalten\n  ---\n  duration_ms: 0.745208\n  type: 'test'\n  ...\n# Subtest: Alle neuen NPC-Ziele sind an jedem Spieltag/Zeitfenster erreichbar, Gäste eindeutig\nok 29 - Alle neuen NPC-Ziele sind an jedem Spieltag/Zeitfenster erreichbar, Gäste eindeutig\n  ---\n  duration_ms: 21.86375\n  type: 'test'\n  ...\n# Subtest: Dorf führt über Bahnhof in erste Stadt und zurück, Altbesitz bleibt\nok 30 - Dorf führt über Bahnhof in erste Stadt und zurück, Altbesitz bleibt\n  ---\n  duration_ms: 3.071583\n  type: 'test'\n  ...\n# Subtest: Versand ist bearbeitbare Warteschlange mit atomarer Teilrücknahme bis zur einmaligen Abholung\nok 31 - Versand ist bearbeitbare Warteschlange mit atomarer Teilrücknahme bis zur einmaligen Abholung\n  ---\n  duration_ms: 1.441375\n  type: 'test'\n  ...\n# Subtest: Direkte Mengen: nur ganze positive sichere Zahlen bis Bestand\nok 32 - Direkte Mengen: nur ganze positive sichere Zahlen bis Bestand\n  ---\n  duration_ms: 0.178375\n  type: 'test'\n  ...\n# Subtest: Bezahlte Hausstufen erhalten kostenlos obere Etage, sichere Treppe und eigene Einrichtung\nok 33 - Bezahlte Hausstufen erhalten kostenlos obere Etage, sichere Treppe und eigene Einrichtung\n  ---\n  duration_ms: 7.272209\n  type: 'test'\n  ...\n1..33\n# tests 33\n# suites 0\n# pass 33\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 130.915125\n",
       "stderr": "",
       "error": null
     },
@@ -215,7 +299,7 @@
     {
       "command": "node tests/offline.cjs",
       "exitCode": 0,
-      "stdout": "Offline-Start mit Ausbau-Modul OK\n",
+      "stdout": "Frischer isolierter Offline-Tab: Ausbau und Stadt geladen, Hof gestartet, drei Bauplätze migriert, Briefkasten (JM.Post) mit drei offenen Missionen geladen. Kein Bestands-PWA-Nachweis.\n",
       "stderr": "",
       "error": null
     },
@@ -243,7 +327,7 @@
     {
       "command": "node tests/panel-focus.cjs",
       "exitCode": 0,
-      "stdout": "Fokus-Fallback 390 OK\nFokus-Fallback 1440 OK\n",
+      "stdout": "F1 Versand/Markt letzte Zeile, Tab und ohne vorherigen Panelfokus 390 OK\nF1 Versand/Markt letzte Zeile, Tab und ohne vorherigen Panelfokus 1440 OK\n",
       "stderr": "",
       "error": null
     },
@@ -251,7 +335,7 @@
       "command": "node tests/desktop-rest.cjs",
       "exitCode": 1,
       "stdout": "",
-      "stderr": "SHIPPING_DIAGNOSTIC {\n  s: {\n    v: 2,\n    t: 1792088741509,\n    name: 'UNABHAENGIG SYNTHETISCH',\n    dogs: [ [Object], [Object] ],\n    day: 6,\n    min: 646.4151666666256,\n    money: 777,\n    energy: 120,\n    maxE: 120,\n    map: 'farm',\n    px: 8,\n    py: 8,\n    inv: { ei: 20, riesig_kuerbis: 2, kuerbissuppe: 1 },\n    fridge: { riesig_kuerbis: 1, kuerbis: 2, milch: 1 },\n    hold: 'auto',\n    can: { w: 20, max: 20 },\n    rod: 0,\n    field: {\n      '3,10': [Object],\n      '6,10': [Object],\n      '7,10': [Object],\n      '10,10': [Object],\n      '5,11': [Object],\n      '10,13': [Object],\n      '5,15': [Object],\n      '6,15': [Object],\n      '11,15': [Object],\n      '10,16': [Object],\n      '11,16': [Object],\n      '6,18': [Object],\n      '4,19': [Object],\n      '5,19': [Object],\n      '7,19': [Object],\n      '11,19': [Object]\n    },\n    forage: {},\n    bush: {},\n    eggs: [],\n    hens: [ [Object], [Object] ],\n    cows: [],\n    trough: { h: 2, c: 0 },\n    dogH: [ 0, 0 ],\n    dogPet: [ 0, 0 ],\n    npc: {\n      mei: [Object],\n      lin: [Object],\n      rosa: [Object],\n      paula: [Object],\n      henk: [Object],\n      timo: [Object],\n      ida: [Object],\n      noah: [Object],\n      mara: [Object]\n    },\n    quest: { id: null, p: 0, seen: [] },\n    qDone: [\n      'brief',   'rene',\n      'pudel',   'raeumen',\n      'hacken',  'saeen',\n      'giessen', 'schlafen',\n      'eier',    'aufraeumen',\n      'dorf',    'nachbarn',\n      'angeln',  'wald',\n      'ernte',   'versand',\n      'lin',     'lieblingsessen',\n      'gabe',    'tier',\n      'freunde', 'mondfest',\n      'frei'\n    ],\n    board: null,\n    bundles: {},\n    bundleDone: {},\n    recipes: [ 'kuerbissuppe' ],\n    mail: [],\n    mailQ: [ [Object] ],\n    ship: { riesig_kuerbis: 1 },\n    shipLog: {},\n    fishLog: {},\n    cookLog: { kuerbissuppe: 1 },\n    stats: { earned: 0, harvest: 0, shipped: 0 },\n    flags: { debris0: 16, letter: true },\n    weather: 'sun',\n    tomorrow: 'sun',\n    bought: {},\n    sound: false,\n    music: false,\n    follow: false,\n    rene: { met: true, bf: 6, cud: 0, cudToday: 0, cuddles: 0, wk: -1 },\n    reneLook: {},\n    mess: [],\n    gfx: '3d',\n    daily: { day: 6, goals: [] },\n    house: { level: 2, job: null },\n    mine: { active: false, floors: {} },\n    hintsCollapsed: false,\n    ausbauVersion: 1,\n    rocks: [],\n    zoom: 0.51,\n    ach: [],\n    city: { plots: [Array] }\n  },\n  position: [ 7, 8 ],\n  busy: { ui: { panel: false, dialog: true, fade: false }, fish: null },\n  idle: true,\n  visibility: 'visible',\n  panel: '',\n  dlg: 'René\\n' +\n    'Guten Morgen, UNABHAENGIG SYNTHETISCH! Na, wie gefällt dir unser Hof? Ich hab Rührei gemacht, iss erst mal was.'\n} []\nlocator.waitFor: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('heading', { name: 'Versandkiste', exact: true }) to be visible\n\n    at /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/desktop-rest.cjs:24:254 {\n  name: 'TimeoutError'\n}\n",
+      "stderr": "SHIPPING_DIAGNOSTIC {\n  s: {\n    v: 2,\n    t: 1792113949495,\n    name: 'UNABHAENGIG SYNTHETISCH',\n    dogs: [ [Object], [Object] ],\n    day: 6,\n    min: 646.3594999999594,\n    money: 777,\n    energy: 100,\n    maxE: 120,\n    map: 'farm',\n    px: 8,\n    py: 8,\n    inv: { ei: 20, riesig_kuerbis: 2, kuerbissuppe: 1 },\n    fridge: { riesig_kuerbis: 1, kuerbis: 2, milch: 1 },\n    hold: 'auto',\n    can: { w: 20, max: 20 },\n    rod: 0,\n    field: {\n      '3,10': [Object],\n      '6,10': [Object],\n      '7,10': [Object],\n      '10,10': [Object],\n      '5,11': [Object],\n      '10,13': [Object],\n      '5,15': [Object],\n      '6,15': [Object],\n      '11,15': [Object],\n      '10,16': [Object],\n      '11,16': [Object],\n      '6,18': [Object],\n      '4,19': [Object],\n      '5,19': [Object],\n      '7,19': [Object],\n      '11,19': [Object]\n    },\n    forage: {},\n    bush: {},\n    eggs: [],\n    hens: [ [Object], [Object] ],\n    cows: [],\n    trough: { h: 2, c: 0 },\n    dogH: [ 0, 0 ],\n    dogPet: [ 0, 0 ],\n    npc: {\n      mei: [Object],\n      lin: [Object],\n      rosa: [Object],\n      paula: [Object],\n      henk: [Object],\n      timo: [Object],\n      ida: [Object],\n      noah: [Object],\n      mara: [Object],\n      elva: [Object]\n    },\n    quest: { id: null, p: 0, seen: [] },\n    qDone: [\n      'brief',   'rene',\n      'pudel',   'raeumen',\n      'hacken',  'saeen',\n      'giessen', 'schlafen',\n      'eier',    'aufraeumen',\n      'dorf',    'nachbarn',\n      'angeln',  'wald',\n      'ernte',   'versand',\n      'lin',     'lieblingsessen',\n      'gabe',    'tier',\n      'freunde', 'mondfest',\n      'frei'\n    ],\n    board: null,\n    bundles: {},\n    bundleDone: {},\n    recipes: [ 'kuerbissuppe' ],\n    mail: [],\n    mailQ: [ [Object] ],\n    ship: { riesig_kuerbis: 1 },\n    shipLog: {},\n    fishLog: {},\n    cookLog: { kuerbissuppe: 1 },\n    stats: { earned: 0, harvest: 0, shipped: 0 },\n    flags: { debris0: 16, letter: true },\n    weather: 'sun',\n    tomorrow: 'sun',\n    bought: {},\n    sound: false,\n    music: false,\n    follow: false,\n    rene: { met: true, bf: 6, cud: 0, cudToday: 2, cuddles: 0, wk: -1 },\n    reneLook: {},\n    mess: [],\n    gfx: '3d',\n    daily: { day: 6, goals: [] },\n    house: { level: 2, job: null },\n    mine: { active: false, floors: {} },\n    hintsCollapsed: false,\n    ausbauVersion: 1,\n    city: { plots: [Array] },\n    post: {\n      v: 1,\n      seq: 0,\n      m: [Object],\n      req: {},\n      orders: {},\n      lastMyst: 4,\n      lastGift: 5,\n      lastDay: 6\n    },\n    rocks: [],\n    zoom: 0.51,\n    ach: []\n  },\n  position: [ 7, 8 ],\n  busy: { ui: { panel: false, dialog: true, fade: false }, fish: null },\n  idle: true,\n  visibility: 'visible',\n  panel: '',\n  dlg: 'René\\nDu riechst nach frischem Heu. Gefällt mir.'\n} []\nlocator.waitFor: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('heading', { name: 'Versandkiste', exact: true }) to be visible\n\n    at /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/desktop-rest.cjs:24:254 {\n  name: 'TimeoutError'\n}\n",
       "error": null
     }
   ],

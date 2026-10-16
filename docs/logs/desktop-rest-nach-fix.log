@@ -1,0 +1,10 @@
+MARKET_SEED {
+  map: 'village',
+  p: [ 13, 14 ],
+  cam: { x: -24, y: 96.55833333333334 },
+  scale: 3,
+  ui: { panel: false, dialog: false, fade: false },
+  gfx: '3d',
+  visibility: 'visible'
+}
+EXIT 0

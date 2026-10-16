@@ -1,0 +1,242 @@
+[
+  {
+    "command": "node --check jm-data.js",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node --check jm-ausbau.js",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node --check jm-stadt.js",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node --check jm-post.js",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node --check jm-art.js",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node --check jm-game.js",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node --check jm-3d.js",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node --check sw.js",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node --check tests/ausbau.test.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node --check tests/wohnraum.test.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node --check tests/versand.test.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node --check tests/markt.test.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node --check tests/riesenpflanzen.test.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node --check tests/abgaben.test.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node --check tests/stadt.test.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node --check tests/briefe.test.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node --check tests/browser.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node --check tests/picking.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node --check tests/regression.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node --check tests/offline.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node --check tests/shops.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node --check tests/mine-rueckweg.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node --check tests/transfer-scroll.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node --check tests/panel-focus.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node --check tests/desktop-rest.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node --check tests/versand-browser.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node --check tests/markt-browser.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node --check tests/hinweise-browser.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node --check tests/wohnraum-browser.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node --check tests/riesenpflanzen-browser.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node --check tests/abgaben-browser.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node --check tests/restaurant-browser.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node --check tests/stadt-browser.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node --check tests/stadt-zusatz.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node --check tests/karten-fallback.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node --check tests/rohstoffweg.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node --check tests/briefe-browser.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node --check tests/run-all.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node --test tests/ausbau.test.cjs tests/wohnraum.test.cjs tests/versand.test.cjs tests/markt.test.cjs tests/riesenpflanzen.test.cjs tests/abgaben.test.cjs tests/stadt.test.cjs tests/briefe.test.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node tests/browser.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node tests/picking.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node tests/regression.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node tests/offline.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node tests/shops.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node tests/mine-rueckweg.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node tests/transfer-scroll.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node tests/panel-focus.cjs",
+    "exitCode": 0,
+    "error": null
+  },
+  {
+    "command": "node tests/desktop-rest.cjs",
+    "exitCode": 1,
+    "error": null
+  }
+]
