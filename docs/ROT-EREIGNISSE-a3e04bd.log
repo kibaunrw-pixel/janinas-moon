@@ -1,0 +1,162 @@
+✖ Altspielstand ohne neue Felder: Besitz unverändert, neue Missionen leer, ältere Missionen unberührt (1.455833ms)
+✖ Reihenfolge: neue Ereignisse erst nach den drei alten, nur wenn sinnvoll (Eignung), nie zwei gleichzeitig (1.16675ms)
+✖ W61 Mieter verschwunden: Zettel → Bahnhof → Wiedersehen; Miete läuft weiter; Belohnung einmal; Mieter bleibt (1.281ms)
+✖ W61 Belohnungsbilanz: genau +150 G und +2 Tee (0.302375ms)
+✖ W62 Haus zu verkaufen: Ruine auf freiem Bauplatz → Kauf 900 G → derselbe Bauplatz bezugsfertig → Mietanfrage; einmalig (0.322334ms)
+✖ W62 Ablehnen schließt ab, Bauplatz bleibt frei; anderweitig bebaut → Ereignis endet ohne Kosten (0.186416ms)
+✖ W63 Villa: nur mit bewohntem Haus Nr. 7; Treffen am Stadtbrunnen; Entscheidung genau einmal mit Folgen (0.320167ms)
+✖ W64 Geheime Tür: Brief → Tür im Mondwald → Gewölbe → Truhe einmal → Tafel kündigt Vollmondwald an → Rückweg (0.167625ms)
+✖ W65 Mysteriöser Bewohner: Tagesplan an drei Orten, Geheimnis nach drei Treffen, Belohnung einmal, Jonas bleibt (0.297416ms)
+✖ Alle neuen Missionsziele liegen auf vorhandenen Karten und erreichbaren Kacheln (0.173541ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 0
+ℹ fail 10
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 82.477291
+
+✖ failing tests:
+
+test at tests/ereignisse.test.cjs:17:1
+✖ Altspielstand ohne neue Felder: Besitz unverändert, neue Missionen leer, ältere Missionen unberührt (1.455833ms)
+  TypeError: X.EVENTS is not iterable
+      at TestContext.<anonymous> (/Users/reneklomfas/.hermes/cache/scratch/jm-a3e04bd/tests/ereignisse.test.cjs:24:20)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.start (node:internal/test_runner/test:1257:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17)
+
+test at tests/ereignisse.test.cjs:28:1
+✖ Reihenfolge: neue Ereignisse erst nach den drei alten, nur wenn sinnvoll (Eignung), nie zwei gleichzeitig (1.16675ms)
+  TypeError: Cannot read properties of undefined (reading 'st')
+      at TestContext.<anonymous> (/Users/reneklomfas/.hermes/cache/scratch/jm-a3e04bd/tests/ereignisse.test.cjs:31:33)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)
+      at Test.postRun (node:internal/test_runner/test:1537:19)
+      at Test.run (node:internal/test_runner/test:1462:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)
+
+test at tests/ereignisse.test.cjs:36:1
+✖ W61 Mieter verschwunden: Zettel → Bahnhof → Wiedersehen; Miete läuft weiter; Belohnung einmal; Mieter bleibt (1.281ms)
+  AssertionError [ERR_ASSERTION]: vermisst: Startbrief
+      at startMission (/Users/reneklomfas/.hermes/cache/scratch/jm-a3e04bd/tests/ereignisse.test.cjs:14:115)
+      at TestContext.<anonymous> (/Users/reneklomfas/.hermes/cache/scratch/jm-a3e04bd/tests/ereignisse.test.cjs:38:10)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)
+      at Test.postRun (node:internal/test_runner/test:1537:19)
+      at Test.run (node:internal/test_runner/test:1462:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/ereignisse.test.cjs:54:1
+✖ W61 Belohnungsbilanz: genau +150 G und +2 Tee (0.302375ms)
+  AssertionError [ERR_ASSERTION]: vermisst: Startbrief
+      at startMission (/Users/reneklomfas/.hermes/cache/scratch/jm-a3e04bd/tests/ereignisse.test.cjs:14:115)
+      at TestContext.<anonymous> (/Users/reneklomfas/.hermes/cache/scratch/jm-a3e04bd/tests/ereignisse.test.cjs:56:10)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)
+      at Test.postRun (node:internal/test_runner/test:1537:19)
+      at Test.run (node:internal/test_runner/test:1462:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/ereignisse.test.cjs:60:1
+✖ W62 Haus zu verkaufen: Ruine auf freiem Bauplatz → Kauf 900 G → derselbe Bauplatz bezugsfertig → Mietanfrage; einmalig (0.322334ms)
+  AssertionError [ERR_ASSERTION]: verkauf: Startbrief
+      at startMission (/Users/reneklomfas/.hermes/cache/scratch/jm-a3e04bd/tests/ereignisse.test.cjs:14:115)
+      at TestContext.<anonymous> (/Users/reneklomfas/.hermes/cache/scratch/jm-a3e04bd/tests/ereignisse.test.cjs:61:60)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)
+      at Test.postRun (node:internal/test_runner/test:1537:19)
+      at Test.run (node:internal/test_runner/test:1462:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/ereignisse.test.cjs:73:1
+✖ W62 Ablehnen schließt ab, Bauplatz bleibt frei; anderweitig bebaut → Ereignis endet ohne Kosten (0.186416ms)
+  AssertionError [ERR_ASSERTION]: verkauf: Startbrief
+      at startMission (/Users/reneklomfas/.hermes/cache/scratch/jm-a3e04bd/tests/ereignisse.test.cjs:14:115)
+      at TestContext.<anonymous> (/Users/reneklomfas/.hermes/cache/scratch/jm-a3e04bd/tests/ereignisse.test.cjs:74:60)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)
+      at Test.postRun (node:internal/test_runner/test:1537:19)
+      at Test.run (node:internal/test_runner/test:1462:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/ereignisse.test.cjs:80:1
+✖ W63 Villa: nur mit bewohntem Haus Nr. 7; Treffen am Stadtbrunnen; Entscheidung genau einmal mit Folgen (0.320167ms)
+  TypeError: Cannot read properties of undefined (reading 'villa')
+      at TestContext.<anonymous> (/Users/reneklomfas/.hermes/cache/scratch/jm-a3e04bd/tests/ereignisse.test.cjs:81:94)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)
+      at Test.postRun (node:internal/test_runner/test:1537:19)
+      at Test.run (node:internal/test_runner/test:1462:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7)
+
+test at tests/ereignisse.test.cjs:96:1
+✖ W64 Geheime Tür: Brief → Tür im Mondwald → Gewölbe → Truhe einmal → Tafel kündigt Vollmondwald an → Rückweg (0.167625ms)
+  TypeError: Cannot set properties of undefined (setting 'st')
+      at done (/Users/reneklomfas/.hermes/cache/scratch/jm-a3e04bd/tests/ereignisse.test.cjs:11:60)
+      at TestContext.<anonymous> (/Users/reneklomfas/.hermes/cache/scratch/jm-a3e04bd/tests/ereignisse.test.cjs:97:17)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)
+      at Test.postRun (node:internal/test_runner/test:1537:19)
+      at Test.run (node:internal/test_runner/test:1462:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7)
+
+test at tests/ereignisse.test.cjs:112:1
+✖ W65 Mysteriöser Bewohner: Tagesplan an drei Orten, Geheimnis nach drei Treffen, Belohnung einmal, Jonas bleibt (0.297416ms)
+  TypeError: Cannot set properties of undefined (setting 'st')
+      at done (/Users/reneklomfas/.hermes/cache/scratch/jm-a3e04bd/tests/ereignisse.test.cjs:11:60)
+      at TestContext.<anonymous> (/Users/reneklomfas/.hermes/cache/scratch/jm-a3e04bd/tests/ereignisse.test.cjs:113:17)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)
+      at Test.postRun (node:internal/test_runner/test:1537:19)
+      at Test.run (node:internal/test_runner/test:1462:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7)
+
+test at tests/ereignisse.test.cjs:123:1
+✖ Alle neuen Missionsziele liegen auf vorhandenen Karten und erreichbaren Kacheln (0.173541ms)
+  TypeError: Cannot set properties of undefined (setting 'st')
+      at TestContext.<anonymous> (/Users/reneklomfas/.hermes/cache/scratch/jm-a3e04bd/tests/ereignisse.test.cjs:126:28)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)
+      at Test.postRun (node:internal/test_runner/test:1537:19)
+      at Test.run (node:internal/test_runner/test:1462:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7)

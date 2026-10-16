@@ -265,6 +265,14 @@ function prop(mg,mgE,o,se,st){
      if(neu){for(const dx of [-.4,.4])mg.box(x+dx,.9,z,.08,1.1,.08,woodD);mg.box(x,1.48,z,1.1,.08,.7,'#b8302a');mg.box(x,1.1,z,.05,.5,.05,'#d9c9a0');mg.cyl(x,.85,z,.1,.14,wood);}
      else{mg.box(x-.4,.75,z,.08,.9,.08,woodD);mg.box(x+.1,.62,z+.2,.8,.06,.08,woodD);}return;}
     case 'erdhuegel':mg.sph(x,.04,z,.42,.2,.42,'#7a5a3a');mg.sph(x+.1,.12,z-.05,.18,.1,.18,'#94704a');return;
+    // Briefkasten-Ereignisse W61–W65
+    case 'zettel':mg.box(x,.45,z,.07,.9,.07,woodD);mg.box(x,.85,z+.05,.42,.36,.03,'#f4ead8');mg.box(x,1.02,z+.07,.06,.06,.02,'#d9473a');return;
+    case 'koffer':mg.box(x,.22,z,.62,.42,.26,'#8a4a2e');for(const dx of [-.2,.2])mg.box(x+dx,.22,z+.135,.04,.42,.01,'#c9a46a');mg.box(x,.47,z,.2,.06,.05,'#3a2a20');return;
+    case 'waldtuer':case 'waldtuer_offen':{const open=k==='waldtuer_offen',w=o.w||2;mg.sph(x,.1,z-.2,w*.75,1.2,1,'#5d7a3a');mg.box(x,.8,z+.25,1.3,1.6,.3,'#7d776e');mg.box(x,1.68,z+.25,1.45,.18,.36,'#97918a');
+     mg.box(x,.7,z+.41,.8,1.35,.04,open?'#1e1a18':'#5a4a3a');if(!open){mg.box(x+.25,.7,z+.44,.06,.06,.03,'#c9a46a');}mgE.sph(x,1.55,z+.43,.08,.08,.03,'#cfe6ff');return;}
+    case 'truhe':case 'truhe_offen':{const open=k==='truhe_offen';mg.box(x,.22,z,.8,.42,.5,wood);for(const dx of [-.3,.3])mg.box(x+dx,.22,z+.255,.06,.44,.01,'#c9a46a');
+     if(open)mg.box(x,.62,z-.25,.8,.4,.06,woodD);else{mg.box(x,.5,z,.82,.16,.52,woodL);mg.box(x,.38,z+.27,.1,.12,.02,'#f6d55c');}return;}
+    case 'steintafel':mg.box(x,.6,z,.7,1.2,.18,'#8f8a80');mgE.sph(x,.95,z+.1,.12,.12,.03,'#cfe6ff');return;
     case 'zug':mg.box(x,.65,z,3.8,1.1,1.4,'#3e6578');mg.box(x,1.25,z,4,.15,1.5,'#b14f42');for(const dx of [-1.4,-.5,.5,1.4])mgE.box(x+dx,.85,z+.71,.6,.4,.02,'#b5dbe6');for(const dx of [-1.2,1.2])for(const dz of [-.7,.7])mg.sph(x+dx,.2,z+dz,.25,.25,.1,'#32343d');return;
     case "mailbox": mg.box(x,.35,z+.1,.08,.7,.08,woodD); mg.box(x,.75,z+.1,.32,.24,.44,"#3f6ad8"); mg.cyl(x,.87,z+.1,.16,.44,"#3f6ad8",Math.PI/2); if(st.unread){ mg.box(x+.2,.95,z+.15,.03,.3,.03,"#c42a2a"); mg.box(x+.2,1.05,z+.22,.03,.1,.14,"#e8483a"); } return;
     case "box": mg.box(x,.28,z,.82,.5,.62,wood); for(let i=0;i<3;i++) mg.box(x,.12+i*.16,z+.315,.84,.03,.01,woodD); mg.box(x,.56,z,.9,.08,.7,woodL); return;

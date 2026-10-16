@@ -83,7 +83,8 @@ const GREET=[
 X.giftPool=day=>{const se=Math.floor((day-1)/J.DPS)%4;return [...J.FORAGE[se],'tee'];};
 
 /* ---------- Geheimnisbriefe ---------- */
-const START={
+/* Startbriefe, Eignung und nächtliche Fortsetzungen sind erweiterbar (jm-ereignisse.js, W61–W65). */
+const START=X.START={
  schatz:s=>letter(s,{from:'Unbekannt',kind:'geheim',mis:'schatz',t:'Eine zerknitterte Karte',
   b:'Ein vergilbtes Blatt ohne Absender. Darauf eine Skizze vom Mondwald: der Mondbaum und drei kleine Erdhügel rundherum. Einer liegt im Westen, einer im Osten, einer im Süden.\n\nDarunter steht in krakeliger Schrift:\n„Wenn die Sonne am Abend im Westen versinkt, wirft der Mondbaum seinen langen Schatten. Grab dort, wo der Schatten endet. Nur einer der Hügel hält, was ich versteckt habe.“'}),
  haus7:s=>letter(s,{from:'Unbekannt',kind:'geheim',mis:'haus7',t:'Ein anonymer Brief',
@@ -105,8 +106,9 @@ X.night=function(s,info,rng){
   b:fill(s,'Liebe {name},\n\nich war es, die nachts in Haus Nummer 7 Licht gemacht hat. Ich habe dort früher die Sterne beobachtet und konnte das Haus einfach nicht loslassen. Den Brief und den Schlüssel habe ich dir geschickt. Ich hatte nicht den Mut, selbst zu fragen.\n\nJetzt ist das Haus wieder hell, und ich bin eingezogen. Besuch mich tagsüber vor Nummer 7 in Lindenstadt.\n\nElva')}));}
  if((b.st==='dokument'||b.st==='fertig')&&b.doc&&!b.ghost&&s.day>b.doc){b.ghost=s.day;must.push(letter(s,{from:'Hedwig',kind:'geheim',mis:'brunnen',ghost:true,t:'Brief von einem Geist',
   b:fill(s,'Liebe {name},\n\nich habe früher in diesem Dorf gewohnt. Mein Name war Hedwig. Danke, dass du um Mitternacht gekommen bist.\n\nDer alte Brunnen hat uns alle versorgt. Wenn sein Wasser wieder fließt, kann ich ruhig schlafen. Was er braucht, steht im alten Dokument.\n\nHedwig')}));}
- // Neues Geheimnis: nur, wenn keine Mission läuft
- if(!X.activeMission(s)){const next=MISSIONS.find(id=>!p.m[id].st),gap=s.day-p.lastMyst;
+ for(const f of X.CONT||[])f(s,must);
+ // Neues Geheimnis: nur, wenn keine Mission läuft und das nächste Ereignis gerade sinnvoll ist
+ if(!X.activeMission(s)){const ok=id=>!p.m[id].st&&START[id]&&(!X.ELIG||!X.ELIG[id]||X.ELIG[id](s)),next=MISSIONS.find(ok),gap=s.day-p.lastMyst;
   if(next&&gap>=3&&(gap>=5||rng()<.5)){p.m[next].st='brief';p.m[next].since=s.day;p.lastMyst=s.day;must.push(START[next](s));}}
  // Mietquittung: das Geld hat Stadt.advance bereits gutgeschrieben
  if(info.rent>0){const paid=s.city.plots.map((q,i)=>({q,i})).filter(({q})=>q.tenant&&q.lastRent===s.day);

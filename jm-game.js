@@ -743,7 +743,7 @@ function npcPlaceAll(snap){
 }
 let lastNpcMin=-1;
 function npcUpdate(dt){
-  if(!["village","stadt","i_nudelhaus"].includes(M.id)) return;
+  if(!["village","stadt","i_nudelhaus","bahnhof"].includes(M.id)) return;
   const m10=Math.floor(S.min/10);
   if(m10!==lastNpcMin){ lastNpcMin=m10; npcPlaceAll(false); }
   for(const id in NPCA){
@@ -778,6 +778,9 @@ function npcInteract(id,conversationOnly){
   }
   const f=festActive();
   if(f&&id==="rosa"&&!S.flags["fest_"+f.id+year()]){ runFest(f); return; }
+  // Briefkasten-Ereignisse (W61–W65): Gespräche, die eine Geschichte weiterführen, haben Vorrang.
+  const ev=!conversationOnly&&JM.Post.evTalk&&JM.Post.evTalk(S,id);
+  if(ev){ st.met=true; st.talk=S.day; runPost(ev); return; }
   if(!st.met){
     st.met=true; addPts(id,20); st.talk=S.day;
     const seq=[{who:id,text:N.intro}];
@@ -1059,6 +1062,8 @@ function routeTarget(t){
   if(t.map==="haus_oben"){if(M.id==="haus")return {map:M.id,x:16,y:4,exit:true};t={map:"haus",x:16,y:4};}
   if(t.map==="haus"){ if(M.id==="farm") return {map:"farm",x:5,y:6,exit:true}; t={map:"farm",x:5,y:6}; }
   else if(t.map.startsWith("i_")){ const o=MAPS.village.obj.find(o=>o.act==="shop:"+t.map.slice(2)); if(M.id==="village") return {map:"village",x:o.door[0],y:o.door[1]-1,exit:true}; t={map:"village",x:o.door[0],y:o.door[1]}; }
+  // Gewölbe hinter der Waldtür (W64): Zugang über die Tür im Mondwald
+  if(t.map===JM.Post.ROOM){ const d=JM.Post.door64; if(M.id==="forest") return {map:"forest",x:d.x,y:d.y+1}; t={map:"forest",x:d.x,y:d.y+1}; }
   if(t.map===M.id) return t;
   if(M.id==='stadt')return {map:M.id,x:14,y:19,exit:true};
   if(M.id==='bahnhof')return {map:M.id,x:t.map==='stadt'?11:0,y:t.map==='stadt'?8:9,exit:true};
@@ -1470,8 +1475,22 @@ function openLetter(i){
 }
 /* Geheimnis-Missionen an Weltobjekten (Logik in jm-post.js) */
 function refreshPost(){ JM.Stadt.apply(MAPS,S); setMap(M.id,Math.round(P.x),Math.round(P.y)); save(true); updateQuestUI(); }
+/* Ereignis-Skripte aus jm-ereignisse.js: Logik und Zustand liegen dort; hier nur Dialog, Panel, Reise. */
+function runPost(r){
+  if(!r) return;
+  if(r.refresh){ hud(); hotbar(); refreshPost(); }
+  if(r.banner) banner(r.banner); if(r.sfx) sfx(r.sfx);
+  const after=()=>{ if(r.travel) travel(r.travel); };
+  if(r.panel){ const H={}, P0=r.panel;
+    const btns=(P0.buttons||[]).map(b=>{ H[b.a]=()=>{ closePanel(); runPost(b.fn()); }; return `<button class="btn wide" data-a="${esc(b.a)}" ${b.off?"disabled":""}>${esc(b.t)}</button>`; }).join("");
+    openPanel(`<h2>${esc(P0.t)}</h2>${(P0.p||[]).map(x=>`<p>${esc(x)}</p>`).join("")}${btns}${closeBtn}`,H); return; }
+  if(r.lines&&r.lines.length) dialog(r.lines.map(l=>({who:l.who,text:fmtD(l.text)})),after);
+  else { if(r.note) note(r.note); after(); }
+}
 function postAct(a){
   const X=JM.Post, pm=S.post.m;
+  const ev=X.evAct&&X.evAct(S,a.replace(/^ev:/,""));
+  if(ev) return runPost(ev);
   if(a.startsWith("huegel:")){ const r=X.dig(S,a.slice(7)); sfx("dig"); if(r.ok){ hud(); hotbar(); refreshPost(); banner("Schatz gefunden!"); sfx("fanfare"); dialog([{who:null,text:r.msg},{who:"player",text:"Wer hier wohl früher seine Ersparnisse vergraben hat?"}]); } else note(r.msg); return; }
   if(a==="haus7"){ const h=pm.haus7, c=X.cost7;
     if(h.st==="suche"){ X.look7(S); save(true); updateQuestUI(); return dialog([{who:null,text:"Haus Nummer 7. Die Fenster sind mit Brettern vernagelt, die Tür ist abgeschlossen."},{who:null,text:"Im Staub vor der Tür sind frische Fußspuren. Unter der Schwelle klemmt eine getrocknete Mondblume."},{who:"player",text:"Wer kommt hierher, wenn hier niemand wohnt? Vielleicht bringt die Post eine Antwort."}]); }
