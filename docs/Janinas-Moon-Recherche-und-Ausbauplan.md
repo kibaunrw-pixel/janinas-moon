@@ -81,7 +81,7 @@ Status: **Wunschliste, keine Behauptung vorhandener oder originaler Harvest-Moon
 | W03 | Hilfe verändert Haus oder Geschäft | Vorher-/Nachher-Zustand sichtbar und nach Neuladen erhalten. |
 | W04 | Klatsch und Tratsch | Aussagen beziehen sich auf echte Ereignisse, keine unmöglichen oder schon widerlegten Meldungen. |
 | W05 | Neue Bewohner durch Aufgaben | Renovierung/Quest schaltet tatsächlichen Einzug mit Haus, Wegplan und Dialogen frei. |
-| W06 | Zwei heimlich Verliebten helfen zusammenzukommen | Eigene kleine Vermittlungsgeschichte mit Entscheidungen und Abschluss, nicht nur Geschenkzähler. |
+| W06 | Zwei heimlich Verliebten helfen zusammenzukommen | Eigene kleine Vermittlungsgeschichte mit Entscheidungen und Abschluss, nicht nur Geschenkzähler. **Entscheidung René 16.10.2026:** wird gebaut, zusammen mit W24 (Dorfbewohner untereinander verkuppeln). Status: offen, noch nicht umgesetzt. |
 
 ### Bild: Geheimnisvoller Wald und Magie
 
@@ -119,7 +119,7 @@ Status: **Wunschliste, keine Behauptung vorhandener oder originaler Harvest-Moon
 
 | ID | Wunsch | Umsetzungskriterium |
 |---|---|---|
-| W24 | Mehrere Charaktere kennenlernen, ausgehen, verlieben | Freundschaft und Partnerschaft getrennt; Umgang mit der bestehenden René-Partnerschaft vor Umsetzung ausdrücklich entscheiden. |
+| W24 | Mehrere Charaktere kennenlernen, ausgehen, verlieben | Freundschaft und Partnerschaft getrennt; Umgang mit der bestehenden René-Partnerschaft vor Umsetzung ausdrücklich entscheiden. **Entscheidung René 16.10.2026: beide Stränge.** (1) Janina und René als festes Paar: Picknick, romantische Briefe, Ausflüge, Jahrestage, gemeinsames Haus. (2) Dorfbewohner untereinander verkuppeln (siehe W06). Keine alternativen Spielpartnerschaften. Status: offen, noch nicht umgesetzt. |
 | W25 | Gemeinsame Picknicks | Verabredung, Ort, Zeit und eigene Szene; Termin im Kalender. |
 | W26 | Missverständnisse | Kleine Geschichte mit Auflösung und veränderten Gesprächen. |
 | W27 | Überraschungsbesuche | Nur bei plausibler Tageszeit/Anwesenheit, nicht während blockierender Szenen. |
@@ -154,6 +154,30 @@ Status: **Wunschliste, keine Behauptung vorhandener oder originaler Harvest-Moon
 | W46 | Dorfplatz renovieren | Gestaltung verändert sich nach Bauabschluss; Bewohner nutzen den neuen Ort. |
 | W47 | Altes Gewächshaus wiederherstellen | Hofgewächshaus existiert bereits als Freischaltung. Falls ein Dorfgewächshaus gemeint ist, als eigenen Ort definieren, nicht doppelt berechnen. |
 | W48 | Nach längerer Spielzeit sichtbarer Erfolg | Dauerhafte Vorher-/Nachher-Zustände und neue Nutzungsmöglichkeiten. Die im Bild genannten „20 Spielstunden“ sind ein Wunschbild, keine geprüfte Spielzeitprognose. |
+
+### Wünsche René 16.10.2026: Briefkasten
+
+Status „umgesetzt“ heißt: im Entwicklungszweig `feat/stadt-und-wohnraum` (Modul `jm-post.js`) gebaut und per Logiktest geprüft; die Browserabnahme steht in `docs/BRIEFE-ABNAHME.md`. Nichts davon ist veröffentlicht.
+
+| ID | Wunsch | Umsetzungskriterium | Status |
+|---|---|---|---|
+| W49 | Kernmechanik: jeden Spieltag 1–3 neue Briefe | Zustellung in der Nacht, gespeichert, nach Neuladen nicht doppelt. | umgesetzt |
+| W50 | Mietzahlungen per Brief | Brief ist nur Quittung; Geld kommt genau einmal über die nächtliche Stadtabrechnung (`lastRent`-Sperre). | umgesetzt |
+| W51 | Mietanfragen | Zusage im Brief vermietet ein freies fertiges Haus genau einmal. | umgesetzt |
+| W52 | Bauaufträge | Bauwunsch eines Bewohners für einen freien Bauplatz in Lindenstadt; nach Fertigstellung Dankesbrief mit 150 G als einmal abholbarer Beilage. | umgesetzt |
+| W53 | Geschenke | Geschenkbrief mit einmal abholbarem Gegenstand. | umgesetzt |
+| W54 | Bewertungen | Mieterbewertung nach einer Woche, Sterne erhöhen die Tagesmiete leicht. | umgesetzt |
+| W55 | Anonymer Brief: „Schau dir Haus Nr. 7 an.“ | Haus finden → Schlüsselbrief → Renovierung (800 G, 20 Holz, 10 Stein, zwei Nächte) → Elva zieht ein. | umgesetzt |
+| W56 | Geheimer Schlüssel | Teil der Haus-7-Geschichte (Brief „Ein Schlüssel ohne Absender“). | umgesetzt |
+| W57 | Schatzkarte | Karte im Brief, drei Erdhügel im Mondwald, nur der richtige belohnt (300 G, 3 Kupfererz), einmalig. | umgesetzt |
+| W58 | Mitternachtseinladung am alten Brunnen | Nur 23–24 Uhr am alten Brunnen; tagsüber passiert nichts. | umgesetzt |
+| W59 | Altes Dokument | Folgt auf die Mitternacht am Brunnen. | umgesetzt |
+| W60 | Brief von einem Geist | Folgt auf die Mitternacht; führt zur Brunnenreparatur (300 G, 15 Stein, 5 Kupfererz), danach Wasserstelle. | umgesetzt |
+| W61 | Ereignis: Mieter verschwunden | Eigene Geschichte mit Auflösung, Miete darf nicht still ausfallen. | offen |
+| W62 | Ereignis: verlassenes Haus zu verkaufen | Mit W39/W44/W55 verknüpfen, kein doppelter Hauszähler. | offen |
+| W63 | Ereignis: reicher Fremder will die Villa kaufen | Zuerst klären, welche Villa gemeint ist; Entscheidung mit Folgen. | offen |
+| W64 | Ereignis: geheime Tür im Wald | Neuer Ort mit Rückweg und Wegweiser. | offen |
+| W65 | Ereignis: mysteriöser Bewohner | Eigene Figur mit Tagesplan und aufzulösendem Geheimnis. | offen |
 
 ## 5. Konkreter Bauvorschlag: Höhle mit zehn Ebenen
 
@@ -237,7 +261,7 @@ Vollmondwald, Regenhändler, magische Pflanzen, Ruinen, geheime Briefe, Schatzka
 ## 9. Offene Entscheidungen – keine Blockade der Recherche
 
 - B04: Was genau fehlt bei den herumliegenden Sachen? Für den späteren Fehlernachweis Screenshot oder betroffenen Spielstand verwenden.
-- Romanzen: persönliche Janina/René-Geschichte als feste Partnerschaft erhalten und weitere Liebesgeschichten unter Bewohnern erzählen (Empfehlung), oder optional alternative Spielpartnerschaften ermöglichen?
+- Romanzen: **entschieden am 16.10.2026** – beide Stränge (Janina und René als Paar; Dorfbewohner untereinander verkuppeln), siehe W06/W24. Noch nicht gebaut.
 - Eigenes Geschäft: Café als erste konkrete Richtung (Empfehlung); weitere Geschäftsarten bleiben geplant statt vorgetäuscht.
 - Magieentscheidungen: abgeschnittener Bildsatz enthält kein vollständig lesbares gewünschtes Ergebnis.
 - Referenzversion: Falls ein bestimmter Harvest-Moon-Teil gemeint war, dessen Abweichungen gezielt nachrecherchieren. Der aktuelle Plan verwendet die ausdrücklich genannten Referenzen.
