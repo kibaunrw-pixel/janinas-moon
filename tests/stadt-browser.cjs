@@ -11,12 +11,22 @@ async function walk(x,y){
  // unoccupied neighbouring ground tile, never click through an actor or teleport.
  await p.waitForTimeout(550);
  /* Hund/Figur kann den Zielboden kurz belegen (beobachtet 1440/2D: Hof (7,8) neben dem Briefkasten): bis 10 s warten wie eine Spielerin. */
+ /* Etappe 2 (Nebenaufgabe): Im unabhängigen Gesamtlauf blieb die Figur einmal auf (8,8) statt (7,8) stehen, ohne Dialog.
+    Ursache unbelegt (Verdacht: Hund läuft zwischen Auswahl und Klick auf das Ziel). Deshalb: ausführliche Diagnose (Zielkachel,
+    Objekte, Figuren, Pfad, Zeiger) und höchstens zwei neue Versuche wie eine Spielerin, wenn die Figur ruhig steht. Kein Teleport. */
+ for(let attempt=0;;attempt++){
  let target=null;for(let w=0;w<20&&!target;w++){if(w)await p.waitForTimeout(500);target=await p.evaluate(({x,y,gfx})=>{const d=JMDEBUG,m=d.M,actors=[...Object.values(JM.ENG.NPCA).filter(a=>a.vis),...(d.RA.vis?[d.RA]:[]),...d.DOGS];
  for(const [dx,dy] of [[0,0],[0,1],[1,0],[-1,0],[0,-1],[1,1],[-1,1]]){const tx=x+dx,ty=y+dy;if(!JM.WALK.has(m.t[ty]?.[tx])||m.exits.some(e=>e.x===tx&&e.y===ty)||actors.some(a=>Math.abs(tx-a.x)<1&&ty+.5>a.y-1.1&&ty+.5<a.y+1.2))continue;
  const r=gfx==='3d'?JM.R3.proj(tx+.5,ty+.5,.01).map(n=>n/devicePixelRatio):[(tx*16+8-Math.round(d.cam.x))*d.scale,(ty*16+8-Math.round(d.cam.y))*d.scale];if(r[0]<1||r[0]>=innerWidth-1||r[1]<1||r[1]>=innerHeight-1||document.elementFromPoint(r[0],r[1])?.tagName!=='CANVAS')continue;
  if(gfx==='3d'){const hit=JM.R3.pick(...r);if(!hit||hit.collectible||(hit.actor&&hit.actor!=='P')||Math.floor(hit.wx)!==tx||Math.floor(hit.wy)!==ty)continue;}return {x:tx,y:ty,r};}return null;},{x,y,gfx});}
  if(!target)console.error('KEIN BODEN',x,y,await p.evaluate(()=>JSON.stringify({map:JMDEBUG.M.id,p:[JMDEBUG.P.x,JMDEBUG.P.y],dogs:JMDEBUG.DOGS.map(a=>[+a.x.toFixed(1),+a.y.toFixed(1)]),npc:Object.entries(JM.ENG.NPCA).filter(([k,a])=>a.vis).map(([k,a])=>[k,+a.x.toFixed(1),+a.y.toFixed(1)])})));assert.ok(target,'sichtbarer freier Boden nahe '+x+','+y);await p.mouse.click(...target.r);
- try{await p.waitForFunction(({x,y})=>Math.abs(JMDEBUG.P.x-x)<.1&&Math.abs(JMDEBUG.P.y-y)<.1&&JMDEBUG.idle,target,{timeout:10000});}catch(e){console.error('WEG',target,await p.evaluate(()=>({map:JMDEBUG.M.id,p:[JMDEBUG.P.x,JMDEBUG.P.y],busy:JMDEBUG.busy,dialog:document.querySelector('#dlg')?.innerText})),errors);await shot('stadt-wegproblem');throw e;}
+ try{await p.waitForFunction(({x,y})=>Math.abs(JMDEBUG.P.x-x)<.1&&Math.abs(JMDEBUG.P.y-y)<.1&&JMDEBUG.idle,target,{timeout:10000});return;}catch(e){
+  const dg=await p.evaluate(({x,y,r})=>{const d=JMDEBUG,m=d.M,P=d.P;return {map:m.id,ziel:[x,y],kachel:m.t[y]?.[x],begehbar:JM.WALK.has(m.t[y]?.[x]),objekte:m.obj.filter(o=>x>=o.x-1&&x<=o.x+(o.w||1)&&y>=o.y-1&&y<=o.y+(o.h||1)).map(o=>o.k+'@'+o.x+','+o.y),
+   p:[+P.x.toFixed(2),+P.y.toFixed(2)],pfad:(P.path||[]).slice(0,8),act:P.act?String(P.act.k||P.act.type||'aktion'):null,queue:(P.queue||[]).length,idle:d.idle,busy:JSON.stringify(d.busy),hunde:d.DOGS.map(a=>[+a.x.toFixed(2),+a.y.toFixed(2)]),
+   rene:d.RA.vis?[+d.RA.x.toFixed(2),+d.RA.y.toFixed(2)]:null,npc:Object.entries(JM.ENG.NPCA).filter(([k,a])=>a.vis).map(([k,a])=>[k,+a.x.toFixed(1),+a.y.toFixed(1)]),zeiger:r,unterZeiger:document.elementFromPoint(r[0],r[1])?.id||document.elementFromPoint(r[0],r[1])?.tagName,dialog:document.querySelector('#dlg')?.hidden===false?document.querySelector('#dlg').innerText:null};},target);
+  console.error('WEG-DIAGNOSE',attempt,JSON.stringify(dg),errors);
+  if(attempt<2&&dg.idle&&!dg.dialog&&!JSON.parse(dg.busy).ui.panel){console.error('Wegversuch wiederholt',x,y);continue;}
+  await shot('stadt-wegproblem');throw e;}}
 }
 async function map(id){await p.waitForFunction(id=>JMDEBUG.M.id===id&&!JMDEBUG.busy.ui.fade,id);}
 async function close(){await p.getByRole('button',{name:'Schließen',exact:true}).click();}

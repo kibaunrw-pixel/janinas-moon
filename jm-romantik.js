@@ -71,8 +71,8 @@ R.choices=function(s){const d=pending(s);if(!d)return [];if(d.k==='picknick')ret
  const c=[['muenze','Eine Münze in den Stadtbrunnen werfen'],['tisch','Am Tisch sitzen und den Leuten zusehen']];
  if(((s.city&&s.city.plots)||[]).some(p=>p.tenant==='mara'))c.push(['geige','Mara beim Geigespielen zuhören']);return c;};
 R.dateScene=function(s){const d=dateNow(s);if(!d)return null;const p=R.PLACES[d.place],ch=R.choices(s).map(([k,t])=>({t,fn:()=>R.finish(s,k)}));
- if(d.k==='picknick')return {fx:['rene','player'],lines:[say('rene','Da bist du ja! Ich habe alles eingepackt: Erdbeeren, belegte Brote und Tee in der Thermoskanne.'),say(null,'Ihr setzt euch auf die karierte Decke '+p.n+'. {d0} und {d1} schnuppern sofort am Korb.'),say('rene','Worüber reden wir?',ch)]};
- return {fx:['rene','player'],lines:[say('rene','Lindenstadt am Abend! Ich habe uns einen Tisch am Brunnen besorgt. Mit Kerze.'),say(null,'Die Laternen gehen an. Vom Bahnhof hört man den letzten Zug.'),say('rene','Was machen wir zuerst?',ch)]};};
+ if(d.k==='picknick')return {pose:{map:p.map,x:p.spot[0],y:p.spot[1]},fx:['rene','player'],lines:[say('rene','Da bist du ja! Ich habe alles eingepackt: Erdbeeren, belegte Brote und Tee in der Thermoskanne.'),say(null,'Ihr setzt euch auf die karierte Decke '+p.n+'. {d0} und {d1} schnuppern sofort am Korb.'),say('rene','Worüber reden wir?',ch)]};
+ return {pose:{map:p.map,x:p.spot[0],y:p.spot[1]},fx:['rene','player'],lines:[say('rene','Lindenstadt am Abend! Ich habe uns einen Tisch am Brunnen besorgt. Mit Kerze.'),say(null,'Die Laternen gehen an. Vom Bahnhof hört man den letzten Zug.'),say('rene','Was machen wir zuerst?',ch)]};};
 R.finish=function(s,choice){const d=dateNow(s);if(!d)return null;const T=TXT[d.k][choice];if(!T||!R.choices(s).some(c=>c[0]===choice))return null;
  d.done=s.day;d.choice=choice;const r=s.rom;
  r.mem.push({k:d.k,day:s.day,place:d.place,choice,t:(d.k==='picknick'?'Picknick ':'Ausflug ')+R.PLACES[d.place].n,txt:T.m});
@@ -82,7 +82,7 @@ R.finish=function(s,choice){const d=dateNow(s);if(!d)return null;const T=TXT[d.k
 
 /* ---------- W31 Jahrestag ---------- */
 R.jtScene=function(s){const y=cal.y(s);if(!R.jtToday(s)||s.min<R.JT_FROM||s.min>=R.JT_TO||s.rom.jtDone[y])return null;
- return {fx:['rene','player'],lines:[say(null,'Auf dem Küchentisch brennen zwei Kerzen. Daneben steht eine Rose in einem Wasserglas.'),say('rene','Weißt du, was heute ist? Unser Jahrestag.'),
+ return {pose:{map:'haus',x:R.HOME.spot[0],y:R.HOME.spot[1]},fx:['rene','player'],lines:[say(null,'Auf dem Küchentisch brennen zwei Kerzen. Daneben steht eine Rose in einem Wasserglas.'),say('rene','Weißt du, was heute ist? Unser Jahrestag.'),
   say('rene',y===1?'Ein ganzes Jahr Mondhof ist es noch nicht. Aber jeder Tag hier mit dir zählt doppelt.':'Wieder ein Jahr. Das schönste bisher. Das sage ich jedes Jahr, und jedes Jahr stimmt es.'),
   say('rene','Ich habe dir etwas geschrieben.',[{t:'Den Brief sofort lesen',fn:()=>R.jtFinish(s,'lesen')},{t:'Erst anstoßen, dann lesen',fn:()=>R.jtFinish(s,'anstossen')}])]};};
 R.jtFinish=function(s,how){const y=cal.y(s);if(!R.jtToday(s)||s.rom.jtDone[y]||!['lesen','anstossen'].includes(how))return null;
@@ -101,7 +101,7 @@ const visitNow=s=>R.jbToday(s)&&s.min>=R.BDAY.from&&s.min<R.BDAY.to;
 R.party=function(s){if(!visitNow(s)||!visitors(s).length)return null;const rec=R.jbRec(s);if(rec.fest)return null;rec.fest=s.day;
  D.give(s,R.BDAY.gift);for(const id of visitors(s))D.addP(s,id,20);
  const v=visitors(s),a=v[0],b=v[1]||v[0];
- return {hud:true,banner:'Überraschung!',sfx:'fanfare',fx:[...v,'player'],lines:[say(a,'Überraschung! Alles Gute zum Geburtstag, {name}!'),say(b,'Wir haben einen Kuchen mitgebracht. Mit Kerzen, aus Lins Küche!'),say(null,'Auf dem Tisch vor eurem Haus stehen ein Kuchen und ein kleines Päckchen.'),say(a,'Vom ganzen Dorf: ein Korb mit Tee und Frühlingsrollen. Alle lassen dich grüßen.'),say(null,'Du bekommst 2× Tee und 2× Frühlingsrolle.')]};};
+ return {pose:{map:'farm',x:R.BDAY.spot[0],y:R.BDAY.spot[1]},hud:true,banner:'Überraschung!',sfx:'fanfare',fx:[...v,'player'],lines:[say(a,'Überraschung! Alles Gute zum Geburtstag, {name}!'),say(b,'Wir haben einen Kuchen mitgebracht. Mit Kerzen, aus Lins Küche!'),say(null,'Auf dem Tisch vor eurem Haus stehen ein Kuchen und ein kleines Päckchen.'),say(a,'Vom ganzen Dorf: ein Korb mit Tee und Frühlingsrollen. Alle lassen dich grüßen.'),say(null,'Du bekommst 2× Tee und 2× Frühlingsrolle.')]};};
 
 /* ---------- W26 Missverständnis ---------- */
 R.mvTalk=function(s){const m=s.rom.mv;

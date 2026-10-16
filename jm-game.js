@@ -1499,6 +1499,8 @@ function runPost(r){
   if(r.refresh){ hud(); hotbar(); refreshPost(); }
   else if(r.hud){ hud(); hotbar(); save(true); updateQuestUI(); }
   if(r.banner) banner(r.banner); if(r.sfx) sfx(r.sfx);
+  // Szenenaufstellung (Etappe 2): Die Spielerin stellt sich an ihren Platz in der Szene (Decke, Tisch), damit niemand verdeckt wird.
+  if(r.pose&&r.pose.map===M.id&&walkT(r.pose.x,r.pose.y)){ P.x=r.pose.x; P.y=r.pose.y; P.path=[]; P.queue=[]; P.act=null; if(RA.vis) faceTo(Math.round(RA.x),Math.round(RA.y)); }
   if(r.fx) sceneHearts(r.fx);
   const after=()=>{ if(r.travel) travel(r.travel); };
   if(r.panel){ const H={}, P0=r.panel;

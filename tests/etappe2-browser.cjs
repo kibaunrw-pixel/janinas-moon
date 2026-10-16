@@ -74,7 +74,12 @@ async function pickChoice(txt){const btn=await untilChoice(txt);await p.waitForT
 async function dlgText(){return S(()=>document.querySelector('#dlgT')?.textContent||'');}
 async function seenText(re){for(let i=0;i<20;i++){await p.waitForTimeout(150);const t=await dlgText();if(re.test(t))return t;if(!await S(()=>JMDEBUG.busy.ui.dialog))break;await p.locator('#dlg').click();await p.waitForTimeout(300);}throw Error('Text nicht gesehen: '+re);}
 async function tapRene(){await p.waitForFunction(()=>JMDEBUG.RA.vis,null,{timeout:20000});const e=await S(()=>({x:JMDEBUG.RA.x,y:JMDEBUG.RA.y}));await click(e.x,e.y,1,true);await p.waitForFunction(()=>JMDEBUG.busy.ui.dialog,null,{timeout:20000});}
-async function talk(id){await talkTo(id);await p.waitForFunction(()=>JMDEBUG.busy.ui.dialog||JMDEBUG.busy.ui.panel,null,{timeout:30000});}
+/* Liegt die Figur außerhalb des Bildes (3D mobil nah gezoomt), geht die Spielerin erst in ihre Nähe. */
+async function talk(id){await p.waitForFunction(id=>JM.ENG.NPCA[id]?.vis,id,{timeout:20000});
+ for(let n=0;n<5;n++){const far=await p.evaluate(({id,gfx})=>{const a=JM.ENG.NPCA[id],d=JMDEBUG;const r=gfx==='3d'?JM.R3.proj(a.x+.5,a.y+.5,1).map(n=>n/devicePixelRatio):[(a.x*16+8-Math.round(d.cam.x))*d.scale,(a.y*16+8-Math.round(d.cam.y))*d.scale];
+  return r[0]>12&&r[0]<innerWidth-12&&r[1]>12&&r[1]<innerHeight-12?null:[Math.round(a.x),Math.round(a.y)];},{id,gfx});
+  if(!far)break;if(!await stepToward(far[0],far[1]))break;}
+ await talkTo(id);await p.waitForFunction(()=>JMDEBUG.busy.ui.dialog||JMDEBUG.busy.ui.panel,null,{timeout:30000});}
 async function book(tab){await p.locator('#bMenu').click();await p.getByRole('heading',{name:'Tagebuch',exact:true}).waitFor();await p.locator('[data-a="tab"][data-k="'+tab+'"]').click();await p.waitForTimeout(300);}
 async function bookText(){return S(()=>document.querySelector('#panel')?.innerText||'');}
 const rom=()=>S(()=>JSON.parse(JSON.stringify(JMDEBUG.S.rom)));const dorf=()=>S(()=>JSON.parse(JSON.stringify(JMDEBUG.S.dorf)));
@@ -111,19 +116,21 @@ if(seg==='geheimnis'){ // W01: Henk, drei Teile; Reload mitten in der Geschichte
  await book('herz');assert.match(await bookText(),/3 von 3/);row.shots.push(await shot('geheimnis-tagebuch-fertig'));await close();row.result={henk:3};}
 if(seg==='streit'){ // W02 Streit Lin–Paula + W04 Tratsch + W38 Bewohnergeburtstag (Paula, 12. Frühling)
  await talk('lin');await seenText(/ungenießbar/);await dialogs();assert.equal((await dorf()).streit.st,'lin');
- await fixTime(480);await S(()=>{JMDEBUG.S.hold='milch';});await talk('paula');await pickChoice('Schenken');await p.waitForFunction(()=>JMDEBUG.busy.ui.dialog);await p.waitForTimeout(900);const gt=await dlgText();assert.match(gt,/am liebsten/,'Geburtstagsantwort: '+gt);row.shots.push(await sceneShot('streit-paula-geburtstag'));await dialogs();
+ await walk(16,17);await walk(17,21);await fixTime(480);await S(()=>{JMDEBUG.S.hold='milch';});await talk('paula');await pickChoice('Schenken');await p.waitForFunction(()=>JMDEBUG.busy.ui.dialog);await p.waitForTimeout(900);const gt=await dlgText();assert.match(gt,/am liebsten/,'Geburtstagsantwort: '+gt);row.shots.push(await sceneShot('streit-paula-geburtstag'));await dialogs();
  assert.equal((await dorf()).bd['paula:1'].lv,'love');await S(()=>{JMDEBUG.S.hold='auto';});
  await talk('paula');await seenText(/unglaublich scharf/);await dialogs();assert.equal((await dorf()).streit.st,'zettel');
- await reload();await fixTime(480);await talk('lin');await pickChoice('Sie meint es ehrlich');await p.waitForFunction(()=>JMDEBUG.busy.ui.dialog);await p.waitForTimeout(900);row.shots.push(await sceneShot('streit-versoehnung'));await dialogs();
- assert.equal((await dorf()).streit.st,'versoehnt');await fixTime(480);await talk('rosa');await p.waitForTimeout(900);const g=await dlgText();assert.match(g,/vertragen sich wieder/,'Tratsch: '+g);row.shots.push(await shot('streit-tratsch'));await dialogs();
+ await reload();await walk(16,17);await walk(16,15);await fixTime(480);await talk('lin');await pickChoice('Sie meint es ehrlich');await p.waitForFunction(()=>JMDEBUG.busy.ui.dialog);await p.waitForTimeout(900);row.shots.push(await sceneShot('streit-versoehnung'));await dialogs();
+ assert.equal((await dorf()).streit.st,'versoehnt');await walk(14,12);await walk(13,11);await fixTime(480);await talk('rosa');await p.waitForTimeout(900);const g=await dlgText();assert.match(g,/vertragen sich wieder/,'Tratsch: '+g);row.shots.push(await shot('streit-tratsch'));await dialogs();
  await book('herz');const bt=await bookText();assert.match(bt,/Lin & Paula · Wieder Freunde/);assert.match(bt,/Rosa: „Lin und Paula vertragen/);assert.match(bt,/Paula · Jahr 1 · Milch · Lieblingsgeschenk/);row.shots.push(await shot('streit-tagebuch'));await close();
  await reload();assert.equal((await dorf()).streit.st,'versoehnt');row.result={streit:'versoehnt'};}
 if(seg==='paar'){ // W06 Mei und Timo
  await talk('mei');await seenText(/Holz/);await dialogs();assert.equal((await dorf()).paar.st,'hinweis');
- await fixTime(400);await talk('timo');await pickChoice('Ich bringe ihr beides');await dialogs();assert.equal((await dorf()).paar.st,'brief');
- await reload();await fixTime(420);await talk('mei');await pickChoice('Am Dorfbrunnen');await dialogs();const d=await dorf();assert.equal(d.paar.st,'treffen');assert.equal(d.paar.meet,9);
+ /* Timo morgens vor der Zimmerei liegt in 3D mobil hinter dem Tierhof-Dach; deshalb (Zeit-Fixture) am Nachmittag auf dem Dorfplatz (17,13). */
+ await fixTime(1030);await p.waitForFunction(()=>{const a=JM.ENG.NPCA.timo;return a&&a.vis&&Math.round(a.x)===17&&Math.round(a.y)===13&&!a.path.length;},null,{timeout:30000});await walk(16,15);
+ await talk('timo');await pickChoice('Ich bringe ihr beides');await dialogs();assert.equal((await dorf()).paar.st,'brief');
+ await reload();await p.waitForFunction(()=>{const a=JM.ENG.NPCA.mei;return a&&a.vis&&!a.path.length;},null,{timeout:30000});await talk('mei');await pickChoice('Am Dorfbrunnen');await dialogs();const d=await dorf();assert.equal(d.paar.st,'treffen');assert.equal(d.paar.meet,10,'nach 17 Uhr verabredet: morgen');
  await book('cal');assert.match(await bookText(),/Mei & Timo/);await close();
- await fixTime(1085);await p.waitForFunction(()=>JM.ENG.NPCA.mei?.vis&&JM.ENG.NPCA.timo?.vis,null,{timeout:30000});await walk(14,13);await p.waitForTimeout(1500);row.shots.push(await sceneShot('paar-treffen'));
+ await fixTime(1085,1);await p.waitForFunction(()=>JM.ENG.NPCA.mei?.vis&&JM.ENG.NPCA.timo?.vis,null,{timeout:30000});await walk(14,13);await p.waitForTimeout(1500);row.shots.push(await sceneShot('paar-treffen'));
  await talk('mei');await pickChoice('Timo, du wolltest');await p.waitForFunction(()=>JMDEBUG.busy.ui.dialog);await dialogs();await p.waitForTimeout(500);row.shots.push(await sceneShot('paar-zusammen'));
  assert.equal((await dorf()).paar.st,'paar');assert.deepEqual(await S(()=>[JM.Stadt.location(JMDEBUG.S,'mei',false),JM.Stadt.location(JMDEBUG.S,'timo',false)].map(l=>l&&[l.x,l.y])),[[14,12],[15,12]]);
  await reload();assert.equal((await dorf()).paar.st,'paar');await book('herz');assert.match(await bookText(),/Mei & Timo · Ein Paar/);await close();row.result={paar:'paar'};}

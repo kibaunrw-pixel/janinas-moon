@@ -122,7 +122,7 @@ D.paarTalk=function(s,id){const m=s.dorf.paar;
   ...(m.st==='brief'?[say(null,'Du gibst Mei den Holzvogel und Timos Brief.'),say('mei','Er hat … einen Vogel geschnitzt? Für mich?'),say(null,'Mei liest. Dann liest sie noch einmal.')]:[say('player','Timo würde dich gern treffen. Nur ihr zwei.'),say('mei','Wirklich? Timo? Mich?')]),
   say('mei','Wo sollen wir uns treffen? Hilf mir!',placeChoices(s))]};
  if(m.st==='treffen'&&(id==='mei'||id==='timo')){
-  if(meetNow(s,m))return {fx:['mei','timo'],lines:[say(null,'Mei und Timo stehen '+D.MEET[m.place].n+'. Keiner sagt ein Wort.'),say('timo','Also … schönes Wetter heute.'),
+  if(meetNow(s,m))return {pose:{map:'village',x:D.MEET[m.place].spot[0],y:D.MEET[m.place].spot[1]},fx:['mei','timo'],lines:[say(null,'Mei und Timo stehen '+D.MEET[m.place].n+'. Keiner sagt ein Wort.'),say('timo','Also … schönes Wetter heute.'),
    say('mei','Ja. Sehr … Wetter.',[{t:'„Timo, du wolltest Mei doch etwas sagen.“',fn:()=>D.together(s,'timo')},{t:'„Mei, du wolltest Timo doch etwas fragen.“',fn:()=>D.together(s,'mei')}])]};
   if(s.day<m.meet||(s.day===m.meet&&s.min<D.meetFrom))return {lines:[say(id,id==='mei'?'Um 18 Uhr '+D.MEET[m.place].n+'. Ich bin so nervös.':'Heute Abend … oder morgen? Nein, ich weiß es genau. Ich bin pünktlich.')]};
   if(id==='mei')return {lines:[say('mei','Wir haben beide gewartet. Und uns dann doch nicht getraut, den Anfang zu machen.'),say('mei','Versuchen wir es noch einmal? Mit dir in der Nähe trau ich mich eher.',placeChoices(s))]};
