@@ -1,0 +1,27 @@
+Versandklick abgefangen, Versuch 1 {"dlg":"René\nHast du meine Socke ge","ra":[6.69318,9,true],"p":[7,8]}
+MARKET_SEED {
+  map: 'village',
+  p: [ 13, 14 ],
+  cam: { x: -24, y: 96.55833333333334 },
+  scale: 3,
+  ui: { panel: false, dialog: false, fade: false },
+  gfx: '3d',
+  visibility: 'visible'
+}
+AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
++ actual - expected
+
++ [
++   'ReferenceError: JMDEBUG is not defined'
++ ]
+- []
+
+    at /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/desktop-rest.cjs:46:8 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: [Array],
+  expected: [],
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+EXIT 1
