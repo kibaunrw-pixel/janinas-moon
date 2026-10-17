@@ -619,5 +619,464 @@
         "inhalt": "W02/W04 Tagebuch „Herz“ am Rechner: Verabredungsknöpfe, Datumsauswahl, Erinnerungen, Geheimnisse"
       }
     ]
+  },
+  "etappe3Feinschliff": {
+    "basis": "33b6fb5a070b26335b464d260f489e91671c7ad7",
+    "produktstand": "7cafc2d77ad72e976b7e2fca94dbc666b17bab60",
+    "browserSegmente": 28,
+    "rahmungsAnsichten": 4,
+    "hinweis": "Alle gelisteten neuen Bildbelege selbst kritisch angesehen (mobile Bildpaare und einzelne Desktopbilder; bei Bedarf Ausschnitt). 390×844/DPR2 und 1440×900/DPR1, jeweils 2D/3D. Café-Eingang und drei Tische: ausgewiesene Zusatz-Fixture. Nur lokale Chrome-Prüfung, kein Deploy oder Geräteabnahmeurteil.",
+    "screenshots": [
+      {
+        "path": "docs/belege/etappe3/cafe-aussen-1440-2d.png",
+        "bytes": 647356,
+        "sha256": "494ed62813bae2c0b5181c8336aa5761a6cdf7850e8a843d820778d7fe0d1170",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/cafe-aussen-1440-3d.png",
+        "bytes": 1289145,
+        "sha256": "c4a1e0d980825c477cdffff1409d34e5be0737a576d866d71b1c2db54ffb19ff",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/cafe-aussen-390-2d.png",
+        "bytes": 613136,
+        "sha256": "1c3e2f526d5438c033588e46462d71601f2610b478247586e545e9192edf6e13",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/cafe-aussen-390-3d.png",
+        "bytes": 842166,
+        "sha256": "6dc7479d8085d5d80b95968a759846c3fb2450625ee5eb79f7f034c756af4eb2",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/cafe-bedient-blumen-1440-2d.png",
+        "bytes": 270396,
+        "sha256": "dfcd970549c45a963e6d0cc05f092508b2a0e755698b3d2508eabb6cf5d46f46",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/cafe-bedient-blumen-1440-3d.png",
+        "bytes": 458936,
+        "sha256": "dd2145bb0f8ddd6e2c4a6d235e3d6a82579ccbf171cfff294f75c8b88f1c4f41",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/cafe-bedient-blumen-390-2d.png",
+        "bytes": 179470,
+        "sha256": "e6b9b15cc26f737228293462353d2418fe4480d569d6510bfc2544332d6dbb23",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/cafe-bedient-blumen-390-3d.png",
+        "bytes": 270728,
+        "sha256": "098b72e41533375811ae8153aa65dc4973461da7fe2aa37a18365600d8d3cf86",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/cafe-drei-tische-1440-2d.png",
+        "bytes": 273402,
+        "sha256": "2ceeb024d100d90c6f250f92b7bfd32f8f3eb4f8370c13e6bd1e18e4f995f09f",
+        "angesehen": true,
+        "fixture": true
+      },
+      {
+        "path": "docs/belege/etappe3/cafe-drei-tische-1440-3d.png",
+        "bytes": 433970,
+        "sha256": "53153fc59cb735145d66ad8a7ce32c3848bc69b9c7a104368db97efed2f2ac64",
+        "angesehen": true,
+        "fixture": true
+      },
+      {
+        "path": "docs/belege/etappe3/cafe-drei-tische-390-2d.png",
+        "bytes": 176669,
+        "sha256": "6af5c20e7aa1cafb921e93e582003d1b3cd390f387c68807ba2beea08f33bb2f",
+        "angesehen": true,
+        "fixture": true
+      },
+      {
+        "path": "docs/belege/etappe3/cafe-drei-tische-390-3d.png",
+        "bytes": 280822,
+        "sha256": "bdae95bd7ea318c3eefe552d099d43e4fcf18ab86c7ce059730202e7288c1752",
+        "angesehen": true,
+        "fixture": true
+      },
+      {
+        "path": "docs/belege/etappe3/cafe-eingang-1440-2d.png",
+        "bytes": 586270,
+        "sha256": "cfcb9a1b5f2e610a1d159f2e08508af214887db8ccb561f032eafd182601d3ff",
+        "angesehen": true,
+        "fixture": true
+      },
+      {
+        "path": "docs/belege/etappe3/cafe-eingang-1440-3d.png",
+        "bytes": 1311556,
+        "sha256": "aa4491f0f600d8d33929a67c966beef4ce6c856b0601c8c27884ba7c8c54bbb0",
+        "angesehen": true,
+        "fixture": true
+      },
+      {
+        "path": "docs/belege/etappe3/cafe-eingang-390-2d.png",
+        "bytes": 358895,
+        "sha256": "c0928bb11fd82416cd06e534dd7ab8cae6c8484ac5ee4103f53babc45ec9e53b",
+        "angesehen": true,
+        "fixture": true
+      },
+      {
+        "path": "docs/belege/etappe3/cafe-eingang-390-3d.png",
+        "bytes": 868943,
+        "sha256": "4595a78bcb0ca36f3bc4643a0d91d4f4951c37570613f51b935384748d4e0116",
+        "angesehen": true,
+        "fixture": true
+      },
+      {
+        "path": "docs/belege/etappe3/cafe-gaeste-1440-2d.png",
+        "bytes": 274916,
+        "sha256": "53f2a7a73a6999e7e840dfb919eb41f1d21c2489076c985ef58f9c4566c4da66",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/cafe-gaeste-1440-3d.png",
+        "bytes": 406576,
+        "sha256": "3aae7473fb197406eb3e71d1b68fe34ece61fa23f9c7c63193242bc1cd2974c4",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/cafe-gaeste-390-2d.png",
+        "bytes": 178976,
+        "sha256": "a42bc87ed61b7d30732aedfe27f102cf2d9c1d49ee9d978d77419b95e4b3ae4e",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/cafe-gaeste-390-3d.png",
+        "bytes": 261933,
+        "sha256": "0e933905042170f5638e69af7bf0293c6bb6a66120418acd1cb7b55e8908eb5e",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/hund-grabstelle-1440-2d.png",
+        "bytes": 624345,
+        "sha256": "2b1dc1d0ee922a01745f46854f12e6b4449215c472d33a64ae27ddf683dab511",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/hund-grabstelle-1440-3d.png",
+        "bytes": 887231,
+        "sha256": "293c6986c59f4264e610109e68fadb4f9677525f97076121d7fcbcefcda2c989",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/hund-grabstelle-390-2d.png",
+        "bytes": 614448,
+        "sha256": "1ae69654863a1623ef94440b278449e7219ccaed7e0d178dabb19658419064a6",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/hund-grabstelle-390-3d.png",
+        "bytes": 920290,
+        "sha256": "af0a020a532175a9bb68531fd9acd907cc9ca3c5215fec2174a526503de3e7b6",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/hund-spur-1440-2d.png",
+        "bytes": 609028,
+        "sha256": "acae5b787f6badd9b3fd469ae8bc31eb056458c2068183ab1342d1d517c3bbd1",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/hund-spur-1440-3d.png",
+        "bytes": 942163,
+        "sha256": "74f2b5db3d831a9622bd55fbe2629e6d874f43f773d7e63ab4b4d124e1e318b1",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/hund-spur-390-2d.png",
+        "bytes": 609764,
+        "sha256": "f3fd262b28af42893bb9f81ab1be8f6351ead4468d93a989bf10b2fcbd44ba2b",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/hund-spur-390-3d.png",
+        "bytes": 931866,
+        "sha256": "f46de30093ee44b9b06fd11a2077a6cd7cbac559d8217cfe4de4b445ad6f35bc",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/katze-geschenk-1440-2d.png",
+        "bytes": 615798,
+        "sha256": "35556fda62276985cd0c5e2899843d2f1f88d16a00cdd8807bddb396c0675e28",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/katze-geschenk-1440-3d.png",
+        "bytes": 862547,
+        "sha256": "51dc96084c75c52cb4206d57eea337cc0d960e7d519f5722c67d1ceb582ff51a",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/katze-geschenk-390-2d.png",
+        "bytes": 348320,
+        "sha256": "fb0cbd40ae888b72d54a94a9d256bd17a7a8baf784a5f097663ad34fda8d47c6",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/katze-geschenk-390-3d.png",
+        "bytes": 699551,
+        "sha256": "5d843737540e90a4b8c7cb461562b0a350d00574148272dd6c7281a239fc94ea",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/katze-sonne-1440-2d.png",
+        "bytes": 610177,
+        "sha256": "04913955812c4a59247ad640a1508630e41c2e8d37e7c19adf1c63694c157c56",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/katze-sonne-1440-3d.png",
+        "bytes": 1039181,
+        "sha256": "c61f4e5e28f5f5e4418ecf5f885ea6d23a277ff57ef6cbceb2d38ce54e6e42f1",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/katze-sonne-390-2d.png",
+        "bytes": 377287,
+        "sha256": "c81dcb65d192cf4cb22d339db10b05e8f2ba3863d47cb523a95454ecb1d65796",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/katze-sonne-390-3d.png",
+        "bytes": 911208,
+        "sha256": "336075a0af7c750e5e0048f895319e739a2beb7a00fcc0a36c8bb384d7055654",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/rettung-korb-1440-2d.png",
+        "bytes": 647151,
+        "sha256": "f53e945059b6681b7e4f183572c6ead6613b5cf5af1b509fff0e20a869d0636e",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/rettung-korb-1440-3d.png",
+        "bytes": 1020286,
+        "sha256": "b9d3907826d975cf80a64cde4c0e21168752902a7359a8e2450f7c8e27a4c58e",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/rettung-korb-390-2d.png",
+        "bytes": 623471,
+        "sha256": "f756b1bd7f7c01bc3cd91eff38f524561bf9fe2bfbeded492560a6ec8c36c6e3",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/rettung-korb-390-3d.png",
+        "bytes": 981066,
+        "sha256": "608c671538d9656cb4c653b2e1f395d9f078a175141daf622851224bb8c54d17",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/rettung-pip-1440-2d.png",
+        "bytes": 602731,
+        "sha256": "76f3cfc2da87c883a0ba36ed5989faa69deb85d64cb218101d8ecd3d4f2eaf79",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/rettung-pip-1440-3d.png",
+        "bytes": 982087,
+        "sha256": "b1e16f0d4c433f6ce599a897c3ff7ca06bd0f75d25fbb4fedf5b3a2436b1b970",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/rettung-pip-390-2d.png",
+        "bytes": 351607,
+        "sha256": "0372b00da102e3b280c0b7a03cb5384bac4ad75bfdc6862d99ad778fbf074e4a",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/rettung-pip-390-3d.png",
+        "bytes": 882768,
+        "sha256": "7e609a4e3b04c4138a36d61716f26a2068264ddff13df1a61323aab75adba7ec",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/teich-enten-1440-2d.png",
+        "bytes": 629626,
+        "sha256": "9c5e57e070fe98e626fe771e3e6676d8189bc22a0353b91454bb5a339a22fbc0",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/teich-enten-1440-3d.png",
+        "bytes": 966937,
+        "sha256": "e3aa05541277e2eaf0c74ecd238fa8fa11a7f7dad1b4ca2d26131381779b6eb5",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/teich-enten-390-2d.png",
+        "bytes": 371357,
+        "sha256": "4e19f57ab7b7c332e1406d09a9d545a87cb62f5ff5d5fd435ec3093df3b97a5e",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/teich-enten-390-3d.png",
+        "bytes": 784426,
+        "sha256": "dc0823cdf4b5f34c5c54ba7dbd8030fb2a4082c5176a1233478cff6d55a27c7f",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/teich-kueken-1440-2d.png",
+        "bytes": 626488,
+        "sha256": "6883d13c6fd39ae07b4cbaac839063bcd483c5491b28e01f48d8f76b894e03db",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/teich-kueken-1440-3d.png",
+        "bytes": 962421,
+        "sha256": "122fc62337c1164ac38f0b4ec099488b801dc8c02e95f81f7f08cb55b692a8d9",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/teich-kueken-390-2d.png",
+        "bytes": 367834,
+        "sha256": "81772345c6822e6db5774cbb04876164569ab428079ff49540b59545f4fb564f",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/teich-kueken-390-3d.png",
+        "bytes": 782916,
+        "sha256": "776bb943b21999d771d8e3279471d49824d6b84cbf89c606656812faf6bc3e3d",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/teich-tagebuch-1440-2d.png",
+        "bytes": 480593,
+        "sha256": "99d3d400daceed0fed972e0aaa82b5a9255bf4f28fdd05df2fc78f6c5138e627",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/teich-tagebuch-1440-3d.png",
+        "bytes": 614241,
+        "sha256": "45f76fe1e8b3d0726b4dac8632730284aa76617f29a824e77846925798ccaca8",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/teich-tagebuch-390-2d.png",
+        "bytes": 268236,
+        "sha256": "699dc0ec8f4c844499a0ad5d600a15ca696c8b302f9b9c66afe19111fb561b60",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/teich-tagebuch-390-3d.png",
+        "bytes": 263182,
+        "sha256": "fddbd1e93e5792ff6889ccf9d76169f5f505812ba31982f76a64d98609ed7cae",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/ziege-gefressen-1440-2d.png",
+        "bytes": 626283,
+        "sha256": "96fa82ccc24752c1ae39665fd8aec39435b952e5d0de64d90deee2c72711a3fc",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/ziege-gefressen-1440-3d.png",
+        "bytes": 1089995,
+        "sha256": "f22cc1ae9c37f11e5cdbda8785354dec6df645acbdb93f67238025aff5b78984",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/ziege-gefressen-390-2d.png",
+        "bytes": 619664,
+        "sha256": "348f1cf4b20e7ebfd8bd4d8b4862f7d173aa52356ecc06c935308d1c1ded682b",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/ziege-gefressen-390-3d.png",
+        "bytes": 1005128,
+        "sha256": "05c63e14feb7ff82f7ae4a03de24251e1dad03a22a4b17b99e9caad1377930c1",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/ziege-nascht-1440-2d.png",
+        "bytes": 609963,
+        "sha256": "446b37cd2f5321df009b419a4e693e25979d48f82a51b32415855949ddc73eda",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/ziege-nascht-1440-3d.png",
+        "bytes": 1112708,
+        "sha256": "e38582a784ec7977c3bfe11947d11339d1dd49d17d77d75851b09dc075cc598e",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/ziege-nascht-390-2d.png",
+        "bytes": 344205,
+        "sha256": "aecea875c304fb137f40bd8bbcc757af1d4a6f0df199653195fb83913f9763c0",
+        "angesehen": true,
+        "fixture": false
+      },
+      {
+        "path": "docs/belege/etappe3/ziege-nascht-390-3d.png",
+        "bytes": 908931,
+        "sha256": "838ea170da04b82eb073dbd8f4b8fe0ee0e111025e421f87d6f076ae319f5754",
+        "angesehen": true,
+        "fixture": false
+      }
+    ],
+    "teststand": "4b2ceff759389583be7950f674ddf5e532c0a76a",
+    "logikTests": 72
   }
 }

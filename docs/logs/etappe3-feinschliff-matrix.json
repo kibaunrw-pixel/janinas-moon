@@ -1,0 +1,1162 @@
+[
+  {
+    "seg": "cafe",
+    "width": 390,
+    "gfx": "2d",
+    "shots": [
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/cafe-teehaus-390-2d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/cafe-baustelle-390-2d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/cafe-aussen-390-2d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/cafe-theke-390-2d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/cafe-gaeste-390-2d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/cafe-bedient-blumen-390-2d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/cafe-bilanz-390-2d.png"
+    ],
+    "result": {
+      "served": 3,
+      "sum": 504,
+      "order": 270
+    },
+    "raf": 63,
+    "dialogBounds": [
+      {
+        "text": "Servieren: Eier-Nudelsuppe · 234 G",
+        "x": 104,
+        "y": 713.75,
+        "right": 362,
+        "bottom": 771.25,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "text": "Gleich",
+        "x": 104,
+        "y": 777.25,
+        "right": 362,
+        "bottom": 816,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "text": "Servieren: Eier-Nudelsuppe · 234 G + Trinkgeld",
+        "x": 104,
+        "y": 713.75,
+        "right": 362,
+        "bottom": 771.25,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      }
+    ],
+    "errors": []
+  },
+  {
+    "seg": "cafe",
+    "width": 390,
+    "gfx": "3d",
+    "shots": [
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/cafe-teehaus-390-3d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/cafe-baustelle-390-3d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/cafe-aussen-390-3d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/cafe-theke-390-3d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/cafe-gaeste-390-3d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/cafe-bedient-blumen-390-3d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/cafe-bilanz-390-3d.png"
+    ],
+    "result": {
+      "served": 3,
+      "sum": 504,
+      "order": 270
+    },
+    "raf": 62,
+    "dialogBounds": [
+      {
+        "text": "Servieren: Eier-Nudelsuppe · 234 G",
+        "x": 104,
+        "y": 713.75,
+        "right": 362,
+        "bottom": 771.25,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "text": "Gleich",
+        "x": 104,
+        "y": 777.25,
+        "right": 362,
+        "bottom": 816,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "text": "Servieren: Eier-Nudelsuppe · 234 G + Trinkgeld",
+        "x": 104,
+        "y": 713.75,
+        "right": 362,
+        "bottom": 771.25,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      }
+    ],
+    "errors": []
+  },
+  {
+    "seg": "cafe",
+    "width": 1440,
+    "gfx": "2d",
+    "shots": [
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/cafe-teehaus-1440-2d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/cafe-baustelle-1440-2d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/cafe-aussen-1440-2d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/cafe-theke-1440-2d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/cafe-gaeste-1440-2d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/cafe-bedient-blumen-1440-2d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/cafe-bilanz-1440-2d.png"
+    ],
+    "result": {
+      "served": 3,
+      "sum": 504,
+      "order": 270
+    },
+    "raf": 62,
+    "dialogBounds": [
+      {
+        "text": "Servieren: Eier-Nudelsuppe · 234 G",
+        "x": 536,
+        "y": 788.5,
+        "right": 980,
+        "bottom": 827.25,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      },
+      {
+        "text": "Gleich",
+        "x": 536,
+        "y": 833.25,
+        "right": 980,
+        "bottom": 872,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      },
+      {
+        "text": "Servieren: Eier-Nudelsuppe · 234 G + Trinkgeld",
+        "x": 536,
+        "y": 788.5,
+        "right": 980,
+        "bottom": 827.25,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      }
+    ],
+    "errors": []
+  },
+  {
+    "seg": "cafe",
+    "width": 1440,
+    "gfx": "3d",
+    "shots": [
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/cafe-teehaus-1440-3d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/cafe-baustelle-1440-3d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/cafe-aussen-1440-3d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/cafe-theke-1440-3d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/cafe-gaeste-1440-3d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/cafe-bedient-blumen-1440-3d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/cafe-bilanz-1440-3d.png"
+    ],
+    "result": {
+      "served": 3,
+      "sum": 504,
+      "order": 270
+    },
+    "raf": 63,
+    "dialogBounds": [
+      {
+        "text": "Servieren: Eier-Nudelsuppe · 234 G",
+        "x": 536,
+        "y": 788.5,
+        "right": 980,
+        "bottom": 827.25,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      },
+      {
+        "text": "Gleich",
+        "x": 536,
+        "y": 833.25,
+        "right": 980,
+        "bottom": 872,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      },
+      {
+        "text": "Servieren: Eier-Nudelsuppe · 234 G + Trinkgeld",
+        "x": 536,
+        "y": 788.5,
+        "right": 980,
+        "bottom": 827.25,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      }
+    ],
+    "errors": []
+  },
+  {
+    "seg": "katze",
+    "width": 390,
+    "gfx": "2d",
+    "shots": [
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/katze-sonne-390-2d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/katze-geschenk-390-2d.png"
+    ],
+    "result": {
+      "h": 3,
+      "gift": "baerlauch"
+    },
+    "raf": 62,
+    "dialogBounds": [],
+    "errors": []
+  },
+  {
+    "seg": "katze",
+    "width": 390,
+    "gfx": "3d",
+    "shots": [
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/katze-sonne-390-3d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/katze-geschenk-390-3d.png"
+    ],
+    "result": {
+      "h": 3,
+      "gift": "baerlauch"
+    },
+    "raf": 62,
+    "dialogBounds": [],
+    "errors": []
+  },
+  {
+    "seg": "katze",
+    "width": 1440,
+    "gfx": "2d",
+    "shots": [
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/katze-sonne-1440-2d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/katze-geschenk-1440-2d.png"
+    ],
+    "result": {
+      "h": 3,
+      "gift": "baerlauch"
+    },
+    "raf": 62,
+    "dialogBounds": [],
+    "errors": []
+  },
+  {
+    "seg": "katze",
+    "width": 1440,
+    "gfx": "3d",
+    "shots": [
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/katze-sonne-1440-3d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/katze-geschenk-1440-3d.png"
+    ],
+    "result": {
+      "h": 3,
+      "gift": "baerlauch"
+    },
+    "raf": 62,
+    "dialogBounds": [],
+    "errors": []
+  },
+  {
+    "seg": "hund",
+    "width": 390,
+    "gfx": "2d",
+    "shots": [
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/hund-spur-390-2d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/hund-grabstelle-390-2d.png"
+    ],
+    "result": {
+      "found": "weide"
+    },
+    "raf": 62,
+    "dialogBounds": [
+      {
+        "text": "Der Spur folgen",
+        "x": 104,
+        "y": 687.75,
+        "right": 362,
+        "bottom": 726.5,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "text": "Streicheln",
+        "x": 104,
+        "y": 732.5,
+        "right": 362,
+        "bottom": 771.25,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "text": "Mitkommen lassen",
+        "x": 104,
+        "y": 777.25,
+        "right": 362,
+        "bottom": 816,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      }
+    ],
+    "errors": []
+  },
+  {
+    "seg": "hund",
+    "width": 390,
+    "gfx": "3d",
+    "shots": [
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/hund-spur-390-3d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/hund-grabstelle-390-3d.png"
+    ],
+    "result": {
+      "found": "weide"
+    },
+    "raf": 62,
+    "dialogBounds": [
+      {
+        "text": "Der Spur folgen",
+        "x": 104,
+        "y": 687.75,
+        "right": 362,
+        "bottom": 726.5,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "text": "Streicheln",
+        "x": 104,
+        "y": 732.5,
+        "right": 362,
+        "bottom": 771.25,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "text": "Mitkommen lassen",
+        "x": 104,
+        "y": 777.25,
+        "right": 362,
+        "bottom": 816,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      }
+    ],
+    "errors": []
+  },
+  {
+    "seg": "hund",
+    "width": 1440,
+    "gfx": "2d",
+    "shots": [
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/hund-spur-1440-2d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/hund-grabstelle-1440-2d.png"
+    ],
+    "result": {
+      "found": "weide"
+    },
+    "raf": 62,
+    "dialogBounds": [
+      {
+        "text": "Der Spur folgen",
+        "x": 536,
+        "y": 743.75,
+        "right": 980,
+        "bottom": 782.5,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      },
+      {
+        "text": "Streicheln",
+        "x": 536,
+        "y": 788.5,
+        "right": 980,
+        "bottom": 827.25,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      },
+      {
+        "text": "Mitkommen lassen",
+        "x": 536,
+        "y": 833.25,
+        "right": 980,
+        "bottom": 872,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      }
+    ],
+    "errors": []
+  },
+  {
+    "seg": "hund",
+    "width": 1440,
+    "gfx": "3d",
+    "shots": [
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/hund-spur-1440-3d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/hund-grabstelle-1440-3d.png"
+    ],
+    "result": {
+      "found": "weide"
+    },
+    "raf": 62,
+    "dialogBounds": [
+      {
+        "text": "Der Spur folgen",
+        "x": 536,
+        "y": 743.75,
+        "right": 980,
+        "bottom": 782.5,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      },
+      {
+        "text": "Streicheln",
+        "x": 536,
+        "y": 788.5,
+        "right": 980,
+        "bottom": 827.25,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      },
+      {
+        "text": "Mitkommen lassen",
+        "x": 536,
+        "y": 833.25,
+        "right": 980,
+        "bottom": 872,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      }
+    ],
+    "errors": []
+  },
+  {
+    "seg": "ziege",
+    "width": 390,
+    "gfx": "2d",
+    "shots": [
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/ziege-nascht-390-2d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/ziege-gefressen-390-2d.png"
+    ],
+    "result": {
+      "stolen": 1,
+      "foiled": 1
+    },
+    "raf": 62,
+    "dialogBounds": [
+      {
+        "text": "Heu geben (1 Tierfutter)",
+        "x": 28,
+        "y": 732.5,
+        "right": 362,
+        "bottom": 771.25,
+        "width": 334,
+        "scroll": 328,
+        "client": 328,
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "text": "„Flocke, zurück auf die Weide!“",
+        "x": 28,
+        "y": 777.25,
+        "right": 362,
+        "bottom": 816,
+        "width": 334,
+        "scroll": 328,
+        "client": 328,
+        "viewport": [
+          390,
+          844
+        ]
+      }
+    ],
+    "errors": []
+  },
+  {
+    "seg": "ziege",
+    "width": 390,
+    "gfx": "3d",
+    "shots": [
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/ziege-nascht-390-3d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/ziege-gefressen-390-3d.png"
+    ],
+    "result": {
+      "stolen": 1,
+      "foiled": 1
+    },
+    "raf": 62,
+    "dialogBounds": [
+      {
+        "text": "Heu geben (1 Tierfutter)",
+        "x": 28,
+        "y": 732.5,
+        "right": 362,
+        "bottom": 771.25,
+        "width": 334,
+        "scroll": 328,
+        "client": 328,
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "text": "„Flocke, zurück auf die Weide!“",
+        "x": 28,
+        "y": 777.25,
+        "right": 362,
+        "bottom": 816,
+        "width": 334,
+        "scroll": 328,
+        "client": 328,
+        "viewport": [
+          390,
+          844
+        ]
+      }
+    ],
+    "errors": []
+  },
+  {
+    "seg": "ziege",
+    "width": 1440,
+    "gfx": "2d",
+    "shots": [
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/ziege-nascht-1440-2d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/ziege-gefressen-1440-2d.png"
+    ],
+    "result": {
+      "stolen": 1,
+      "foiled": 1
+    },
+    "raf": 62,
+    "dialogBounds": [
+      {
+        "text": "Heu geben (1 Tierfutter)",
+        "x": 460,
+        "y": 788.5,
+        "right": 980,
+        "bottom": 827.25,
+        "width": 520,
+        "scroll": 514,
+        "client": 514,
+        "viewport": [
+          1440,
+          900
+        ]
+      },
+      {
+        "text": "„Flocke, zurück auf die Weide!“",
+        "x": 460,
+        "y": 833.25,
+        "right": 980,
+        "bottom": 872,
+        "width": 520,
+        "scroll": 514,
+        "client": 514,
+        "viewport": [
+          1440,
+          900
+        ]
+      }
+    ],
+    "errors": []
+  },
+  {
+    "seg": "ziege",
+    "width": 1440,
+    "gfx": "3d",
+    "shots": [
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/ziege-nascht-1440-3d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/ziege-gefressen-1440-3d.png"
+    ],
+    "result": {
+      "stolen": 1,
+      "foiled": 1
+    },
+    "raf": 62,
+    "dialogBounds": [
+      {
+        "text": "Heu geben (1 Tierfutter)",
+        "x": 460,
+        "y": 788.5,
+        "right": 980,
+        "bottom": 827.25,
+        "width": 520,
+        "scroll": 514,
+        "client": 514,
+        "viewport": [
+          1440,
+          900
+        ]
+      },
+      {
+        "text": "„Flocke, zurück auf die Weide!“",
+        "x": 460,
+        "y": 833.25,
+        "right": 980,
+        "bottom": 872,
+        "width": 520,
+        "scroll": 514,
+        "client": 514,
+        "viewport": [
+          1440,
+          900
+        ]
+      }
+    ],
+    "errors": []
+  },
+  {
+    "seg": "teich",
+    "width": 390,
+    "gfx": "2d",
+    "shots": [
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/teich-enten-390-2d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/teich-kueken-390-2d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/teich-tagebuch-390-2d.png"
+    ],
+    "result": {
+      "kid": "Kiki",
+      "c": "wild",
+      "g": [
+        "w",
+        "A"
+      ]
+    },
+    "raf": 62,
+    "dialogBounds": [],
+    "errors": []
+  },
+  {
+    "seg": "teich",
+    "width": 390,
+    "gfx": "3d",
+    "shots": [
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/teich-enten-390-3d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/teich-kueken-390-3d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/teich-tagebuch-390-3d.png"
+    ],
+    "result": {
+      "kid": "Kiki",
+      "c": "wild",
+      "g": [
+        "w",
+        "A"
+      ]
+    },
+    "raf": 62,
+    "dialogBounds": [],
+    "errors": []
+  },
+  {
+    "seg": "teich",
+    "width": 1440,
+    "gfx": "2d",
+    "shots": [
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/teich-enten-1440-2d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/teich-kueken-1440-2d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/teich-tagebuch-1440-2d.png"
+    ],
+    "result": {
+      "kid": "Kiki",
+      "c": "wild",
+      "g": [
+        "w",
+        "A"
+      ]
+    },
+    "raf": 62,
+    "dialogBounds": [],
+    "errors": []
+  },
+  {
+    "seg": "teich",
+    "width": 1440,
+    "gfx": "3d",
+    "shots": [
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/teich-enten-1440-3d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/teich-kueken-1440-3d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/teich-tagebuch-1440-3d.png"
+    ],
+    "result": {
+      "kid": "Kiki",
+      "c": "wild",
+      "g": [
+        "w",
+        "A"
+      ]
+    },
+    "raf": 62,
+    "dialogBounds": [],
+    "errors": []
+  },
+  {
+    "seg": "rettung",
+    "width": 390,
+    "gfx": "2d",
+    "shots": [
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/rettung-korb-390-2d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/rettung-pip-390-2d.png"
+    ],
+    "result": {
+      "st": "adoptiert"
+    },
+    "raf": 62,
+    "dialogBounds": [
+      {
+        "text": "Es bleibt bei uns auf dem Hof",
+        "x": 28,
+        "y": 713.75,
+        "right": 362,
+        "bottom": 752.5,
+        "width": 334,
+        "scroll": 328,
+        "client": 328,
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "text": "Mei sucht ein Kätzchen. Ein Zuhause bei ihr",
+        "x": 28,
+        "y": 758.5,
+        "right": 362,
+        "bottom": 816,
+        "width": 334,
+        "scroll": 328,
+        "client": 328,
+        "viewport": [
+          390,
+          844
+        ]
+      }
+    ],
+    "errors": []
+  },
+  {
+    "seg": "rettung",
+    "width": 390,
+    "gfx": "3d",
+    "shots": [
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/rettung-korb-390-3d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/rettung-pip-390-3d.png"
+    ],
+    "result": {
+      "st": "adoptiert"
+    },
+    "raf": 62,
+    "dialogBounds": [
+      {
+        "text": "Es bleibt bei uns auf dem Hof",
+        "x": 28,
+        "y": 713.75,
+        "right": 362,
+        "bottom": 752.5,
+        "width": 334,
+        "scroll": 328,
+        "client": 328,
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "text": "Mei sucht ein Kätzchen. Ein Zuhause bei ihr",
+        "x": 28,
+        "y": 758.5,
+        "right": 362,
+        "bottom": 816,
+        "width": 334,
+        "scroll": 328,
+        "client": 328,
+        "viewport": [
+          390,
+          844
+        ]
+      }
+    ],
+    "errors": []
+  },
+  {
+    "seg": "rettung",
+    "width": 1440,
+    "gfx": "2d",
+    "shots": [
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/rettung-korb-1440-2d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/rettung-pip-1440-2d.png"
+    ],
+    "result": {
+      "st": "adoptiert"
+    },
+    "raf": 62,
+    "dialogBounds": [
+      {
+        "text": "Es bleibt bei uns auf dem Hof",
+        "x": 460,
+        "y": 788.5,
+        "right": 980,
+        "bottom": 827.25,
+        "width": 520,
+        "scroll": 514,
+        "client": 514,
+        "viewport": [
+          1440,
+          900
+        ]
+      },
+      {
+        "text": "Mei sucht ein Kätzchen. Ein Zuhause bei ihr",
+        "x": 460,
+        "y": 833.25,
+        "right": 980,
+        "bottom": 872,
+        "width": 520,
+        "scroll": 514,
+        "client": 514,
+        "viewport": [
+          1440,
+          900
+        ]
+      }
+    ],
+    "errors": []
+  },
+  {
+    "seg": "rettung",
+    "width": 1440,
+    "gfx": "3d",
+    "shots": [
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/rettung-korb-1440-3d.png",
+      "/Users/reneklomfas/.hermes/profiles/coder/cache/scratch/e3-neu/rettung-pip-1440-3d.png"
+    ],
+    "result": {
+      "st": "adoptiert"
+    },
+    "raf": 62,
+    "dialogBounds": [
+      {
+        "text": "Es bleibt bei uns auf dem Hof",
+        "x": 460,
+        "y": 788.5,
+        "right": 980,
+        "bottom": 827.25,
+        "width": 520,
+        "scroll": 514,
+        "client": 514,
+        "viewport": [
+          1440,
+          900
+        ]
+      },
+      {
+        "text": "Mei sucht ein Kätzchen. Ein Zuhause bei ihr",
+        "x": 460,
+        "y": 833.25,
+        "right": 980,
+        "bottom": 872,
+        "width": 520,
+        "scroll": 514,
+        "client": 514,
+        "viewport": [
+          1440,
+          900
+        ]
+      }
+    ],
+    "errors": []
+  },
+  {
+    "seg": "rene",
+    "width": 390,
+    "gfx": "2d",
+    "shots": [],
+    "result": {
+      "mv": "fertig"
+    },
+    "raf": 62,
+    "dialogBounds": [
+      {
+        "text": "„Sag mir ehrlich, was los ist.“",
+        "x": 104,
+        "y": 713.75,
+        "right": 362,
+        "bottom": 752.5,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "text": "„Ich dachte schon, du hast keine Lust mehr auf mich.“",
+        "x": 104,
+        "y": 758.5,
+        "right": 362,
+        "bottom": 816,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      }
+    ],
+    "errors": []
+  },
+  {
+    "seg": "rene",
+    "width": 390,
+    "gfx": "3d",
+    "shots": [],
+    "result": {
+      "mv": "fertig"
+    },
+    "raf": 62,
+    "dialogBounds": [
+      {
+        "text": "„Sag mir ehrlich, was los ist.“",
+        "x": 104,
+        "y": 713.75,
+        "right": 362,
+        "bottom": 752.5,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "text": "„Ich dachte schon, du hast keine Lust mehr auf mich.“",
+        "x": 104,
+        "y": 758.5,
+        "right": 362,
+        "bottom": 816,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      }
+    ],
+    "errors": []
+  },
+  {
+    "seg": "rene",
+    "width": 1440,
+    "gfx": "2d",
+    "shots": [],
+    "result": {
+      "mv": "fertig"
+    },
+    "raf": 62,
+    "dialogBounds": [
+      {
+        "text": "„Sag mir ehrlich, was los ist.“",
+        "x": 536,
+        "y": 788.5,
+        "right": 980,
+        "bottom": 827.25,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      },
+      {
+        "text": "„Ich dachte schon, du hast keine Lust mehr auf mich.“",
+        "x": 536,
+        "y": 833.25,
+        "right": 980,
+        "bottom": 872,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      }
+    ],
+    "errors": []
+  },
+  {
+    "seg": "rene",
+    "width": 1440,
+    "gfx": "3d",
+    "shots": [],
+    "result": {
+      "mv": "fertig"
+    },
+    "raf": 62,
+    "dialogBounds": [
+      {
+        "text": "„Sag mir ehrlich, was los ist.“",
+        "x": 536,
+        "y": 788.5,
+        "right": 980,
+        "bottom": 827.25,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      },
+      {
+        "text": "„Ich dachte schon, du hast keine Lust mehr auf mich.“",
+        "x": 536,
+        "y": 833.25,
+        "right": 980,
+        "bottom": 872,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      }
+    ],
+    "errors": []
+  }
+]

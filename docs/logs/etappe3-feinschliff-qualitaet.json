@@ -1,0 +1,24 @@
+{
+  "exit": 0,
+  "syntaxDateien": 55,
+  "syntaxFehler": 0,
+  "diffCheckExit": 0,
+  "bilder": 64,
+  "alleHashesGueltig": true,
+  "eindeutigeBildlinks": 64,
+  "browserFaelle": 28,
+  "segmente": {
+    "cafe": 4,
+    "katze": 4,
+    "hund": 4,
+    "ziege": 4,
+    "teich": 4,
+    "rettung": 4,
+    "rene": 4
+  },
+  "alleOhneSeitenfehler": true,
+  "kartenCafeTierlogikUnveraendert": true,
+  "secretsSignaturpruefung": "Keine Treffer in hinzugefügten Codezeilen",
+  "typpruefungLintBuild": "Keine separaten Skripte im Vanilla-JS-Projekt vorhanden",
+  "hinweis": "Keine Geräte- oder Live-Abnahme. main und gh-pages unverändert; kein Deploy."
+}

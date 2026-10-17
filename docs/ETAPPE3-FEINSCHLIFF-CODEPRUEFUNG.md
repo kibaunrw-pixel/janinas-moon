@@ -18,4 +18,10 @@ Die erste Prüfung wies ausdrücklich darauf hin, dass die Projektion von Raumec
 - Gerahmte Mondbilder, Tassen, Tischdeckenstreifen und sichtbare vorhandene Vitrinenware sind ausschließlich Rendergeometrie, keine Weltobjekte oder Kachelsperren.
 - Neue Browserprobe mit normalem, maximal nahem und weitem Zoom in vier Ansichten; dritter Tisch und Mondkuchen ausdrücklich als Start-Fixture. Eintritt durch echten Bildschirmklick. Kartenraster, Objektliste, Dekoration und Sitzplatzdefinitionen vor/nach Zoom identisch.
 
+## Ergänzende Prüfung der Belegwege
+
+Ein weiterer separater, nur lesender Codex-Prozess prüfte die geänderten Fotowege und das ausdrückliche Warten auf den sichtbaren Adoptionsdialog: keine blockierenden Befunde. Die endgültige Fotoposition an der Grabstelle liegt vor dem Baum; bei Enten bleibt Janina am freien Nordufer. Die letzten kleinen Nachkorrekturen (Grabstelle vor statt neben dem Baum, für Pip mobil ein statt zwei Zoomschritte) wurden anschließend über die betroffenen vollständigen Browserwege geprüft und die neuen Bilder selbst angesehen. Die Sichtbarkeitsprüfung blieb unverändert.
+
+Zwei rote Rettungs-Zwischenläufe bleiben dokumentiert: zu frühe Auswahlsuche bei noch laufender Figur und Pip beim mobilen Nahzoom am Bildrand. Kein Fehler wurde durch Abschwächen einer Assertion übergangen; der Schlusslauf ist in allen vier Ansichten grün.
+
 Kein Merge, kein Deploy, keine Geräte- oder visuelle Endabnahme durch Designer behauptet.
