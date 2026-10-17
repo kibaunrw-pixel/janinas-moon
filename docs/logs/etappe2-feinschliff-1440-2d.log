@@ -1,6 +1,7 @@
 {"seg":"geheimnis","width":1440,"gfx":"2d","ok":true,"raf":62,"result":{"henk":3}}
 {"seg":"streit","width":1440,"gfx":"2d","ok":true,"raf":62,"result":{"streit":"versoehnt"}}
 {"seg":"paar","width":1440,"gfx":"2d","ok":true,"raf":62,"result":{"paar":"paar"}}
+Wegversuch wiederholt picknick-1440-2d { x: 7, y: 9, r: [ 736, 578 ] }
 {"seg":"picknick","width":1440,"gfx":"2d","ok":true,"raf":62,"result":{"pick":1,"mv":"fertig"}}
 {"seg":"ausflug","width":1440,"gfx":"2d","ok":true,"raf":62,"result":{"aus":1}}
 {"seg":"jahrestag","width":1440,"gfx":"2d","ok":true,"raf":62,"result":{"jt":1}}
