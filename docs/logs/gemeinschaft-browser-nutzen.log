@@ -1,0 +1,11 @@
+{"seg":"glasphase2","width":390,"gfx":"2d","errors":[],"ok":true}
+{"seg":"glasphase2","width":1440,"gfx":"3d","errors":[],"ok":true}
+{"seg":"glasweg","width":390,"gfx":"2d","errors":[],"error":"page.waitForFunction: Timeout 30000ms exceeded.\n    at /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/gemeinschaft-browser.cjs:11:188","state":{"map":"i_dorfglas","px":7,"py":10,"ui":{"ui":{"panel":false,"dialog":false,"fade":false},"fish":null}}}
+{"seg":"glasweg","width":390,"gfx":"2d","errors":[],"error":"page.waitForFunction: Timeout 30000ms exceeded.\n    at /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/gemeinschaft-browser.cjs:11:188","state":{"map":"i_dorfglas","px":7,"py":10,"ui":{"ui":{"panel":false,"dialog":false,"fade":false},"fish":null}}}
+{"seg":"glasweg","width":1440,"gfx":"3d","errors":[],"ok":true}
+{"seg":"pflanzen","width":390,"gfx":"2d","errors":[],"ok":true}
+{"seg":"pflanzen","width":1440,"gfx":"3d","errors":[],"ok":true}
+{"seg":"ernten","width":390,"gfx":"2d","errors":[],"ok":true}
+{"seg":"ernten","width":1440,"gfx":"3d","errors":[],"ok":true}
+{"seg":"platz","width":390,"gfx":"2d","errors":[],"ok":true}
+{"seg":"platz","width":1440,"gfx":"3d","errors":[],"ok":true}

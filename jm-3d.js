@@ -288,6 +288,18 @@ function prop(mg,mgE,o,se,st){
   const x=o.x+(o.w||1)/2, z=o.y+(o.h||1)/2, k=o.k, snow=se===3;
   const wood="#a8743f", woodD="#7a4e2a", woodL="#c8945a";
   switch(k){
+    case 'dorfglas_alt':case 'dorfglas_bau1':case 'dorfglas_bau2':case 'dorfglas_bau3':case 'dorfglas':{
+      const old=k==='dorfglas_alt',build=k.includes('_bau'),phase=Number(k.slice(-1))||3,frame=old?'#657e64':'#538977',glass=old?'#91a193':'#b9ded7';
+      mg.box(x,.16,z,6,.32,4,'#9a9d8c');
+      if(!build||phase>1){mg.box(x,1.25,z-1.88,5.8,2.15,.06,glass);for(const dx of [-2.88,2.88])mg.box(x+dx,1.25,z,.06,2.15,3.75,glass);mg.box(x-1.75,1.25,z+1.88,2.2,2.15,.06,glass);mg.box(x+1.75,1.25,z+1.88,2.2,2.15,.06,glass);}
+      for(const dx of [-2.9,-1.74,-.58,.58,1.74,2.9])for(const dz of [-1.9,1.9])mg.box(x+dx,1.25,z+dz,.065,2.25,.065,frame);
+      for(const y of [.35,1.25,2.35]){mg.box(x,y,z-1.9,5.9,.065,.065,frame);mg.box(x,y,z+1.9,5.9,.065,.065,frame);for(const dx of [-2.9,2.9])mg.box(x+dx,y,z,.065,.065,3.8,frame);}
+      for(const side of [-1,1]){if(!build||phase>=3)mg.add(GEO.box,M4(x,2.8,z+side*.95,6.1,.07,2.3,side*.51,0,0),old?'#809b88':snow?'#dcebe5':'#bededb');mg.add(GEO.box,M4(x,2.8,z+side*.95,6.2,.06,.07,side*.51,0,0),frame);}mg.box(x,3.4,z,6.2,.08,.08,frame);
+      mg.box(x,.95,z+1.94,1.12,1.7,.06,frame);mg.box(x,1.3,z+1.99,.86,.85,.04,'#d4ebe0');mg.sph(x+.38,.75,z+2.04,.05,.05,.04,'#eed48b');
+      if(old){for(const dx of [-1.8,1.5])mg.add(GEO.box,M4(x+dx,1.25,z+1.96,1.3,.15,.07,0,0,.4),'#917451');for(const dx of [-2.4,2.4])mg.sph(x+dx,.4,z+1.9,.35,.25,.3,'#628452');}
+      else if(build){for(const y of [.8,1.8])mg.box(x,y,z+2.1,6.4,.1,.1,'#b48c61');for(const dx of [-3.1,3.1])mg.box(x+dx,1.2,z+2.1,.1,2.5,.1,'#a58056');}
+      else {mg.box(x,2.04,z+2.01,2.4,.3,.06,'#f0e5c1');for(const dx of [-2,2]){mg.box(x+dx,.4,z+2.15,.75,.28,.5,'#b37e58');for(const d of [-.2,0,.2]){mg.cyl(x+dx+d,.7,z+2.15,.025,.4,'#4f8c55');mg.sph(x+dx+d,.92,z+2.15,.12,.09,.12,'#e9b474');}}}return;}
+    case 'dorfbeet_leer':case 'dorfbeet_jung':case 'dorfbeet_gross':case 'dorfbeet_reif':{mg.box(x,.3,z,.95,.5,.75,'#a77a52');mg.box(x,.57,z,1.05,.1,.85,'#bf9365');mg.box(x,.63,z,.85,.03,.65,'#604b38');if(k!=='dorfbeet_leer'){const h=k==='dorfbeet_jung'?.22:.6;for(const dx of [-.28,0,.28]){mg.cyl(x+dx,.65+h/2,z,.025,h,'#478052');mg.sph(x+dx-.07,.68+h*.5,z,.14,.06,.09,'#70a65f');mg.sph(x+dx+.07,.72+h*.7,z,.13,.06,.09,'#65a75b');if(k==='dorfbeet_reif')mg.sph(x+dx,.66+h,z,.12,.1,.12,'#e9b958');}}return;}
     case 'mondtor_zu':case 'mondtor_offen':{const open=k==='mondtor_offen';mg.sph(x,.15,z-.1,.9,.4,.75,'#435440');mg.box(x,1,z,.1,2,1.45,'#7a7480');mgE.box(x,1,z+.52,.72,1.35,.03,open?'#9fc8ff':'#544c62');mgE.sph(x,1.55,z+.55,.22,.3,.03,open?'#ffffff':'#817694');return;}
     case 'mondpilze':for(const [dx,dz,r] of [[-.3,0,.18],[.1,-.12,.24],[.35,.12,.14]]){mg.cyl(x+dx,.13,z+dz,.035,.26,'#dbe8e0');mgE.sph(x+dx,.3,z+dz,r,.08,r,'#9fdcff',true);}return;
     // Etappe 5: Park, Tafeln, Wettbewerb, Trophäen
@@ -799,10 +811,10 @@ const cafeCorner=new V3();
 // Reine Darstellung: den Raum bzw. die Fassade in den freien HUD-Bereich einpassen.
 // Der größte zulässige Zoom zeigt weiter alle Möbel; Kacheln und Treffer bleiben unverändert.
 function cafeCamera(pads){
-  const M=E.M,P=E.P,innen=M.id==='i_cafe';
-  const aussen=M.id==='village'&&M.obj.some(o=>o.k==='cafe')&&Math.hypot(P.x-6,P.y-14)<3;
+  const M=E.M,P=E.P,glasInnen=M.id==='i_dorfglas',glasAussen=M.id==='gemeinschaftsgarten'&&Math.hypot(P.x-18,P.y-9)<4,innen=M.id==='i_cafe'||glasInnen;
+  const aussen=(M.id==='village'&&M.obj.some(o=>o.k==='cafe')&&Math.hypot(P.x-6,P.y-14)<3)||glasAussen;
   if(!innen&&!aussen)return false;
-  const bounds=innen?[.7,13.3,2.8,9.5,2.4]:[3.2,10.2,10.4,16.1,3.4],pitch=innen?.98:.75,yaw=innen?0:.7;
+  const bounds=glasInnen?[.7,13.3,2.7,11.6,2.5]:glasAussen?[13.3,22.7,3.2,13.7,3.6]:innen?[.7,13.3,2.8,9.5,2.4]:[3.2,10.2,10.4,16.1,3.4],pitch=innen?.98:glasAussen?.9:.75,yaw=innen?0:glasAussen?.3:.7;
   const H=innerHeight,mid=(pads.t+H-pads.b)/2;
   camera.fov=34;camera.setViewOffset(innerWidth,H,0,H/2-mid,innerWidth,H);camera.updateProjectionMatrix();
   camT.set((bounds[0]+bounds[1])/2,innen?.6:.7,(bounds[2]+bounds[3])/2);

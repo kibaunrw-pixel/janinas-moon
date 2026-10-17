@@ -605,6 +605,7 @@ function bushAct(o){
 /* ================= Objekte ================= */
 function objAct(o){
   const a=o.act;
+  if(a.startsWith('dorfprojekt:'))return runPost(JM.Post.evAct(S,a));
   if(a.startsWith('entdecken:'))return runPost(JM.Post.evAct(S,a));
   if(a.startsWith('chronik:'))return runPost(JM.Post.evAct(S,a));
   if(a.startsWith('magie:'))return runPost(JM.Magie.act(S,a.slice(6)));
@@ -788,7 +789,7 @@ function npcPlaceAll(snap){
 }
 let lastNpcMin=-1;
 function npcUpdate(dt){
-  if(!["village","stadt","i_nudelhaus","bahnhof","farm",JM.Cafe.ROOM].includes(M.id)) return; // Hof: nur Geburtstagsbesuch (jm-romantik.js)
+  if(!["village","stadt","i_nudelhaus","bahnhof","farm",JM.Cafe.ROOM,JM.Post.ROOM,JM.Magie.ROOM,JM.Gemeinschaft.ROOM,JM.Gemeinschaft.GLASS].includes(M.id)) return; // Hof: nur Geburtstagsbesuch (jm-romantik.js)
   const m10=Math.floor(S.min/10);
   if(m10!==lastNpcMin){ lastNpcMin=m10; npcPlaceAll(false); }
   for(const id in NPCA){
@@ -1107,6 +1108,8 @@ function questTarget(){
 }
 function routeTarget(t){
   if(!t) return null; if(t.map===M.id) return t;
+  if(M.id===JM.Gemeinschaft.ROOM){if(t.map===JM.Gemeinschaft.GLASS)return {map:M.id,x:18,y:8,exit:true};return {map:M.id,x:10,y:18,exit:true};}
+  if([JM.Gemeinschaft.ROOM,JM.Gemeinschaft.GLASS].includes(t.map)){if(M.inside){const ex=M.exits[0];return {map:M.id,x:ex.x,y:ex.y,exit:true};}if(M.id==='village')return {map:M.id,x:20,y:7,exit:true};t={map:'village',x:20,y:7};}
   if(t.map===JM.Magie.ROOM){
     if(M.id===JM.Post.ROOM)return {map:M.id,x:JM.Magie.GATE.x,y:JM.Magie.GATE.y+1,exit:true};
     if(M.id==='forest')return {map:M.id,x:JM.Post.door64.x,y:JM.Post.door64.y+1,exit:true};
@@ -1697,7 +1700,7 @@ function openBook(tab){
     }
     body=`<h3>${JM.SEASONS[se]} · Jahr ${year()}</h3><div class="cal">${cells}</div><p class="sub">Feste beginnen auf dem Dorfplatz. An Geburtstagen zählen Geschenke dreifach.</p>`;
   }
-  if(tab==="herz") body=JM.Rom.diary(S,esc)+JM.Dorf.diary(S,esc)+JM.Magie.diary(S,esc)+JM.Chronik.diary(S,esc)+JM.Entdecken.diary(S);
+  if(tab==="herz") body=JM.Rom.diary(S,esc)+JM.Dorf.diary(S,esc)+JM.Magie.diary(S,esc)+JM.Chronik.diary(S,esc)+JM.Entdecken.diary(S)+JM.Gemeinschaft.diary(S,esc);
   if(tab==="friends"){
     body=`<div class="row"><canvas class="pt" data-pt="dog0"></canvas><div class="tx"><b>${esc(dogName(0))}</b>${heartRow(S.dogH[0])}<small>${S.dogPet[0]===S.day?"Heute gestreichelt":"Noch nicht gestreichelt"}</small></div></div>
       <div class="row"><canvas class="pt" data-pt="dog1"></canvas><div class="tx"><b>${esc(dogName(1))}</b>${heartRow(S.dogH[1])}<small>${S.dogPet[1]===S.day?"Heute gestreichelt":"Noch nicht gestreichelt"}</small></div></div>`;

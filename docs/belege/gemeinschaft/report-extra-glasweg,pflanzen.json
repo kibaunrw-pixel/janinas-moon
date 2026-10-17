@@ -1,0 +1,31 @@
+[
+  {
+    "seg": "glasweg",
+    "width": 390,
+    "gfx": "3d",
+    "errors": [],
+    "dachpunkte": 8,
+    "ok": true
+  },
+  {
+    "seg": "glasweg",
+    "width": 1440,
+    "gfx": "2d",
+    "errors": [],
+    "ok": true
+  },
+  {
+    "seg": "pflanzen",
+    "width": 390,
+    "gfx": "3d",
+    "errors": [],
+    "ok": true
+  },
+  {
+    "seg": "pflanzen",
+    "width": 1440,
+    "gfx": "2d",
+    "errors": [],
+    "ok": true
+  }
+]

@@ -1,0 +1,8 @@
+{"seg":"eingang","width":390,"gfx":"2d","errors":[],"ok":true}
+{"seg":"eingang","width":1440,"gfx":"3d","errors":[],"ok":true}
+{"seg":"garten","width":390,"gfx":"2d","errors":[],"ok":true}
+{"seg":"garten","width":1440,"gfx":"3d","errors":[],"ok":true}
+{"seg":"gartennutzen","width":390,"gfx":"2d","errors":[],"ok":true}
+{"seg":"gartennutzen","width":1440,"gfx":"3d","errors":[],"ok":true}
+{"seg":"glasbau","width":390,"gfx":"2d","errors":[],"ok":true}
+{"seg":"glasbau","width":1440,"gfx":"3d","errors":[],"ok":true}

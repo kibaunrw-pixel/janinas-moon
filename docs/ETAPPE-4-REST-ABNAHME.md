@@ -34,9 +34,25 @@ Nachtmarkt 18–22 Uhr am Dorfbrunnen: zwei bestückte Stände, Nachthändlerin 
 - Offline: `BASE_URL=http://127.0.0.1:8793/ node tests/offline.cjs`, EXIT 0, `logs/rest-offline.log`: neue Module aus Cache, frischer Offline-Tab, Chronik-/Helfer-/Albumfunktionen ausführbar. Kein Nachweis für Update einer schon installierten PWA.
 - Syntax aller 19 Spiel-/SW-Dateien: EXIT 0. Bilder selbst angesehen: Nachtmarkt Welt in 390 2D/1440 3D (vor/nach Bestückung), Angebot 390 2D, Regenbogen 390 2D/1440 3D, Nebel 1440 3D, Album 390 2D.
 
+## C – Gemeinschaftsgarten, Dorfplatz und Dorfgewächshaus
+
+`jm-gemeinschaft.js` bündelt drei Projekte mit echten Materialien, Bauzeit, Zwischenständen und Nutzen. Neuer erreichbarer Garten hinter dem Wegweiser östlich der Anschlagtafel: Gestrüpp entfernen (8 Energie), dann Gemeinschaftsbeete (1.200 G/20 Holz/10 Stein, zwei Nächte). Mei und Timo pflegen den Ort; alle drei Tage zwei saisonale Früchte für deine Küche. Dorfplatz: 2.500 G/25 Holz/30 Stein, zwei Nächte; Baustellenschild/Material, dann Bänke/Blumen, Rosa und Henk treffen sich 16–18 Uhr; ab Folgetag einmal 30 G Standbeitrag.
+
+Eigenes altes Dorfgewächshaus: 3.500 G/35 Holz/20 Stein/4 Eisen, drei Nächte; verwitterte Fassade, Gerüst, Rahmen, repariertes Glas, Pflanzkästen. Begehbarer eigener Innenraum, drei ganzjährige echte Beete, vorhandene Saat-/Wachstumsdaten, Wasserverbrauch aus der Kanne, Regenfass, Ernte/Wiederernte. Kein zweites Bezahlen oder Entfernen des bestehenden Hofgewächshauses. Neue 2D-Grafiken in `jm-art6.js`, entsprechende 3D-Geometrie, beide neuen Karten im Wegweiser berücksichtigt.
+
+### Prüfbelege C
+
+- Rot `ROT-GEMEINSCHAFT-b31cfab.log`, EXIT 1; drei neue Logiktests grün, alle schnellen Logiktests **100/100**, EXIT 0 (`logs/gemeinschaft-logik.log`). Alle 21 Spiel-/SW-Dateien syntaxgrün.
+- Browser Bau: **8/8** (`logs/gemeinschaft-browser-bau.log`). Nutzen-Vorlauf **9/10** (`logs/gemeinschaft-browser-nutzen.log`): ein mobiler Rückwegklick erfolgte noch während der Eintrittsblende (dunkles Screenshot belegt die frühe Aufnahme), kein Pageerror. Der Test wartet jetzt vor Klicks auf das Ende der echten Blende. Kein produktiver Rückweg umgangen.
+- Nachlauf nur betroffene Glaswege/Beete/Bauphase: **8/8**, EXIT 0 (`logs/gemeinschaft-browser-nachlauf.log`). Zusätzliche Ansichten **390 3D und 1440 2D**, jeweils Eintritt/Rückweg und Pflanzen/Gießen/Reload: **4/4**, EXIT 0 (`logs/gemeinschaft-browser-extra-ansichten.log`). Dach-Eckpunkte gegen Viewport und einzelne HUD-Elemente geprüft.
+- Echte Nacht über Bettklick und „Gute Nacht“: **2/2**, EXIT 0 (`logs/gemeinschaft-browser-nacht.log`): letzte Bauphase wird fertig, 30 G kommen genau einmal, Reload verdoppelt nichts. Startfixture ist ausdrücklich die letzte bezahlte Baunacht, nicht ein behaupteter kompletter Ressourcen-Beschaffungsweg.
+- Aus den JSON-Berichten per Python zusammengeführt und nach (Schritt/Breite/Grafik) dedupliziert: **24 eigenständige Kombinationen, 24 grün** nach gezielten Nachläufen. Die roten Vorläufe bleiben erhalten; kein alter Gesamtlauf wiederholt.
+- Offline inkl. `jm-gemeinschaft.js` und `jm-art6.js`: EXIT 0 (`logs/gemeinschaft-offline.log`), eigene Karten/Projektmenü/neue Grafik im frischen Offline-Tab nutzbar.
+- Bilder selbst angesehen: fertiger Garten 390 2D, Gewächshaus außen 1440 3D vor/nach Kamerafix (vorher Dach abgeschnitten; jetzt vollständig), innen 390 2D/1440 3D, reifes Glasbeet 1440 3D, Dorfplatz 1440 3D, Zusatzansichten Gewächshaus 390 3D und Innenraum 1440 2D. Fixture-Banner „Ein Jahr“/Ortsname sind auf einigen Aufnahmen sichtbar; sie gehören nicht zur neuen Einrichtung.
+
 ## W-ID-Statusmatrix
 
-| IDs | Status nach Modulen A/B |
+| IDs | Status nach Modulen A/B/C |
 |---|---|
 | W07/W09/W10 | Schon live; vorhandene Lösung unverändert übernommen |
 | W08/W11/W12/W32 | Neu gebaut, Logik und gezielte Browserwege grün; nur Entwicklungszweig |
@@ -46,7 +62,7 @@ Nachtmarkt 18–22 Uhr am Dorfbrunnen: zwei bestückte Stände, Nachthändlerin 
 | W37/W40/W41 | Album, Wetterfische, Nachtmarkt gebaut, echte Klick-/Fang-/Kaufwege grün |
 | W38/W39/W43/W44/W48 | Bestehende Geburtstage, Stadt-/Haus-/Brunnen-/Café-/Tierprogression anerkannt, nicht doppelt gebaut |
 | W42 | Kein Herunterstufen alter Spielstände; vorhandene echte Ruinen bleiben Ausgangszustand |
-| W45/W46/W47 | Gemeinschaftsgarten/Dorfplatz/Dorfgewächshaus noch offen; Hofgewächshaus bleibt erhalten |
+| W45/W46/W47 | Garten, Platz, eigenes Dorfgewächshaus gebaut, nutzbar und nach Reload erhalten; Hofgewächshaus bleibt |
 | W03/W05/W27/W29 | W05 durch Elva-/Jonas-Einzug vorhanden; W03/W27/W29 noch gesondert zu ergänzen |
 | W06/W24 | Erstes Dorfpaar besteht; zweites Paar noch offen |
 | W01/W14/W22 | Teilumfang bleibt ehrlich: vier persönliche Geheimnisse; Café sowie Stadtbäckerei/Blumenladen; Entenzucht. Keine weiteren vollen Geschäftsarten oder Tierzuchten vorgetäuscht |
