@@ -1,6 +1,6 @@
 # Etappe 4 – Vollmondwald, magische Pflanzen und Regenhändler – Prüfbericht
 
-Branch `feat/stadt-und-wohnraum`, sauberer Ausgangsstand `c74f253168362d7e44172cc83815f9e26ce80290`. `main` und `gh-pages` werden nicht verändert. Kein Merge, Deploy, Commit oder Push durch diese Umsetzung. Dieser Bericht ist eine technische Übergabe an Hermes und **keine Selbst-Abnahme**.
+Branch `feat/stadt-und-wohnraum`, Ausgangsstand `c74f253`, geprüfter Stand **`f18b552`**. `main` und `gh-pages` bleiben auf `c74f253` (live). Kein Merge, kein Deploy. Dieser Bericht ist eine technische Übergabe und keine Freigabe durch René.
 
 ## Codebefund vor der Änderung
 
@@ -79,7 +79,41 @@ Diese Etappe beginnt hier keine weiteren Systeme. Vorhandene Teilsysteme bleiben
 | W47 | Vorhanden: Hofgewächshaus-Freischaltung. Ein separates Dorfgewächshaus bleibt undefiniert und wird nicht dupliziert. |
 | W48 | Teilweise durch dauerhafte Haus-, Brunnen-, Stadt-, Café- und Tierausbauten vorhanden; keine belastbare Spielstundenbehauptung und kein neuer Gesamtabschluss. |
 
+## Befunde aus der Browserprüfung und Korrekturen (Commit `f18b552`)
+
+| Befund | Ursache (belegt) | Korrektur |
+|---|---|---|
+| Mondtor im Gewölbe ließ sich nicht antippen | Ein Deko-Fass (`barrel`, W64) lag auf derselben Kachel (2,3) wie das Tor und fing den Tipp ab (Objektliste im Browser ausgelesen). | Fass auf (9,3) versetzt (`jm-ereignisse.js`). |
+| Wetterbericht-Fixture landete auf dem Hof | Startkachel (5,5) im Haus ist der Tisch; `startGame` setzt dann regelkonform auf den Hof zurück. | Fixture (7,6); Dialogtext wird abgewartet (Schreibeffekt). Nur Test. |
+| Rahmungstest brach sofort ab | Fixture ohne `JM.Ausbau.migrate`; Waldkachel (10,10) ist Teich. | Migration ergänzt, Startkarte wird geprüft, Startkachel (13,8). Nur Test. |
+| 1440×900 in 3D: Samenfund/Ausgang außerhalb des Bildes | Querformat zeigt in 3D rund acht Reihen; Ziel 8 Reihen entfernt. Kein Produktfehler. | Test geht über sichtbare Zwischenschritte (echte Klicks). |
+| Vollmondwald wirkte kahl und warm beleuchtet | In 3D leuchten alle Emissive-Teile im Lampenorange `#ffb050`; in 2D nur ein Pilzfeld, Nebel nur oben unter dem HUD, Glühwürmchen 1 px. | Drei weitere Pilzgruppen, acht Mondglocken (2D+3D), blaues Leuchten und Punktlichter nur im Vollmondwald, Nebel über die ganze Bildhöhe, Mondspiegelung im See, größere Glühwürmchen. |
+| Nerio ohne Wagen | Nur Figur und Kiste. | Schirm, Handwagen mit Rädern, gestreiftem Planendach, Laterne, Mondtau-Gläsern (2D+3D). |
+
 ## Testmatrix und Ergebnis
 
-Wird nach den Läufen mit exakten Befehlen, Exitcodes, Laufzeiten, Log- und Belegpfaden ergänzt. Bilddateien werden für die unabhängige Sichtprüfung bereitgestellt; dieser Bericht wird nicht behaupten, Hermes habe sie bereits angesehen.
+Alle Läufe seriell gegen eine eingefrorene Kopie von `f18b552` (`git worktree`, Server 127.0.0.1:8765), Logs unter `docs/logs/etappe4-abschluss/`, Übersicht `uebersicht.txt`.
+
+| Befehl | Ansichten | Ergebnis |
+|---|---|---|
+| `VIEWPORT=… GFX=… node tests/etappe4-browser.cjs` (wald, pflanze, pflanze_reif, haendler, wetter; je Reload mittendrin) | 390/1440 × 2D/3D | 4× EXIT 0 |
+| `VIEWPORT=… GFX=… node tests/etappe4-rahmung.cjs` (wald, pflanze, haendler) | 390/1440 × 2D/3D | 4× EXIT 0 |
+| `node tests/tipp-vorrang.cjs` | – | EXIT 0 |
+| `node tests/picking.cjs` | – | EXIT 0 |
+| `node tests/offline.cjs` | – | EXIT 0 |
+| `node tests/ereignisse-browser.cjs tuer` | 390/1440 × 2D/3D | 4× EXIT 0 |
+| `node tests/etappe3-browser.cjs teich` | 390/1440 × 2D/3D | 4× EXIT 0 |
+| `node --test tests/*.test.cjs` | – | 78/78 grün |
+
+Kein vollständiger `run-all`. Pageerrors und Konsolenfehler: keine (Assertion je Strang). rAF je Strang ≥ 120 Bilder in 2 s.
+
+## Angesehene Bilder
+
+Selbst angesehen (Hermes), mit SHA-256 in `docs/belege/etappe4/MANIFEST-angesehen.json`: Vollmondwald 390 2D/3D und 1440 3D, Regenhändler 390 2D/3D (Ausschnitt-Zoom) und 1440 3D, reife Mondblüte 390 2D/3D und 1440 3D. Offen bleibt ein kosmetischer Punkt: Der Waldsee ist in 3D ein eckiges Becken.
+
+`fehler-*.png` in `docs/belege/etappe4/` stammen aus den roten Vorläufen vor den Korrekturen und sind nicht Teil des Belegs.
+
+## Offen
+
+W08, W11, W12 und W32–W48 bleiben wie oben beschrieben offen bzw. teilweise vorhanden. Echte Mobilhardware und das Update einer installierten PWA sind nicht geprüft.
 

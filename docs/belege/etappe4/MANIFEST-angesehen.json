@@ -1,0 +1,51 @@
+{
+ "commit": "f18b552",
+ "angesehen_von": "Hermes (Sichtprüfung im Lauf, Ausschnitt-Zoom bei Nerio)",
+ "bilder": [
+  {
+   "datei": "docs/belege/etappe4/vollmondwald-390-2d.png",
+   "sha256": "34938ccfd299569df50a77070286b3090d26785f60777d4e31aa66880ce22663",
+   "befund": "Glühende Pilze und Mondglocken, Mondspiegelung, Nebel, Glühwürmchen; Hinweisbox frei, Motiv nicht verdeckt"
+  },
+  {
+   "datei": "docs/belege/etappe4/vollmondwald-390-3d.png",
+   "sha256": "2c462f13799538849fa93fe0d8c51bfc58fcfa877717d3ad50b0f82bb78deb7f",
+   "befund": "kühles Leuchten, Glühwürmchen, Nebel am Rand; Teich eckig (bleibt offen)"
+  },
+  {
+   "datei": "docs/belege/etappe4/rahmung-wald-1440-3d.png",
+   "sha256": "8834e283cfc5dd9f58fa5c14e6898eadb0b28411a999c980e3b1c4caa4bcd219",
+   "befund": "Pilze, Mondglocken, Samenfund und Steinring blau leuchtend, Glühwürmchen; nichts vom HUD verdeckt"
+  },
+  {
+   "datei": "docs/belege/etappe4/rahmung-haendler-1440-3d.png",
+   "sha256": "4900e5f2ee50830c13541236b7310667ca9b294fa899e040bc3d4b25a2b35d58",
+   "befund": "Nerio mit Schirm und Handwagen neben dem Brunnen, frei"
+  },
+  {
+   "datei": "docs/belege/etappe4/rahmung-pflanze-1440-3d.png",
+   "sha256": "87552f5070cde11672c0ee809aaf913669174f805d4c7d5e534e7d9b1d76da13",
+   "befund": "reife Mondblüte im Beet, Figur steht darunter, nichts verdeckt"
+  },
+  {
+   "datei": "docs/belege/etappe4/regenhaendler-390-2d.png",
+   "sha256": "09f2d064e571e7b8701514631178f4f110de41540383a1e696bdcd343dbd614b",
+   "befund": "Nerio mit Schirm, Wagen mit gestreiftem Dach, Rädern, Laterne; frei"
+  },
+  {
+   "datei": "docs/belege/etappe4/regenhaendler-390-3d.png",
+   "sha256": "fe2d6a5ca6d2b4b0053caa9f4383e189d11af32c4b211c23f45ff44bbc25d234",
+   "befund": "Wagen und Figur am Dorfbrunnen, nicht vom HUD verdeckt"
+  },
+  {
+   "datei": "docs/belege/etappe4/mondblume-reif-390-2d.png",
+   "sha256": "3979b0fef2a431c2f4d6a014b90880c6abe7b27848334db80e261649f76edb99",
+   "befund": "Mondblüte im Beet sichtbar, Figur nicht davor"
+  },
+  {
+   "datei": "docs/belege/etappe4/mondblume-reif-390-3d.png",
+   "sha256": "6e69ea9929ddc60f1092cbe1c0daa413fb3161f609557aa70229acf034fb27ba",
+   "befund": "Mondblüte im Beet sichtbar"
+  }
+ ]
+}

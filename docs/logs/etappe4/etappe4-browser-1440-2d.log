@@ -1,0 +1,7 @@
+{"seg":"wald","width":1440,"gfx":"2d","ok":true,"raf":{"frames":122,"ms":2010.1000000238419},"result":{"samen":3,"rueckweg":true,"zoomNachReload":0.51}}
+{"seg":"pflanze","width":1440,"gfx":"2d","ok":true,"raf":{"frames":122,"ms":2009.3999999761581},"result":{"nacht":14,"reload":true}}
+{"seg":"pflanze_reif","width":1440,"gfx":"2d","ok":true,"raf":{"frames":122,"ms":2005.800000011921},"result":{"ernte":1,"reload":true}}
+{"seg":"haendler","width":1440,"gfx":"2d","ok":true,"raf":{"frames":122,"ms":2010},"result":{"kauf":240}}
+{"seg":"wetter","width":1440,"gfx":"2d","ok":true,"raf":{"frames":122,"ms":2006.800000011921},"result":{"ankuendigung":true}}
+OK etappe4-browser
+EXIT 0 DAUER 53s

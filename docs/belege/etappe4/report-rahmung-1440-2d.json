@@ -1,0 +1,50 @@
+[
+  {
+    "width": 1440,
+    "gfx": "2d",
+    "scene": "wald",
+    "target": [
+      832,
+      386
+    ],
+    "top": 168.25,
+    "bottom": 658,
+    "raf": {
+      "frames": 122,
+      "ms": 2005.4000000357628
+    },
+    "file": "/Users/reneklomfas/.hermes/cache/scratch/jm/wt-a/docs/belege/etappe4/rahmung-wald-1440-2d.png"
+  },
+  {
+    "width": 1440,
+    "gfx": "2d",
+    "scene": "pflanze",
+    "target": [
+      448,
+      370
+    ],
+    "top": 184.25,
+    "bottom": 658,
+    "raf": {
+      "frames": 122,
+      "ms": 2014
+    },
+    "file": "/Users/reneklomfas/.hermes/cache/scratch/jm/wt-a/docs/belege/etappe4/rahmung-pflanze-1440-2d.png"
+  },
+  {
+    "width": 1440,
+    "gfx": "2d",
+    "scene": "haendler",
+    "target": [
+      800,
+      402
+    ],
+    "top": 184.25,
+    "bottom": 658,
+    "raf": {
+      "frames": 122,
+      "ms": 2008.2999999523163
+    },
+    "file": "/Users/reneklomfas/.hermes/cache/scratch/jm/wt-a/docs/belege/etappe4/rahmung-haendler-1440-2d.png"
+  }
+]

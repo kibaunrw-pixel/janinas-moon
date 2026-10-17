@@ -1,0 +1,71 @@
+[
+  {
+    "seg": "wald",
+    "width": 390,
+    "gfx": "2d",
+    "shots": [
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe4/vollmondtor-390-2d.png"
+    ],
+    "errors": [],
+    "error": "page.waitForFunction: Timeout 30000ms exceeded.\n    at /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe4-browser.cjs:22:57"
+  },
+  {
+    "seg": "pflanze",
+    "width": 390,
+    "gfx": "2d",
+    "shots": [
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe4/mondblume-jung-390-2d.png"
+    ],
+    "errors": [],
+    "result": {
+      "nacht": 14,
+      "reload": true
+    },
+    "raf": {
+      "frames": 122,
+      "ms": 2013.6000000238419
+    }
+  },
+  {
+    "seg": "pflanze_reif",
+    "width": 390,
+    "gfx": "2d",
+    "shots": [
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe4/mondblume-reif-390-2d.png"
+    ],
+    "errors": [],
+    "result": {
+      "ernte": 1,
+      "reload": true
+    },
+    "raf": {
+      "frames": 122,
+      "ms": 2008.1000000238419
+    }
+  },
+  {
+    "seg": "haendler",
+    "width": 390,
+    "gfx": "2d",
+    "shots": [
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe4/regenhaendler-390-2d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe4/regenhaendler-sortiment-390-2d.png"
+    ],
+    "errors": [],
+    "result": {
+      "kauf": 240
+    },
+    "raf": {
+      "frames": 122,
+      "ms": 2008
+    }
+  },
+  {
+    "seg": "wetter",
+    "width": 390,
+    "gfx": "2d",
+    "shots": [],
+    "errors": [],
+    "error": "locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n  - waiting for getByRole('heading', { name: 'Fernsehen', exact: true }) to be visible\n\n    at /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe4-browser.cjs:37:83"
+  }
+]

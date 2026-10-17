@@ -1,0 +1,90 @@
+[
+  {
+    "seg": "wald",
+    "width": 1440,
+    "gfx": "2d",
+    "shots": [
+      "/Users/reneklomfas/.hermes/cache/scratch/jm/wt-a/docs/belege/etappe4/vollmondtor-1440-2d.png",
+      "/Users/reneklomfas/.hermes/cache/scratch/jm/wt-a/docs/belege/etappe4/vollmondwald-1440-2d.png",
+      "/Users/reneklomfas/.hermes/cache/scratch/jm/wt-a/docs/belege/etappe4/mondsamen-fund-1440-2d.png"
+    ],
+    "errors": [],
+    "zoomNachReload": 0.51,
+    "result": {
+      "samen": 3,
+      "rueckweg": true,
+      "zoomNachReload": 0.51
+    },
+    "raf": {
+      "frames": 122,
+      "ms": 2010.800000011921
+    }
+  },
+  {
+    "seg": "pflanze",
+    "width": 1440,
+    "gfx": "2d",
+    "shots": [
+      "/Users/reneklomfas/.hermes/cache/scratch/jm/wt-a/docs/belege/etappe4/mondblume-jung-1440-2d.png"
+    ],
+    "errors": [],
+    "result": {
+      "nacht": 14,
+      "reload": true
+    },
+    "raf": {
+      "frames": 122,
+      "ms": 2009.800000011921
+    }
+  },
+  {
+    "seg": "pflanze_reif",
+    "width": 1440,
+    "gfx": "2d",
+    "shots": [
+      "/Users/reneklomfas/.hermes/cache/scratch/jm/wt-a/docs/belege/etappe4/mondblume-reif-1440-2d.png"
+    ],
+    "errors": [],
+    "result": {
+      "ernte": 1,
+      "reload": true
+    },
+    "raf": {
+      "frames": 122,
+      "ms": 2005
+    }
+  },
+  {
+    "seg": "haendler",
+    "width": 1440,
+    "gfx": "2d",
+    "shots": [
+      "/Users/reneklomfas/.hermes/cache/scratch/jm/wt-a/docs/belege/etappe4/regenhaendler-1440-2d.png",
+      "/Users/reneklomfas/.hermes/cache/scratch/jm/wt-a/docs/belege/etappe4/regenhaendler-sortiment-1440-2d.png"
+    ],
+    "errors": [],
+    "result": {
+      "kauf": 240
+    },
+    "raf": {
+      "frames": 122,
+      "ms": 2009.300000011921
+    }
+  },
+  {
+    "seg": "wetter",
+    "width": 1440,
+    "gfx": "2d",
+    "shots": [
+      "/Users/reneklomfas/.hermes/cache/scratch/jm/wt-a/docs/belege/etappe4/wetterbericht-nerio-1440-2d.png"
+    ],
+    "errors": [],
+    "result": {
+      "ankuendigung": true
+    },
+    "raf": {
+      "frames": 122,
+      "ms": 2002.1000000238419
+    }
+  }
+]
