@@ -79,6 +79,11 @@ async function seenText(re){for(let i=0;i<20;i++){await p.waitForTimeout(150);co
 async function tapRene(){await p.waitForFunction(()=>JMDEBUG.RA.vis&&!JMDEBUG.RA.path.length,null,{timeout:20000});await p.waitForTimeout(400);
  const pixel=await p.evaluate(gfx=>{const d=JMDEBUG,a=d.RA,sit=JM.ENG.seated(a);return gfx==='3d'?JM.R3.proj(a.x+.5-(sit?.45:0),a.y+.62,.7+(sit?.14:0)).map(n=>n/devicePixelRatio):[(a.x*16+8-(sit?7:0)-Math.round(d.cam.x))*d.scale,(a.y*16+5-Math.round(d.cam.y))*d.scale];},gfx);
  assert.equal(await p.evaluate(([x,y])=>document.elementFromPoint(x,y)?.tagName,pixel),'CANVAS','René sichtbar antippen');await p.mouse.click(...pixel);await p.waitForFunction(()=>JMDEBUG.busy.ui.dialog,null,{timeout:20000});}
+/* Nebenaufgabe Etappe 3: René tippen, bis der erwartete Gesprächstext erscheint. Ein vorher gestartetes Kuscheln
+   („Energie +15“) oder das Frühstück („Energie +20“) wird wie von einer Spielerin zu Ende geklickt und der Tipp wiederholt
+   (höchstens viermal). Der Gesamtlauf war einmal rot, weil das Kuscheln vor der Klärung kam. */
+async function tapReneFor(re){for(let i=0;i<4;i++){await tapRene();for(let k=0;k<20;k++){await p.waitForTimeout(200);const t=await dlgText();if(re.test(t))return t;if(!await S(()=>JMDEBUG.busy.ui.dialog))break;await p.locator('#dlg').click();await p.waitForTimeout(250);}
+ console.error('René-Tipp ohne erwarteten Text, erneut',tag,re,await dlgText());await dialogs();}throw Error('René-Text nicht gesehen: '+re);}
 /* Liegt die Figur außerhalb des Bildes (3D mobil nah gezoomt), geht die Spielerin erst in ihre Nähe. */
 async function talk(id){await p.waitForFunction(id=>JM.ENG.NPCA[id]?.vis,id,{timeout:20000});
  for(let n=0;n<5;n++){const far=await p.evaluate(({id,gfx})=>{const a=JM.ENG.NPCA[id],d=JMDEBUG;const r=gfx==='3d'?JM.R3.proj(a.x+.5,a.y+.5,1).map(n=>n/devicePixelRatio):[(a.x*16+8-Math.round(d.cam.x))*d.scale,(a.y*16+8-Math.round(d.cam.y))*d.scale];
@@ -152,9 +157,9 @@ if(seg==='picknick'){ // W25 Picknick per Brief, W28 Brief danach, W26 Missverst
  await reload();await tapRene();await dialogs();r=await rom();assert.equal(r.pick.n,1,'kein zweites Picknick');assert.equal(r.mem.length,1);
  await book('herz');assert.match(await bookText(),/Picknick am Waldsee/);row.shots.push(await shot('picknick-tagebuch'));await close();
  await walk(13,14);await walk(13,8);await walk(13,2);await click(13,0);await map('farm');await walk(13,24);await walk(13,12);await backHome();await sleep();
- await fixTime(380);await tapRene();await dialogs();/* Frühstück */await tapRene();await seenText(/erledigen/);await dialogs();assert.equal((await rom()).mv.st,'ausweichen');
+ await fixTime(380);/* erst Frühstück, dann die Ausrede */await tapReneFor(/erledigen/);await dialogs();assert.equal((await rom()).mv.st,'ausweichen');
  await toFarm();await toMailbox();await readLetter('Nach unserem Picknick');assert.match(await bookText(),/Wolkenpudel/);row.shots.push(await shot('picknick-brief-danach'));await p.locator('[data-a="back"]').click();await close();await dialogs();
- await backHome();await sleep();await fixTime(380);await tapRene();await dialogs();await tapRene();await pickChoice('keine Lust mehr');await dialogs();assert.equal((await rom()).mv.st,'fertig');
+ await backHome();await sleep();await fixTime(380);await tapReneFor(/so ernst/);await pickChoice('keine Lust mehr');await dialogs();assert.equal((await rom()).mv.st,'fertig');
  await toFarm();await walk(9,8);await walk(13,12);await walk(16,15);await p.waitForTimeout(3000);/* Hinweistext abwarten */await walk(20,16);await p.waitForTimeout(800);assert.ok(await S(()=>JMDEBUG.M.obj.some(o=>o.k==='herzbank')));row.shots.push(await sceneShot('herzbank'));
  await click(21,17,.5);await p.waitForFunction(()=>JMDEBUG.S.rom.bankDay===JMDEBUG.S.day,null,{timeout:15000});
  await reload();assert.equal((await rom()).mv.st,'fertig');row.result={pick:1,mv:'fertig'};}
