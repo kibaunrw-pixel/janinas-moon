@@ -39,7 +39,8 @@ Ti.buy=function(s,k){Ti.migrate(s);const t=s.tiere;
  return null;};
 
 /* ---------- Orte ---------- */
-Ti.CAT={door:[5,9],sun:[7,9],rain:[3,9],walk:[[4,9],[8,9],[10,7],[6,9]]};
+/* door: Ablage für Geschenke, eine Kachel neben dem Schlafplatz der Pudel an der Hütte, damit kein Hund darauf liegt */
+Ti.CAT={door:[6,9],sun:[8,9],rain:[3,9],walk:[[4,9],[8,9],[10,7],[7,9]]};
 Ti.SPOTS=[{id:'weide',map:'farm',x:25,y:18,n:'hinter der Weide am Hofrand',from:[3,9],rew:{money:120,items:{amethyst:1}},txt:'eine alte Blechdose mit 120 G und einem Amethyst'},
  {id:'holunder',map:'farm',x:3,y:24,n:'unter dem Holunder im Südwesten',from:[3,9],rew:{items:{mondquarz:1,kupfer:2}},txt:'einen Mondquarz und zwei Kupfererz in einem Lederbeutel'},
  {id:'westufer',map:'forest',x:7,y:16,n:'am Westufer im Mondwald',from:[13,2],rew:{money:200},txt:'einen Topf mit 200 G in alten Münzen'},
@@ -245,7 +246,7 @@ Ti.pets=function(s,mapId){if(!s||!s.tiere)return [];const t=s.tiere,out=[];
  return out;};
 const sunny=s=>s.weather!=='rain'&&s.weather!=='snow';
 Ti.pose=function(s,id,gt){const t=s.tiere,m=s.min;gt=gt||0;
- if(id==='katze'){const C=Ti.CAT;if(m>=1260||m<420)return {x:C.door[0]+1,y:C.door[1],anim:'schlaf'};
+ if(id==='katze'){const C=Ti.CAT;if(m>=1260||m<420)return {x:C.door[0]+2,y:C.door[1],anim:'schlaf'};
   if(!sunny(s))return {x:C.rain[0],y:C.rain[1],anim:'schlaf'};
   if(m>=660&&m<960)return {x:C.sun[0],y:C.sun[1],anim:'schlaf',sun:true};
   const w=C.walk[Math.floor(m/40)%C.walk.length];return {x:w[0],y:w[1],anim:'sitz'};}
