@@ -360,17 +360,23 @@ function prop(mg,mgE,o,se,st){
     case 'cafe_theke':{const w=o.w||3;mg.box(x,.48,z,w-.1,.96,.8,'#8a5a33');mg.box(x,.98,z,w,.06,.9,'#e9dfc8');for(let i=0;i<w;i++)mg.box(o.x+i+.5,.5,z+.41,.8,.7,.02,'#a8743f');
       mg.box(x-.9,1.25,z-.1,.45,.5,.4,'#5a5a64');mg.box(x-.9,1.52,z-.1,.5,.06,.44,'#7a7a84');mg.cyl(x-.9,1.06,z+.12,.06,.1,'#f4f1ea');mg.box(x-.75,1.35,z+.11,.06,.06,.02,'#e8483a');
       mg.cyl(x+.1,1.08,z,.16,.14,'#f6d55c');mg.cyl(x+.1,1.17,z,.1,.04,'#e8b84a');mg.cyl(x+.7,1.07,z,.07,.1,'#f4f1ea');mg.cyl(x+.9,1.07,z+.1,.07,.1,'#f4f1ea');return;}
-    case 'vitrine':{const w=o.w||2;mg.box(x,.4,z,w-.1,.8,.8,'#7a4a2e');for(const sx of [-1,1])for(const sz of [-1,1])mg.box(x+sx*(w/2-.1),1.07,z+sz*.37,.05,.5,.05,'#7a4a2e');mg.box(x,1.33,z,w-.1,.05,.8,'#7a4a2e');mg.box(x,1.36,z,w-.2,.01,.7,'#d8eef8');mg.box(x,1.07,z-.38,w-.2,.48,.02,'#e9f4fa');mg.box(x,.82,z,w-.15,.04,.75,'#f4f1ea');
+    case 'vitrine':{const w=o.w||2;mg.box(x,.4,z,w-.1,.8,.8,'#7a4a2e');for(const sx of [-1,1])for(const sz of [-1,1])mg.box(x+sx*(w/2-.1),1.07,z+sz*.37,.05,.5,.05,'#7a4a2e');for(const sz of [-1,1])mg.box(x,1.33,z+sz*.38,w-.1,.05,.05,'#7a4a2e');for(const sx of [-1,1])mg.box(x+sx*(w/2-.05),1.33,z,.05,.05,.8,'#7a4a2e');
+      const glas=new THREE.Mesh(new THREE.BoxGeometry(w-.2,.01,.7),new THREE.MeshPhongMaterial({color:'#d8eef8',transparent:true,opacity:.16,depthWrite:false,shininess:100}));glas.position.set(x,1.36,z);world.add(glas);
+      mg.box(x,1.07,z-.38,w-.2,.48,.02,'#e9f4fa');mg.box(x,.82,z,w-.15,.04,.75,'#f4f1ea');
       const v=E.S.cafe?Object.keys(E.S.cafe.vit):[];v.slice(0,6).forEach((kk,i)=>{const col={mondkuchen:'#f3d77a',shake:'#f6b3c9',erdbeere:'#d9283a',suppe:'#c94a3a',kuerbissuppe:'#e8842a',nudeln:'#f0d38a',tee:'#a8c84a',rolle:'#e8b86a',ei:'#fbf6e9',milch:'#f4f1ea'}[kk]||'#e8b84a';
-        const px=x-w/2+.35+(i%3)*.6,py=i<3?.9:1.12,pz=z+(i<3?.1:-.1);mg.cyl(px,py-.02,pz,.2,.02,'#ffffff');mg.cyl(px,py+.05,pz,.15,.1,col);});return;}
+        const px=x-w/2+.35+(i%3)*.6,py=i<3?.9:1.12,pz=z+(i<3?.1:-.1);mg.cyl(px,py-.02,pz,.2,.02,'#ffffff');mg.cyl(px,py+.05,pz,.15,.1,col);
+        if(kk==='mondkuchen'){mg.cyl(px,py+.05,pz,.152,.025,'#d9473a');mg.cyl(px,py+.11,pz,.15,.025,'#fff0cf');mg.sph(px,py+.15,pz,.05,.04,.05,'#e0476a');}
+        if(kk==='erdbeere')for(const dx of [-.07,.06]){mg.sph(px+dx,py+.12,pz,.06,.08,.06,'#d9283a');mg.box(px+dx,py+.2,pz,.08,.015,.04,'#4f9a4a');}});return;}
     case 'tafel':{const w=o.w||2,c=document.createElement('canvas');c.width=256;c.height=192;const g=c.getContext('2d');g.fillStyle='#2f4a3a';g.fillRect(0,0,256,192);g.strokeStyle='#7a4a2e';g.lineWidth=14;g.strokeRect(0,0,256,192);
       g.fillStyle='#f4f1ea';g.font='bold 30px sans-serif';g.textAlign='center';g.fillText('Heute',128,42);g.font='22px sans-serif';const v=E.S.cafe?Object.keys(E.S.cafe.vit):[];
-      (v.length?v.slice(0,4).map(kk=>JM.ITEMS[kk].n.slice(0,18)):['Bald wieder','frisch für euch']).forEach((t,i)=>g.fillText(t,128,82+i*28));g.fillStyle='#f6d55c';g.beginPath();g.arc(222,30,9,0,6.3);g.fill();
+      (v.length?v.slice(0,4).map(kk=>JM.ITEMS[kk].n):['Bald wieder','frisch für euch']).forEach((t,i)=>{let px=22;while(px>12&&g.measureText(t).width>220){g.font=--px+'px sans-serif';}g.fillText(t,128,82+i*28);g.font='22px sans-serif';});g.fillStyle='#f6d55c';g.beginPath();g.arc(222,30,9,0,6.3);g.fill();
       const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;const m=new THREE.Mesh(new THREE.PlaneGeometry(1.3,.98),new THREE.MeshLambertMaterial({map:t}));m.position.set(x,1.05,z+.08);m.rotation.x=-.12;world.add(m);
       mg.add(GEO.box,M4(x-.5,.6,z,.06,1.3,.06,.12,0,0),'#7a4a2e');mg.add(GEO.box,M4(x+.5,.6,z,.06,1.3,.06,.12,0,0),'#7a4a2e');mg.box(x,.52,z+.06,1.36,.05,.08,'#7a4a2e');return;}
     case 'cafepflanze':mg.cyl(x,.22,z,.22,.44,'#c9683a');mg.cyl(x,.45,z,.24,.04,'#e8843a');[[0,.75,0,.3],[-.18,.62,.1,.22],[.18,.64,.06,.22],[0,.98,0,.2],[.1,.85,-.12,.18]].forEach(([dx,dy,dz,r])=>mg.sph(x+dx,dy,z+dz,r,r,r,'#4f9a4a'));return;
     case 'cafetisch':mg.cyl(x,.36,z,.06,.7,'#6b4423');mg.cyl(x,.03,z,.26,.05,'#6b4423');mg.cyl(x,.72,z,.46,.05,'#c8945a');mg.cyl(x,.755,z,.44,.012,'#f4ead8');
       mg.cyl(x,.82,z,.05,.12,'#cfe6ff');mg.sph(x,.92,z,.06,.06,.06,'#e0476a',true);mg.cyl(x+.2,.79,z-.1,.05,.06,'#f4f1ea');
+      for(const dx of [-.24,.24]){mg.cyl(x+dx,.77,z+.12,.1,.012,'#ffffff');mg.cyl(x+dx,.82,z+.12,.065,.09,'#f4ead8');mg.cyl(x+dx,.868,z+.12,.045,.006,'#6b4423');}
+      for(const dx of [-.3,0,.3])mg.box(x+dx,.764,z,.025,.006,.65,'#d9707a');
       mg.cyl(x,2.0,z,.01,.6,'#3a3a44');mg.add(GEO.cone,M4(x,1.66,z,.24,.2,.24),'#5f8f6a');mgE.sph(x,1.56,z,.08,.06,.08,'#ffe0a0');return;
     case 'stuhl':{const f=o.face==='l'?-1:1;mg.box(x,.4,z,.4,.06,.4,'#a8743f');mg.box(x-f*.18,.7,z,.05,.6,.4,'#7a4a2e');mg.box(x,.43,z,.34,.02,.34,'#d9473a');for(const sx of [-.16,.16])for(const sz of [-.16,.16])mg.box(x+sx,.2,z+sz,.04,.4,.04,'#6b4423');return;}
     case 'grabstelle':mg.sph(x,.03,z,.42,.12,.38,'#6e4e30');mg.sph(x+.12,.08,z-.06,.16,.08,.14,'#8a6440');mgE.sph(x+.2,.35+Math.sin(x)*.02,z,.04,.04,.04,'#fff6c0');mgE.sph(x-.18,.28,z+.1,.03,.03,.03,'#fff6c0');return;
@@ -575,6 +581,9 @@ function buildWorld(){
     if(t===T.WAND&&M.inside) wallTile(mg,mgE,M,x,y);
     if(t===T.TUFF&&!M.inside&&!M.cave){ const P=PAL3[se]; for(let i=0;i<3;i++){ const hh=hsh(x,y,i+300), gx=x+.15+(hh%70)/100, gz=y+.15+((hh>>4)%70)/100; for(let k=0;k<4;k++) mg.add(GEO.cone8,M4(gx+(k-1.5)*.04,.1,gz,.035,.22+(k%2)*.08,.035,(k-1.5)*.15,0,(k-1.5)*.25),k%2?P.gd:P.gl); } }
   }
+  if(M.id==='i_cafe'){ // Kleine Wandbilder, ohne neue Weltobjekte oder Kollisionen.
+    for(const x of [1.8,7.8,12]){mg.box(x,1.45,3.045,.65,.65,.05,'#7a4a2e');mg.box(x,1.45,3.08,.53,.53,.02,'#f4ead8');
+      mg.sph(x,1.5,3.1,.16,.16,.012,'#f6d55c');mg.sph(x+.07,1.56,3.12,.13,.13,.012,'#f4ead8');mg.box(x,1.27,3.1,.3,.025,.015,'#5f8f6a');}}
   // Bäume, auch außerhalb des Randes
   if(!M.inside&&!M.cave){
     const list=M.trees.slice();
@@ -595,7 +604,10 @@ function buildWorld(){
   // Etappe 3: Deko ohne Kachelsperre (Stühle, Pfotenspur, Lichterkette, Kundenstopper, Kübel)
   for(const d of (M.decor||[])){
     if(d.k==="pfote"){ const px=d.x+.35+(d.r%2)*.3, pz=d.y+.5; /* deutlich, aber flach: Ballen und drei Zehen, etwas größer als im 2D-Raster, damit die Spur auch auf dem Weg lesbar ist */ mg.sph(px,.025,pz,.1,.012,.085,"#3a2618"); for(const [a,b] of [[-.1,-.12],[0,-.16],[.1,-.12]]) mg.sph(px+a,.025,pz+b,.037,.012,.037,"#3a2618"); continue; }
-    if(d.k==="lichterkette"){ for(let i=0;i<d.w*2;i++){ const lx=d.x+.25+i*.5; mgE.sph(lx,2.05+Math.sin(i*1.3)*.06,d.y+.95,.05,.05,.05,["#ffd77a","#ff9fb8","#a8e0ff","#c6f09a"][i%4]); } mg.box(d.x+d.w/2,2.1,d.y+.95,d.w,.01,.01,"#3a3a44"); continue; }
+    if(d.k==="lichterkette"){ // Vor der Wandfläche (z=3,0), nicht in deren Holz versenkt.
+      for(let i=0;i<d.w*2;i++){const lx=d.x+.25+i*.5,ly=2.12-Math.sin((i+.5)/(d.w*2)*Math.PI*3)**2*.18;
+        mg.box(lx,ly+.04,d.y+1.14,.5,.025,.025,'#6b4423');mg.box(lx,ly-.04,d.y+1.14,.025,.13,.025,'#6b4423');
+        mgE.sph(lx,ly-.14,d.y+1.14,.075,.095,.075,['#ffd77a','#ffb8a0','#ffe9b0','#c6f09a'][i%4]);}continue; }
     if(d.k==="stuhl"){ prop(mg,mgE,{k:"stuhl",x:d.x+(d.face==="l"?-.45:.45),y:d.y,face:d.face},se,st); continue; }
     prop(mg,mgE,{k:d.k,x:d.x,y:d.y},se,st); }
   if(M.id==="farm") glasshouse(mg,se,S.flags.glas);
@@ -717,7 +729,31 @@ R3.resetActors=function(){ for(const [,rec] of ACT) AG&&AG.remove(rec.g); ACT.cl
 
 /* ---------- Kamera ---------- */
 const camT=new V3(), camP=new V3(); let camDist=30; let camInit=false, lastMap="";
+let cafeFrameKey='',cafeFrameDist=30;
+const cafeCorner=new V3();
+// Reine Darstellung: den Raum bzw. die Fassade in den freien HUD-Bereich einpassen.
+// Der größte zulässige Zoom zeigt weiter alle Möbel; Kacheln und Treffer bleiben unverändert.
+function cafeCamera(pads){
+  const M=E.M,P=E.P,innen=M.id==='i_cafe';
+  const aussen=M.id==='village'&&M.obj.some(o=>o.k==='cafe')&&Math.hypot(P.x-6,P.y-14)<3;
+  if(!innen&&!aussen)return false;
+  const bounds=innen?[.7,13.3,2.8,9.5,2.4]:[3.2,10.2,10.4,16.1,3.4],pitch=innen?.98:.75,yaw=innen?0:.7;
+  const H=innerHeight,mid=(pads.t+H-pads.b)/2;
+  camera.fov=34;camera.setViewOffset(innerWidth,H,0,H/2-mid,innerWidth,H);camera.updateProjectionMatrix();
+  camT.set((bounds[0]+bounds[1])/2,innen?.6:.7,(bounds[2]+bounds[3])/2);
+  const pose=dist=>{camera.position.set(camT.x+Math.sin(yaw)*Math.cos(pitch)*dist,camT.y+Math.sin(pitch)*dist,camT.z+Math.cos(yaw)*Math.cos(pitch)*dist);camera.lookAt(camT);camera.updateMatrixWorld();};
+  const key=[M.id,innerWidth,H,pads.t,pads.b].join('|');
+  if(key!==cafeFrameKey){let lo=4,hi=120;
+    for(let i=0;i<14;i++){const dist=(lo+hi)/2;pose(dist);let fits=true;
+      for(const x of bounds.slice(0,2))for(const z of bounds.slice(2,4))for(const h of [0,bounds[4]]){
+        cafeCorner.set(x,h,z).project(camera);const px=(cafeCorner.x*.5+.5)*innerWidth,py=(-cafeCorner.y*.5+.5)*H;
+        if(px<18||px>innerWidth-18||py<pads.t+18||py>H-pads.b-18)fits=false;}
+      if(fits)hi=dist;else lo=dist;}
+    cafeFrameDist=hi;cafeFrameKey=key;}
+  camDist=cafeFrameDist;pose(camDist);camP.copy(camera.position);camInit=true;lastMap=M.id;return true;
+}
 function cameraUpdate(dt,pads){
+  if(cafeCamera(pads))return;
   const M=E.M, P=E.P;
   const zoom=R3.zo||E.zoom(), inside=M.inside||M.cave;
   const sv=E.sceneView();let tx=sv?sv.x:P.x+.5, tz=sv?sv.y:P.y+.6;
@@ -732,7 +768,7 @@ function cameraUpdate(dt,pads){
   if(inside) tz=clamp(tz,M.h*.35,M.h*.75); else tz=clamp(tz,3,M.h-2);
   if(!camInit||lastMap!==M.id||E.camSnap()){ camT.set(tx,0,tz); camInit=true; lastMap=M.id; }
   else { const k=Math.min(1,dt*5); camT.x+=(tx-camT.x)*k; camT.z+=(tz-camT.z)*k; }
-  camP.set(camT.x,Math.sin(pitch)*dist,camT.z+Math.cos(pitch)*dist);
+  camT.y=0;camP.set(camT.x,Math.sin(pitch)*dist,camT.z+Math.cos(pitch)*dist);
   camera.position.copy(camP); camera.lookAt(camT);
   // freier Bereich zwischen HUD oben und Leiste unten mittig halten
   const H=innerHeight, mid=(pads.t+(H-pads.b))/2, off=(H/2-mid);

@@ -12,12 +12,15 @@ const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",
 const cv=$("game"), ctx=cv.getContext("2d");
 const buf=A.cnv(8,8), bx=buf.getContext("2d");
 const lit=A.cnv(8,8), lx=lit.getContext("2d");
-let DPR=1,SC=4,VW=0,VH=0,LW=0,LH=0,ZOOM=1;
+let DPR=1,SC=4,VW=0,VH=0,LW=0,LH=0,ZOOM=1,cafeBreite=0,cafeHoehe=0;
 function resize(){
   DPR=Math.min(window.devicePixelRatio||1,3);
   VW=Math.round(innerWidth*DPR); VH=Math.round(innerHeight*DPR);
   cv.width=VW; cv.height=VH;
   SC=Math.max(2,Math.round(Math.min(VW,VH*0.62)/(16*11.5)*ZOOM));
+  // Im Café bleibt auch beim Szenenzoom Platz für beide Randpflanzen.
+  if(cafeBreite){const oben=Math.max(120,$('hud').getBoundingClientRect().bottom),unten=$('bottom').getBoundingClientRect().top||innerHeight-110;
+    SC=Math.min(SC,Math.max(1,Math.floor(VW/((cafeBreite+1)*16))),Math.max(1,Math.floor((unten-oben-40)*DPR/(cafeHoehe*16))));}
   LW=Math.ceil(VW/SC); LH=Math.ceil(VH/SC);
   buf.width=LW; buf.height=LH; lit.width=LW; lit.height=LH;
   ctx.imageSmoothingEnabled=false; bx.imageSmoothingEnabled=false;
@@ -285,6 +288,7 @@ function setMap(id,x,y){
   if(!MAPS[id]){ console.warn("Unbekannte Karte",id,"– Start auf dem Hof"); id="farm"; x=5; y=8; }
   JM.Ausbau.enterMine(S,id,MAPS,rnd);
   M=MAPS[id]; P.x=x; P.y=y; P.path=[]; P.act=null; P.queue=[]; aim=null;
+  cafeBreite=M.id===JM.Cafe.ROOM?M.w:0;cafeHoehe=M.h-2;resize();
   if(JM.Ausbau.repairCollectibles(S,M)&&!demo)note('Ein verirrter Fund liegt jetzt am nächsten erreichbaren Weg. Nichts ging verloren.');
   if(M.cave) hudSoon();
   buildGround(); spawnAnimals(); npcPlaceAll(true); FX=[]; FLT=[];
@@ -2013,7 +2017,8 @@ function render(){
   const mw=M.w*16, mh=M.h*16;
   const padT=demo?0:padTop(), padB=demo?0:padBot();
   const sv=sceneView(); let cx=(sv?sv.x*16:P.x*16+8)-LW/2, cy=(sv?sv.y*16:P.y*16+4)-(LH+padT-padB)/2;
-  const tcx=mw>LW?clamp(cx,0,mw-LW):(mw-LW)/2, tcy=mh+padT+padB>LH?clamp(cy,-padT,mh-LH+padB):(mh-LH)/2;
+  if(M.id===JM.Cafe.ROOM){cx=mw/2-LW/2;cy=(M.h+2)*8-(LH+padT-padB)/2;}
+  const tcx=mw>LW?clamp(cx,0,mw-LW):(mw-LW)/2, tcy=M.id===JM.Cafe.ROOM?cy:mh+padT+padB>LH?clamp(cy,-padT,mh-LH+padB):(mh-LH)/2;
   if(camSnap||Math.abs(tcx-cam.x)>LW||Math.abs(tcy-cam.y)>LH){ cam.x=tcx; cam.y=tcy; camSnap=false; }
   else { const k=Math.min(1,FDT*6); cam.x+=(tcx-cam.x)*k; cam.y+=(tcy-cam.y)*k; }
   const CX=Math.round(cam.x), CY=Math.round(cam.y);
