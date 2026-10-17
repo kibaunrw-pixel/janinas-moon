@@ -1,0 +1,71 @@
+[
+  {
+    "seg": "migration",
+    "width": 390,
+    "gfx": "2d",
+    "shots": [
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/migration-hinweis-390-2d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/migration-brief-390-2d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/migration-brief-offen-390-2d.png"
+    ],
+    "errors": [],
+    "start": {
+      "map": "farm",
+      "x": 6,
+      "y": 9,
+      "objs": [
+        "house:house",
+        "coop:coop",
+        "barn:barn",
+        "mailbox:mail",
+        "box:ship",
+        "doghouse:doghouse",
+        "trough:trough_h",
+        "trough:trough_c",
+        "bush:bush",
+        "bush:bush",
+        "bush:bush",
+        "bush:bush"
+      ]
+    },
+    "result": {
+      "geld": 38500,
+      "brief": true,
+      "hinweis": true
+    },
+    "raf": {
+      "frames": 122,
+      "ms": 2009.1000000238419
+    }
+  },
+  {
+    "seg": "material",
+    "width": 390,
+    "gfx": "2d",
+    "shots": [
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/material-timo-390-2d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/material-limit-390-2d.png"
+    ],
+    "errors": [],
+    "start": {
+      "map": "i_zimmerei",
+      "x": 6,
+      "y": 6,
+      "objs": [
+        "counter_huette:counter",
+        "shelf:shelf",
+        "shelf:shelf",
+        "barrel:deco"
+      ]
+    },
+    "result": {
+      "stein": 60,
+      "holz": 10,
+      "geld": 36350
+    },
+    "raf": {
+      "frames": 122,
+      "ms": 2008.6000000238419
+    }
+  }
+]

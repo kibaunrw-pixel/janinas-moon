@@ -11,9 +11,9 @@ try{for(const seg of SEGS)for(const vp of [{width:390,height:844},{width:1440,he
  const c=await b.newContext({viewport:vp,deviceScaleFactor:vp.width===390?2:1}),p=await c.newPage(),errors=[];p.on('pageerror',e=>errors.push(String(e)));p.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
  const row={seg,width:vp.width,gfx,shots:[],errors};try{
   await p.goto(base);await p.waitForFunction(()=>window.JMDEBUG&&JM.R3?.ok&&JM.Ziele);
-  const S=fn=>p.evaluate(fn),shot=async n=>{const f=path.join(out,`${n}-${vp.width}-${gfx}.png`);await p.screenshot({path:f});row.shots.push(f);return f;};
+  const S=(fn,arg)=>p.evaluate(fn,arg),shot=async n=>{const f=path.join(out,`${n}-${vp.width}-${gfx}.png`);await p.screenshot({path:f});row.shots.push(f);return f;};
   // Janinas Stand: 38.500 G, Haus ausgebaut, drei Mieter, alle alten Missionen und Aufgaben erledigt
-  const FX={migration:{map:'farm',px:6,py:9},material:{map:'i_zimmerei',px:6,py:6},stadt:{map:'stadt',px:16,py:10,inv:{holz:80,stein:60,weizen:20}},stadt5:{map:'stadt',px:36,py:12,stufe:5},
+  const fx={migration:{map:'farm',px:6,py:9},material:{map:'i_zimmerei',px:6,py:6},stadt:{map:'stadt',px:16,py:10,inv:{holz:80,stein:60,weizen:20}},stadt5:{map:'stadt',px:36,py:12,stufe:5},
    hof:{map:'i_zimmerei',px:6,py:6,inv:{eisen:10}},ziele:{map:'haus',px:5,py:4},auftrag:{map:'stadt',px:16,py:14},wettbewerb:{map:'stadt',px:15,py:17,day:25,inv:{kuerbis:2,koi:1,ei:3}}}[seg];
   await p.evaluate(({gfx,fx,seg})=>{const s=JMDEBUG.newState('Janina',[{name:'Lilly',fell:'weiss'},{name:'Coco',fell:'apricot'}]);s.gfx=gfx;s.sound=s.music=false;s.day=fx.day||73;s.min=600;s.weather='sun';s.money=38500;s.qDone=JM.QUESTS.map(q=>q.id);
    s.house={level:2,job:null};s.maxE=120;s.energy=120;s.hens=[{n:'Erna',c:0,h:8,pet:0},{n:'Berta',c:1,h:6,pet:0},{n:'Lotti',c:0,h:5,pet:0}];s.flags.letter=s.flags.forestSeen=s.flags.villageSeen=s.flags.caveSeen=true;
@@ -25,6 +25,7 @@ try{for(const seg of SEGS)for(const vp of [{width:390,height:844},{width:1440,he
    if(old){localStorage.setItem('janinas-moon-v2',JSON.stringify(s));return;}JMDEBUG.startGame(s,false);},{gfx,fx,seg});
   async function reload(){await p.reload();await p.getByRole('button',{name:'Weiterspielen',exact:true}).click();await p.waitForFunction(()=>JMDEBUG.S&&!JMDEBUG.busy.ui.fade);await p.waitForTimeout(800);}
   if(seg==='migration')await reload();
+  row.start=await S(()=>({map:JMDEBUG.M.id,x:JMDEBUG.P.x,y:JMDEBUG.P.y,objs:JMDEBUG.M.obj.map(o=>o.k+':'+o.act).slice(0,12)}));console.log('START',JSON.stringify(row.start));
   for(let i=0;i<3;i++)await p.locator('#zOut').click();await p.waitForTimeout(800);
   async function pixel(x,y,h=.2){return p.evaluate(({x,y,h,gfx})=>gfx==='3d'?JM.R3.proj(x+.5,y+.5,h).map(n=>n/devicePixelRatio):[(x*16+8-Math.round(JMDEBUG.cam.x))*JMDEBUG.scale,(y*16+8-Math.round(JMDEBUG.cam.y))*JMDEBUG.scale],{x,y,h,gfx});}
   async function click(x,y,h=.2,wait=true){const r=await pixel(x,y,h);assert.ok(r[0]>0&&r[0]<vp.width&&r[1]>0&&r[1]<vp.height,'Ziel sichtbar '+JSON.stringify({x,y,r}));assert.equal(await p.evaluate(r=>document.elementFromPoint(...r)?.tagName,r),'CANVAS','Ziel nicht vom HUD verdeckt '+JSON.stringify({x,y,r}));await p.mouse.click(...r);
@@ -34,6 +35,9 @@ try{for(const seg of SEGS)for(const vp of [{width:390,height:844},{width:1440,he
   async function closePanel(){if(await S(()=>JMDEBUG.busy.ui.panel)){await p.locator('[data-a="close"]').last().click();await p.waitForTimeout(300);}}
   async function night(map,x,y){await S(()=>JMDEBUG.endDay());await p.waitForFunction(()=>!JMDEBUG.busy.ui.fade,null,{timeout:15000});await p.waitForTimeout(600);await dialogs();if(map)await S(({map,x,y})=>JMDEBUG.setMap(map,x,y),{map,x,y});await p.waitForTimeout(900);}
   const obj=(k)=>S(k=>{const o=JMDEBUG.M.obj.find(o=>o.k===k||o.act===k);return o&&{x:o.x,y:o.y,w:o.w||1,h:o.h||1};},k);
+  // Freies, unbearbeitetes Beet (ohne Unkraut/Stein) suchen; bei Gold auch die beiden Nachbarn. Spielerin stellt sich darüber (Ortsfixture).
+  async function freiesBeet(y0,y1,drei){const t=await S(({y0,y1,drei})=>{const M=JMDEBUG.M,S=JMDEBUG.S,ok=(x,y)=>M.t[y]&&M.t[y][x]===JM.T.FELD&&!(S.field[x+','+y]&&(S.field[x+','+y].t||S.field[x+','+y].o||S.field[x+','+y].c));
+   for(let y=y0;y<=y1;y++)for(let x=4;x<=10;x++)if(ok(x,y)&&(!drei||ok(x-1,y)&&ok(x+1,y))&&JM.WALK.has(M.t[y-1][x]))return [x,y];return null;},{y0,y1,drei});assert.ok(t,'freies Beet');await S(([x,y])=>JMDEBUG.setMap('farm',x,y-1),t);await p.waitForTimeout(900);return t;}
   async function clickObj(k,hh){const o=await obj(k);assert.ok(o,'Objekt '+k);await click(o.x+Math.floor((o.w-1)/2),o.y+o.h-1,hh??(o.h>1?1:.6));}
 
   if(seg==='migration'){
@@ -73,14 +77,14 @@ try{for(const seg of SEGS)for(const vp of [{width:390,height:844},{width:1440,he
    await btn('hof-silber');assert.equal(await S(()=>JMDEBUG.S.ziele.hof.job.k),'silber');assert.equal(await S(()=>JMDEBUG.S.money),38500-8000);await reload();assert.equal(await S(()=>JMDEBUG.S.ziele.hof.job.k),'silber');
    await night('farm',6,9);assert.equal(await S(()=>JMDEBUG.S.ziele.hof.silber),true);
    // Gießen ohne Energie: Beet umgraben (1 Energie), dann gießen (0)
-   await S(()=>{JMDEBUG.S.hold='auto';JMDEBUG.S.min=600;});const e0=await S(()=>JMDEBUG.S.energy);await click(6,11,.1,false);await p.waitForFunction(()=>JMDEBUG.S.field['6,11']?.t,null,{timeout:15000});await p.waitForTimeout(500);
-   assert.equal(await S(()=>JMDEBUG.S.energy),e0-1,'Umgraben kostet 1');await click(6,11,.1,false);await p.waitForFunction(()=>JMDEBUG.S.field['6,11']?.w,null,{timeout:15000});await p.waitForTimeout(400);assert.equal(await S(()=>JMDEBUG.S.energy),e0-1,'Gießen kostet nichts');
+   await S(()=>{JMDEBUG.S.hold='auto';JMDEBUG.S.min=600;});const [sx,sy]=await freiesBeet(11,19);const e0=await S(()=>JMDEBUG.S.energy);await click(sx,sy,.1,false);await p.waitForFunction(k=>JMDEBUG.S.field[k]?.t,sx+','+sy,{timeout:15000});await p.waitForTimeout(500);
+   assert.equal(await S(()=>JMDEBUG.S.energy),e0-1,'Umgraben kostet 1');await click(sx,sy,.1,false);await p.waitForFunction(k=>JMDEBUG.S.field[k]?.w,sx+','+sy,{timeout:15000});await p.waitForTimeout(400);assert.equal(await S(()=>JMDEBUG.S.energy),e0-1,'Gießen kostet nichts');
    // Neues Feldstück und Goldwerkzeug über Timo beauftragen
    await S(()=>{const s=JMDEBUG.S;s.inv.holz=40;s.inv.stein=30;s.inv.silber=10;s.inv.mondquarz=3;s.money+=80000;});await S(()=>JMDEBUG.setMap('i_zimmerei',6,6));await p.waitForTimeout(800);
-   await clickObj('counter');await btn('hofausbau');await btn('hof-felder');await night('farm',7,19);await night('farm',7,19);assert.equal(await S(()=>JMDEBUG.M.t[21][7]),JM.T.FELD,'neues Beet');await shot('hof-feldstueck');
-   await click(7,21,.1,false);await p.waitForFunction(()=>JMDEBUG.S.field['7,21']?.t,null,{timeout:15000});
-   await S(()=>JMDEBUG.setMap('i_zimmerei',6,6));await p.waitForTimeout(800);await clickObj('counter');await btn('hofausbau');await btn('hof-gold');await night('farm',6,14);await night('farm',6,14);
-   await click(6,15,.1,false);await p.waitForFunction(()=>JMDEBUG.S.field['6,15']?.t,null,{timeout:15000});await p.waitForTimeout(500);assert.equal(await S(()=>!!(JMDEBUG.S.field['5,15']?.t&&JMDEBUG.S.field['7,15']?.t)),true,'Gold: drei Beete pro Schlag');await shot('hof-gold');
+   await clickObj('counter');await btn('hofausbau');await btn('hof-felder');await night('farm',7,19);await night('farm',7,19);assert.equal(await S(()=>JMDEBUG.M.t[21][7]===JM.T.FELD),true,'neues Beet');await shot('hof-feldstueck');
+   {const [fx2,fy2]=await freiesBeet(20,22);await click(fx2,fy2,.1,false);await p.waitForFunction(k=>JMDEBUG.S.field[k]?.t,fx2+','+fy2,{timeout:15000});}
+   await S(()=>{JMDEBUG.S.min=600;JMDEBUG.setMap('i_zimmerei',6,6);});await p.waitForTimeout(800);await clickObj('counter');await btn('hofausbau');await btn('hof-gold');await night('farm',6,14);await night('farm',6,14);
+   {await S(()=>{JMDEBUG.S.min=600;});const [gx,gy]=await freiesBeet(11,22,true);await click(gx,gy,.1,false);await p.waitForFunction(k=>JMDEBUG.S.field[k]?.t,gx+','+gy,{timeout:15000});await p.waitForTimeout(500);assert.equal(await S(([x,y])=>!!(JMDEBUG.S.field[(x-1)+','+y]?.t&&JMDEBUG.S.field[(x+1)+','+y]?.t),[gx,gy]),true,'Gold: drei Beete pro Schlag');}await shot('hof-gold');
    row.result={silber:true,felder:true,gold:true};
   }
   if(seg==='ziele'){

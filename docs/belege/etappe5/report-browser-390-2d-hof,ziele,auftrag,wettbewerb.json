@@ -1,0 +1,134 @@
+[
+  {
+    "seg": "hof",
+    "width": 390,
+    "gfx": "2d",
+    "shots": [
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/hof-panel-390-2d.png"
+    ],
+    "errors": [],
+    "start": {
+      "map": "i_zimmerei",
+      "x": 6,
+      "y": 6,
+      "objs": [
+        "counter_huette:counter",
+        "shelf:shelf",
+        "shelf:shelf",
+        "barrel:deco"
+      ]
+    },
+    "error": "ReferenceError: JM is not defined\n    at /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe5-browser.cjs:81:172"
+  },
+  {
+    "seg": "ziele",
+    "width": 390,
+    "gfx": "2d",
+    "shots": [
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/ziele-trophaeenregal-390-2d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/ziele-tagebuch-390-2d.png"
+    ],
+    "errors": [],
+    "start": {
+      "map": "haus",
+      "x": 5,
+      "y": 4,
+      "objs": [
+        "stove:stove",
+        "counter:counter",
+        "fridge:fridge",
+        "table:table",
+        "tv:tv",
+        "plant:plant",
+        "bed:bed",
+        "wardrobe:wardrobe",
+        "workbench:craft",
+        "trophaeen:ziele:trophaeen",
+        "fridge:fridge",
+        "workbench:craft"
+      ]
+    },
+    "result": {
+      "sterne": true,
+      "trophaeen": true
+    },
+    "raf": {
+      "frames": 122,
+      "ms": 2012
+    }
+  },
+  {
+    "seg": "auftrag",
+    "width": 390,
+    "gfx": "2d",
+    "shots": [
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/auftrag-panel-390-2d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/auftrag-erfuellt-390-2d.png"
+    ],
+    "errors": [],
+    "start": {
+      "map": "stadt",
+      "x": 16,
+      "y": 14,
+      "objs": [
+        "house:plot:0",
+        "board:plot:0",
+        "house:plot:1",
+        "board:plot:1",
+        "house:plot:2",
+        "board:plot:2",
+        "bahnhofhaus_stadt:train",
+        "fahrplan:train",
+        "fountain:fountain",
+        "lamp:lamp",
+        "lamp:lamp",
+        "house:post:haus7"
+      ]
+    },
+    "result": {
+      "lohn": 968
+    },
+    "raf": {
+      "frames": 122,
+      "ms": 2013.699999988079
+    }
+  },
+  {
+    "seg": "wettbewerb",
+    "width": 390,
+    "gfx": "2d",
+    "shots": [
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/wettbewerb-stand-390-2d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/wettbewerb-panel-390-2d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/wettbewerb-greta-390-2d.png"
+    ],
+    "errors": [],
+    "start": {
+      "map": "stadt",
+      "x": 15,
+      "y": 17,
+      "objs": [
+        "house:plot:0",
+        "board:plot:0",
+        "house:plot:1",
+        "board:plot:1",
+        "house:plot:2",
+        "board:plot:2",
+        "bahnhofhaus_stadt:train",
+        "fahrplan:train",
+        "fountain:fountain",
+        "lamp:lamp",
+        "lamp:lamp",
+        "house:post:haus7"
+      ]
+    },
+    "result": {
+      "punkte": 1120,
+      "preis": 3000
+    },
+    "raf": {
+      "frames": 122,
+      "ms": 2007.5
+    }
+  }
+]

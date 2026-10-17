@@ -1,0 +1,33 @@
+[
+  {
+    "seg": "hof",
+    "width": 390,
+    "gfx": "2d",
+    "shots": [
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/hof-panel-390-2d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/hof-feldstueck-390-2d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/hof-gold-390-2d.png"
+    ],
+    "errors": [],
+    "start": {
+      "map": "i_zimmerei",
+      "x": 6,
+      "y": 6,
+      "objs": [
+        "counter_huette:counter",
+        "shelf:shelf",
+        "shelf:shelf",
+        "barrel:deco"
+      ]
+    },
+    "result": {
+      "silber": true,
+      "felder": true,
+      "gold": true
+    },
+    "raf": {
+      "frames": 122,
+      "ms": 2007.9000000357628
+    }
+  }
+]

@@ -1,0 +1,87 @@
+[
+  {
+    "seg": "stadt",
+    "width": 390,
+    "gfx": "2d",
+    "shots": [
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/stadt-stufe1-390-2d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/stadt-plan-390-2d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/stadt-bau1-390-2d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/stadt-bau2-390-2d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/stadt-bau3-390-2d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/stadt-baeckerei-390-2d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/stadt-baeckerei-panel-390-2d.png"
+    ],
+    "errors": [],
+    "start": {
+      "map": "stadt",
+      "x": 16,
+      "y": 10,
+      "objs": [
+        "house:plot:0",
+        "board:plot:0",
+        "house:plot:1",
+        "board:plot:1",
+        "house:plot:2",
+        "board:plot:2",
+        "bahnhofhaus_stadt:train",
+        "fahrplan:train",
+        "fountain:fountain",
+        "lamp:lamp",
+        "lamp:lamp",
+        "house:post:haus7"
+      ]
+    },
+    "result": {
+      "stufe": 2,
+      "ankauf": 1000
+    },
+    "raf": {
+      "frames": 122,
+      "ms": 2009
+    }
+  },
+  {
+    "seg": "stadt5",
+    "width": 390,
+    "gfx": "2d",
+    "shots": [
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/stadt5-ost-390-2d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/stadt5-hotel-390-2d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/stadt5-hotel-panel-390-2d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/stadt5-blumenladen-390-2d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/stadt5-blumenladen-panel-390-2d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/stadt5-villa-390-2d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/stadt5-villa-panel-390-2d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/stadt5-park-390-2d.png"
+    ],
+    "errors": [],
+    "start": {
+      "map": "stadt",
+      "x": 36,
+      "y": 12,
+      "objs": [
+        "house:plot:0",
+        "board:plot:0",
+        "house:plot:1",
+        "board:plot:1",
+        "house:plot:2",
+        "board:plot:2",
+        "bahnhofhaus_stadt:train",
+        "fahrplan:train",
+        "fountain:fountain",
+        "lamp:lamp",
+        "lamp:lamp",
+        "house:post:haus7"
+      ]
+    },
+    "result": {
+      "gebaeude": 4,
+      "park": true
+    },
+    "raf": {
+      "frames": 122,
+      "ms": 2015.3999999761581
+    }
+  }
+]

@@ -1,0 +1,66 @@
+[
+  {
+    "seg": "migration",
+    "width": 390,
+    "gfx": "2d",
+    "shots": [],
+    "errors": [],
+    "error": "ReferenceError: fx is not defined\n    at /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe5-browser.cjs:25:112\n    at runNextTicks (node:internal/process/task_queues:64:5)\n    at process.processImmediate (node:internal/timers:452:9)\n    at process.callbackTrampoline (node:internal/async_hooks:130:17)"
+  },
+  {
+    "seg": "material",
+    "width": 390,
+    "gfx": "2d",
+    "shots": [],
+    "errors": [],
+    "error": "ReferenceError: fx is not defined\n    at /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe5-browser.cjs:25:112"
+  },
+  {
+    "seg": "stadt",
+    "width": 390,
+    "gfx": "2d",
+    "shots": [],
+    "errors": [],
+    "error": "ReferenceError: fx is not defined\n    at /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe5-browser.cjs:25:112"
+  },
+  {
+    "seg": "stadt5",
+    "width": 390,
+    "gfx": "2d",
+    "shots": [],
+    "errors": [],
+    "error": "ReferenceError: fx is not defined\n    at /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe5-browser.cjs:25:112\n    at runNextTicks (node:internal/process/task_queues:64:5)\n    at process.processImmediate (node:internal/timers:452:9)\n    at process.callbackTrampoline (node:internal/async_hooks:130:17)"
+  },
+  {
+    "seg": "hof",
+    "width": 390,
+    "gfx": "2d",
+    "shots": [],
+    "errors": [],
+    "error": "ReferenceError: fx is not defined\n    at /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe5-browser.cjs:25:112\n    at runNextTicks (node:internal/process/task_queues:64:5)\n    at process.processImmediate (node:internal/timers:452:9)\n    at process.callbackTrampoline (node:internal/async_hooks:130:17)"
+  },
+  {
+    "seg": "ziele",
+    "width": 390,
+    "gfx": "2d",
+    "shots": [],
+    "errors": [],
+    "error": "ReferenceError: fx is not defined\n    at /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe5-browser.cjs:25:112\n    at runNextTicks (node:internal/process/task_queues:64:5)\n    at process.processImmediate (node:internal/timers:452:9)\n    at process.callbackTrampoline (node:internal/async_hooks:130:17)"
+  },
+  {
+    "seg": "auftrag",
+    "width": 390,
+    "gfx": "2d",
+    "shots": [],
+    "errors": [],
+    "error": "ReferenceError: fx is not defined\n    at /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe5-browser.cjs:25:112"
+  },
+  {
+    "seg": "wettbewerb",
+    "width": 390,
+    "gfx": "2d",
+    "shots": [],
+    "errors": [],
+    "error": "ReferenceError: fx is not defined\n    at /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe5-browser.cjs:25:112"
+  }
+]
