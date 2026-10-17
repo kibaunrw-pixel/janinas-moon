@@ -2,8 +2,7 @@
 {"seg":"streit","width":1440,"gfx":"3d","ok":true,"raf":62,"result":{"streit":"versoehnt"}}
 {"seg":"paar","width":1440,"gfx":"3d","ok":true,"raf":62,"result":{"paar":"paar"}}
 {"seg":"picknick","width":1440,"gfx":"3d","ok":true,"raf":62,"result":{"pick":1,"mv":"fertig"}}
-{"seg":"ausflug","width":1440,"gfx":"3d","ok":true,"raf":61,"result":{"aus":1}}
+{"seg":"ausflug","width":1440,"gfx":"3d","ok":true,"raf":62,"result":{"aus":1}}
 {"seg":"jahrestag","width":1440,"gfx":"3d","ok":true,"raf":62,"result":{"jt":1}}
-Wegversuch wiederholt geburtstag-1440-3d { x: 12, y: 7, r: [ 871.0765478636329, 267.9223839671219, 1 ] }
 {"seg":"geburtstag","width":1440,"gfx":"3d","ok":true,"raf":62,"result":{"jb":true}}
 OK etappe2-browser geheimnis,streit,paar,picknick,ausflug,jahrestag,geburtstag
