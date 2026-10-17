@@ -123,6 +123,11 @@ R.mvEnd=function(s,how){const m=s.rom.mv;if(!['ausweichen','hinweis'].includes(m
 R.jbPending=s=>!!s.rom&&reneMet(s)&&R.jbToday(s)&&!R.jbRec(s).rene;
 R.reneTalk=function(s){R.migrate(s);if(!reneMet(s))return null;
  return (R.jbToday(s)&&!R.jbRec(s).rene?R.bdayRene(s):null)||R.dateScene(s)||R.jtScene(s)||R.mvTalk(s)||R.reminder(s);};
+/* Ohne Nebenwirkung: Wartet bei René gerade eine Geschichte (Geburtstag, Verabredung, Jahrestag, Missverständnis)?
+   Dann kommt er nicht von sich aus zum Kuscheln, sonst schöbe sich das Kuscheln vor die Szene (Etappe 3, Nebenaufgabe). */
+R.storyPending=function(s){if(!s||!s.rom||!reneMet(s))return false;const m=s.rom.mv||{};
+ if(R.jbPending(s)||dateNow(s))return true;if(R.jtToday(s)&&s.min>=R.JT_FROM&&s.min<R.JT_TO&&!s.rom.jtDone[cal.y(s)])return true;
+ return m.st==='heimlich'||m.st==='hinweis'||(m.st==='ausweichen'&&m.day<s.day);};
 R.reminder=function(s){const d=pending(s);if(!d)return null;const p=R.PLACES[d.place];
  if(d.day<s.day||d.day===s.day&&s.min>=d.to)return {lines:[say('rene','Schade, wir haben unser Treffen verpasst. Nicht schlimm! Morgen kannst du uns im Tagebuch unter „Herz“ neu verabreden.')]};
  if(d.day===s.day&&s.min>=d.from)return null;

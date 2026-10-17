@@ -1,0 +1,308 @@
+# Rot-Lauf: tests/etappe3.test.cjs (Stand Etappe 3) gegen Commit 9658784 (git archive, unverändert)
+# Befehl: node --test tests/etappe3.test.cjs
+TAP version 13
+# Subtest: Migration: Altspielstand ohne Tiere und Café behält Besitz; kaputte Felder werden ersetzt; Reload ändert nichts
+not ok 1 - Migration: Altspielstand ohne Tiere und Café behält Besitz; kaputte Felder werden ersetzt; Reload ändert nichts
+  ---
+  duration_ms: 1.463125
+  type: 'test'
+  location: '/Users/reneklomfas/.hermes/cache/scratch/rot-9658784/tests/etappe3.test.cjs:25:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'katze')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (/Users/reneklomfas/.hermes/cache/scratch/rot-9658784/tests/etappe3.test.cjs:29:23)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: W13: Rosas Brief, Renovierung mit genauen Kosten, zwei Nächte, Timos Brief einmal, Innenraum mit Theke, Vitrine, Tafel, Tischen und Stühlen
+not ok 2 - W13: Rosas Brief, Renovierung mit genauen Kosten, zwei Nächte, Timos Brief einmal, Innenraum mit Theke, Vitrine, Tafel, Tischen und Stühlen
+  ---
+  duration_ms: 1.756834
+  type: 'test'
+  location: '/Users/reneklomfas/.hermes/cache/scratch/rot-9658784/tests/etappe3.test.cjs:36:1'
+  failureType: 'testCodeFailure'
+  error: 'Zustand erreicht'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: 0
+  operator: '=='
+  stack: |-
+    until (/Users/reneklomfas/.hermes/cache/scratch/rot-9658784/tests/etappe3.test.cjs:15:88)
+    TestContext.<anonymous> (/Users/reneklomfas/.hermes/cache/scratch/rot-9658784/tests/etappe3.test.cjs:37:50)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: W15: Vitrine verbraucht echte Vorräte; Öffnungszeit; Gäste bestellen Lieblingsgerichte; Geld genau einmal; Tagesabrechnung stimmt
+not ok 3 - W15: Vitrine verbraucht echte Vorräte; Öffnungszeit; Gäste bestellen Lieblingsgerichte; Geld genau einmal; Tagesabrechnung stimmt
+  ---
+  duration_ms: 0.204
+  type: 'test'
+  location: '/Users/reneklomfas/.hermes/cache/scratch/rot-9658784/tests/etappe3.test.cjs:55:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot set properties of undefined (setting 'st')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    cafeReady (/Users/reneklomfas/.hermes/cache/scratch/rot-9658784/tests/etappe3.test.cjs:54:56)
+    TestContext.<anonymous> (/Users/reneklomfas/.hermes/cache/scratch/rot-9658784/tests/etappe3.test.cjs:56:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: W15: kein Gewinn durch Einkauf und Weiterverkauf im Café (Läden, Lins Küche, Rezepte, Bestellungen)
+not ok 4 - W15: kein Gewinn durch Einkauf und Weiterverkauf im Café (Läden, Lins Küche, Rezepte, Bestellungen)
+  ---
+  duration_ms: 0.200917
+  type: 'test'
+  location: '/Users/reneklomfas/.hermes/cache/scratch/rot-9658784/tests/etappe3.test.cjs:78:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'ok')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (/Users/reneklomfas/.hermes/cache/scratch/rot-9658784/tests/etappe3.test.cjs:80:57)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: W16: Freischaltungen nach 3, 6, 10 Gästen verändern Raum und Angebot sichtbar, genau einmal
+not ok 5 - W16: Freischaltungen nach 3, 6, 10 Gästen verändern Raum und Angebot sichtbar, genau einmal
+  ---
+  duration_ms: 0.1145
+  type: 'test'
+  location: '/Users/reneklomfas/.hermes/cache/scratch/rot-9658784/tests/etappe3.test.cjs:85:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot set properties of undefined (setting 'st')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    cafeReady (/Users/reneklomfas/.hermes/cache/scratch/rot-9658784/tests/etappe3.test.cjs:54:56)
+    TestContext.<anonymous> (/Users/reneklomfas/.hermes/cache/scratch/rot-9658784/tests/etappe3.test.cjs:86:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: W17: Bestellungen passen zu Vorlieben, sind kochbar oder erntbar, haben drei Tage Frist, Lohn genau einmal
+not ok 6 - W17: Bestellungen passen zu Vorlieben, sind kochbar oder erntbar, haben drei Tage Frist, Lohn genau einmal
+  ---
+  duration_ms: 0.105208
+  type: 'test'
+  location: '/Users/reneklomfas/.hermes/cache/scratch/rot-9658784/tests/etappe3.test.cjs:97:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot set properties of undefined (setting 'st')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    cafeReady (/Users/reneklomfas/.hermes/cache/scratch/rot-9658784/tests/etappe3.test.cjs:54:56)
+    TestContext.<anonymous> (/Users/reneklomfas/.hermes/cache/scratch/rot-9658784/tests/etappe3.test.cjs:98:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: W19: Katze mit Beziehung; nachvollziehbare Geschenke vor der Haustür, genau einmal
+not ok 7 - W19: Katze mit Beziehung; nachvollziehbare Geschenke vor der Haustür, genau einmal
+  ---
+  duration_ms: 0.159042
+  type: 'test'
+  location: '/Users/reneklomfas/.hermes/cache/scratch/rot-9658784/tests/etappe3.test.cjs:111:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'katze')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    /Users/reneklomfas/.hermes/cache/scratch/rot-9658784/tests/etappe3.test.cjs:112:53
+    until (/Users/reneklomfas/.hermes/cache/scratch/rot-9658784/tests/etappe3.test.cjs:15:57)
+    TestContext.<anonymous> (/Users/reneklomfas/.hermes/cache/scratch/rot-9658784/tests/etappe3.test.cjs:112:33)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: W20: Pudel wittert Schatz, Pfotenspur, Grabstelle, Belohnung genau einmal je Versteck, alle Verstecke erreichbar
+not ok 8 - W20: Pudel wittert Schatz, Pfotenspur, Grabstelle, Belohnung genau einmal je Versteck, alle Verstecke erreichbar
+  ---
+  duration_ms: 0.1825
+  type: 'test'
+  location: '/Users/reneklomfas/.hermes/cache/scratch/rot-9658784/tests/etappe3.test.cjs:125:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'hund')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (/Users/reneklomfas/.hermes/cache/scratch/rot-9658784/tests/etappe3.test.cjs:126:59)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: W18: Ziege nascht sichtbar höchstens eine reife Pflanze am Feldrand; Heu, Wegschicken und Leckstein helfen
+not ok 9 - W18: Ziege nascht sichtbar höchstens eine reife Pflanze am Feldrand; Heu, Wegschicken und Leckstein helfen
+  ---
+  duration_ms: 0.398334
+  type: 'test'
+  location: '/Users/reneklomfas/.hermes/cache/scratch/rot-9658784/tests/etappe3.test.cjs:139:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'ziege')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (/Users/reneklomfas/.hermes/cache/scratch/rot-9658784/tests/etappe3.test.cjs:140:33)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: W21: Ententeich verändert den Hof, Enten schwimmen im Wasser und brauchen Futter; Wege bleiben frei
+not ok 10 - W21: Ententeich verändert den Hof, Enten schwimmen im Wasser und brauchen Futter; Wege bleiben frei
+  ---
+  duration_ms: 5.451083
+  type: 'test'
+  location: '/Users/reneklomfas/.hermes/cache/scratch/rot-9658784/tests/etappe3.test.cjs:160:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'act')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (/Users/reneklomfas/.hermes/cache/scratch/rot-9658784/tests/etappe3.test.cjs:162:13)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: W22: Zucht speichert Eltern, Nachwuchs und Farbanlagen; Vererbung je eine Anlage von Mutter und Vater
+not ok 11 - W22: Zucht speichert Eltern, Nachwuchs und Farbanlagen; Vererbung je eine Anlage von Mutter und Vater
+  ---
+  duration_ms: 0.221959
+  type: 'test'
+  location: '/Users/reneklomfas/.hermes/cache/scratch/rot-9658784/tests/etappe3.test.cjs:175:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'pheno')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (/Users/reneklomfas/.hermes/cache/scratch/rot-9658784/tests/etappe3.test.cjs:176:18)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: W23: Tierrettung per Brief, drei Pflegetage, Adoption oder Vermittlung mit Abschluss genau einmal
+not ok 12 - W23: Tierrettung per Brief, drei Pflegetage, Adoption oder Vermittlung mit Abschluss genau einmal
+  ---
+  duration_ms: 0.152791
+  type: 'test'
+  location: '/Users/reneklomfas/.hermes/cache/scratch/rot-9658784/tests/etappe3.test.cjs:192:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'katze')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    /Users/reneklomfas/.hermes/cache/scratch/rot-9658784/tests/etappe3.test.cjs:193:78
+    until (/Users/reneklomfas/.hermes/cache/scratch/rot-9658784/tests/etappe3.test.cjs:15:57)
+    TestContext.<anonymous> (/Users/reneklomfas/.hermes/cache/scratch/rot-9658784/tests/etappe3.test.cjs:193:58)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: Laden: Ziege und Leckstein bei Paula, genau einmal; Leckstein erst mit Ziege
+not ok 13 - Laden: Ziege und Leckstein bei Paula, genau einmal; Leckstein erst mit Ziege
+  ---
+  duration_ms: 0.080792
+  type: 'test'
+  location: '/Users/reneklomfas/.hermes/cache/scratch/rot-9658784/tests/etappe3.test.cjs:207:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'hide')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (/Users/reneklomfas/.hermes/cache/scratch/rot-9658784/tests/etappe3.test.cjs:208:33)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: Nebenaufgabe: Eine anstehende René-Geschichte hat Vorrang vor dem automatischen Kuscheln
+not ok 14 - Nebenaufgabe: Eine anstehende René-Geschichte hat Vorrang vor dem automatischen Kuscheln
+  ---
+  duration_ms: 0.076833
+  type: 'test'
+  location: '/Users/reneklomfas/.hermes/cache/scratch/rot-9658784/tests/etappe3.test.cjs:213:1'
+  failureType: 'testCodeFailure'
+  error: 'R.storyPending is not a function'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (/Users/reneklomfas/.hermes/cache/scratch/rot-9658784/tests/etappe3.test.cjs:214:32)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: Alle neuen Ziele über den Wegweiser auflösbar und auf ihrer Karte erreichbar
+not ok 15 - Alle neuen Ziele über den Wegweiser auflösbar und auf ihrer Karte erreichbar
+  ---
+  duration_ms: 0.065708
+  type: 'test'
+  location: '/Users/reneklomfas/.hermes/cache/scratch/rot-9658784/tests/etappe3.test.cjs:221:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot set properties of undefined (setting 'st')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    cafeReady (/Users/reneklomfas/.hermes/cache/scratch/rot-9658784/tests/etappe3.test.cjs:54:56)
+    TestContext.<anonymous> (/Users/reneklomfas/.hermes/cache/scratch/rot-9658784/tests/etappe3.test.cjs:222:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 0
+# fail 15
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 71.370167
+EXIT 1

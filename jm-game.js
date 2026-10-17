@@ -40,8 +40,8 @@ function reneLookObj(){ const L=Object.assign({},JM.RENE_LOOK), o=S&&S.reneLook|
 function lookSprites(){ SPR.player=A.char(JM.lookFrom(S.look)); SPR.rene=A.char(reneLookObj()); }
 function dogSprites(){ lookSprites(); SPR.dogs=S.dogs.map((d,i)=>A.poodle(JM.FELL[d.fell]||JM.FELL.weiss,i?"#3f6ad8":"#d9473a")); }
 function iconCanvas(k,cls){ const src=k.getContext?k:icon(k); const c=A.cnv(src.width,src.height); c.getContext("2d").drawImage(src,0,0); if(cls) c.className=cls; return c; }
-function shopIcon(k){ if(k==="tier_huhn") return SPR.hen[0].r[0]; if(k==="tier_kuh") return SPR.cow[0].r[0]; if(k==="kanne2") return icon("kanne"); if(k==="gewaechshaus") return icon("sprinkler"); return icon(k); }
-function itemName(k){ return k==="tier_huhn"?"Huhn":k==="tier_kuh"?"Kuh":k==="kanne2"?"Große Gießkanne":k==="rute2"?"Goldene Angel":k==="gewaechshaus"?"Gewächshaus reparieren":(ITEMS[k]?ITEMS[k].n:k); }
+function shopIcon(k){ if(k==="tier_huhn") return SPR.hen[0].r[0]; if(k==="tier_ziege") return icon("tier_ziege"); if(k==="tier_kuh") return SPR.cow[0].r[0]; if(k==="kanne2") return icon("kanne"); if(k==="gewaechshaus") return icon("sprinkler"); return icon(k); }
+function itemName(k){ return k==="tier_ziege"?"Ziege":k==="tier_huhn"?"Huhn":k==="tier_kuh"?"Kuh":k==="kanne2"?"Große Gießkanne":k==="rute2"?"Goldene Angel":k==="gewaechshaus"?"Gewächshaus reparieren":(ITEMS[k]?ITEMS[k].n:k); }
 
 /* ================= Zustand ================= */
 let S=null, MAPS=JM.buildMaps(), M=MAPS.farm, demo=true, running=false;
@@ -239,7 +239,7 @@ function redrawField(x,y){ if(M.id!=="farm"||!GROUND) return; const g=A.G(GROUND
 
 /* ================= Akteure ================= */
 const P={x:5,y:8,dir:0,flip:false,frame:0,ft:0,path:[],act:null,queue:[],busy:0,tool:null,moving:false,bob:0};
-let TRAIL=[],DOGS=[],HENS=[],COWS=[],NPCA={},FX=[],AMB=[],FLT=[],aim=null;
+let TRAIL=[],DOGS=[],HENS=[],COWS=[],PETS=[],NPCA={},FX=[],AMB=[],FLT=[],aim=null;
 function spawnAnimals(){
   TRAIL=[];
   const mkDog=(i,x,y)=>({i,x,y,face:1,tx:x,ty:y,timer:rnd()*2,frame:0,ft:0,moving:false,trick:0,idle:0});
@@ -255,6 +255,29 @@ function spawnAnimals(){
   if(M.id==="village"){
     const p=M.pen; [0,1].forEach(i=>HENS.push({i:-1-i,deco:true,x:p.x0+i*1.5,y:p.y0+1,tx:0,ty:0,timer:rnd()*2,face:1,frame:0,ft:0,moving:false,peck:0}));
   }
+  PETS=[]; syncPets(true);
+}
+/* Etappe 3: Katze, Ziege, Enten, Kätzchen (jm-tiere.js bestimmt Ort und Pose; hier nur Bewegung und Anzeige).
+   Darsteller wie Hühner: keine blockierte Kachel, Gegenstände unter dem Finger haben Vorrang. */
+function syncPets(snap){
+  const want=JM.Tiere.pets(S,M.id), ids=want.map(w=>w.id).join(",");
+  if(!snap&&ids===PETS.map(p=>p.id).join(",")&&want.every((w,i)=>PETS[i].kind===w.kind&&PETS[i].look===w.look)) return;
+  const old=new Map(PETS.map(p=>[p.id,p]));
+  PETS=want.map(w=>{ const o=old.get(w.id); if(o){ o.kind=w.kind; o.look=w.look; return o; } const ps=JM.Tiere.pose(S,w.id,gameT)||{x:5,y:9};
+    return {id:w.id,kind:w.kind,look:w.look,x:ps.x,y:ps.y,face:ps.face||1,frame:0,ft:0,moving:false,anim:ps.anim,carry:null}; });
+}
+function petsUpdate(dt){
+  for(const p of PETS){ const ps=JM.Tiere.pose(S,p.id,gameT); if(!ps) continue;
+    const dx=ps.x-p.x, dy=ps.y-p.y, d=Math.hypot(dx,dy), swim=ps.anim==="schwimm";
+    if(d>6&&!swim){ p.x=ps.x; p.y=ps.y; }
+    else if(d>.05){ const sp=(swim?1.2:p.kind==="ziege"?.9:1.4)*dt, k=Math.min(1,sp/d); p.x+=dx*k; p.y+=dy*k; if(Math.abs(dx)>.01) p.face=dx<0?-1:1; p.moving=!swim; }
+    else { p.moving=false; if(ps.face) p.face=ps.face; }
+    p.anim=p.moving?"lauf":ps.anim; p.carry=ps.carry||null; p.sun=!!ps.sun;
+    p.ft+=dt; if(p.ft>(p.moving?.14:p.anim==="kau"?.3:.6)){ p.ft=0; p.frame=(p.frame+1)%2; } }
+}
+function petTap(p){
+  const r=JM.Tiere.petAct(S,p.id,S.hold); if(!r) return;
+  p.face=P.x<p.x?-1:1; runPost(r); hotbarSoon(); saveSoon();
 }
 function setMap(id,x,y){
   camSnap=true; CRIT=[];
@@ -363,6 +386,7 @@ function hitActor(wx,wy){
   for(const d of DOGS) if(hit(d,.7,.3)) return {k:"dog",d};
   for(const h of HENS) if(hit(h,.5,0)) return {k:"hen",h};
   for(const c of COWS) if(hit(c,1,.5)) return {k:"cow",c};
+  for(const p of PETS) if(hit(p,p.kind==="ziege"?.75:.55,p.kind==="ziege"?.6:.15)) return {k:"pet",p};
   return null;
 }
 /* 3D: Figur nur, wenn der Strahl ihr Modell trifft (R3.pick liefert die Kennung). Liegt unter der Figur
@@ -375,6 +399,7 @@ function actorById(id){
   let m=/^dog(\d+)$/.exec(id); if(m){ const d=DOGS.find(d=>d.i===Number(m[1])); return d?{k:"dog",d}:null; }
   m=/^hen(\d+):/.exec(id); if(m) return HENS[Number(m[1])]?{k:"hen",h:HENS[Number(m[1])]}:null;
   m=/^cow(\d+)$/.exec(id); if(m) return COWS[Number(m[1])]?{k:"cow",c:COWS[Number(m[1])]}:null;
+  if(id.startsWith("pet:")){ const p=PETS.find(p=>p.id===id.slice(4)); return p?{k:"pet",p}:null; }
   return null;
 }
 function resolvePick(pk){
@@ -411,6 +436,7 @@ function tapAt(wx,wy,tx,ty,actor){
     if(h.k==="dog"){ const d=h.d; goTo(adjGoal(Math.round(d.x),Math.round(d.y),true),()=>dogMenu(d)); return; }
     if(h.k==="hen"){ const a=h.h; goTo(adjGoal(Math.round(a.x),Math.round(a.y),true),()=>{ faceTo(Math.round(a.x),Math.round(a.y)); petHen(a); }); return; }
     if(h.k==="cow"){ const a=h.c; goTo(adjGoal(Math.round(a.x),Math.round(a.y)),()=>{ faceTo(Math.round(a.x),Math.round(a.y)); cowAct(a); }); return; }
+    if(h.k==="pet"){ const a=h.p; goTo(adjGoal(Math.round(a.x),Math.round(a.y),true),()=>{ faceTo(Math.round(a.x),Math.round(a.y)); petTap(a); }); return; }
   }
   if(!inside) return;
   if(isWater(tx,ty)){
@@ -517,7 +543,9 @@ function eat(k){
 function dogMenu(d){
   faceTo(Math.round(d.x),Math.round(d.y)); d.face=P.x<d.x?-1:1;
   const n=dogName(d.i), other=dogName(1-d.i);
-  dialog([{who:"dog"+d.i,text:n+" schaut dich mit großen Augen an.",choices:[
+  const hint=JM.Tiere.dogHint(S,d.i);
+  dialog([{who:"dog"+d.i,text:hint?n+" schnüffelt aufgeregt am Boden und schaut dich an. Hat sie etwas gewittert?":n+" schaut dich mit großen Augen an.",choices:[
+    ...(hint?[{t:"Der Spur folgen",fn:()=>{ const r=JM.Tiere.follow(S,d.i); save(true); runPost(r); }}]:[]),
     {t:"Streicheln",fn:()=>petDog(d)},
     S.follow?{t:"Am Haus bleiben lassen",fn:()=>{ S.follow=false; note(n+" und "+other+" bleiben am Haus und spielen dort."); if(M.id!=="farm") DOGS=[]; else DOGS.forEach(x=>x.timer=0); saveSoon(); }}
             :{t:"Mitkommen lassen",fn:()=>{ S.follow=true; TRAIL=[]; note(n+" und "+other+" kommen mit!"); sfx("bark"); saveSoon(); }}
@@ -557,6 +585,7 @@ function trough(kind){
 }
 function pickForage(fo){
   S.forage[M.id]=(S.forage[M.id]||[]).filter(f=>f!==fo); give(fo.k,1); floatItem(fo.x,fo.y,fo.k); sfx("pick"); emit("forage"); saveSoon();
+  if(fo.katze) note("Ein Geschenk von "+S.tiere.katze.n+": "+ITEMS[fo.k].n+"."); else if(fo.ente) note("Ein frisches Entenei von "+fo.ente+".");
 }
 function bushAct(o){
   const k=M.id+":"+o.x+","+o.y;
@@ -575,6 +604,7 @@ function objAct(o){
   if(a==="house_up") return travel({to:"haus_oben",tx:3,ty:8});
   if(a==="house_down") return travel({to:"haus",tx:16,ty:5});
   if(a==="stove") return openCook();
+  if(a==="cafe") return openCafe();
   if(a==="table") return M.id==="haus"?showLetter():note("Ein gemütlicher Tisch.");
   if(a==="tv") return openTV();
   if(a==="bed") return openSleep();
@@ -744,7 +774,7 @@ function npcPlaceAll(snap){
 }
 let lastNpcMin=-1;
 function npcUpdate(dt){
-  if(!["village","stadt","i_nudelhaus","bahnhof","farm"].includes(M.id)) return; // Hof: nur Geburtstagsbesuch (jm-romantik.js)
+  if(!["village","stadt","i_nudelhaus","bahnhof","farm",JM.Cafe.ROOM].includes(M.id)) return; // Hof: nur Geburtstagsbesuch (jm-romantik.js)
   const m10=Math.floor(S.min/10);
   if(m10!==lastNpcMin){ lastNpcMin=m10; npcPlaceAll(false); }
   for(const id in NPCA){
@@ -1067,7 +1097,7 @@ function routeTarget(t){
   if(M.inside){ const ex=M.exits[0]; return {map:M.id,x:ex.x,y:ex.y,exit:true}; }
   if(t.map==="haus_oben"){if(M.id==="haus")return {map:M.id,x:16,y:4,exit:true};t={map:"haus",x:16,y:4};}
   if(t.map==="haus"){ if(M.id==="farm") return {map:"farm",x:5,y:6,exit:true}; t={map:"farm",x:5,y:6}; }
-  else if(t.map.startsWith("i_")){ const o=MAPS.village.obj.find(o=>o.act==="shop:"+t.map.slice(2)); if(M.id==="village") return {map:"village",x:o.door[0],y:o.door[1]-1,exit:true}; t={map:"village",x:o.door[0],y:o.door[1]}; }
+  else if(t.map.startsWith("i_")){ const o=MAPS.village.obj.find(o=>o.act==="shop:"+t.map.slice(2)||o.room===t.map); if(M.id==="village") return {map:"village",x:o.door[0],y:o.door[1]-1,exit:true}; t={map:"village",x:o.door[0],y:o.door[1]}; }
   // Gewölbe hinter der Waldtür (W64): Zugang über die Tür im Mondwald
   if(t.map===JM.Post.ROOM){ const d=JM.Post.door64; if(M.id==="forest") return {map:"forest",x:d.x,y:d.y+1}; t={map:"forest",x:d.x,y:d.y+1}; }
   if(t.map===M.id) return t;
@@ -1142,7 +1172,9 @@ function burst(x,y,c,n,drop){ for(let i=0;i<n;i++) FX.push({x:x*16+8,y:y*16+10,v
 function hearts(x,y,c){ for(let i=0;i<3;i++) FX.push({heart:true,x:x*16+4+i*5,y:y*16-4-i*3,vx:(rnd()-.5)*6,vy:-14-rnd()*6,l:1.2,c:c||"#e8476a",g:0}); }
 /* Etappe 2: Herzchen über Figuren einer Szene, Funkeln an Szenenobjekten (Picknickdecke, Kerzen, Kuchen, Herzbank).
    Läuft über dieselbe Effektliste wie alle Partikel und erscheint deshalb in 2D und 3D. */
-function actorPos(id){ if(id==="rene") return RA.vis?[RA.x,RA.y]:null; if(id==="player") return [P.x,P.y]; const a=NPCA[id]; return a&&a.vis?[a.x,a.y]:null; }
+function actorPos(id){ if(id==="rene") return RA.vis?[RA.x,RA.y]:null; if(id==="player") return [P.x,P.y];
+  if(id.startsWith("pet:")){ const p=PETS.find(p=>p.id===id.slice(4)); return p?[p.x,p.y+.8]:null; } if(id.startsWith("npc:")) id=id.slice(4);
+  const a=NPCA[id]; return a&&a.vis?[a.x,a.y]:null; }
 function sceneHearts(ids){ for(const id of ids){ const p=actorPos(id); if(p) hearts(p[0],p[1]-1.2); } }
 const ROMK={picknick:"#fff2a8",bistro:"#ffd36a",geburtstagstisch:"#ffd36a",tisch_jt:"#ffd36a",herzbank:"#ff9fb8"};
 let romT=0;
@@ -1440,7 +1472,7 @@ function openShop(id){
   }
   if(!S.npc[nid].met){ npcInteract(nid); return; }
   const se=season();
-  const rows=SH.stock.filter(s=>(!s.need||S.flags[s.need])&&(!s.winter||se===3)).map(s=>{
+  const rows=SH.stock.filter(s=>(!s.need||S.flags[s.need])&&(!s.winter||se===3)&&!JM.Tiere.hide(S,s.k)).map(s=>{
     const it=ITEMS[s.k], crop=it&&it.cat==="seed"?CROPS[it.crop]:null;
     const off=crop&&!crop.se.includes(se);
     const done=s.once&&S.bought[s.k];
@@ -1459,12 +1491,13 @@ function openShop(id){
      if(k==="kanne2"){ S.bought[k]=true; S.can.max=40; S.can.w=40; note("Die große Gießkanne gehört jetzt dir."); }
      else if(k==="rute2"){ S.bought[k]=true; S.rod=2; note("Die goldene Angel gehört jetzt dir."); }
      else if(k==="gewaechshaus"){ S.bought[k]=true; S.flags.glas=true; groundKey=""; note("Das Gewächshaus auf deinem Hof wird repariert. Dort wächst jetzt alles, das ganze Jahr."); }
+     else if(k==="tier_ziege"||k==="leckstein"){ const msg=JM.Tiere.buy(S,k); if(!msg){ S.money+=c; return; } S.bought[k]=true; note(msg); if(k==="tier_ziege") emit("buyanimal"); refreshPost(); }
      else if(k==="tier_huhn"){ const names=["Pünktchen","Erna","Flocke","Berta","Krümel","Lotti"]; const nm=names.find(x=>!S.hens.some(h=>h.n===x))||"Huhn"; S.hens.push({n:nm,c:S.hens.length%2,h:0,pet:0}); note(nm+" zieht in deinen Hühnerstall ein!"); emit("buyanimal"); }
      else if(k==="tier_kuh"){ const nm=["Lotte","Milka"].find(x=>!S.cows.some(c=>c.n===x))||"Kuh"; S.cows.push({n:nm,c:S.cows.length%2,h:0,pet:0,milk:false}); note(nm+" zieht in deinen Stall ein! Füll den Futtertrog auf der Weide."); emit("buyanimal"); }
      else { give(k,n); note(n+"× "+ITEMS[k].n+" gekauft."); }
      hud(); saveSoon(); refreshPanel(()=>openShop(id)); }});
 }
-const MAILKIND={miete:"Mietquittung",anfrage:"Mietanfrage",auftrag:"Bauauftrag",dank:"Dank",geschenk:"Geschenk",bewertung:"Bewertung",gruss:"Gruß",geheim:"Geheimnis",romantik:"Von Herzen",geburtstag:"Geburtstag"};
+const MAILKIND={tier:"Tiere",cafe:"Café",miete:"Mietquittung",anfrage:"Mietanfrage",auftrag:"Bauauftrag",dank:"Dank",geschenk:"Geschenk",bewertung:"Bewertung",gruss:"Gruß",geheim:"Geheimnis",romantik:"Von Herzen",geburtstag:"Geburtstag"};
 function mailFrom(m){ return m.from==="von"?JM.CONFIG.von:NPCS[m.from]?NPCS[m.from].n:m.from; }
 function attText(a){ return [a.money?a.money+" G":"",...Object.entries(a.items||{}).map(([k,n])=>n+"× "+ITEMS[k].n)].filter(Boolean).join(", "); }
 function openMail(showAll){
@@ -1503,6 +1536,7 @@ function runPost(r){
   if(r.pose&&r.pose.map===M.id&&walkT(r.pose.x,r.pose.y)){ P.x=r.pose.x; P.y=r.pose.y; P.path=[]; P.queue=[]; P.act=null; if(RA.vis) faceTo(Math.round(RA.x),Math.round(RA.y)); }
   if(RA.vis&&r.pose){ RA.dir=2; RA.flip=P.x<RA.x; }
   if(r.fx) sceneHearts(r.fx);
+  if(r.hearts) sceneHearts([r.hearts]);
   const after=()=>{ if(r.travel) travel(r.travel); };
   if(r.panel){ const H={}, P0=r.panel;
     const btns=(P0.buttons||[]).map(b=>{ H[b.a]=()=>{ closePanel(); runPost(b.fn()); }; return `<button class="btn wide" data-a="${esc(b.a)}" ${b.off?"disabled":""}>${esc(b.t)}</button>`; }).join("");
@@ -1571,6 +1605,34 @@ function openStall(){
     if(rnd()<.25){ const who=pick(JM.NPC_ORDER.filter(id=>S.npc[id].met)); if(who){ addPts(who,15); note(NPCS[who].n+" kauft bei dir ein und freut sich."); } }
     hud(); save(true); refreshPanel(openStall); }});
 }
+/* ================= Café (Etappe 3, Logik in jm-cafe.js) ================= */
+function cafeDiary(){ const C=JM.Cafe, c=S.cafe; if(!c||c.st!=="fertig") return "";
+  const t=C.todayOf(S), o=C.openOrder(S), last=c.days[c.days.length-1];
+  return `<h3>Café Mondlicht</h3><div class="row"><div class="tx"><b>${t?"Heute geöffnet "+esc(C.HOURS[t.hours].n):"Heute noch nicht geöffnet"}</b><small>Bewirtet insgesamt: ${c.served} Gäste · Einnahmen ${c.earned.toLocaleString("de-DE")} G</small>${o?`<small>Bestellung: ${esc(NPCS[o.who].n)} wünscht sich ${esc(ITEMS[o.k].n)} bis Spieltag ${o.due}</small>`:""}${last?`<small>Letzte Abrechnung (Tag ${last.day}): ${last.total} G</small>`:""}</div></div>`; }
+function cafeRefresh(){ JM.Cafe.furnish(MAPS[JM.Cafe.ROOM],S); if(M.id===JM.Cafe.ROOM){ npcPlaceAll(false); } }
+function openCafe(){
+  const C=JM.Cafe, c=S.cafe;
+  if(c.st!=="fertig"){ note("Die Theke ist noch voller Staub."); return; }
+  const t=C.todayOf(S), H=C.HOURS, Q=(v,max)=>JM.Ausbau.quantity(v,max);
+  let h=`<h2>Café Mondlicht</h2>`;
+  if(t){ const b=C.bilanz(t), H0=H[t.hours];
+    h+=`<p class="sub">Heute geöffnet ${esc(H0.n)}. ${S.min<H0.from?"Die ersten Gäste kommen um "+Math.floor(H0.from/60)+" Uhr.":S.min<H0.to?"Gäste antippen, um sie zu bedienen.":"Für heute geschlossen."}</p>
+      <section class="storage-row" data-cafe="bilanz"><b>Tagesbilanz</b><p>Gäste ${b.guests} · bedient ${b.served}<br>Umsatz ${b.umsatz} G · Trinkgeld ${b.tips} G · zusammen ${b.total} G</p>${t.sales.map(x=>`<p class="sub">${esc(NPCS[x.id].n)}: ${esc(ITEMS[x.k].n)} · ${x.p} G${x.tip?" + "+x.tip+" G Trinkgeld":""}</p>`).join("")}</section>`; }
+  else h+=`<h3>Heute öffnen</h3><p class="sub">Wähle die Öffnungszeit für heute. Gäste kommen nacheinander, setzen sich an die Tische und bestellen ihr Lieblingsgericht, wenn es in der Vitrine steht.</p>`+Object.entries(H).map(([k,o])=>`<button class="btn wide" data-a="open" data-k="${k}" ${C.canOpen(S,k)?"":"disabled"}>Öffnen ${esc(o.n)}${S.min>=o.from?" · heute zu spät":""}</button>`).join("");
+  const o=C.openOrder(S);
+  if(o) h+=`<h3>Besondere Bestellung</h3><div class="row" data-cafe="order">${ic(o.k)}<div class="tx"><b>${esc(NPCS[o.who].n)}: ${esc(ITEMS[o.k].n)}</b><small>bis Spieltag ${o.due} · Lohn ${o.rew} G · im Rucksack: ${S.inv[o.k]||0}</small></div><button class="btn" data-a="deliver" ${(S.inv[o.k]||0)>0&&S.day<=o.due?"":"disabled"}>Abgeben</button></div>`;
+  const vk=Object.keys(c.vit);
+  h+=`<h3>Kuchenvitrine</h3><p class="sub">Was hier steht, bieten die Gäste an. Nicht Verkauftes bleibt in der Vitrine.</p>`+(vk.length?vk.map(k=>`<section class="storage-row" data-vit="${k}">${ic(k)} <b>${esc(ITEMS[k].n)}</b><p>${c.vit[k]} in der Vitrine · ${C.price(k)} G pro Stück</p><label>Menge · max. ${c.vit[k]} <input type="text" inputmode="numeric" pattern="[0-9]*" id="cafe-out-${k}" data-confirm="out" data-k="${k}" value="1" aria-label="Zurücknehmen ${esc(ITEMS[k].n)}"></label><button class="btn alt" data-a="out" data-k="${k}">Zurück in den Rucksack</button></section>`).join(""):"<p>Die Vitrine ist leer.</p>");
+  const ik=Object.keys(S.inv).filter(k=>S.inv[k]>0&&C.ok(k));
+  h+=`<h3>Aus dem Rucksack</h3>`+(ik.length?ik.map(k=>`<section class="storage-row" data-inv="${k}">${ic(k)} <b>${esc(ITEMS[k].n)}</b><p>${S.inv[k]} im Rucksack · im Café ${C.price(k)} G</p><label>Menge · max. ${S.inv[k]} <input type="text" inputmode="numeric" pattern="[0-9]*" id="cafe-in-${k}" data-confirm="in" data-k="${k}" value="${S.inv[k]}" aria-label="In die Vitrine ${esc(ITEMS[k].n)}"></label><button class="btn" data-a="in" data-k="${k}">In die Vitrine</button></section>`).join(""):"<p class='sub'>Gekochtes, Obst, Gemüse, Eier und Milch kannst du hier anbieten.</p>");
+  h+=`<h3>Freischaltungen</h3>`+C.UNLOCKS.map(u=>`<div class="row ${c.unlock[u.id]?"":"dim"}" data-unlock="${u.id}"><div class="tx"><b>${c.unlock[u.id]?"✓ ":""}${esc(u.n)}</b><small>${esc(u.d)}</small><small>${Math.min(c.served,u.need)} von ${u.need} Gästen bewirtet</small></div></div>`).join("");
+  if(c.days.length) h+=`<h3>Letzte Tage</h3>`+c.days.slice(-3).reverse().map(d=>`<p class="sub">Tag ${d.day}: ${d.served} von ${d.guests} bedient · ${d.total} G</p>`).join("");
+  openPanel(h+closeBtn,{
+    open:k=>{ if(!C.open(S,k)){ note("Heute kannst du nicht mehr zu dieser Zeit öffnen."); return; } sfx("buy"); note("Das Café öffnet heute "+H[k].n+"."); cafeRefresh(); save(true); refreshPanel(openCafe); },
+    in:k=>{ const n=Q($("cafe-in-"+k)?.value,S.inv[k]||0); if(!n||!C.stock(S,k,n)){ note("Bitte eine Menge bis zum Bestand eingeben."); return; } if(!S.inv[k]&&S.hold===k) S.hold="auto"; hotbarSoon(); cafeRefresh(); save(true); refreshPanel(openCafe); },
+    out:k=>{ const n=Q($("cafe-out-"+k)?.value,c.vit[k]||0); if(!n||!C.unstock(S,k,n)){ note("Bitte eine Menge bis zum Vitrinenbestand eingeben."); return; } hotbarSoon(); cafeRefresh(); save(true); refreshPanel(openCafe); },
+    deliver:()=>{ const r=C.deliver(S); if(!r){ note("Das Gericht fehlt im Rucksack oder die Frist ist vorbei."); return; } closePanel(); hotbarSoon(); save(true); runPost(r); }});
+}
 function openBoard(){
  const B=S.board;if(!B){note('Die Anschlagtafel ist leer. Lerne zuerst die Leute im Dorf kennen.');return;}
  const N=NPCS[B.who],got=B.delivered||0,max=Math.min(B.n-got,S.inv[B.k]||0);
@@ -1588,6 +1650,7 @@ function openBook(tab){
     body=q?`<div class="qcard"><small>Aktuelle Aufgabe</small><b>${esc(fmtD(q.t))}</b><p>${esc(fmtD(q.d))}</p>${q.n>1?`<div class="pbar"><i style="width:${S.quest.p/q.n*100}%"></i></div><small>${S.quest.p} von ${q.n}</small>`:""}</div>`:"";
     if(S.daily&&S.daily.day===S.day) body+=`<h3>Tagesziele</h3>`+S.daily.goals.map(g=>{ const D=JM.DAILY.find(d=>d.k===g.k), ok=g.p>=D.n; return `<div class="row"><div class="tx"><b>${ok?"✓ ":""}${esc(fmtD(D.t))}</b><small>${Math.min(g.p,D.n)} von ${D.n} · Belohnung ${D.g} G</small></div></div>`; }).join("")+`<p class="sub">Alle drei geschafft: +100 G extra. Jeden Morgen gibt es neue.</p>`;
     if(S.board&&!S.board.done) body+=`<div class="row">${ic(S.board.k)}<div class="tx"><b>Anschlagtafel: ${esc(NPCS[S.board.who].n)}</b><small>sucht ${S.board.n}× ${esc(ITEMS[S.board.k].n)} · ${S.board.rew} G</small></div></div>`;
+    body+=cafeDiary();
     body+=`<h3>Geschafft</h3>`+(S.qDone.length?S.qDone.slice().reverse().map(id=>`<div class="done">✓ ${esc(fmtD((JM.QUESTS.find(q=>q.id===id)||{t:id}).t))}</div>`).join(""):"<p class='sub'>Noch nichts. Leg los!</p>");
   }
   if(tab==="map"){
@@ -1612,7 +1675,7 @@ function openBook(tab){
     body+=`<div class="row"><canvas class="pt" data-pt="rene"></canvas><div class="tx"><b>${esc(JM.CONFIG.von)} <small>· dein Mann</small></b>${heartRow(10)}<small>${S.rene.cuddles||0} mal gekuschelt · ${S.stats.tidy||0} Sachen weggeräumt</small></div></div>`;
     body+=JM.NPC_ORDER.map(id=>{ const N=NPCS[id], st=S.npc[id]; if(!st.met) return `<div class="row dim"><div class="tx"><b>???</b><small>Noch nicht kennengelernt</small></div></div>`;
       return `<div class="row"><canvas class="pt" data-pt="${id}"></canvas><div class="tx"><b>${esc(N.n)} <small>· ${esc(N.role)}</small></b>${heartRow(hearts10(id))}<small>${st.talk===S.day?"Heute geredet":"Noch nicht geredet"} · ${st.gift===S.day?"Geschenk ✓":"Kein Geschenk"} · Geburtstag ${N.bday[1]}. ${JM.SEASONS[N.bday[0]]}</small>${hearts10(id)>=2?`<small>Liebt: ${N.love.map(k=>esc(ITEMS[k].n)).join(", ")}</small>`:""}</div></div>`; }).join("");
-    body+=`<h3>Tiere</h3>`+S.hens.map(h=>`<div class="row"><div class="tx"><b>${esc(h.n)} <small>· Huhn</small></b>${heartRow(h.h)}</div></div>`).join("")+S.cows.map(c=>`<div class="row"><div class="tx"><b>${esc(c.n)} <small>· Kuh</small></b>${heartRow(c.h)}</div></div>`).join("");
+    body+=`<h3>Tiere</h3>`+JM.Tiere.diary(S,esc)+S.hens.map(h=>`<div class="row"><div class="tx"><b>${esc(h.n)} <small>· Huhn</small></b>${heartRow(h.h)}</div></div>`).join("")+S.cows.map(c=>`<div class="row"><div class="tx"><b>${esc(c.n)} <small>· Kuh</small></b>${heartRow(c.h)}</div></div>`).join("");
   }
   if(tab==="coll"){
     const all=Object.keys(ITEMS).filter(k=>JM.SHIPPABLE(k)&&ITEMS[k].cat!=="dish");
@@ -1724,12 +1787,12 @@ function update(dt){
     if(h.timer<=0){ h.timer=1+rnd()*3; if(rnd()<.35){ h.peck=.8; h.tx=h.x; h.ty=h.y; } else { h.tx=box.x0+rnd()*(box.x1-box.x0); h.ty=(h.deco?box.y0:box.y0+1)+rnd()*(box.y1-box.y0-(h.deco?0:1)); } }
     moveA(h,h.tx,h.ty,.9,dt,.15); }
   for(const c of COWS){ c.timer-=dt; const box=M.pasture; if(c.timer<=0){ c.timer=2+rnd()*4; c.tx=box.x0+rnd()*(box.x1-box.x0); c.ty=box.y0+1+rnd()*(box.y1-box.y0-1); } moveA(c,c.tx,c.ty,.6,dt,.25); }
-  npcUpdate(dt); reneUpdate(dt); romFx(dt);
+  npcUpdate(dt); reneUpdate(dt); romFx(dt); petsUpdate(dt);
   fishUpdate(dt);
   for(const p of FX){ p.l-=dt; p.x+=p.vx*dt; p.y+=p.vy*dt; p.vy+=p.g*dt; } FX=FX.filter(p=>p.l>0);
   for(const f of FLT){ f.l-=dt; f.y-=18*dt; } FLT=FLT.filter(f=>f.l>0);
   for(const k in FESTFX) if(FESTFX[k]>0) FESTFX[k]-=dt*(UI.dialog?0:1);
-  if(Math.floor(gameT*2)!==Math.floor((gameT-dt)*2)){ recheckQuest(); updateQuestUI(); }
+  if(Math.floor(gameT*2)!==Math.floor((gameT-dt)*2)){ recheckQuest(); updateQuestUI(); if(!demo){ syncPets(false); const tr=JM.Tiere.tick(S); if(tr){ if(M.id==="farm") note(tr.note); save(true); } } }
 }
 /* René spricht die Spielerin nur von sich aus an, wenn sie ruhig steht: kein Laufweg, keine
    vorgemerkte Aktion, keine Feldreihe, kein gehaltener Finger und seit 2 s kein Tipp. */
@@ -1754,7 +1817,8 @@ function reneUpdate(dt){
   if(!RA.vis||RA.map!==M.id||RA.mode!==pl.mode&&!RA.path.length&&Math.hypot(RA.x-pl.pos[0],RA.y-pl.pos[1])>6){ RA.x=pl.pos[0]; RA.y=pl.pos[1]; RA.path=[]; }
   RA.vis=true; RA.map=M.id; RA.mode=pl.mode;
   // Kuscheln
-  if(!RA.cuddle&&pl.mode!=="date"&&pl.mode!=="jt"&&S.rene.met&&S.rene.cudToday<2&&!paused()&&playerCalm()&&rnd()<dt/75) { RA.cuddle=true; RA.path=[]; }
+  // Eine anstehende Geschichte (z. B. die Klärung des Missverständnisses) hat Vorrang: dann kommt René nicht zum Kuscheln.
+  if(!RA.cuddle&&pl.mode!=="date"&&pl.mode!=="jt"&&S.rene.met&&S.rene.cudToday<2&&!paused()&&playerCalm()&&!JM.Rom.storyPending(S)&&rnd()<dt/75) { RA.cuddle=true; RA.path=[]; }
   if(RA.cuddle&&!paused()&&!playerCalm()){ RA.cuddle=false; RA.path=[]; }
   let goal=pl.pos;
   if(RA.cuddle){ goal=null; const px=Math.round(P.x), py=Math.round(P.y); if(Math.abs(Math.round(RA.x)-px)+Math.abs(Math.round(RA.y)-py)<=1&&!RA.path.length){ RA.cuddle=false; reneCuddle(); }
@@ -1870,7 +1934,10 @@ function sceneView(){
  const xs=points.map(p=>p[0]),ys=points.map(p=>p[1]);xs.push(P.x);ys.push(P.y);
  return {kind,x:(Math.min(...xs)+Math.max(...xs))/2+.5,y:(Math.min(...ys)+Math.max(...ys))/2+.5,width:Math.max(...xs)-Math.min(...xs)+3.4};
 }
-function seated(a){return sceneView()?.kind==="jt"&&!a.moving&&Math.abs(a.y-5)<.12&&(a===P&&Math.abs(a.x-4)<.12||a===RA&&Math.abs(a.x-7)<.12);}
+function seated(a){if(a&&a.id&&M.id===JM.Cafe.ROOM&&!a.moving){const q=JM.Cafe.seatOf(S,a.id);if(q&&Math.abs(a.x-q.x)<.12&&Math.abs(a.y-q.y)<.12)return q.face;}
+  return sceneView()?.kind==="jt"&&!a.moving&&Math.abs(a.y-5)<.12&&(a===P&&Math.abs(a.x-4)<.12||a===RA&&Math.abs(a.x-7)<.12);}
+/* Sitzrichtung: "r" = Stuhl links vom Tisch (Blick nach rechts), "l" = rechts vom Tisch. Spielerin am Jahrestag links, René rechts. */
+function seatSide(a){const v=seated(a);return v==="r"||v==="l"?v:a===RA?"l":"r";}
 function render3(){
   const se=season(), night=S.min>=1110||S.min<390;
   const padT=demo?0:padTop(), padB=demo?0:padBot();
@@ -1976,12 +2043,30 @@ function render(){
     // Bahnhof: Gleise samt Bahnsteigkante liegen flach am Boden (immer unter Figuren und Zug, ohne Schlagschatten)
     if(o.k==="gleis"){ const sp=lazy(SPR.prop,o.k+se,()=>A.prop(o.k,se)); L.push({y:-1,d:()=>bx.drawImage(sp,o.x*16+(o.w||1)*8-(sp.width>>1)-CX,o.y*16-CY)}); continue; }
     if(o.k==="mondbaum"){ const glow=Object.keys(S.bundleDone).length; spr=lazy(SPR.prop,"mb"+se+glow,()=>A.prop("mondbaum",se,glow)); cast(spr,o.x*16+16-36-CX,(o.y+2)*16-spr.height+4-CY); L.push({y:by,d:()=>bx.drawImage(spr,o.x*16+16-36-CX,(o.y+2)*16-spr.height+4-CY)}); continue; }
+    if(o.k==="vitrine"||o.k==="tafel"){ const list=Object.keys(S.cafe.vit).sort((a,b)=>(b==="mondkuchen")-(a==="mondkuchen")); const sp=lazy(SPR.prop,o.k+se+list.join(","),()=>A.prop(o.k,se,list)); L.push({y:by,d:()=>bx.drawImage(sp,o.x*16+(o.w||1)*8-(sp.width>>1)-CX,(o.y+(o.h||1))*16-sp.height+1-CY)}); continue; }
+    if(o.k==="futterstelle"){ const full=S.tiere.futterE.day===S.day&&S.tiere.futterE.n>0; const sp=lazy(SPR.prop,o.k+se+(full?1:0),()=>A.prop(o.k,se,full)); L.push({y:by,d:()=>bx.drawImage(sp,o.x*16+8-(sp.width>>1)-CX,(o.y+1)*16-sp.height+1-CY)}); continue; }
+    if(o.k==="cafe"){ const B=lazy(SPR.prop,"cafe"+se+(night?1:0),()=>A.prop("cafe",se,night)); cast(B,o.x*16+(o.w||1)*8-(B.width>>1)-CX,(o.y+(o.h||1))*16-B.height+1-CY); L.push({y:by,d:()=>bx.drawImage(B,o.x*16+(o.w||1)*8-(B.width>>1)-CX,(o.y+(o.h||1))*16-B.height+1-CY)}); continue; }
     const extra=o.k==="stove"?(renePlan().mode==="cook"&&RA.vis):o.k==="tv"?(S.min>=1080&&S.min<1380):o.k==="stall"?marketDay():o.k==="mailbox"?unread:o.k==="trough"?(o.act==="trough_h"?S.trough.h>0:S.trough.c>0):o.k==="lamp"?night:false;
     spr=lazy(SPR.prop,o.k+se+(extra?1:0),()=>A.prop(o.k,se,extra));
     if(o.k==="fountain"){ cast(spr,o.x*16-2-CX,(o.y+2)*16-spr.height+3-CY); L.push({y:by,d:()=>{ bx.drawImage(spr,o.x*16-2-CX,(o.y+2)*16-spr.height+3-CY); const t=gameT*6; for(let i=0;i<4;i++){ const a=(t+i*1.6)%6; bx.fillStyle=se===3?"#ffffff":"#bfe3ff"; bx.fillRect(o.x*16+14+Math.round(Math.sin(i*2.1)*a*1.4)-CX,o.y*16-6+Math.round(a*a*.5)-CY,1,1); } }}); continue; }
     if(spr.height>=14) cast(spr,o.x*16+(o.w||1)*8-(spr.width>>1)-CX,(o.y+(o.h||1))*16-spr.height+1-CY);
     L.push({y:by,d:()=>bx.drawImage(spr,o.x*16+(o.w||1)*8-(spr.width>>1)-CX,(o.y+(o.h||1))*16-spr.height+1-CY)});
   }
+  // Etappe 3: flache Deko ohne Kachelsperre (Stühle, Pfotenspur, Lichterkette, Kundenstopper)
+  for(const d of (M.decor||[])){ if(d.x>x1+1||d.x+(d.w||1)<x0-1||d.y<y0-1||d.y>y1+1) continue;
+    if(d.k==="pfote"){ const sp=lazy(SPR.prop,"pfote",()=>A.prop("pfote",se)); L.push({y:-1,d:()=>bx.drawImage(sp,d.x*16+3+(d.r%2)*3-CX,d.y*16+5-CY)}); continue; }
+    if(d.k==="lichterkette"){ const sp=lazy(SPR.prop,"lk"+d.w,()=>A.prop("lichterkette",se,d.w)); L.push({y:99,d:()=>{ bx.drawImage(sp,d.x*16-CX,d.y*16+10-CY); if(Math.floor(gameT*2)%2){ bx.fillStyle="rgba(255,230,150,.35)"; for(let i=5;i<d.w*16;i+=20) bx.fillRect(d.x*16+i-1-CX,d.y*16+14-CY,3,3); } }}); continue; }
+    const fl=d.k==="stuhl"&&d.face==="l", sp=lazy(SPR.prop,d.k+se+(fl?1:0),()=>A.prop(d.k,se,fl));
+    const ox=d.k==="stuhl"?(d.face==="l"?-6:6):0; L.push({y:d.y+(d.k==="stuhl"?.3:.5),d:()=>bx.drawImage(sp,d.x*16+8-(sp.width>>1)+ox-CX,(d.y+1)*16-sp.height+1-CY)}); }
+  // Haustiere (jm-tiere.js): eigene Posen
+  for(const p of PETS){ const spr=lazy(SPR.prop,"pet"+p.kind+p.look,()=>A.pet(p.kind,p.look)); L.push({y:p.y+(p.anim==="schwimm"?.1:.42),d:()=>{ const [fx,fy]=fpos(p);
+    const fr=p.anim==="lauf"?1+p.frame:(p.anim==="schlaf"||p.anim==="kau"||p.anim==="schwimm")?3+p.frame:0, set=p.face<0?spr.l:spr.r, im=set[fr];
+    const bob=p.anim==="schwimm"?Math.round(Math.sin(gameT*3+p.x)*1):0;
+    if(p.anim!=="schwimm") bx.drawImage(SPR.shadow,fx-6,fy-2);
+    bx.drawImage(im,fx-(im.width>>1),fy-im.height+2+bob+(p.anim==="schwimm"?4:0));
+    if(p.carry){ const ic=icon(p.carry); bx.drawImage(ic,0,0,16,16,fx+(p.face<0?-14:6),fy-16,8,8); }
+    if(p.anim==="schlaf"&&Math.floor(gameT*1.2+p.x)%3===0){ bx.fillStyle="#ffffff"; bx.fillRect(fx+6,fy-14-Math.floor(gameT*4)%4,2,1); bx.fillRect(fx+7,fy-15-Math.floor(gameT*4)%4,1,1); }
+    if(p.sun&&!night){ bx.fillStyle="rgba(255,240,170,.18)"; bx.fillRect(fx-10,fy-10,20,12); } }}); }
   if(M.cave) for(const r of (S.rocks||[])){ if(r.x<x0||r.x>x1||r.y<y0||r.y>y1) continue; const spr=lazy(SPR.prop,"rock"+r.k,()=>A.prop("rock",0,r.k)); L.push({y:r.y+.3,d:()=>bx.drawImage(spr,r.x*16-1-CX,r.y*16+1-CY)}); }
   if(M.id==="farm"){
     L.push({y:23.4,d:()=>drawGlassHouse(CX,CY)});
@@ -1991,14 +2076,15 @@ function render(){
   // Figuren
   const fpos=a=>[Math.round(a.x*16+8-CX),Math.round(a.y*16+14-CY)];
   L.push({y:P.y+.5,d:()=>{ const [fx,fy]=fpos(P); bx.drawImage(SPR.shadow,fx-7,fy-2); const set=P.dir===0?SPR.player.down:P.dir===1?SPR.player.up:(P.flip?SPR.player.sideL:SPR.player.side); bx.drawImage(seated(P)?SPR.player.sit: P.dir===0&&!P.moving&&!P.tool&&blinkNow(0)?SPR.player.blink:set[P.frame],fx-9+(seated(P)?7:0),fy-25); if(P.tool) drawTool(fx,fy); }});
-  for(const d of DOGS){ L.push({y:d.y+.45,d:()=>{ const [fx,fy]=fpos(d); const jump=d.trick>0?Math.round(Math.abs(Math.sin(d.trick*9))*5):0; bx.drawImage(SPR.shadow,fx-7,fy-2); const set=d.face<0?SPR.dogs[d.i].l:SPR.dogs[d.i].r; const fr=d.trick>0?3:(d.moving?1+(d.frame%2):(S.min>=1260||d.idle>3?3:0)); bx.drawImage(set[fr],fx-11,fy-17-jump); }}); }
+  for(const d of DOGS){ L.push({y:d.y+.45,d:()=>{ const [fx,fy]=fpos(d); const jump=d.trick>0?Math.round(Math.abs(Math.sin(d.trick*9))*5):0; bx.drawImage(SPR.shadow,fx-7,fy-2); const set=d.face<0?SPR.dogs[d.i].l:SPR.dogs[d.i].r; const fr=d.trick>0?3:(d.moving?1+(d.frame%2):(S.min>=1260||d.idle>3?3:0)); bx.drawImage(set[fr],fx-11,fy-17-jump); if(JM.Tiere.dogHint(S,d.i)) drawBadge(fx,fy-24,"!"); }}); }
   for(const h of HENS){ const spr=SPR.hen[h.deco?(h.i===-1?0:1):S.hens[h.i].c]; L.push({y:h.y+.4,d:()=>{ const [fx,fy]=fpos(h); bx.drawImage(SPR.shadow,fx-6,fy-2); const set=h.face<0?spr.l:spr.r; bx.drawImage(set[h.peck>0?2:(h.moving?h.frame%2:0)],fx-8,fy-13); }}); }
   for(const c of COWS){ const spr=SPR.cow[S.cows[c.i].c]; L.push({y:c.y+.4,d:()=>{ const [fx,fy]=fpos(c); bx.drawImage(SPR.shadowB,fx-12,fy-3); const set=c.face<0?spr.l:spr.r; bx.drawImage(set[c.moving?1+(c.frame%2):0],fx-15,fy-21); if(S.cows[c.i].milk){ bx.drawImage(icon("milch"),fx-4,fy-36+Math.round(Math.sin(gameT*3))); } }}); }
   if(M.owner&&npcPlace(M.owner)==="in"){ const id=M.owner, [nx,ny]=M.npcAt; L.push({y:ny+.5,d:()=>{ const fx=nx*16+8-CX, fy=ny*16+14-CY; const sp=SPR.npc[id]; bx.drawImage(blinkNow(3)?sp.blink:sp.down[0],fx-9,fy-25); if(!S.npc[id].met) drawBadge(fx,fy-31,"?"); }}); }
   if(RA.vis){ L.push({y:RA.y+.5,d:()=>{ const [fx,fy]=fpos(RA); bx.drawImage(SPR.shadow,fx-7,fy-2); const sp=SPR.rene; const set=RA.dir===0?sp.down:RA.dir===1?sp.up:(RA.flip?sp.sideL:sp.side); bx.drawImage(seated(RA)?sp.sitL:RA.dir===0&&!RA.moving&&blinkNow(7)?sp.blink:set[RA.moving?RA.frame:0],fx-9-(seated(RA)?7:0),fy-25);
     if(curQ()&&curQ().tg==="rene") drawBadge(fx,fy-31,"!"); else if(RA.cuddle) { bx.globalAlpha=.9; drawHeart(fx-3,fy-33,"#e8476a"); bx.globalAlpha=1; } if(renePlan().mode==="cook"&&Math.floor(gameT*2)%2) { bx.fillStyle="rgba(240,240,245,.6)"; bx.fillRect(2*16+6-CX,3*16-4-CY-Math.floor(gameT*8)%6,2,2); } }}); }
   for(const m of S.mess) if(m.map===M.id){ L.push({y:m.y,d:()=>{ bx.drawImage(icon(m.k),m.x*16-CX,m.y*16-1-CY); if(Math.floor(gameT*1.5+m.x)%4===0){ bx.fillStyle="#fff"; bx.fillRect(m.x*16+12-CX,m.y*16-CY,1,1); } }}); }
-  for(const id in NPCA){ const a=NPCA[id]; if(!a.vis) continue; L.push({y:a.y+.5,d:()=>{ const [fx,fy]=fpos(a); bx.drawImage(SPR.shadow,fx-7,fy-2); const sp=SPR.npc[id]; const set=a.dir===0?sp.down:a.dir===1?sp.up:(a.flip?sp.sideL:sp.side); bx.drawImage(a.dir===0&&!a.moving&&blinkNow(id.length)?sp.blink:set[a.frame],fx-9,fy-25);
+  for(const id in NPCA){ const a=NPCA[id]; if(!a.vis) continue; L.push({y:a.y+.5,d:()=>{ const [fx,fy]=fpos(a); bx.drawImage(SPR.shadow,fx-7,fy-2); const sp=SPR.npc[id]; const set=a.dir===0?sp.down:a.dir===1?sp.up:(a.flip?sp.sideL:sp.side); const sit=seated(a);
+    if(sit) bx.drawImage(sit==="l"?sp.sitL:sp.sit,fx-9+(sit==="l"?-7:7),fy-25); else bx.drawImage(a.dir===0&&!a.moving&&blinkNow(id.length)?sp.blink:set[a.frame],fx-9,fy-25);
     const st=S.npc[id]; const q=questTarget(); const qn=curQ()&&curQ().tg&&(curQ().tg==="npc:"+id||(curQ().tg==="npc:unmet"&&!st.met));
     if(!st.met||qn){ drawBadge(fx,fy-31,qn?"!":"?"); } else if(NPCS[id].bday[0]===season()&&NPCS[id].bday[1]===dayIn()) drawBadge(fx,fy-31,"*"); }}); }
   // Waldrand außerhalb der Karte
@@ -2220,9 +2306,9 @@ if(hot&&hot.ready) hot.ready(boot); else boot(hot&&hot.data||{});
 document.addEventListener("visibilitychange",()=>{ if(document.hidden) save(true); });
 addEventListener("pagehide",()=>{ if(!demo&&S) save(true); });
 requestAnimationFrame(loop);
-JM.ENG={get M(){return M;},get S(){return S;},P,RA,get DOGS(){return DOGS;},get HENS(){return HENS;},get COWS(){return COWS;},get NPCA(){return NPCA;},get gameT(){return gameT;},
-  sceneView,seated,season,fieldAt,isField,isGlass,icon,playerLook:()=>JM.lookFrom(S.look),reneLook:reneLookObj,npcInside:()=>!!(M.owner&&npcPlace(M.owner)==="in"),unread:()=>S.mail.some(m=>!m.read),marketDay,
+JM.ENG={get M(){return M;},get S(){return S;},P,RA,get DOGS(){return DOGS;},get HENS(){return HENS;},get COWS(){return COWS;},get PETS(){return PETS;},get NPCA(){return NPCA;},get gameT(){return gameT;},
+  sceneView,seated,seatSide,season,fieldAt,isField,isGlass,icon,playerLook:()=>JM.lookFrom(S.look),reneLook:reneLookObj,npcInside:()=>!!(M.owner&&npcPlace(M.owner)==="in"),unread:()=>S.mail.some(m=>!m.read),marketDay,
   cooking:()=>renePlan().mode==="cook"&&RA.vis,tvOn:()=>S.min>=1080&&S.min<1380,bushBer:o=>season()===1&&(S.bush[M.id+":"+o.x+","+o.y]||0)<=S.day,
   giant:c=>!!c.g,cropStage:c=>{ const cr=CROPS[c.k]; return c.a===0?0:c.a>=cr.days?4:c.a/cr.days<.34?1:c.a/cr.days<.67?2:3; },zoom:()=>ZOOM,camSnap:()=>snap3};
-window.JMDEBUG={star:()=>STAR,zoomy:()=>ZOOMY,RA,renePlan,reneTalk,spawnMess,get qid(){const q=curQ(); return q?q.id:'ende';},set speed(v){TESTSPEED=v;},get scale(){return SC/DPR;},get audio(){return AC?AC.state:null;},get DOGS(){return DOGS;},get HENS(){return HENS;},tap:(tx,ty)=>tapAt(tx+.5,ty+.5,tx,ty),swipe:t=>{P.queue=t.slice();},get idle(){return !P.path.length&&!P.act&&!P.queue.length&&P.busy<=0;},get busy(){return {ui:UI,fish:FISH.phase};},dlgNext:()=>nextLine(),give,openHouse,openBag,openMail,openBundles,openCook,talk,giveGift,cam,FISH,fishTap,get NPCA(){return NPCA;},get S(){return S;},emit,endDay,setMap,startGame,newState,refreshPost,P,fieldPlan,doField,openBook,openShop,npcInteract,runFest:id=>runFest(JM.FESTS.find(f=>f.id===id)),get M(){return M;}};
+window.JMDEBUG={get PETS(){return PETS;},openCafe,star:()=>STAR,zoomy:()=>ZOOMY,RA,renePlan,reneTalk,spawnMess,get qid(){const q=curQ(); return q?q.id:'ende';},set speed(v){TESTSPEED=v;},get scale(){return SC/DPR;},get audio(){return AC?AC.state:null;},get DOGS(){return DOGS;},get HENS(){return HENS;},tap:(tx,ty)=>tapAt(tx+.5,ty+.5,tx,ty),swipe:t=>{P.queue=t.slice();},get idle(){return !P.path.length&&!P.act&&!P.queue.length&&P.busy<=0;},get busy(){return {ui:UI,fish:FISH.phase};},dlgNext:()=>nextLine(),give,openHouse,openBag,openMail,openBundles,openCook,talk,giveGift,cam,FISH,fishTap,get NPCA(){return NPCA;},get S(){return S;},emit,endDay,setMap,startGame,newState,refreshPost,P,fieldPlan,doField,openBook,openShop,npcInteract,runFest:id=>runFest(JM.FESTS.find(f=>f.id===id)),get M(){return M;}};
 })();
