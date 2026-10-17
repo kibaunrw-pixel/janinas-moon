@@ -1,0 +1,1310 @@
+[
+  {
+    "segment": "geheimnis",
+    "breite": 390,
+    "grafik": "2d",
+    "antworten": []
+  },
+  {
+    "segment": "streit",
+    "breite": 390,
+    "grafik": "2d",
+    "antworten": [
+      {
+        "text": "Schenken: Milch",
+        "x": 104,
+        "y": 732.5,
+        "right": 362,
+        "bottom": 771.25,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "text": "Nur reden",
+        "x": 104,
+        "y": 777.25,
+        "right": 362,
+        "bottom": 816,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "text": "„Sie meint es ehrlich. Gib ihr eine Chance.“",
+        "x": 104,
+        "y": 713.75,
+        "right": 362,
+        "bottom": 771.25,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "text": "„Lass dir ruhig Zeit damit.“",
+        "x": 104,
+        "y": 777.25,
+        "right": 362,
+        "bottom": 816,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      }
+    ]
+  },
+  {
+    "segment": "paar",
+    "breite": 390,
+    "grafik": "2d",
+    "antworten": [
+      {
+        "text": "„Ich bringe ihr beides.“",
+        "x": 104,
+        "y": 713.75,
+        "right": 362,
+        "bottom": 752.5,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "text": "„Trau dich! Ich frage sie, ob sie dich treffen will.“",
+        "x": 104,
+        "y": 758.5,
+        "right": 362,
+        "bottom": 816,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "text": "„Am Dorfbrunnen, morgen um 18 Uhr.“",
+        "x": 104,
+        "y": 695,
+        "right": 362,
+        "bottom": 752.5,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "text": "„Am Seeufer beim Steg, morgen um 18 Uhr.“",
+        "x": 104,
+        "y": 758.5,
+        "right": 362,
+        "bottom": 816,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "text": "„Timo, du wolltest Mei doch etwas sagen.“",
+        "x": 104,
+        "y": 695,
+        "right": 362,
+        "bottom": 752.5,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "text": "„Mei, du wolltest Timo doch etwas fragen.“",
+        "x": 104,
+        "y": 758.5,
+        "right": 362,
+        "bottom": 816,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      }
+    ]
+  },
+  {
+    "segment": "picknick",
+    "breite": 390,
+    "grafik": "2d",
+    "antworten": [
+      {
+        "text": "„Was dir an uns am besten gefällt.“",
+        "x": 104,
+        "y": 650.25,
+        "right": 362,
+        "bottom": 707.75,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "text": "„Wovon träumst du?“",
+        "x": 104,
+        "y": 713.75,
+        "right": 362,
+        "bottom": 752.5,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "text": "Einfach zusammen in die Wolken schauen",
+        "x": 104,
+        "y": 758.5,
+        "right": 362,
+        "bottom": 816,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "text": "„Sag mir ehrlich, was los ist.“",
+        "x": 104,
+        "y": 713.75,
+        "right": 362,
+        "bottom": 752.5,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "text": "„Ich dachte schon, du hast keine Lust mehr auf mich.“",
+        "x": 104,
+        "y": 758.5,
+        "right": 362,
+        "bottom": 816,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      }
+    ]
+  },
+  {
+    "segment": "ausflug",
+    "breite": 390,
+    "grafik": "2d",
+    "antworten": [
+      {
+        "text": "Eine Münze in den Stadtbrunnen werfen",
+        "x": 104,
+        "y": 631.5,
+        "right": 362,
+        "bottom": 689,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "text": "Am Tisch sitzen und den Leuten zusehen",
+        "x": 104,
+        "y": 695,
+        "right": 362,
+        "bottom": 752.5,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "text": "Mara beim Geigespielen zuhören",
+        "x": 104,
+        "y": 758.5,
+        "right": 362,
+        "bottom": 816,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      }
+    ]
+  },
+  {
+    "segment": "jahrestag",
+    "breite": 390,
+    "grafik": "2d",
+    "antworten": [
+      {
+        "text": "Den Brief sofort lesen",
+        "x": 104,
+        "y": 732.5,
+        "right": 362,
+        "bottom": 771.25,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "text": "Erst anstoßen, dann lesen",
+        "x": 104,
+        "y": 777.25,
+        "right": 362,
+        "bottom": 816,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      }
+    ]
+  },
+  {
+    "segment": "geburtstag",
+    "breite": 390,
+    "grafik": "2d",
+    "antworten": []
+  },
+  {
+    "segment": "geheimnis",
+    "breite": 390,
+    "grafik": "3d",
+    "antworten": []
+  },
+  {
+    "segment": "streit",
+    "breite": 390,
+    "grafik": "3d",
+    "antworten": [
+      {
+        "text": "Schenken: Milch",
+        "x": 104,
+        "y": 732.5,
+        "right": 362,
+        "bottom": 771.25,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "text": "Nur reden",
+        "x": 104,
+        "y": 777.25,
+        "right": 362,
+        "bottom": 816,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "text": "„Sie meint es ehrlich. Gib ihr eine Chance.“",
+        "x": 104,
+        "y": 713.75,
+        "right": 362,
+        "bottom": 771.25,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "text": "„Lass dir ruhig Zeit damit.“",
+        "x": 104,
+        "y": 777.25,
+        "right": 362,
+        "bottom": 816,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      }
+    ]
+  },
+  {
+    "segment": "paar",
+    "breite": 390,
+    "grafik": "3d",
+    "antworten": [
+      {
+        "text": "„Ich bringe ihr beides.“",
+        "x": 104,
+        "y": 713.75,
+        "right": 362,
+        "bottom": 752.5,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "text": "„Trau dich! Ich frage sie, ob sie dich treffen will.“",
+        "x": 104,
+        "y": 758.5,
+        "right": 362,
+        "bottom": 816,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "text": "„Am Dorfbrunnen, morgen um 18 Uhr.“",
+        "x": 104,
+        "y": 695,
+        "right": 362,
+        "bottom": 752.5,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "text": "„Am Seeufer beim Steg, morgen um 18 Uhr.“",
+        "x": 104,
+        "y": 758.5,
+        "right": 362,
+        "bottom": 816,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "text": "„Timo, du wolltest Mei doch etwas sagen.“",
+        "x": 104,
+        "y": 695,
+        "right": 362,
+        "bottom": 752.5,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "text": "„Mei, du wolltest Timo doch etwas fragen.“",
+        "x": 104,
+        "y": 758.5,
+        "right": 362,
+        "bottom": 816,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      }
+    ]
+  },
+  {
+    "segment": "picknick",
+    "breite": 390,
+    "grafik": "3d",
+    "antworten": [
+      {
+        "text": "„Was dir an uns am besten gefällt.“",
+        "x": 104,
+        "y": 650.25,
+        "right": 362,
+        "bottom": 707.75,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "text": "„Wovon träumst du?“",
+        "x": 104,
+        "y": 713.75,
+        "right": 362,
+        "bottom": 752.5,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "text": "Einfach zusammen in die Wolken schauen",
+        "x": 104,
+        "y": 758.5,
+        "right": 362,
+        "bottom": 816,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "text": "„Sag mir ehrlich, was los ist.“",
+        "x": 104,
+        "y": 713.75,
+        "right": 362,
+        "bottom": 752.5,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "text": "„Ich dachte schon, du hast keine Lust mehr auf mich.“",
+        "x": 104,
+        "y": 758.5,
+        "right": 362,
+        "bottom": 816,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      }
+    ]
+  },
+  {
+    "segment": "ausflug",
+    "breite": 390,
+    "grafik": "3d",
+    "antworten": [
+      {
+        "text": "Eine Münze in den Stadtbrunnen werfen",
+        "x": 104,
+        "y": 631.5,
+        "right": 362,
+        "bottom": 689,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "text": "Am Tisch sitzen und den Leuten zusehen",
+        "x": 104,
+        "y": 695,
+        "right": 362,
+        "bottom": 752.5,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "text": "Mara beim Geigespielen zuhören",
+        "x": 104,
+        "y": 758.5,
+        "right": 362,
+        "bottom": 816,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      }
+    ]
+  },
+  {
+    "segment": "jahrestag",
+    "breite": 390,
+    "grafik": "3d",
+    "antworten": [
+      {
+        "text": "Den Brief sofort lesen",
+        "x": 104,
+        "y": 732.5,
+        "right": 362,
+        "bottom": 771.25,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "text": "Erst anstoßen, dann lesen",
+        "x": 104,
+        "y": 777.25,
+        "right": 362,
+        "bottom": 816,
+        "width": 258,
+        "scroll": 252,
+        "client": 252,
+        "viewport": [
+          390,
+          844
+        ]
+      }
+    ]
+  },
+  {
+    "segment": "geburtstag",
+    "breite": 390,
+    "grafik": "3d",
+    "antworten": []
+  },
+  {
+    "segment": "geheimnis",
+    "breite": 1440,
+    "grafik": "2d",
+    "antworten": []
+  },
+  {
+    "segment": "streit",
+    "breite": 1440,
+    "grafik": "2d",
+    "antworten": [
+      {
+        "text": "Schenken: Milch",
+        "x": 536,
+        "y": 788.5,
+        "right": 980,
+        "bottom": 827.25,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      },
+      {
+        "text": "Nur reden",
+        "x": 536,
+        "y": 833.25,
+        "right": 980,
+        "bottom": 872,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      },
+      {
+        "text": "„Sie meint es ehrlich. Gib ihr eine Chance.“",
+        "x": 536,
+        "y": 788.5,
+        "right": 980,
+        "bottom": 827.25,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      },
+      {
+        "text": "„Lass dir ruhig Zeit damit.“",
+        "x": 536,
+        "y": 833.25,
+        "right": 980,
+        "bottom": 872,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      }
+    ]
+  },
+  {
+    "segment": "paar",
+    "breite": 1440,
+    "grafik": "2d",
+    "antworten": [
+      {
+        "text": "„Ich bringe ihr beides.“",
+        "x": 536,
+        "y": 788.5,
+        "right": 980,
+        "bottom": 827.25,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      },
+      {
+        "text": "„Trau dich! Ich frage sie, ob sie dich treffen will.“",
+        "x": 536,
+        "y": 833.25,
+        "right": 980,
+        "bottom": 872,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      },
+      {
+        "text": "„Am Dorfbrunnen, morgen um 18 Uhr.“",
+        "x": 536,
+        "y": 788.5,
+        "right": 980,
+        "bottom": 827.25,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      },
+      {
+        "text": "„Am Seeufer beim Steg, morgen um 18 Uhr.“",
+        "x": 536,
+        "y": 833.25,
+        "right": 980,
+        "bottom": 872,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      },
+      {
+        "text": "„Timo, du wolltest Mei doch etwas sagen.“",
+        "x": 536,
+        "y": 788.5,
+        "right": 980,
+        "bottom": 827.25,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      },
+      {
+        "text": "„Mei, du wolltest Timo doch etwas fragen.“",
+        "x": 536,
+        "y": 833.25,
+        "right": 980,
+        "bottom": 872,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      }
+    ]
+  },
+  {
+    "segment": "picknick",
+    "breite": 1440,
+    "grafik": "2d",
+    "antworten": [
+      {
+        "text": "„Was dir an uns am besten gefällt.“",
+        "x": 536,
+        "y": 743.75,
+        "right": 980,
+        "bottom": 782.5,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      },
+      {
+        "text": "„Wovon träumst du?“",
+        "x": 536,
+        "y": 788.5,
+        "right": 980,
+        "bottom": 827.25,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      },
+      {
+        "text": "Einfach zusammen in die Wolken schauen",
+        "x": 536,
+        "y": 833.25,
+        "right": 980,
+        "bottom": 872,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      },
+      {
+        "text": "„Sag mir ehrlich, was los ist.“",
+        "x": 536,
+        "y": 788.5,
+        "right": 980,
+        "bottom": 827.25,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      },
+      {
+        "text": "„Ich dachte schon, du hast keine Lust mehr auf mich.“",
+        "x": 536,
+        "y": 833.25,
+        "right": 980,
+        "bottom": 872,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      }
+    ]
+  },
+  {
+    "segment": "ausflug",
+    "breite": 1440,
+    "grafik": "2d",
+    "antworten": [
+      {
+        "text": "Eine Münze in den Stadtbrunnen werfen",
+        "x": 536,
+        "y": 743.75,
+        "right": 980,
+        "bottom": 782.5,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      },
+      {
+        "text": "Am Tisch sitzen und den Leuten zusehen",
+        "x": 536,
+        "y": 788.5,
+        "right": 980,
+        "bottom": 827.25,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      },
+      {
+        "text": "Mara beim Geigespielen zuhören",
+        "x": 536,
+        "y": 833.25,
+        "right": 980,
+        "bottom": 872,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      }
+    ]
+  },
+  {
+    "segment": "jahrestag",
+    "breite": 1440,
+    "grafik": "2d",
+    "antworten": [
+      {
+        "text": "Den Brief sofort lesen",
+        "x": 536,
+        "y": 788.5,
+        "right": 980,
+        "bottom": 827.25,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      },
+      {
+        "text": "Erst anstoßen, dann lesen",
+        "x": 536,
+        "y": 833.25,
+        "right": 980,
+        "bottom": 872,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      }
+    ]
+  },
+  {
+    "segment": "geburtstag",
+    "breite": 1440,
+    "grafik": "2d",
+    "antworten": []
+  },
+  {
+    "segment": "geheimnis",
+    "breite": 1440,
+    "grafik": "3d",
+    "antworten": []
+  },
+  {
+    "segment": "streit",
+    "breite": 1440,
+    "grafik": "3d",
+    "antworten": [
+      {
+        "text": "Schenken: Milch",
+        "x": 536,
+        "y": 788.5,
+        "right": 980,
+        "bottom": 827.25,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      },
+      {
+        "text": "Nur reden",
+        "x": 536,
+        "y": 833.25,
+        "right": 980,
+        "bottom": 872,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      },
+      {
+        "text": "„Sie meint es ehrlich. Gib ihr eine Chance.“",
+        "x": 536,
+        "y": 788.5,
+        "right": 980,
+        "bottom": 827.25,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      },
+      {
+        "text": "„Lass dir ruhig Zeit damit.“",
+        "x": 536,
+        "y": 833.25,
+        "right": 980,
+        "bottom": 872,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      }
+    ]
+  },
+  {
+    "segment": "paar",
+    "breite": 1440,
+    "grafik": "3d",
+    "antworten": [
+      {
+        "text": "„Ich bringe ihr beides.“",
+        "x": 536,
+        "y": 788.5,
+        "right": 980,
+        "bottom": 827.25,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      },
+      {
+        "text": "„Trau dich! Ich frage sie, ob sie dich treffen will.“",
+        "x": 536,
+        "y": 833.25,
+        "right": 980,
+        "bottom": 872,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      },
+      {
+        "text": "„Am Dorfbrunnen, morgen um 18 Uhr.“",
+        "x": 536,
+        "y": 788.5,
+        "right": 980,
+        "bottom": 827.25,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      },
+      {
+        "text": "„Am Seeufer beim Steg, morgen um 18 Uhr.“",
+        "x": 536,
+        "y": 833.25,
+        "right": 980,
+        "bottom": 872,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      },
+      {
+        "text": "„Timo, du wolltest Mei doch etwas sagen.“",
+        "x": 536,
+        "y": 788.5,
+        "right": 980,
+        "bottom": 827.25,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      },
+      {
+        "text": "„Mei, du wolltest Timo doch etwas fragen.“",
+        "x": 536,
+        "y": 833.25,
+        "right": 980,
+        "bottom": 872,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      }
+    ]
+  },
+  {
+    "segment": "picknick",
+    "breite": 1440,
+    "grafik": "3d",
+    "antworten": [
+      {
+        "text": "„Was dir an uns am besten gefällt.“",
+        "x": 536,
+        "y": 743.75,
+        "right": 980,
+        "bottom": 782.5,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      },
+      {
+        "text": "„Wovon träumst du?“",
+        "x": 536,
+        "y": 788.5,
+        "right": 980,
+        "bottom": 827.25,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      },
+      {
+        "text": "Einfach zusammen in die Wolken schauen",
+        "x": 536,
+        "y": 833.25,
+        "right": 980,
+        "bottom": 872,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      },
+      {
+        "text": "„Sag mir ehrlich, was los ist.“",
+        "x": 536,
+        "y": 788.5,
+        "right": 980,
+        "bottom": 827.25,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      },
+      {
+        "text": "„Ich dachte schon, du hast keine Lust mehr auf mich.“",
+        "x": 536,
+        "y": 833.25,
+        "right": 980,
+        "bottom": 872,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      }
+    ]
+  },
+  {
+    "segment": "ausflug",
+    "breite": 1440,
+    "grafik": "3d",
+    "antworten": [
+      {
+        "text": "Eine Münze in den Stadtbrunnen werfen",
+        "x": 536,
+        "y": 743.75,
+        "right": 980,
+        "bottom": 782.5,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      },
+      {
+        "text": "Am Tisch sitzen und den Leuten zusehen",
+        "x": 536,
+        "y": 788.5,
+        "right": 980,
+        "bottom": 827.25,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      },
+      {
+        "text": "Mara beim Geigespielen zuhören",
+        "x": 536,
+        "y": 833.25,
+        "right": 980,
+        "bottom": 872,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      }
+    ]
+  },
+  {
+    "segment": "jahrestag",
+    "breite": 1440,
+    "grafik": "3d",
+    "antworten": [
+      {
+        "text": "Den Brief sofort lesen",
+        "x": 536,
+        "y": 788.5,
+        "right": 980,
+        "bottom": 827.25,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      },
+      {
+        "text": "Erst anstoßen, dann lesen",
+        "x": 536,
+        "y": 833.25,
+        "right": 980,
+        "bottom": 872,
+        "width": 444,
+        "scroll": 438,
+        "client": 438,
+        "viewport": [
+          1440,
+          900
+        ]
+      }
+    ]
+  },
+  {
+    "segment": "geburtstag",
+    "breite": 1440,
+    "grafik": "3d",
+    "antworten": []
+  }
+]

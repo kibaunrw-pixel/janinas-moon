@@ -83,13 +83,63 @@ Offen in den Bildern: Im 3D-Geburtstagsbild ist Rosa am Rand angeschnitten (Kame
 
 ## Feinschliff
 
-Ausgang `b9c200b`, ausschließlich `feat/stadt-und-wohnraum`. Kein Merge oder Deploy.
+Ausgang `b9c200b350798e0f1e4907c74a81ca5898a59e33`, ausschließlich `feat/stadt-und-wohnraum`. Letzter Produktcode-Commit: `97fc830`. Kein Merge oder Deploy. `main` und `gh-pages` per `git ls-remote` weiterhin beide `2690fda8dafc8997087d1476e556f3c3d5be8beb`.
 
-Ursachen und Abnahmekriterien vor der Änderung: Die Dialog-CSS-Korrektur ist im neuen Ausgangsbild bereits wirksam (alle drei Antworten umbrechen). Der bisherige Bildbeleg war veraltet. `dateNow` erlaubte die Szene aber schon ab `from-30`: enger Rot-Test bei 11:30, danach Szene nur ab 12 bis vor 15 Uhr, freundliche Hinweise außerhalb, Neuverabredung nach der Nacht. Die frühere 18-Uhr-Behauptung ist bislang nicht reproduziert: das neue Ausgangsbild zeigt 12:00. Die Browserzeitvorlage liegt nun ausdrücklich innerhalb des Fensters und prüft vorher den freundlichen Dialog.
+### Befunde, Ursachen und Änderungen
 
-Darstellung: beide Picknickfiguren direkt vor der Decke; gruppenzentrierte Szenenkamera statt Randbeschnitt; Jahrestag mit zwei Stühlen und zueinander gedrehten Sitzposen in beiden Renderern. Sitzversätze sind rein visuell, die 2D-Trefferfläche folgt ihnen. Keine zusätzlichen blockierenden Kacheln. Die unabhängige statische Prüfung und ihre Korrekturen sind in `ETAPPE2-FEINSCHLIFF-CODEPRUEFUNG.md` dokumentiert.
+1. **Dialogknöpfe – widerlegt für den Startstand, jetzt belegt:** Bereits auf `b9c200b` brachen alle drei Picknickantworten im neu aufgenommenen Ausgangsbild um. Der frühere Bildbeleg war vor der CSS-Korrektur aufgenommen. Kein weiterer CSS-Eingriff auf Verdacht. Neu: `getBoundingClientRect` für jede in den geprüften Auswahlwegen erreichte Antwort, zusätzlich `scrollWidth <= clientWidth + 1`. Insgesamt 80 Messungen, davon 40 bei 390 px; links mindestens 104, rechts höchstens 362, unten höchstens 816 px, kein innerer horizontaler Überlauf. Rohwerte: `docs/logs/etappe2-feinschliff-dialogrechtecke.json`. Bild: `picknick-szene-390-2d.png`.
+2. **Picknickzeit – behoben:** Die behauptete 18-Uhr-Szene ist nicht reproduziert (neues Ausgangsbild zeigt 12:00; die Testvorlage setzte 11:55). Belegt war aber ein anderer echter Fehler: `dateNow` gestattete die Szene bereits ab `from-30`. Der enge Rot-Test scheitert bei 11:30 (`docs/ROT-ETAPPE2-FEINSCHLIFF.log`). Nun beginnt die Szene erst ab der vereinbarten Startminute; Ende ist exklusiv. René darf weiter 30 Minuten vorher warten. Außerhalb des Fensters erscheinen freundliche Hinweise, nach einem verpassten Treffen ist nach der Nacht eine neue Verabredung möglich. Tests prüfen 11:30, 11:59, 12:00, 14:59, 15:00, 18:00 sowie Nacht/Neuverabredung. Browserweg: vor Beginn echter Tipp auf René und Erinnerung, danach Zeitvorlage 12:05 und erfolgreicher Szenenbeginn.
+3. **Picknickaufstellung – behoben:** Beide stehen direkt nördlich an der Decke auf `[16,20]` und `[17,20]`, einander zugewandt. So bleiben Decke und Korb auch in 2D sichtbar. Die gruppenzentrierte Kamera verhindert Randbeschnitt; in 3D begrenzt sie den maximalen Szenenzoom. Der Browserweg deckte zusätzlich eine unsichtbare 1,1 hohe Picknick-Trefferbox auf: Sie fing den Tipp auf René hinter der flachen Decke ab. Nur diese Box ist auf die tatsächliche Korbhöhe 0,6 reduziert (Rotprotokoll `etappe2-feinschliff-picknick-trefferflaeche-rot.log`, danach grüner gleicher Weg).
+4. **Jahrestag – behoben:** Zwei Holzstühle, zwei Sitzposen mit angewinkelten Beinen und Blick zum Gegenüber, am Tisch statt weit daneben. In 2D eigene Sitzsprites; in 3D gesonderte Sitzbeine. Kerzen, Rose und warmes Licht bleiben. Sitzversätze ändern weder Laufwege noch Speicherpositionen. Die 2D-Trefferfläche folgt dem versetzten Sprite. Echte Tipps und Reload im Browserweg sind grün.
+5. **Geburtstag – behoben:** Die Kamera berücksichtigt beide Gäste, Janina sowie nahe zusätzliche Figuren einschließlich René. Rosa wird weder mobil noch am Rechner abgeschnitten. Bild: `geburtstag-feier-{390|1440}-{2d|3d}.png`.
+6. **Allgemeine Sichtprüfung – behoben:** Alle sechs Szenen in allen vier Ansichten neu aufgenommen und selbst kritisch angesehen. Zusätzlich entdeckt und korrigiert: Timo schaute von Mei weg (ruhende Szenenfiguren sehen nun ihr Gegenüber an); die Herzbank überlappte in 2D mit einem Baum (eine Kachel nach links, nun `[20–21,17]`). Keine neuen blockierenden Kacheln außer der entsprechend verschobenen Bank. Die Erreichbarkeit prüft der Logiktest, die Benutzerwege einschließlich Banktipp, Wege, Gespräche und Zugfahrt prüft der Browser.
 
-Erster grüner Teilschritt: 14 Etappe-2-Logiktests einschließlich Rot→Grün-Zeitgrenze; sieben Browsersegmente bei 390/2D. Vollständige Matrix und neue Bildsichtung werden im folgenden Beleg-Commit ergänzt. Noch keine Endabnahme.
+### Unabhängige Prüfung
+
+Zwei separate, rein lesende Codex-Prüfungen vor den jeweiligen Code-Commits. Erstprüfung fand zwei P2-Fehler (Dorfpaar-Kamera aus der Ferne aktiv; versetzte 2D-Sitzklickfläche); beide korrigiert. Zweitprüfung bestätigte Korrekturen und Erreichbarkeit der neuen Positionen, keine weiteren belegbaren P1–P3. Bericht: `ETAPPE2-FEINSCHLIFF-CODEPRUEFUNG.md`. Kein visueller Fremdprüfer anstelle eigener Sichtung.
+
+Ein früher 3D-Vorlauf scheiterte zusätzlich an einer zufälligen automatischen Kuschelansprache zwischen den erwarteten Dialogen. Nur die ausgewiesene Testvorgeschichte wurde deterministisch gemacht: nach jeder Nacht wie im Startstand `cudToday=2`. Die Produktlogik des Kuschelns blieb unverändert; `tipp-vorrang.cjs` prüft sie ausdrücklich weiter.
+
+### Abschlussläufe (einzeln, nicht parallel)
+
+Node: `/Users/reneklomfas/.hermes/node/bin/node`; Playwright über `PLAYWRIGHT_PATH=/Users/reneklomfas/.npm/_npx/fd3bca3c548369c0/node_modules/playwright`, Chrome headless. Lokaler HTTP-Server auf 127.0.0.1:8765. Browser-Belege wurden über `EVIDENCE_DIR` zunächst im eigenen Scratch-Verzeichnis gesammelt. Alle sieben Segmente: `geheimnis,streit,paar,picknick,ausflug,jahrestag,geburtstag`.
+
+| Befehl | Exit | Ergebnis |
+|---|---|---|
+| `node --test --test-name-pattern='Picknick beginnt' tests/etappe2.test.cjs` vor Fix | 1 | erwartetes Rot bei Minute 690 |
+| `VIEWPORT=390 GFX=2d node tests/etappe2-browser.cjs` | 0 | alle 7 Segmente |
+| `VIEWPORT=390 GFX=3d node tests/etappe2-browser.cjs` | 0 | alle 7 Segmente |
+| `VIEWPORT=1440 GFX=2d node tests/etappe2-browser.cjs` | 0 | alle 7 Segmente |
+| `VIEWPORT=1440 GFX=3d node tests/etappe2-browser.cjs` | 0 | alle 7 Segmente |
+| `node --test tests/*.test.cjs` | 0 | 57/57 Tests, einschließlich Erreichbarkeit |
+| `node tests/tipp-vorrang.cjs` | 0 | 36 Fälle in vier Ansichten, auch automatisches Kuscheln |
+| `node tests/picking.cjs` | 0 | 3D-Sammelobjekte, Feld, Tiere, Doppeltipp bei 390 und 1440 |
+| `node --check` für alle `jm-*.js`, `sw.js`, `tests/*.cjs` | 0 | 49 Dateien |
+| `git diff --check` | 0 | keine Whitespacefehler |
+
+Logs: `docs/logs/etappe2-feinschliff-*.log`. Syntaxprüfung erfolgte mit einem Python-Treiber, der die 49 Dateien nacheinander an `node --check` übergab. Kein separater Build, TypeScript- oder Lint-Runner vorhanden (`package.json` und `tsconfig.json` fehlen). Kein `run-all` ausgeführt, wie beauftragt.
+
+### Angesehene Bilder
+
+Alle folgenden Originalbilder liegen unter `docs/belege/etappe2-feinschliff/`. Jede Zeile wurde in allen vier Ansichten selbst angesehen, mit zusätzlichen Einzelbildprüfungen bei mobilen Details. SHA-256 und Dateigrößen: `docs/STADT-BELEG-MANIFEST.json` → `etappe2Feinschliff`. 24 Szenenbilder plus vier Dialogbilder, insgesamt 28, keine alten Belege als neue ausgegeben.
+
+| Dateistamm (je `-390-2d`, `-390-3d`, `-1440-2d`, `-1440-3d`, `.png`) | Sichtbefund |
+|---|---|
+| `picknick-herzen` | beide vollständig, einander zugewandt; karierte Decke, Korb, Thermoskanne und Teller frei sichtbar |
+| `herzbank` | vollständige Bank mit Herz, frei vom Baum, Figur vollständig, Zugang offen |
+| `ausflug-herzen` | beide am Bistrotisch zueinander; Tisch, Stühle und Kerze sichtbar; keine Randbeschnitte |
+| `jahrestag-kerzen` | beide auf zwei Stühlen sitzend am Tisch, einander zugewandt; Kerzenlicht bleibt |
+| `geburtstag-feier` | Rosa, Mei, Janina und anwesender René vollständig im Bild; Kuchen/Päckchen und HUD lesbar |
+| `paar-zusammen` | Mei und Timo schauen einander an; Figuren im freien Bildbereich |
+| `picknick-szene` | alle Antworttexte lesbar, Knöpfe vollständig innerhalb des Viewports, längste Antwort bricht um |
+
+Die normalen Weltbilder sind ohne Dialog aufgenommen. Ein geöffneter Dialog überlagert weiterhin den unteren Weltbereich; das ist kein Beleg für eine dort nicht vorhandene Decke. Die freien Szenenbilder oben zeigen die vollständige Aufstellung.
+
+### Commits und Grenzen
+
+Produktkorrekturen: `ba72fbd` (Szenenkamera/Sitzposen/Zeitfenster), `62f72e3` (kritische Bildkorrekturen), `97fc830` (Picknick-Trefferbox). Testdeterminismus: `09a12c5`. Nach jedem grünen Teilschritt wurden Code bzw. Nachweise committet und mit `git push origin feat/stadt-und-wohnraum` gepusht. Die dazwischenliegenden Beleg-Commits sind in der Git-Historie nachvollziehbar; abschließender Bild-/Manifest-Commit enthält diesen Bericht. Finaler Remotehash wird nach dem Push per `git ls-remote` gelesen und in der Übergabe genannt (kein selbstbezüglicher Hash im Commit).
+
+Offen bleiben ausschließlich die bereits nicht beauftragten Produkt-/Geräteabnahmen: kein physisches iPhone, kein Update einer installierten PWA, kein Merge/Deploy. Die Bilder belegen den geprüften lokalen Chrome-Stand, nicht den unveränderten Live-Stand. Die älteren offenen Bildbefunde und der frühere Hinweis „CSS ohne neues Bild“ sind durch diesen Abschnitt ersetzt.
 
 ## Offene Punkte
 - Unabhängiger Gesamtlauf (`node tests/run-all.cjs`) durch Hermes.

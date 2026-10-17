@@ -1,4 +1,182 @@
 {
+  "etappe2Feinschliff": {
+    "ausgang": "b9c200b350798e0f1e4907c74a81ca5898a59e33",
+    "produktstand": "97fc83082a7c026b3a2eae02e248b5d6da8c13c3",
+    "browserSegmente": 28,
+    "logikTests": 57,
+    "dialogMessungen": 80,
+    "hinweis": "24 Szenenbilder und 4 Dialogbilder selbst kritisch angesehen; Matrix 390×844 und 1440×900, jeweils 2D und 3D. Kein Deploy, kein Geräteabnahmeurteil.",
+    "screenshots": [
+      {
+        "path": "docs/belege/etappe2-feinschliff/ausflug-herzen-1440-2d.png",
+        "bytes": 601981,
+        "sha256": "537b40c3f187b7f0e419d40a827b3619eeb06827d6e83860a53546347b3a4165",
+        "angesehen": true
+      },
+      {
+        "path": "docs/belege/etappe2-feinschliff/ausflug-herzen-1440-3d.png",
+        "bytes": 789753,
+        "sha256": "6f73eee1afeaf8c4c3e58740b0011c199321a8ab9ea972b6cfdf5014dbeb8b4d",
+        "angesehen": true
+      },
+      {
+        "path": "docs/belege/etappe2-feinschliff/ausflug-herzen-390-2d.png",
+        "bytes": 374998,
+        "sha256": "1bc85ff051a079b05253b42847174afa638c973010f53a49913080116178da41",
+        "angesehen": true
+      },
+      {
+        "path": "docs/belege/etappe2-feinschliff/ausflug-herzen-390-3d.png",
+        "bytes": 745573,
+        "sha256": "38af5592d83a703eabb91158ed9319af8530ea4332beb1a45baf53ea7ad8e397",
+        "angesehen": true
+      },
+      {
+        "path": "docs/belege/etappe2-feinschliff/geburtstag-feier-1440-2d.png",
+        "bytes": 613521,
+        "sha256": "944ce8cd40d2740a228091b6e88e4db57d05602b94d0f1785fd0c56d6680a678",
+        "angesehen": true
+      },
+      {
+        "path": "docs/belege/etappe2-feinschliff/geburtstag-feier-1440-3d.png",
+        "bytes": 993005,
+        "sha256": "d18fe029d9dcae6faf71490027479757691b6014aa14b907e1f59fbfcf17109b",
+        "angesehen": true
+      },
+      {
+        "path": "docs/belege/etappe2-feinschliff/geburtstag-feier-390-2d.png",
+        "bytes": 358044,
+        "sha256": "8a2f949d2935319edb24d24dde2c7eea8cb23582deb48cbd4b64c41f21b698ea",
+        "angesehen": true
+      },
+      {
+        "path": "docs/belege/etappe2-feinschliff/geburtstag-feier-390-3d.png",
+        "bytes": 941539,
+        "sha256": "6738c88a77d3dee72ccfdb9a14bd3183fa800ff2a8f378606d37c90c4355bf73",
+        "angesehen": true
+      },
+      {
+        "path": "docs/belege/etappe2-feinschliff/herzbank-1440-2d.png",
+        "bytes": 604993,
+        "sha256": "9bda15cb93d3073ba819120eb45ce7b5276c81808275df8ef29a5c3843c67de2",
+        "angesehen": true
+      },
+      {
+        "path": "docs/belege/etappe2-feinschliff/herzbank-1440-3d.png",
+        "bytes": 712991,
+        "sha256": "4df5fdc8676559af7b85a8b1b4d1cd180b4a27eb8df47593e9e7c42ce44e7186",
+        "angesehen": true
+      },
+      {
+        "path": "docs/belege/etappe2-feinschliff/herzbank-390-2d.png",
+        "bytes": 358526,
+        "sha256": "b8d5388368fc7f1317abec0fc0825e3ce70e6a6871a946967592a617ac242b1d",
+        "angesehen": true
+      },
+      {
+        "path": "docs/belege/etappe2-feinschliff/herzbank-390-3d.png",
+        "bytes": 686619,
+        "sha256": "4f8c6ae343d760573a836ce62261c9a6015c17c8949a21e8e69038fcd5a0f492",
+        "angesehen": true
+      },
+      {
+        "path": "docs/belege/etappe2-feinschliff/jahrestag-kerzen-1440-2d.png",
+        "bytes": 273643,
+        "sha256": "49ba0b1d88233fb55d456c2e40eae10b7b81dd1045e918d893ca4307bbb3e880",
+        "angesehen": true
+      },
+      {
+        "path": "docs/belege/etappe2-feinschliff/jahrestag-kerzen-1440-3d.png",
+        "bytes": 573695,
+        "sha256": "3aa15e5e7727973cc724a08028c66915b79bfe819b8118285f606d835a23361f",
+        "angesehen": true
+      },
+      {
+        "path": "docs/belege/etappe2-feinschliff/jahrestag-kerzen-390-2d.png",
+        "bytes": 195909,
+        "sha256": "95f9a7d3a794d3baa70ad02ec7816adee7ac240b69f20cb68576c87bcb5e3891",
+        "angesehen": true
+      },
+      {
+        "path": "docs/belege/etappe2-feinschliff/jahrestag-kerzen-390-3d.png",
+        "bytes": 297428,
+        "sha256": "bef2b7738b2180627e9bc5ccc38e92e43a2e27165dc20068235585edb4ee3f51",
+        "angesehen": true
+      },
+      {
+        "path": "docs/belege/etappe2-feinschliff/paar-zusammen-1440-2d.png",
+        "bytes": 616514,
+        "sha256": "11b36cbc0cd05ffdc91781c7ff067e4fbe927be19d1299fcb406cc396d679f8a",
+        "angesehen": true
+      },
+      {
+        "path": "docs/belege/etappe2-feinschliff/paar-zusammen-1440-3d.png",
+        "bytes": 798216,
+        "sha256": "2f3db3cd88082eea73f8b147981ae6cc0dd8f058df45dd17aef59b215b16d76b",
+        "angesehen": true
+      },
+      {
+        "path": "docs/belege/etappe2-feinschliff/paar-zusammen-390-2d.png",
+        "bytes": 362778,
+        "sha256": "8bf73871b03d8c6a925442315eea1f7601017e39df91aa8d21426050dd051354",
+        "angesehen": true
+      },
+      {
+        "path": "docs/belege/etappe2-feinschliff/paar-zusammen-390-3d.png",
+        "bytes": 778255,
+        "sha256": "0349b5e3e4f4db024a1137c0f33f347a7a497ab3fc3c3034129ab7d9e6959e58",
+        "angesehen": true
+      },
+      {
+        "path": "docs/belege/etappe2-feinschliff/picknick-herzen-1440-2d.png",
+        "bytes": 620793,
+        "sha256": "d52385d88b922fc0d29381f89b80264dff0112ee0dc3677a7be7234e6de11143",
+        "angesehen": true
+      },
+      {
+        "path": "docs/belege/etappe2-feinschliff/picknick-herzen-1440-3d.png",
+        "bytes": 787114,
+        "sha256": "5a3372cf9e59c489506da0cfa202dd0a8a34769dc8de8e9a4d8ca1ceed736ab9",
+        "angesehen": true
+      },
+      {
+        "path": "docs/belege/etappe2-feinschliff/picknick-herzen-390-2d.png",
+        "bytes": 361284,
+        "sha256": "cfbbcc1d3c8a71f2c08a1a205c13b054f14d9c92934e459d520291ae550c15a9",
+        "angesehen": true
+      },
+      {
+        "path": "docs/belege/etappe2-feinschliff/picknick-herzen-390-3d.png",
+        "bytes": 739837,
+        "sha256": "e01dd4a0bab4a37a115f2910d607136dd9363579efdeeec1a91272305e6d347e",
+        "angesehen": true
+      },
+      {
+        "path": "docs/belege/etappe2-feinschliff/picknick-szene-1440-2d.png",
+        "bytes": 598261,
+        "sha256": "c021e405f48f01bcadd0f622c318c93961e6a2428a63a0aed6fd038e06480998",
+        "angesehen": true
+      },
+      {
+        "path": "docs/belege/etappe2-feinschliff/picknick-szene-1440-3d.png",
+        "bytes": 853314,
+        "sha256": "644403473ed26ba72c87a42293a249d73c95168c910c682e588843ee865881df",
+        "angesehen": true
+      },
+      {
+        "path": "docs/belege/etappe2-feinschliff/picknick-szene-390-2d.png",
+        "bytes": 412118,
+        "sha256": "de4d84779b458e71f2794bfda66880a4d91de3df72aa7098494d0e8c9ebb1387",
+        "angesehen": true
+      },
+      {
+        "path": "docs/belege/etappe2-feinschliff/picknick-szene-390-3d.png",
+        "bytes": 625788,
+        "sha256": "e16e139e71fa06fab755ec7aea31e080e70d3a6e34e4cf3b9920ffec8e95ac01",
+        "angesehen": true
+      }
+    ]
+  },
   "codeCommit": "66725d0ce4e86dae50b9e77b0cee704ad5b0c4e1",
   "passed": true,
   "commandCount": 37,
