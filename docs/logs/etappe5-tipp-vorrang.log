@@ -1,0 +1,47 @@
+GRÜN 390-2d briefkasten-rene-davor Briefkasten offen
+GRÜN 390-2d versandkiste-hund-daneben Versandkiste offen
+GRÜN 390-2d beet-rene-daneben Beet umgegraben
+GRÜN 390-2d moebel-rene-daneben Möbel: Schlafen gehen?
+GRÜN 390-2d rene-selbst-getroffen René: René
+GRÜN 390-2d hund-selbst-getroffen Hund: A
+A schaut dic
+GRÜN 390-2d rene-unterbricht-laufweg-nicht Laufweg ohne Unterbrechung
+GRÜN 390-2d rene-kuschelt-wenn-ruhig Kuscheln: René
+Pause! Kurz 
+GRÜN 390-2d keine-fehler []
+GRÜN 390-3d briefkasten-rene-davor Briefkasten offen
+GRÜN 390-3d versandkiste-hund-daneben Versandkiste offen
+GRÜN 390-3d beet-rene-daneben Beet umgegraben
+GRÜN 390-3d moebel-rene-daneben Möbel: Schlafen gehen?
+GRÜN 390-3d rene-selbst-getroffen René: René
+GRÜN 390-3d hund-selbst-getroffen Hund: A
+A schaut dic
+GRÜN 390-3d rene-unterbricht-laufweg-nicht Laufweg ohne Unterbrechung
+GRÜN 390-3d rene-kuschelt-wenn-ruhig Kuscheln: René
+Ich hab dich
+GRÜN 390-3d keine-fehler []
+GRÜN 1440-2d briefkasten-rene-davor Briefkasten offen
+GRÜN 1440-2d versandkiste-hund-daneben Versandkiste offen
+GRÜN 1440-2d beet-rene-daneben Beet umgegraben
+GRÜN 1440-2d moebel-rene-daneben Möbel: Schlafen gehen?
+GRÜN 1440-2d rene-selbst-getroffen René: René
+Ich hab mal 
+GRÜN 1440-2d hund-selbst-getroffen Hund: A
+A schaut dic
+GRÜN 1440-2d rene-unterbricht-laufweg-nicht Laufweg ohne Unterbrechung
+GRÜN 1440-2d rene-kuschelt-wenn-ruhig Kuscheln: René
+Ich hab dich
+GRÜN 1440-2d keine-fehler []
+GRÜN 1440-3d briefkasten-rene-davor Briefkasten offen
+GRÜN 1440-3d versandkiste-hund-daneben Versandkiste offen
+GRÜN 1440-3d beet-rene-daneben Beet umgegraben
+GRÜN 1440-3d moebel-rene-daneben Möbel: Schlafen gehen?
+GRÜN 1440-3d rene-selbst-getroffen René: René
+GRÜN 1440-3d hund-selbst-getroffen Hund: A
+A schaut dic
+GRÜN 1440-3d rene-unterbricht-laufweg-nicht Laufweg ohne Unterbrechung
+GRÜN 1440-3d rene-kuschelt-wenn-ruhig Kuscheln: René
+Ich hab dich
+GRÜN 1440-3d keine-fehler []
+OK: alle 36 Fälle grün
+EXIT 0

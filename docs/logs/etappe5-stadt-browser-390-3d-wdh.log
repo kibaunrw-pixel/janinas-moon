@@ -1,0 +1,13 @@
+KEIN BODEN 6 9 {"map":"village","p":[10,10],"dogs":[],"npc":[["henk",9,24]]}
+AssertionError [ERR_ASSERTION]: sichtbarer freier Boden nahe 6,9
+    at walk (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/stadt-browser.cjs:22:302)
+    at async home (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/stadt-browser.cjs:35:396)
+    at async /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/stadt-browser.cjs:39:175 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: null,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+EXIT 1

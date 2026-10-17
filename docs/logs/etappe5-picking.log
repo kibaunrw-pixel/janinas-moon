@@ -1,0 +1,17 @@
+Feld-Repro { width: 390, height: 844 } {
+  pick: { wx: 4.5, wy: 10.5, collectible: true },
+  screen: [ 137.06265258846, 330.4536777995199, true ],
+  el: '<canvas id="game" width="390" height="844"></canvas>',
+  p: { x: 5, y: 11 },
+  ui: { ui: { panel: false, dialog: false, fade: false }, fish: null }
+}
+3D Socke/Sammelfunde/Bauholz + Tierüberlappung/Feld/Doppeltipp { width: 390, height: 844 } OK
+Feld-Repro { width: 1440, height: 900 } {
+  pick: { wx: 4.5, wy: 10.5, collectible: true },
+  screen: [ 558.2570067121424, 246.1662264474093, true ],
+  el: '<canvas id="game" width="1440" height="900"></canvas>',
+  p: { x: 5, y: 11 },
+  ui: { ui: { panel: false, dialog: false, fade: false }, fish: null }
+}
+3D Socke/Sammelfunde/Bauholz + Tierüberlappung/Feld/Doppeltipp { width: 1440, height: 900 } OK
+EXIT 0
