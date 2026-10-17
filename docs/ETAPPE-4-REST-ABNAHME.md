@@ -2,6 +2,12 @@
 
 Ausgang `de0367c4de61d70ab48cc069e0e4a1dc1493d29d` (von René bereits veröffentlicht). Neue Arbeit ausschließlich `feat/stadt-und-wohnraum`, **nicht veröffentlicht**. Persönliche Browserprofile und Spielstände wurden nicht geöffnet.
 
+## Gesicherter Produktstand
+
+Nach jedem grünen Modul committed und nach `origin/feat/stadt-und-wohnraum` gepusht: `70cc5cd` (A), `b31cfab` (B), `69bc831` (C), **`522beb0df1d334aa728bbe466159aa44bb21e897` (A–D vollständig, letzter Produktcommit)**. Dieser 40-stellige Produkt-Remotehash wurde mit `git ls-remote` zurückgelesen. `main` und `gh-pages` wurden ebenfalls zurückgelesen und bleiben beide auf **`de0367c4de61d70ab48cc069e0e4a1dc1493d29d`**. Ein nachfolgender Abschluss-Dokumentationscommit verändert keinen Spielcode.
+
+Kurze Reproduktion im Repo: `/Users/reneklomfas/.hermes/node/bin/node --test tests/*.test.cjs`; Syntax mit `node --check` je `jm-*.js` und `sw.js`. Browserprogramme `tests/chronik-browser.cjs`, `tests/entdecken-browser.cjs`, `tests/gemeinschaft-browser.cjs`, `tests/zuhause-browser.cjs` mit isoliertem Loopback-Server, `PLAYWRIGHT_PATH`, Chrome-Channel und `caffeinate -ims` seriell betreiben. `BASE_URL` ist einstellbar; neue Standardvorschau 8793. `SEG` wählt bei Entdecken/Gemeinschaft/Zuhause nur benötigte Abschnitte. Kein `run-all` notwendig.
+
 ## A – Brunnenchronik und Waldhilfe
 
 `jm-chronik.js` verbindet W08, W11, W12 und W32 mit vorhandenen Systemen: Henks Gewölbe → Steintafel → Ruinenplatte auf Ebene 9 → Hedwig am reparierten alten Brunnen → Steinring im Vollmondwald → Jonas → Lumi. Fortschritt und Inschriften stehen im Herz-Tagebuch. Die Einladung kommt auch bei alten fortgeschrittenen Spielständen bei der nächsten Nacht. Am Gewölbe kann die Geschichte zusätzlich direkt begonnen werden.
