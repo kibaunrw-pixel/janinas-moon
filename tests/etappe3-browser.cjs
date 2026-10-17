@@ -204,21 +204,26 @@ if(seg==='teich'){ // W21 Teich, W22 Zucht
  assert.equal((await T3()).teich.st,'bau');assert.equal(await S(()=>JMDEBUG.S.money),before.money-600);assert.equal(await S(()=>JMDEBUG.S.inv.stein),undefined);
  await reload();assert.equal((await T3()).teich.st,'bau');assert.equal(await S(()=>JMDEBUG.S.money),before.money-600);
  await night();await farmFromHouse();await goTo(13,20);await walk(13,25);assert.equal((await T3()).teich.st,'fertig');assert.ok(await S(()=>JMDEBUG.M.t[26][8]===JM.T.WASSER),'Teich ist Wasser');
- await p.waitForFunction(()=>JMDEBUG.PETS.filter(q=>q.anim==='schwimm').length===2,null,{timeout:20000});await p.waitForTimeout(800);row.shots.push(await sceneShot('teich-enten'));
- await click(12,26,.4);await p.waitForTimeout(500);assert.deepEqual(await S(()=>[JMDEBUG.S.tiere.futterE.n,JMDEBUG.S.inv.futter]),[2,4]);
+
+ await p.waitForFunction(()=>JMDEBUG.PETS.filter(q=>q.anim==='schwimm').length===2,null,{timeout:20000});/* Bildausschnitt: oberhalb des Teichs stehen */await walk(9,24);
+ if(gfx==='2d'){/* Bodenbild: drei Teichkacheln sind auf dem Bildschirm blau (Teich sichtbar gebaut, nicht nur in den Daten) */
+  const px=await p.evaluate(()=>{const d=JMDEBUG,c=document.getElementById('game'),g=c.getContext('2d'),k=c.width/c.getBoundingClientRect().width;return [[7,27],[10,25],[8,26]].map(([tx,ty])=>{const x=Math.round(((tx*16+3-Math.round(d.cam.x))*d.scale)*k),y=Math.round(((ty*16+12-Math.round(d.cam.y))*d.scale)*k);return [...g.getImageData(x,y,1,1).data];});});
+  assert.ok(px.filter(q=>q[2]>q[1]&&q[2]>q[0]+30).length>=2,'Teichkacheln blau statt Gras '+JSON.stringify(px));}
+await p.waitForTimeout(800);row.shots.push(await sceneShot('teich-enten'));
+ await click(12,26,.4);await p.waitForFunction(()=>JMDEBUG.S.inv.futter===4&&JMDEBUG.idle,null,{timeout:20000});await p.waitForTimeout(300);assert.deepEqual(await S(()=>[JMDEBUG.S.tiere.futterE.n,JMDEBUG.S.inv.futter]),[2,4]);
  await tapPet('ente1');assert.equal((await T3()).enten[1].h,1);
  // Zucht-Fixture: beide Enten seit Tagen mit 3 Herzen, Teich seit vier Tagen fertig (statt vier echte Tage warten)
  await S(()=>{const t=JMDEBUG.S.tiere;t.enten.forEach(e=>e.h=3);t.teich.done=JMDEBUG.S.day-4;});await reload();
  await backHome();await sleep();const E=(await T3()).enten;assert.equal(E.length,3,'Küken geschlüpft');const kid=E[2];assert.equal(kid.mother,'Emma');assert.equal(kid.father,'Ede');assert.ok(['w','g'].includes(kid.g[0])&&['A','g'].includes(kid.g[1]));
- await farmFromHouse();await goTo(13,20);await walk(13,25);await p.waitForTimeout(1500);row.shots.push(await sceneShot('teich-kueken'));
- await book('friends');const bt=await bookText();assert.match(bt,/Eltern: Emma × Ede/);assert.match(bt,new RegExp(kid.n));row.shots.push(await shot('teich-tagebuch'));await close();
+ await farmFromHouse();await goTo(13,20);await walk(13,25);await walk(9,24);await p.waitForTimeout(1500);row.shots.push(await sceneShot('teich-kueken'));
+ await book('friends');const bt=await bookText();assert.match(bt,/Eltern: Emma × Ede/);assert.match(bt,new RegExp(kid.n));/* Bild auf den Entenabschnitt richten */await p.evaluate(()=>{const el=[...document.querySelectorAll('body *')].filter(e=>/Eltern: Emma/.test(e.textContent)).sort((a,b)=>a.textContent.length-b.textContent.length)[0];el&&el.scrollIntoView({block:'center'});});await p.waitForTimeout(400);row.shots.push(await shot('teich-tagebuch'));await close();
  await reload();assert.deepEqual((await T3()).enten,E);row.result={kid:kid.n,c:kid.c,g:kid.g};}
 if(seg==='rettung'){ // W23
  await click(10,14,.3);await seenText(/Kätzchen/);await dialogs();assert.equal((await T3()).rettung.st,'pflege');
  await walk(13,9);await walk(13,2);await click(13,0);await map('farm');await walk(13,20);await walk(12,21);
  const careOnce=async()=>{await click(12,20,.3);await p.waitForTimeout(600);await dialogs();};
  await careOnce();assert.equal((await T3()).rettung.care.length,1);assert.equal(await S(()=>JMDEBUG.S.inv.milch),2);
- await reload();await careOnce();assert.equal(await S(()=>JMDEBUG.S.inv.milch),2,'einmal am Tag');row.shots.push(await sceneShot('rettung-korb'));
+ await reload();await careOnce();assert.equal(await S(()=>JMDEBUG.S.inv.milch),2,'einmal am Tag');/* Bildausschnitt: zur Seite treten, damit Janina den Korb nicht verdeckt */await dialogs();await walk(14,22);await p.waitForTimeout(700);row.shots.push(await sceneShot('rettung-korb'));
  for(let d=2;d<=3;d++){await night();await farmFromHouse();await goTo(13,20);await walk(12,21);await careOnce();assert.equal((await T3()).rettung.care.length,d);}
  await night();await farmFromHouse();await goTo(13,20);await walk(12,21);await click(12,20,.3);await pickChoice('Es bleibt bei uns');await dialogs();
  assert.equal((await T3()).rettung.st,'adoptiert');await p.waitForFunction(()=>JMDEBUG.PETS.some(q=>q.id==='pip'),null,{timeout:20000});

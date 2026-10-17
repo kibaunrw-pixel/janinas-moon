@@ -594,7 +594,7 @@ function buildWorld(){
   for(const o of M.obj) if(o.k==="cafetisch") lightsSrc.push([o.x+.5,1.5,o.y+.5,true,"lampe"]);
   // Etappe 3: Deko ohne Kachelsperre (Stühle, Pfotenspur, Lichterkette, Kundenstopper, Kübel)
   for(const d of (M.decor||[])){
-    if(d.k==="pfote"){ const px=d.x+.35+(d.r%2)*.3, pz=d.y+.5; mg.sph(px,.015,pz,.07,.01,.06,"#4a3424"); for(const [a,b] of [[-.07,-.08],[0,-.11],[.07,-.08]]) mg.sph(px+a,.015,pz+b,.025,.01,.025,"#4a3424"); continue; }
+    if(d.k==="pfote"){ const px=d.x+.35+(d.r%2)*.3, pz=d.y+.5; /* deutlich, aber flach: Ballen und drei Zehen, etwas größer als im 2D-Raster, damit die Spur auch auf dem Weg lesbar ist */ mg.sph(px,.025,pz,.1,.012,.085,"#3a2618"); for(const [a,b] of [[-.1,-.12],[0,-.16],[.1,-.12]]) mg.sph(px+a,.025,pz+b,.037,.012,.037,"#3a2618"); continue; }
     if(d.k==="lichterkette"){ for(let i=0;i<d.w*2;i++){ const lx=d.x+.25+i*.5; mgE.sph(lx,2.05+Math.sin(i*1.3)*.06,d.y+.95,.05,.05,.05,["#ffd77a","#ff9fb8","#a8e0ff","#c6f09a"][i%4]); } mg.box(d.x+d.w/2,2.1,d.y+.95,d.w,.01,.01,"#3a3a44"); continue; }
     if(d.k==="stuhl"){ prop(mg,mgE,{k:"stuhl",x:d.x+(d.face==="l"?-.45:.45),y:d.y,face:d.face},se,st); continue; }
     prop(mg,mgE,{k:d.k,x:d.x,y:d.y},se,st); }

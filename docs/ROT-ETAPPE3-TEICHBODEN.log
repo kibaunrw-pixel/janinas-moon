@@ -1,0 +1,6 @@
+# Rot-Lauf: tests/etappe3-browser.cjs teich 390/2D gegen jm-game.js aus 2a1887f (ohne gKey), übrige Dateien Arbeitsstand
+{"seg":"teich","width":390,"gfx":"2d","ok":true,"raf":62,"result":{"kid":"Kiki","c":"wild","g":["w","A"]}}
+OK etappe3-browser teich
+EXIT 0
+# Ergebnis: KEIN Rot. Vermutung „Bodenpuffer zeigt unter dem neuen Teich Gras“ widerlegt: Bilder alt/neu gleich, Enten klar auf dem Wasser.
+# Die vorsorgliche Änderung (groundKey mit Kachelwechseln) wurde deshalb zurückgenommen. Die Pixelprüfung bleibt als Sichtbarkeitsprüfung, nicht als Rot-grün-Beleg.
