@@ -18,14 +18,14 @@ const hh=m=>Math.floor(m/60)+(m%60?':'+String(m%60).padStart(2,'0'):'');
 const met=(s,id)=>!!(s.npc&&s.npc[id]&&s.npc[id].met);
 
 R.PLACES={
- see:{map:'forest',n:'am Waldsee',kurz:'Waldsee',obj:{k:'picknick',x:16,y:21,w:2,h:1},rene:[17,22],spot:[16,22]},
+ see:{map:'forest',n:'am Waldsee',kurz:'Waldsee',obj:{k:'picknick',x:16,y:21,w:2,h:1},rene:[17,20],spot:[16,20]},
  wiese:{map:'farm',n:'auf der Wiese am Teich',kurz:'Wiese am Teich',obj:{k:'picknick',x:18,y:18,w:2,h:1},rene:[20,18],spot:[17,18]},// nördlich vom Teich; Beete (FELD) und Gewächshaus (GLAS 16–21,24–26) bleiben frei
  stadt:{map:'stadt',n:'am Stadtbrunnen in Lindenstadt',kurz:'Stadtbrunnen Lindenstadt',obj:{k:'bistro',x:10,y:15,w:2,h:1},rene:[12,15],spot:[9,15]}};
 R.SLOTS={mittag:{n:'12 Uhr',from:720,to:900},abend:{n:'17 Uhr',from:1020,to:1200},ausflug:{n:'17 Uhr',from:1020,to:1260}};
 R.KINDS={picknick:{places:['see','wiese'],slots:['mittag','abend']},ausflug:{places:['stadt'],slots:['ausflug']}};
 R.HOME={rene:[7,5],spot:[4,5]};
 R.BDAY={from:600,to:960,rosa:[10,9],mei:[13,9],table:{k:'geburtstagstisch',x:11,y:9,w:2,h:1},spot:[12,8],gift:{items:{tee:2,rolle:2}},card:{items:{erdbeere:3}}};
-R.BANK={k:'herzbank',x:21,y:17,w:2,h:1};// am Teich, neben dem Picknickplatz
+R.BANK={k:'herzbank',x:20,y:17,w:2,h:1};// am Teich, neben dem Picknickplatz
 R.DEF={jb:{s:2,d:6},jt:{s:1,d:12}};
 R.JT_FROM=1080;R.JT_TO=1410;
 

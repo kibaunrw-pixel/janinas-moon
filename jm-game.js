@@ -1866,6 +1866,7 @@ function sceneView(){
  if(M.id==="farm"&&JM.Rom.jbToday(S)&&S.min>=JM.Rom.BDAY.from&&S.min<JM.Rom.BDAY.to){points=[JM.Rom.BDAY.spot,JM.Rom.BDAY.rosa,JM.Rom.BDAY.mei,[11,8],[13,10]];kind="geburtstag";}
  if(M.id==="village"&&["treffen","paar"].includes(S.dorf?.paar.st)&&S.min>=1080&&S.min<1200){const a=NPCA.mei,b=NPCA.timo;if(a?.vis&&b?.vis)points=[[a.x,a.y],[b.x,b.y]];kind="paar";}
  if(!points||Math.min(...points.map(([x,y])=>Math.hypot(P.x-x,P.y-y)))>3)return null;
+ if(kind==="geburtstag"){if(RA.vis&&Math.hypot(RA.x-12,RA.y-9)<7)points.push([RA.x,RA.y]);for(const a of Object.values(NPCA))if(a.vis&&Math.hypot(a.x-12,a.y-9)<7)points.push([a.x,a.y]);}
  const xs=points.map(p=>p[0]),ys=points.map(p=>p[1]);xs.push(P.x);ys.push(P.y);
  return {kind,x:(Math.min(...xs)+Math.max(...xs))/2+.5,y:(Math.min(...ys)+Math.max(...ys))/2+.5,width:Math.max(...xs)-Math.min(...xs)+3.4};
 }
@@ -1930,7 +1931,15 @@ function drawArrow3(pr){
   }
   ctx.restore();
 }
+// Blickrichtungen sind Darstellung: stehende Szenenfiguren sehen ihr Gegenüber an.
+function faceScene(){const v=sceneView();if(!v)return;
+ const face=(a,b)=>{if(!a||!b||a.moving||a.path?.length)return;const dx=b.x-a.x,dy=b.y-a.y;a.dir=Math.abs(dx)>=Math.abs(dy)?2:dy<0?1:0;a.flip=dx<0;};
+ if(["picknick","ausflug","jt"].includes(v.kind)&&RA.vis){face(P,RA);face(RA,P);}
+ if(v.kind==="paar"){face(NPCA.mei,NPCA.timo);face(NPCA.timo,NPCA.mei);}
+ if(v.kind==="geburtstag"){face(P,{x:12,y:9});face(NPCA.rosa,P);face(NPCA.mei,P);if(RA.vis)face(RA,P);}
+}
 function render(){
+  faceScene();
   if(use3D()){ render3(); return; }
   if(JM.R3&&JM.R3.ok) JM.R3.show(false);
   const se=season(), night=S.min>=1110||S.min<390, dk=darkness();
