@@ -1,0 +1,12 @@
+{"seg":"geheimnis","width":390,"gfx":"3d","ok":true,"raf":62,"result":{"henk":3}}
+{"seg":"streit","width":390,"gfx":"3d","ok":true,"raf":62,"result":{"streit":"versoehnt"}}
+{"seg":"paar","width":390,"gfx":"3d","ok":true,"raf":62,"result":{"paar":"paar"}}
+FEHLER picknick 390 3d page.waitForFunction: Timeout 20000ms exceeded.
+    at tapRene (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe2-browser.cjs:81:161)
+    at async /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe2-browser.cjs:147:125
+DIAG fehler picknick-390-3d {"map":"forest","p":[15,21],"idle":true,"busy":"{\"ui\":{\"panel\":false,\"dialog\":false,\"fade\":false},\"fish\":null}","min":727.08183333331,"dlg":"","panel":"Briefkasten2 ungelesen · 3 BriefeNeuSpäne und Plänevon Timo · GrußEin Bauwunsch für Lindenstadtvon Paula · BauauftragGelesenEine Einladungvon René · Von HerzenSchließen","notes":"Wir sind um 12 bis 15 Uhr verabredet. Ich freu mich auf dich!"}
+{"seg":"picknick","width":390,"gfx":"3d","ok":false,"raf":62,"error":"page.waitForFunction: Timeout 20000ms exceeded.\n    at tapRene (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe2-browser.cjs:81:161)\n    at async /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe2-browser.cjs:147:125"}
+{"seg":"ausflug","width":390,"gfx":"3d","ok":true,"raf":62,"result":{"aus":1}}
+{"seg":"jahrestag","width":390,"gfx":"3d","ok":true,"raf":62,"result":{"jt":1}}
+{"seg":"geburtstag","width":390,"gfx":"3d","ok":true,"raf":62,"result":{"jb":true}}
+FEHLGESCHLAGEN 1

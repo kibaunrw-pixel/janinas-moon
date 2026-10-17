@@ -521,7 +521,7 @@ function buildWorld(){
     if(BSTYLE[o.k]){ const ls=building(mg,mgE,o,se); ls.forEach(l=>lightsSrc.push(l)); addPick(o.x,o.y,o.w,o.h,2.6,o); continue; }
     if(o.k==="mondbaum"){ mondbaum(mg,mgE,o,se,Object.keys(S.bundleDone).length); addPick(o.x,o.y,2,2,3,o); continue; }
     if(o.k==="bush") continue; // dynamisch (Beeren)
-    prop(mg,mgE,o,se,st); addPick(o.x,o.y,o.w||1,o.h||1,o.k==="lamp"?1.7:o.k.startsWith("bahnhofhaus")?2.6:o.k==="zug"?1.7:o.k==="gleis"?.3:1.1,o);
+    prop(mg,mgE,o,se,st); addPick(o.x,o.y,o.w||1,o.h||1,o.k==="lamp"?1.7:o.k.startsWith("bahnhofhaus")?2.6:o.k==="zug"?1.7:o.k==="gleis"?.3:o.k==="picknick"?.6:1.1,o);
     if(o.k==="lamp") lightsSrc.push([o.x+.5,1.45,o.y+.5,true]);
     if(o.k==="tisch_jt"||o.k==="bistro"||o.k==="geburtstagstisch") lightsSrc.push([o.x+(o.w||1)/2,1.1,o.y+.5,true,"kerze"]);
   }
