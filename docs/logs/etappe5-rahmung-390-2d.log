@@ -1,0 +1,29 @@
+OK Rahmung stufe1 390 2d stadtplan,auftragstafel,bauschild@ziele:plan
+OK Rahmung baustelle 390 2d bau2
+OK Rahmung stufe2_baeckerei 390 2d baeckerei
+OK Rahmung stufe3_blumenladen 390 2d blumenladen
+OK Rahmung stufe3_park 390 2d parkpavillon,fountain@ziele:park,bank@ziele:park,blumenbeet
+OK Rahmung stufe4_villa 390 2d villa
+OK Rahmung stufe5_hotel 390 2d hotel
+OK Rahmung stufe5_gesamt 390 2d 
+OK Rahmung feldstueck 390 2d 
+OK Rahmung wettbewerb 390 2d wettbewerbstand
+OK Rahmung trophaeen 390 2d trophaeen
+OK Rahmung trophaeenwand 390 2d panel
+FEHLER Rahmung sterne 390 2d nichts ragt seitlich heraus
++ actual - expected
+
++ [
++   'tab :340-397',
++   'tab :401-480',
++   'tab :484-573',
++   'tab :577-651',
++   'tab :655-740'
++ ]
+- []
+
+FEHLER Rahmung material 390 2d Objekt counter
+FEHLER Rahmung werkzeuge 390 2d Objekt counter
+OK Rahmung grossauftrag 390 2d panel
+OK Rahmung wettbewerb_fenster 390 2d panel
+ROT etappe5-rahmung: 3

@@ -1,0 +1,47 @@
+[
+  {
+    "scene": "sterne",
+    "width": 390,
+    "gfx": "2d",
+    "top": 185.5,
+    "bottom": 602,
+    "hud": "Lindenstadt wächst: Lottes Blumenladen und Stadtpark\n38.500 / 60.000 G",
+    "panel": [
+      12,
+      12,
+      378,
+      832
+    ],
+    "checked": [
+      "panel"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-sterne-390-2d.png"
+  },
+  {
+    "scene": "material",
+    "width": 390,
+    "gfx": "2d",
+    "top": 185.5,
+    "bottom": 602,
+    "error": "The input did not match the regular expression /Stein[\\s\\S]*Holz|Holz[\\s\\S]*Stein/. Input:\n\n'Timos Zimmerei\\n' +\n  '\\n' +\n  'Timo · ♥♥♥♥♥♥♥♥♥♥\\n' +\n  '\\n' +\n  'Reden\\n' +\n  'Geschenk: erst unten wählen\\n' +\n  '\\n' +\n  'Du hast 38.500 G\\n' +\n  '\\n' +\n  'Bauholz\\n' +\n  'Bauholz · bis 60 am Tag · Äste und Wald sind kostenlos · heute noch 60\\n' +\n  '35 G\\n' +\n  '1×\\n' +\n  '5×\\n' +\n  '10×\\n' +\n  'Stein\\n' +\n  'Bruchstein · bis 60 am Tag · in der Mondhöhle kostenlos · heute noch 60\\n' +\n  '30 G\\n' +\n  '1×\\n' +\n  '5×\\n' +\n  '10×\\n' +\n  'Eisenerz\\n' +\n  'Eisenerz · bis 10 am Tag · ab Höhlenebene 3 kostenlos · heute noch 10\\n' +\n  '90 G\\n' +\n  '1×\\n' +\n  '5×\\n' +\n  '10×\\n' +\n  'Hausausbau · Stufe 2/2"
+  },
+  {
+    "scene": "werkzeuge",
+    "width": 390,
+    "gfx": "2d",
+    "top": 185.5,
+    "bottom": 602,
+    "panel": [
+      12,
+      134.203125,
+      378,
+      709.796875
+    ],
+    "checked": [
+      "panel"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-werkzeuge-390-2d.png"
+  }
+]

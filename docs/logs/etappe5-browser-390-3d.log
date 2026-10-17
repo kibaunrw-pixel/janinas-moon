@@ -1,0 +1,17 @@
+START {"map":"farm","x":6,"y":9,"objs":["house:house","coop:coop","barn:barn","mailbox:mail","box:ship","doghouse:doghouse","trough:trough_h","trough:trough_c","bush:bush","bush:bush","bush:bush","bush:bush"]}
+{"seg":"migration","width":390,"gfx":"3d","ok":true,"raf":{"frames":122,"ms":2008},"result":{"geld":38500,"brief":true,"hinweis":true}}
+START {"map":"i_zimmerei","x":6,"y":6,"objs":["counter_huette:counter","shelf:shelf","shelf:shelf","barrel:deco"]}
+{"seg":"material","width":390,"gfx":"3d","ok":true,"raf":{"frames":122,"ms":2006.4000000357628},"result":{"stein":60,"holz":10,"geld":36350}}
+START {"map":"stadt","x":16,"y":10,"objs":["house:plot:0","board:plot:0","house:plot:1","board:plot:1","house:plot:2","board:plot:2","bahnhofhaus_stadt:train","fahrplan:train","fountain:fountain","lamp:lamp","lamp:lamp","house:post:haus7"]}
+{"seg":"stadt","width":390,"gfx":"3d","ok":true,"raf":{"frames":122,"ms":2006.6000000238419},"result":{"stufe":2,"ankauf":1000}}
+START {"map":"stadt","x":36,"y":12,"objs":["house:plot:0","board:plot:0","house:plot:1","board:plot:1","house:plot:2","board:plot:2","bahnhofhaus_stadt:train","fahrplan:train","fountain:fountain","lamp:lamp","lamp:lamp","house:post:haus7"]}
+{"seg":"stadt5","width":390,"gfx":"3d","ok":true,"raf":{"frames":122,"ms":2002.699999988079},"result":{"gebaeude":4,"park":true}}
+START {"map":"i_zimmerei","x":6,"y":6,"objs":["counter_huette:counter","shelf:shelf","shelf:shelf","barrel:deco"]}
+{"seg":"hof","width":390,"gfx":"3d","ok":true,"raf":{"frames":122,"ms":2008.300000011921},"result":{"silber":true,"felder":true,"gold":true}}
+START {"map":"haus","x":5,"y":4,"objs":["stove:stove","counter:counter","fridge:fridge","table:table","tv:tv","plant:plant","bed:bed","wardrobe:wardrobe","workbench:craft","trophaeen:ziele:trophaeen","fridge:fridge","workbench:craft"]}
+{"seg":"ziele","width":390,"gfx":"3d","ok":true,"raf":{"frames":122,"ms":2011.800000011921},"result":{"sterne":true,"trophaeen":true}}
+START {"map":"stadt","x":16,"y":14,"objs":["house:plot:0","board:plot:0","house:plot:1","board:plot:1","house:plot:2","board:plot:2","bahnhofhaus_stadt:train","fahrplan:train","fountain:fountain","lamp:lamp","lamp:lamp","house:post:haus7"]}
+{"seg":"auftrag","width":390,"gfx":"3d","ok":true,"raf":{"frames":122,"ms":2010},"result":{"lohn":968}}
+START {"map":"stadt","x":15,"y":17,"objs":["house:plot:0","board:plot:0","house:plot:1","board:plot:1","house:plot:2","board:plot:2","bahnhofhaus_stadt:train","fahrplan:train","fountain:fountain","lamp:lamp","lamp:lamp","house:post:haus7"]}
+{"seg":"wettbewerb","width":390,"gfx":"3d","ok":true,"raf":{"frames":122,"ms":2007.8999999761581},"result":{"punkte":1120,"preis":3000}}
+OK etappe5-browser

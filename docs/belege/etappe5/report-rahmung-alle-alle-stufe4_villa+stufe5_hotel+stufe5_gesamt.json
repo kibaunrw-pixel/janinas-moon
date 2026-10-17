@@ -1,0 +1,664 @@
+[
+  {
+    "scene": "stufe4_villa",
+    "width": 390,
+    "gfx": "2d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        340,
+        602,
+        382,
+        740
+      ],
+      [
+        "holdlbl",
+        69.328125,
+        748,
+        320.671875,
+        770
+      ],
+      [
+        "barrow",
+        8,
+        774,
+        382,
+        836
+      ]
+    ],
+    "checked": [
+      "villa",
+      "villazaun"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-stufe4_villa-390-2d.png"
+  },
+  {
+    "scene": "stufe5_hotel",
+    "width": 390,
+    "gfx": "2d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        340,
+        602,
+        382,
+        740
+      ],
+      [
+        "holdlbl",
+        69.328125,
+        748,
+        320.671875,
+        770
+      ],
+      [
+        "barrow",
+        8,
+        774,
+        382,
+        836
+      ]
+    ],
+    "checked": [
+      "hotel"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-stufe5_hotel-390-2d.png"
+  },
+  {
+    "scene": "stufe5_gesamt",
+    "width": 390,
+    "gfx": "2d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        340,
+        602,
+        382,
+        740
+      ],
+      [
+        "holdlbl",
+        69.328125,
+        748,
+        320.671875,
+        770
+      ],
+      [
+        "barrow",
+        8,
+        774,
+        382,
+        836
+      ]
+    ],
+    "checked": [],
+    "raf": 91,
+    "file": "docs/belege/etappe5/rahmung-stufe5_gesamt-390-2d.png"
+  },
+  {
+    "scene": "stufe4_villa",
+    "width": 390,
+    "gfx": "3d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        340,
+        602,
+        382,
+        740
+      ],
+      [
+        "holdlbl",
+        69.328125,
+        748,
+        320.671875,
+        770
+      ],
+      [
+        "barrow",
+        8,
+        774,
+        382,
+        836
+      ]
+    ],
+    "checked": [
+      "villa",
+      "villazaun"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-stufe4_villa-390-3d.png"
+  },
+  {
+    "scene": "stufe5_hotel",
+    "width": 390,
+    "gfx": "3d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        340,
+        602,
+        382,
+        740
+      ],
+      [
+        "holdlbl",
+        69.328125,
+        748,
+        320.671875,
+        770
+      ],
+      [
+        "barrow",
+        8,
+        774,
+        382,
+        836
+      ]
+    ],
+    "checked": [
+      "hotel"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-stufe5_hotel-390-3d.png"
+  },
+  {
+    "scene": "stufe5_gesamt",
+    "width": 390,
+    "gfx": "3d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        340,
+        602,
+        382,
+        740
+      ],
+      [
+        "holdlbl",
+        69.328125,
+        748,
+        320.671875,
+        770
+      ],
+      [
+        "barrow",
+        8,
+        774,
+        382,
+        836
+      ]
+    ],
+    "checked": [],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-stufe5_gesamt-390-3d.png"
+  },
+  {
+    "scene": "stufe4_villa",
+    "width": 1440,
+    "gfx": "2d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        1390,
+        658,
+        1432,
+        796
+      ],
+      [
+        "holdlbl",
+        594.328125,
+        804,
+        845.671875,
+        826
+      ],
+      [
+        "barrow",
+        410,
+        830,
+        1030,
+        892
+      ]
+    ],
+    "checked": [
+      "villa",
+      "villazaun"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-stufe4_villa-1440-2d.png"
+  },
+  {
+    "scene": "stufe5_hotel",
+    "width": 1440,
+    "gfx": "2d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        1390,
+        658,
+        1432,
+        796
+      ],
+      [
+        "holdlbl",
+        594.328125,
+        804,
+        845.671875,
+        826
+      ],
+      [
+        "barrow",
+        410,
+        830,
+        1030,
+        892
+      ]
+    ],
+    "checked": [
+      "hotel"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-stufe5_hotel-1440-2d.png"
+  },
+  {
+    "scene": "stufe5_gesamt",
+    "width": 1440,
+    "gfx": "2d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        1390,
+        658,
+        1432,
+        796
+      ],
+      [
+        "holdlbl",
+        594.328125,
+        804,
+        845.671875,
+        826
+      ],
+      [
+        "barrow",
+        410,
+        830,
+        1030,
+        892
+      ]
+    ],
+    "checked": [
+      "baeckerei",
+      "blumenladen",
+      "villa",
+      "hotel",
+      "parkpavillon"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-stufe5_gesamt-1440-2d.png"
+  },
+  {
+    "scene": "stufe4_villa",
+    "width": 1440,
+    "gfx": "3d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        1390,
+        658,
+        1432,
+        796
+      ],
+      [
+        "holdlbl",
+        594.328125,
+        804,
+        845.671875,
+        826
+      ],
+      [
+        "barrow",
+        410,
+        830,
+        1030,
+        892
+      ]
+    ],
+    "checked": [
+      "villa",
+      "villazaun"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-stufe4_villa-1440-3d.png"
+  },
+  {
+    "scene": "stufe5_hotel",
+    "width": 1440,
+    "gfx": "3d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        1390,
+        658,
+        1432,
+        796
+      ],
+      [
+        "holdlbl",
+        594.328125,
+        804,
+        845.671875,
+        826
+      ],
+      [
+        "barrow",
+        410,
+        830,
+        1030,
+        892
+      ]
+    ],
+    "checked": [
+      "hotel"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-stufe5_hotel-1440-3d.png"
+  },
+  {
+    "scene": "stufe5_gesamt",
+    "width": 1440,
+    "gfx": "3d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        1390,
+        658,
+        1432,
+        796
+      ],
+      [
+        "holdlbl",
+        594.328125,
+        804,
+        845.671875,
+        826
+      ],
+      [
+        "barrow",
+        410,
+        830,
+        1030,
+        892
+      ]
+    ],
+    "checked": [],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-stufe5_gesamt-1440-3d.png"
+  }
+]

@@ -1,0 +1,214 @@
+[
+  {
+    "scene": "stufe1",
+    "width": 390,
+    "gfx": "2d",
+    "top": 185.5,
+    "bottom": 602,
+    "checked": [
+      "stadtplan",
+      "auftragstafel",
+      "bauschild@ziele:plan"
+    ],
+    "raf": 91,
+    "file": "docs/belege/etappe5/rahmung-stufe1-390-2d.png"
+  },
+  {
+    "scene": "baustelle",
+    "width": 390,
+    "gfx": "2d",
+    "top": 184.25,
+    "bottom": 602,
+    "checked": [
+      "bau2"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-baustelle-390-2d.png"
+  },
+  {
+    "scene": "stufe2_baeckerei",
+    "width": 390,
+    "gfx": "2d",
+    "top": 185.5,
+    "bottom": 602,
+    "checked": [
+      "baeckerei"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-stufe2_baeckerei-390-2d.png"
+  },
+  {
+    "scene": "stufe3_blumenladen",
+    "width": 390,
+    "gfx": "2d",
+    "top": 185.5,
+    "bottom": 602,
+    "checked": [
+      "blumenladen"
+    ],
+    "raf": 91,
+    "file": "docs/belege/etappe5/rahmung-stufe3_blumenladen-390-2d.png"
+  },
+  {
+    "scene": "stufe3_park",
+    "width": 390,
+    "gfx": "2d",
+    "top": 185.5,
+    "bottom": 602,
+    "checked": [
+      "parkpavillon",
+      "fountain@ziele:park",
+      "bank@ziele:park",
+      "blumenbeet"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-stufe3_park-390-2d.png"
+  },
+  {
+    "scene": "stufe4_villa",
+    "width": 390,
+    "gfx": "2d",
+    "top": 185.5,
+    "bottom": 602,
+    "checked": [
+      "villa"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-stufe4_villa-390-2d.png"
+  },
+  {
+    "scene": "stufe5_hotel",
+    "width": 390,
+    "gfx": "2d",
+    "top": 185.5,
+    "bottom": 602,
+    "checked": [
+      "hotel"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-stufe5_hotel-390-2d.png"
+  },
+  {
+    "scene": "stufe5_gesamt",
+    "width": 390,
+    "gfx": "2d",
+    "top": 185.5,
+    "bottom": 602,
+    "checked": [],
+    "raf": 91,
+    "file": "docs/belege/etappe5/rahmung-stufe5_gesamt-390-2d.png"
+  },
+  {
+    "scene": "feldstueck",
+    "width": 390,
+    "gfx": "2d",
+    "top": 185.5,
+    "bottom": 602,
+    "checked": [],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-feldstueck-390-2d.png"
+  },
+  {
+    "scene": "wettbewerb",
+    "width": 390,
+    "gfx": "2d",
+    "top": 168.25,
+    "bottom": 602,
+    "checked": [
+      "wettbewerbstand"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-wettbewerb-390-2d.png"
+  },
+  {
+    "scene": "trophaeen",
+    "width": 390,
+    "gfx": "2d",
+    "top": 185.5,
+    "bottom": 602,
+    "checked": [
+      "trophaeen"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-trophaeen-390-2d.png"
+  },
+  {
+    "scene": "trophaeenwand",
+    "width": 390,
+    "gfx": "2d",
+    "top": 185.5,
+    "bottom": 602,
+    "panel": [
+      12,
+      274.203125,
+      378,
+      569.796875
+    ],
+    "checked": [
+      "panel"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-trophaeenwand-390-2d.png"
+  },
+  {
+    "scene": "sterne",
+    "width": 390,
+    "gfx": "2d",
+    "top": 185.5,
+    "bottom": 602,
+    "hud": "Lindenstadt wächst: Lottes Blumenladen und Stadtpark\n38.500 / 60.000 G",
+    "error": "nichts ragt seitlich heraus\n+ actual - expected\n\n+ [\n+   'tab :340-397',\n+   'tab :401-480',\n+   'tab :484-573',\n+   'tab :577-651',\n+   'tab :655-740'\n+ ]\n- []\n"
+  },
+  {
+    "scene": "material",
+    "width": 390,
+    "gfx": "2d",
+    "top": 185.5,
+    "bottom": 602,
+    "error": "Objekt counter"
+  },
+  {
+    "scene": "werkzeuge",
+    "width": 390,
+    "gfx": "2d",
+    "top": 185.5,
+    "bottom": 602,
+    "error": "Objekt counter"
+  },
+  {
+    "scene": "grossauftrag",
+    "width": 390,
+    "gfx": "2d",
+    "top": 185.5,
+    "bottom": 602,
+    "panel": [
+      12,
+      260.453125,
+      378,
+      583.546875
+    ],
+    "checked": [
+      "panel"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-grossauftrag-390-2d.png"
+  },
+  {
+    "scene": "wettbewerb_fenster",
+    "width": 390,
+    "gfx": "2d",
+    "top": 168.25,
+    "bottom": 602,
+    "panel": [
+      12,
+      228.65625,
+      378,
+      615.34375
+    ],
+    "checked": [
+      "panel"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-wettbewerb_fenster-390-2d.png"
+  }
+]

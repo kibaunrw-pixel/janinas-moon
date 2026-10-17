@@ -1,0 +1,246 @@
+[
+  {
+    "scene": "trophaeenwand",
+    "width": 390,
+    "gfx": "2d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        340,
+        602,
+        382,
+        740
+      ],
+      [
+        "holdlbl",
+        69.328125,
+        748,
+        320.671875,
+        770
+      ],
+      [
+        "barrow",
+        8,
+        774,
+        382,
+        836
+      ]
+    ],
+    "panel": [
+      12,
+      130.25,
+      378,
+      713.734375
+    ],
+    "checked": [
+      "panel"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-trophaeenwand-390-2d.png"
+  },
+  {
+    "scene": "werkzeuge",
+    "width": 390,
+    "gfx": "2d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        340,
+        602,
+        382,
+        740
+      ],
+      [
+        "holdlbl",
+        69.328125,
+        748,
+        320.671875,
+        770
+      ],
+      [
+        "barrow",
+        8,
+        774,
+        382,
+        836
+      ]
+    ],
+    "panel": [
+      12,
+      15.15625,
+      378,
+      828.828125
+    ],
+    "checked": [
+      "panel"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-werkzeuge-390-2d.png"
+  },
+  {
+    "scene": "trophaeenwand",
+    "width": 390,
+    "gfx": "3d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        340,
+        602,
+        382,
+        740
+      ],
+      [
+        "holdlbl",
+        69.328125,
+        748,
+        320.671875,
+        770
+      ],
+      [
+        "barrow",
+        8,
+        774,
+        382,
+        836
+      ]
+    ],
+    "panel": [
+      12,
+      130.25,
+      378,
+      713.734375
+    ],
+    "checked": [
+      "panel"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-trophaeenwand-390-3d.png"
+  },
+  {
+    "scene": "werkzeuge",
+    "width": 390,
+    "gfx": "3d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        340,
+        602,
+        382,
+        740
+      ],
+      [
+        "holdlbl",
+        69.328125,
+        748,
+        320.671875,
+        770
+      ],
+      [
+        "barrow",
+        8,
+        774,
+        382,
+        836
+      ]
+    ],
+    "panel": [
+      12,
+      15.15625,
+      378,
+      828.828125
+    ],
+    "checked": [
+      "panel"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-werkzeuge-390-3d.png"
+  }
+]

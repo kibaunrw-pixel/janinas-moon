@@ -1,0 +1,3904 @@
+[
+  {
+    "scene": "stufe1",
+    "width": 390,
+    "gfx": "2d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        340,
+        602,
+        382,
+        740
+      ],
+      [
+        "holdlbl",
+        69.328125,
+        748,
+        320.671875,
+        770
+      ],
+      [
+        "barrow",
+        8,
+        774,
+        382,
+        836
+      ]
+    ],
+    "checked": [
+      "stadtplan",
+      "auftragstafel",
+      "bauschild@ziele:plan"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-stufe1-390-2d.png"
+  },
+  {
+    "scene": "baustelle",
+    "width": 390,
+    "gfx": "2d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        184.25
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        184.25
+      ],
+      [
+        "zoomb",
+        340,
+        602,
+        382,
+        740
+      ],
+      [
+        "holdlbl",
+        69.328125,
+        748,
+        320.671875,
+        770
+      ],
+      [
+        "barrow",
+        8,
+        774,
+        382,
+        836
+      ]
+    ],
+    "checked": [
+      "bau2"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-baustelle-390-2d.png"
+  },
+  {
+    "scene": "stufe2_baeckerei",
+    "width": 390,
+    "gfx": "2d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        340,
+        602,
+        382,
+        740
+      ],
+      [
+        "holdlbl",
+        69.328125,
+        748,
+        320.671875,
+        770
+      ],
+      [
+        "barrow",
+        8,
+        774,
+        382,
+        836
+      ]
+    ],
+    "checked": [
+      "baeckerei"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-stufe2_baeckerei-390-2d.png"
+  },
+  {
+    "scene": "stufe3_blumenladen",
+    "width": 390,
+    "gfx": "2d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        340,
+        602,
+        382,
+        740
+      ],
+      [
+        "holdlbl",
+        69.328125,
+        748,
+        320.671875,
+        770
+      ],
+      [
+        "barrow",
+        8,
+        774,
+        382,
+        836
+      ]
+    ],
+    "checked": [
+      "blumenladen"
+    ],
+    "raf": 91,
+    "file": "docs/belege/etappe5/rahmung-stufe3_blumenladen-390-2d.png"
+  },
+  {
+    "scene": "stufe3_park",
+    "width": 390,
+    "gfx": "2d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        340,
+        602,
+        382,
+        740
+      ],
+      [
+        "holdlbl",
+        69.328125,
+        748,
+        320.671875,
+        770
+      ],
+      [
+        "barrow",
+        8,
+        774,
+        382,
+        836
+      ]
+    ],
+    "checked": [
+      "parkpavillon",
+      "fountain@ziele:park",
+      "bank@ziele:park",
+      "blumenbeet"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-stufe3_park-390-2d.png"
+  },
+  {
+    "scene": "stufe4_villa",
+    "width": 390,
+    "gfx": "2d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        340,
+        602,
+        382,
+        740
+      ],
+      [
+        "holdlbl",
+        69.328125,
+        748,
+        320.671875,
+        770
+      ],
+      [
+        "barrow",
+        8,
+        774,
+        382,
+        836
+      ]
+    ],
+    "checked": [
+      "villa",
+      "villazaun"
+    ],
+    "raf": 91,
+    "file": "docs/belege/etappe5/rahmung-stufe4_villa-390-2d.png"
+  },
+  {
+    "scene": "stufe5_hotel",
+    "width": 390,
+    "gfx": "2d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        340,
+        602,
+        382,
+        740
+      ],
+      [
+        "holdlbl",
+        69.328125,
+        748,
+        320.671875,
+        770
+      ],
+      [
+        "barrow",
+        8,
+        774,
+        382,
+        836
+      ]
+    ],
+    "checked": [
+      "hotel"
+    ],
+    "raf": 91,
+    "file": "docs/belege/etappe5/rahmung-stufe5_hotel-390-2d.png"
+  },
+  {
+    "scene": "stufe5_gesamt",
+    "width": 390,
+    "gfx": "2d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        340,
+        602,
+        382,
+        740
+      ],
+      [
+        "holdlbl",
+        69.328125,
+        748,
+        320.671875,
+        770
+      ],
+      [
+        "barrow",
+        8,
+        774,
+        382,
+        836
+      ]
+    ],
+    "checked": [],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-stufe5_gesamt-390-2d.png"
+  },
+  {
+    "scene": "feldstueck",
+    "width": 390,
+    "gfx": "2d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        340,
+        602,
+        382,
+        740
+      ],
+      [
+        "holdlbl",
+        69.328125,
+        748,
+        320.671875,
+        770
+      ],
+      [
+        "barrow",
+        8,
+        774,
+        382,
+        836
+      ]
+    ],
+    "checked": [],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-feldstueck-390-2d.png"
+  },
+  {
+    "scene": "wettbewerb",
+    "width": 390,
+    "gfx": "2d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        168.25
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        168.25
+      ],
+      [
+        "zoomb",
+        340,
+        602,
+        382,
+        740
+      ],
+      [
+        "holdlbl",
+        69.328125,
+        748,
+        320.671875,
+        770
+      ],
+      [
+        "barrow",
+        8,
+        774,
+        382,
+        836
+      ]
+    ],
+    "checked": [
+      "wettbewerbstand"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-wettbewerb-390-2d.png"
+  },
+  {
+    "scene": "trophaeen",
+    "width": 390,
+    "gfx": "2d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        340,
+        602,
+        382,
+        740
+      ],
+      [
+        "holdlbl",
+        69.328125,
+        748,
+        320.671875,
+        770
+      ],
+      [
+        "barrow",
+        8,
+        774,
+        382,
+        836
+      ]
+    ],
+    "checked": [
+      "trophaeen"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-trophaeen-390-2d.png"
+  },
+  {
+    "scene": "trophaeenwand",
+    "width": 390,
+    "gfx": "2d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        340,
+        602,
+        382,
+        740
+      ],
+      [
+        "holdlbl",
+        69.328125,
+        748,
+        320.671875,
+        770
+      ],
+      [
+        "barrow",
+        8,
+        774,
+        382,
+        836
+      ]
+    ],
+    "panel": [
+      12,
+      130.25,
+      378,
+      713.734375
+    ],
+    "checked": [
+      "panel"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-trophaeenwand-390-2d.png"
+  },
+  {
+    "scene": "sterne",
+    "width": 390,
+    "gfx": "2d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        340,
+        602,
+        382,
+        740
+      ],
+      [
+        "holdlbl",
+        69.328125,
+        748,
+        320.671875,
+        770
+      ],
+      [
+        "barrow",
+        8,
+        774,
+        382,
+        836
+      ]
+    ],
+    "hud": "Lindenstadt wächst: Lottes Blumenladen und Stadtpark\n38.500 / 60.000 G",
+    "panel": [
+      12,
+      12,
+      378,
+      832
+    ],
+    "checked": [
+      "panel"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-sterne-390-2d.png"
+  },
+  {
+    "scene": "material",
+    "width": 390,
+    "gfx": "2d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        340,
+        602,
+        382,
+        740
+      ],
+      [
+        "holdlbl",
+        69.328125,
+        748,
+        320.671875,
+        770
+      ],
+      [
+        "barrow",
+        8,
+        774,
+        382,
+        836
+      ]
+    ],
+    "panel": [
+      12,
+      12,
+      378,
+      832
+    ],
+    "checked": [
+      "panel"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-material-390-2d.png"
+  },
+  {
+    "scene": "werkzeuge",
+    "width": 390,
+    "gfx": "2d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        340,
+        602,
+        382,
+        740
+      ],
+      [
+        "holdlbl",
+        69.328125,
+        748,
+        320.671875,
+        770
+      ],
+      [
+        "barrow",
+        8,
+        774,
+        382,
+        836
+      ]
+    ],
+    "panel": [
+      12,
+      15.15625,
+      378,
+      828.828125
+    ],
+    "checked": [
+      "panel"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-werkzeuge-390-2d.png"
+  },
+  {
+    "scene": "grossauftrag",
+    "width": 390,
+    "gfx": "2d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        340,
+        602,
+        382,
+        740
+      ],
+      [
+        "holdlbl",
+        69.328125,
+        748,
+        320.671875,
+        770
+      ],
+      [
+        "barrow",
+        8,
+        774,
+        382,
+        836
+      ]
+    ],
+    "panel": [
+      12,
+      260.453125,
+      378,
+      583.546875
+    ],
+    "checked": [
+      "panel"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-grossauftrag-390-2d.png"
+  },
+  {
+    "scene": "wettbewerb_fenster",
+    "width": 390,
+    "gfx": "2d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        168.25
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        168.25
+      ],
+      [
+        "zoomb",
+        340,
+        602,
+        382,
+        740
+      ],
+      [
+        "holdlbl",
+        69.328125,
+        748,
+        320.671875,
+        770
+      ],
+      [
+        "barrow",
+        8,
+        774,
+        382,
+        836
+      ]
+    ],
+    "panel": [
+      12,
+      228.65625,
+      378,
+      615.34375
+    ],
+    "checked": [
+      "panel"
+    ],
+    "raf": 91,
+    "file": "docs/belege/etappe5/rahmung-wettbewerb_fenster-390-2d.png"
+  },
+  {
+    "scene": "stufe1",
+    "width": 390,
+    "gfx": "3d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        340,
+        602,
+        382,
+        740
+      ],
+      [
+        "holdlbl",
+        69.328125,
+        748,
+        320.671875,
+        770
+      ],
+      [
+        "barrow",
+        8,
+        774,
+        382,
+        836
+      ]
+    ],
+    "checked": [
+      "stadtplan",
+      "auftragstafel",
+      "bauschild@ziele:plan"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-stufe1-390-3d.png"
+  },
+  {
+    "scene": "baustelle",
+    "width": 390,
+    "gfx": "3d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        184.25
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        184.25
+      ],
+      [
+        "zoomb",
+        340,
+        602,
+        382,
+        740
+      ],
+      [
+        "holdlbl",
+        69.328125,
+        748,
+        320.671875,
+        770
+      ],
+      [
+        "barrow",
+        8,
+        774,
+        382,
+        836
+      ]
+    ],
+    "checked": [
+      "bau2"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-baustelle-390-3d.png"
+  },
+  {
+    "scene": "stufe2_baeckerei",
+    "width": 390,
+    "gfx": "3d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        340,
+        602,
+        382,
+        740
+      ],
+      [
+        "holdlbl",
+        69.328125,
+        748,
+        320.671875,
+        770
+      ],
+      [
+        "barrow",
+        8,
+        774,
+        382,
+        836
+      ]
+    ],
+    "checked": [
+      "baeckerei"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-stufe2_baeckerei-390-3d.png"
+  },
+  {
+    "scene": "stufe3_blumenladen",
+    "width": 390,
+    "gfx": "3d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        340,
+        602,
+        382,
+        740
+      ],
+      [
+        "holdlbl",
+        69.328125,
+        748,
+        320.671875,
+        770
+      ],
+      [
+        "barrow",
+        8,
+        774,
+        382,
+        836
+      ]
+    ],
+    "checked": [
+      "blumenladen"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-stufe3_blumenladen-390-3d.png"
+  },
+  {
+    "scene": "stufe3_park",
+    "width": 390,
+    "gfx": "3d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        340,
+        602,
+        382,
+        740
+      ],
+      [
+        "holdlbl",
+        69.328125,
+        748,
+        320.671875,
+        770
+      ],
+      [
+        "barrow",
+        8,
+        774,
+        382,
+        836
+      ]
+    ],
+    "checked": [
+      "parkpavillon",
+      "fountain@ziele:park",
+      "bank@ziele:park",
+      "blumenbeet"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-stufe3_park-390-3d.png"
+  },
+  {
+    "scene": "stufe4_villa",
+    "width": 390,
+    "gfx": "3d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        340,
+        602,
+        382,
+        740
+      ],
+      [
+        "holdlbl",
+        69.328125,
+        748,
+        320.671875,
+        770
+      ],
+      [
+        "barrow",
+        8,
+        774,
+        382,
+        836
+      ]
+    ],
+    "checked": [
+      "villa",
+      "villazaun"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-stufe4_villa-390-3d.png"
+  },
+  {
+    "scene": "stufe5_hotel",
+    "width": 390,
+    "gfx": "3d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        340,
+        602,
+        382,
+        740
+      ],
+      [
+        "holdlbl",
+        69.328125,
+        748,
+        320.671875,
+        770
+      ],
+      [
+        "barrow",
+        8,
+        774,
+        382,
+        836
+      ]
+    ],
+    "checked": [
+      "hotel"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-stufe5_hotel-390-3d.png"
+  },
+  {
+    "scene": "stufe5_gesamt",
+    "width": 390,
+    "gfx": "3d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        340,
+        602,
+        382,
+        740
+      ],
+      [
+        "holdlbl",
+        69.328125,
+        748,
+        320.671875,
+        770
+      ],
+      [
+        "barrow",
+        8,
+        774,
+        382,
+        836
+      ]
+    ],
+    "checked": [],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-stufe5_gesamt-390-3d.png"
+  },
+  {
+    "scene": "feldstueck",
+    "width": 390,
+    "gfx": "3d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        340,
+        602,
+        382,
+        740
+      ],
+      [
+        "holdlbl",
+        69.328125,
+        748,
+        320.671875,
+        770
+      ],
+      [
+        "barrow",
+        8,
+        774,
+        382,
+        836
+      ]
+    ],
+    "checked": [],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-feldstueck-390-3d.png"
+  },
+  {
+    "scene": "wettbewerb",
+    "width": 390,
+    "gfx": "3d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        168.25
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        168.25
+      ],
+      [
+        "zoomb",
+        340,
+        602,
+        382,
+        740
+      ],
+      [
+        "holdlbl",
+        69.328125,
+        748,
+        320.671875,
+        770
+      ],
+      [
+        "barrow",
+        8,
+        774,
+        382,
+        836
+      ]
+    ],
+    "checked": [
+      "wettbewerbstand"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-wettbewerb-390-3d.png"
+  },
+  {
+    "scene": "trophaeen",
+    "width": 390,
+    "gfx": "3d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        340,
+        602,
+        382,
+        740
+      ],
+      [
+        "holdlbl",
+        69.328125,
+        748,
+        320.671875,
+        770
+      ],
+      [
+        "barrow",
+        8,
+        774,
+        382,
+        836
+      ]
+    ],
+    "checked": [
+      "trophaeen"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-trophaeen-390-3d.png"
+  },
+  {
+    "scene": "trophaeenwand",
+    "width": 390,
+    "gfx": "3d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        340,
+        602,
+        382,
+        740
+      ],
+      [
+        "holdlbl",
+        69.328125,
+        748,
+        320.671875,
+        770
+      ],
+      [
+        "barrow",
+        8,
+        774,
+        382,
+        836
+      ]
+    ],
+    "panel": [
+      12,
+      130.25,
+      378,
+      713.734375
+    ],
+    "checked": [
+      "panel"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-trophaeenwand-390-3d.png"
+  },
+  {
+    "scene": "sterne",
+    "width": 390,
+    "gfx": "3d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        340,
+        602,
+        382,
+        740
+      ],
+      [
+        "holdlbl",
+        69.328125,
+        748,
+        320.671875,
+        770
+      ],
+      [
+        "barrow",
+        8,
+        774,
+        382,
+        836
+      ]
+    ],
+    "hud": "Lindenstadt wächst: Lottes Blumenladen und Stadtpark\n38.500 / 60.000 G",
+    "panel": [
+      12,
+      12,
+      378,
+      832
+    ],
+    "checked": [
+      "panel"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-sterne-390-3d.png"
+  },
+  {
+    "scene": "material",
+    "width": 390,
+    "gfx": "3d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        340,
+        602,
+        382,
+        740
+      ],
+      [
+        "holdlbl",
+        69.328125,
+        748,
+        320.671875,
+        770
+      ],
+      [
+        "barrow",
+        8,
+        774,
+        382,
+        836
+      ]
+    ],
+    "panel": [
+      12,
+      12,
+      378,
+      832
+    ],
+    "checked": [
+      "panel"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-material-390-3d.png"
+  },
+  {
+    "scene": "werkzeuge",
+    "width": 390,
+    "gfx": "3d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        340,
+        602,
+        382,
+        740
+      ],
+      [
+        "holdlbl",
+        69.328125,
+        748,
+        320.671875,
+        770
+      ],
+      [
+        "barrow",
+        8,
+        774,
+        382,
+        836
+      ]
+    ],
+    "panel": [
+      12,
+      15.15625,
+      378,
+      828.828125
+    ],
+    "checked": [
+      "panel"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-werkzeuge-390-3d.png"
+  },
+  {
+    "scene": "grossauftrag",
+    "width": 390,
+    "gfx": "3d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        340,
+        602,
+        382,
+        740
+      ],
+      [
+        "holdlbl",
+        69.328125,
+        748,
+        320.671875,
+        770
+      ],
+      [
+        "barrow",
+        8,
+        774,
+        382,
+        836
+      ]
+    ],
+    "panel": [
+      12,
+      260.453125,
+      378,
+      583.546875
+    ],
+    "checked": [
+      "panel"
+    ],
+    "raf": 91,
+    "file": "docs/belege/etappe5/rahmung-grossauftrag-390-3d.png"
+  },
+  {
+    "scene": "wettbewerb_fenster",
+    "width": 390,
+    "gfx": "3d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        168.25
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        168.25
+      ],
+      [
+        "zoomb",
+        340,
+        602,
+        382,
+        740
+      ],
+      [
+        "holdlbl",
+        69.328125,
+        748,
+        320.671875,
+        770
+      ],
+      [
+        "barrow",
+        8,
+        774,
+        382,
+        836
+      ]
+    ],
+    "panel": [
+      12,
+      228.65625,
+      378,
+      615.34375
+    ],
+    "checked": [
+      "panel"
+    ],
+    "raf": 91,
+    "file": "docs/belege/etappe5/rahmung-wettbewerb_fenster-390-3d.png"
+  },
+  {
+    "scene": "stufe1",
+    "width": 1440,
+    "gfx": "2d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        1390,
+        658,
+        1432,
+        796
+      ],
+      [
+        "holdlbl",
+        594.328125,
+        804,
+        845.671875,
+        826
+      ],
+      [
+        "barrow",
+        410,
+        830,
+        1030,
+        892
+      ]
+    ],
+    "checked": [
+      "stadtplan",
+      "auftragstafel",
+      "bauschild@ziele:plan"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-stufe1-1440-2d.png"
+  },
+  {
+    "scene": "baustelle",
+    "width": 1440,
+    "gfx": "2d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        184.25
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        184.25
+      ],
+      [
+        "zoomb",
+        1390,
+        658,
+        1432,
+        796
+      ],
+      [
+        "holdlbl",
+        594.328125,
+        804,
+        845.671875,
+        826
+      ],
+      [
+        "barrow",
+        410,
+        830,
+        1030,
+        892
+      ]
+    ],
+    "checked": [
+      "bau2"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-baustelle-1440-2d.png"
+  },
+  {
+    "scene": "stufe2_baeckerei",
+    "width": 1440,
+    "gfx": "2d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        1390,
+        658,
+        1432,
+        796
+      ],
+      [
+        "holdlbl",
+        594.328125,
+        804,
+        845.671875,
+        826
+      ],
+      [
+        "barrow",
+        410,
+        830,
+        1030,
+        892
+      ]
+    ],
+    "checked": [
+      "baeckerei"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-stufe2_baeckerei-1440-2d.png"
+  },
+  {
+    "scene": "stufe3_blumenladen",
+    "width": 1440,
+    "gfx": "2d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        1390,
+        658,
+        1432,
+        796
+      ],
+      [
+        "holdlbl",
+        594.3125,
+        804,
+        845.6875,
+        826
+      ],
+      [
+        "barrow",
+        410,
+        830,
+        1030,
+        892
+      ]
+    ],
+    "checked": [
+      "blumenladen"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-stufe3_blumenladen-1440-2d.png"
+  },
+  {
+    "scene": "stufe3_park",
+    "width": 1440,
+    "gfx": "2d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        1390,
+        658,
+        1432,
+        796
+      ],
+      [
+        "holdlbl",
+        594.328125,
+        804,
+        845.671875,
+        826
+      ],
+      [
+        "barrow",
+        410,
+        830,
+        1030,
+        892
+      ]
+    ],
+    "checked": [
+      "parkpavillon",
+      "fountain@ziele:park",
+      "bank@ziele:park",
+      "blumenbeet"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-stufe3_park-1440-2d.png"
+  },
+  {
+    "scene": "stufe4_villa",
+    "width": 1440,
+    "gfx": "2d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        1390,
+        658,
+        1432,
+        796
+      ],
+      [
+        "holdlbl",
+        594.328125,
+        804,
+        845.671875,
+        826
+      ],
+      [
+        "barrow",
+        410,
+        830,
+        1030,
+        892
+      ]
+    ],
+    "checked": [
+      "villa",
+      "villazaun"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-stufe4_villa-1440-2d.png"
+  },
+  {
+    "scene": "stufe5_hotel",
+    "width": 1440,
+    "gfx": "2d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        1390,
+        658,
+        1432,
+        796
+      ],
+      [
+        "holdlbl",
+        594.328125,
+        804,
+        845.671875,
+        826
+      ],
+      [
+        "barrow",
+        410,
+        830,
+        1030,
+        892
+      ]
+    ],
+    "checked": [
+      "hotel"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-stufe5_hotel-1440-2d.png"
+  },
+  {
+    "scene": "stufe5_gesamt",
+    "width": 1440,
+    "gfx": "2d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        1390,
+        658,
+        1432,
+        796
+      ],
+      [
+        "holdlbl",
+        594.328125,
+        804,
+        845.671875,
+        826
+      ],
+      [
+        "barrow",
+        410,
+        830,
+        1030,
+        892
+      ]
+    ],
+    "checked": [
+      "baeckerei",
+      "blumenladen",
+      "villa",
+      "hotel",
+      "parkpavillon"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-stufe5_gesamt-1440-2d.png"
+  },
+  {
+    "scene": "feldstueck",
+    "width": 1440,
+    "gfx": "2d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        1390,
+        658,
+        1432,
+        796
+      ],
+      [
+        "holdlbl",
+        594.328125,
+        804,
+        845.671875,
+        826
+      ],
+      [
+        "barrow",
+        410,
+        830,
+        1030,
+        892
+      ]
+    ],
+    "checked": [],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-feldstueck-1440-2d.png"
+  },
+  {
+    "scene": "wettbewerb",
+    "width": 1440,
+    "gfx": "2d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        168.25
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        168.25
+      ],
+      [
+        "zoomb",
+        1390,
+        658,
+        1432,
+        796
+      ],
+      [
+        "holdlbl",
+        594.328125,
+        804,
+        845.671875,
+        826
+      ],
+      [
+        "barrow",
+        410,
+        830,
+        1030,
+        892
+      ]
+    ],
+    "checked": [
+      "wettbewerbstand"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-wettbewerb-1440-2d.png"
+  },
+  {
+    "scene": "trophaeen",
+    "width": 1440,
+    "gfx": "2d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        1390,
+        658,
+        1432,
+        796
+      ],
+      [
+        "holdlbl",
+        594.3125,
+        804,
+        845.6875,
+        826
+      ],
+      [
+        "barrow",
+        410,
+        830,
+        1030,
+        892
+      ]
+    ],
+    "checked": [
+      "trophaeen"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-trophaeen-1440-2d.png"
+  },
+  {
+    "scene": "trophaeenwand",
+    "width": 1440,
+    "gfx": "2d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        1390,
+        658,
+        1432,
+        796
+      ],
+      [
+        "holdlbl",
+        594.328125,
+        804,
+        845.671875,
+        826
+      ],
+      [
+        "barrow",
+        410,
+        830,
+        1030,
+        892
+      ]
+    ],
+    "panel": [
+      490,
+      178.453125,
+      950,
+      721.546875
+    ],
+    "checked": [
+      "panel"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-trophaeenwand-1440-2d.png"
+  },
+  {
+    "scene": "sterne",
+    "width": 1440,
+    "gfx": "2d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        1390,
+        658,
+        1432,
+        796
+      ],
+      [
+        "holdlbl",
+        594.328125,
+        804,
+        845.671875,
+        826
+      ],
+      [
+        "barrow",
+        410,
+        830,
+        1030,
+        892
+      ]
+    ],
+    "hud": "Lindenstadt wächst: Lottes Blumenladen und Stadtpark\n38.500 / 60.000 G",
+    "panel": [
+      490,
+      12,
+      950,
+      888
+    ],
+    "checked": [
+      "panel"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-sterne-1440-2d.png"
+  },
+  {
+    "scene": "material",
+    "width": 1440,
+    "gfx": "2d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        1390,
+        658,
+        1432,
+        796
+      ],
+      [
+        "holdlbl",
+        594.328125,
+        804,
+        845.671875,
+        826
+      ],
+      [
+        "barrow",
+        410,
+        830,
+        1030,
+        892
+      ]
+    ],
+    "panel": [
+      490,
+      12,
+      950,
+      888
+    ],
+    "checked": [
+      "panel"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-material-1440-2d.png"
+  },
+  {
+    "scene": "werkzeuge",
+    "width": 1440,
+    "gfx": "2d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        1390,
+        658,
+        1432,
+        796
+      ],
+      [
+        "holdlbl",
+        594.3125,
+        804,
+        845.6875,
+        826
+      ],
+      [
+        "barrow",
+        410,
+        830,
+        1030,
+        892
+      ]
+    ],
+    "panel": [
+      490,
+      91.75,
+      950,
+      808.25
+    ],
+    "checked": [
+      "panel"
+    ],
+    "raf": 91,
+    "file": "docs/belege/etappe5/rahmung-werkzeuge-1440-2d.png"
+  },
+  {
+    "scene": "grossauftrag",
+    "width": 1440,
+    "gfx": "2d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        1390,
+        658,
+        1432,
+        796
+      ],
+      [
+        "holdlbl",
+        594.328125,
+        804,
+        845.671875,
+        826
+      ],
+      [
+        "barrow",
+        410,
+        830,
+        1030,
+        892
+      ]
+    ],
+    "panel": [
+      490,
+      288.453125,
+      950,
+      611.546875
+    ],
+    "checked": [
+      "panel"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-grossauftrag-1440-2d.png"
+  },
+  {
+    "scene": "wettbewerb_fenster",
+    "width": 1440,
+    "gfx": "2d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        168.25
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        168.25
+      ],
+      [
+        "zoomb",
+        1390,
+        658,
+        1432,
+        796
+      ],
+      [
+        "holdlbl",
+        594.328125,
+        804,
+        845.671875,
+        826
+      ],
+      [
+        "barrow",
+        410,
+        830,
+        1030,
+        892
+      ]
+    ],
+    "panel": [
+      490,
+      270.953125,
+      950,
+      629.046875
+    ],
+    "checked": [
+      "panel"
+    ],
+    "raf": 91,
+    "file": "docs/belege/etappe5/rahmung-wettbewerb_fenster-1440-2d.png"
+  },
+  {
+    "scene": "stufe1",
+    "width": 1440,
+    "gfx": "3d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        1390,
+        658,
+        1432,
+        796
+      ],
+      [
+        "holdlbl",
+        594.3125,
+        804,
+        845.6875,
+        826
+      ],
+      [
+        "barrow",
+        410,
+        830,
+        1030,
+        892
+      ]
+    ],
+    "checked": [
+      "stadtplan",
+      "auftragstafel",
+      "bauschild@ziele:plan"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-stufe1-1440-3d.png"
+  },
+  {
+    "scene": "baustelle",
+    "width": 1440,
+    "gfx": "3d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        184.25
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        184.25
+      ],
+      [
+        "zoomb",
+        1390,
+        658,
+        1432,
+        796
+      ],
+      [
+        "holdlbl",
+        594.328125,
+        804,
+        845.671875,
+        826
+      ],
+      [
+        "barrow",
+        410,
+        830,
+        1030,
+        892
+      ]
+    ],
+    "checked": [
+      "bau2"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-baustelle-1440-3d.png"
+  },
+  {
+    "scene": "stufe2_baeckerei",
+    "width": 1440,
+    "gfx": "3d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        1390,
+        658,
+        1432,
+        796
+      ],
+      [
+        "holdlbl",
+        594.328125,
+        804,
+        845.671875,
+        826
+      ],
+      [
+        "barrow",
+        410,
+        830,
+        1030,
+        892
+      ]
+    ],
+    "checked": [
+      "baeckerei"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-stufe2_baeckerei-1440-3d.png"
+  },
+  {
+    "scene": "stufe3_blumenladen",
+    "width": 1440,
+    "gfx": "3d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        1390,
+        658,
+        1432,
+        796
+      ],
+      [
+        "holdlbl",
+        594.328125,
+        804,
+        845.671875,
+        826
+      ],
+      [
+        "barrow",
+        410,
+        830,
+        1030,
+        892
+      ]
+    ],
+    "checked": [
+      "blumenladen"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-stufe3_blumenladen-1440-3d.png"
+  },
+  {
+    "scene": "stufe3_park",
+    "width": 1440,
+    "gfx": "3d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        1390,
+        658,
+        1432,
+        796
+      ],
+      [
+        "holdlbl",
+        594.328125,
+        804,
+        845.671875,
+        826
+      ],
+      [
+        "barrow",
+        410,
+        830,
+        1030,
+        892
+      ]
+    ],
+    "checked": [
+      "parkpavillon",
+      "fountain@ziele:park",
+      "bank@ziele:park",
+      "blumenbeet"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-stufe3_park-1440-3d.png"
+  },
+  {
+    "scene": "stufe4_villa",
+    "width": 1440,
+    "gfx": "3d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        1390,
+        658,
+        1432,
+        796
+      ],
+      [
+        "holdlbl",
+        594.328125,
+        804,
+        845.671875,
+        826
+      ],
+      [
+        "barrow",
+        410,
+        830,
+        1030,
+        892
+      ]
+    ],
+    "checked": [
+      "villa",
+      "villazaun"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-stufe4_villa-1440-3d.png"
+  },
+  {
+    "scene": "stufe5_hotel",
+    "width": 1440,
+    "gfx": "3d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        1390,
+        658,
+        1432,
+        796
+      ],
+      [
+        "holdlbl",
+        594.328125,
+        804,
+        845.671875,
+        826
+      ],
+      [
+        "barrow",
+        410,
+        830,
+        1030,
+        892
+      ]
+    ],
+    "checked": [
+      "hotel"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-stufe5_hotel-1440-3d.png"
+  },
+  {
+    "scene": "stufe5_gesamt",
+    "width": 1440,
+    "gfx": "3d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        1390,
+        658,
+        1432,
+        796
+      ],
+      [
+        "holdlbl",
+        594.328125,
+        804,
+        845.671875,
+        826
+      ],
+      [
+        "barrow",
+        410,
+        830,
+        1030,
+        892
+      ]
+    ],
+    "checked": [],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-stufe5_gesamt-1440-3d.png"
+  },
+  {
+    "scene": "feldstueck",
+    "width": 1440,
+    "gfx": "3d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        1390,
+        658,
+        1432,
+        796
+      ],
+      [
+        "holdlbl",
+        594.328125,
+        804,
+        845.671875,
+        826
+      ],
+      [
+        "barrow",
+        410,
+        830,
+        1030,
+        892
+      ]
+    ],
+    "checked": [],
+    "raf": 91,
+    "file": "docs/belege/etappe5/rahmung-feldstueck-1440-3d.png"
+  },
+  {
+    "scene": "wettbewerb",
+    "width": 1440,
+    "gfx": "3d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        168.25
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        168.25
+      ],
+      [
+        "zoomb",
+        1390,
+        658,
+        1432,
+        796
+      ],
+      [
+        "holdlbl",
+        594.328125,
+        804,
+        845.671875,
+        826
+      ],
+      [
+        "barrow",
+        410,
+        830,
+        1030,
+        892
+      ]
+    ],
+    "checked": [
+      "wettbewerbstand"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-wettbewerb-1440-3d.png"
+  },
+  {
+    "scene": "trophaeen",
+    "width": 1440,
+    "gfx": "3d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        1390,
+        658,
+        1432,
+        796
+      ],
+      [
+        "holdlbl",
+        594.328125,
+        804,
+        845.671875,
+        826
+      ],
+      [
+        "barrow",
+        410,
+        830,
+        1030,
+        892
+      ]
+    ],
+    "checked": [
+      "trophaeen"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-trophaeen-1440-3d.png"
+  },
+  {
+    "scene": "trophaeenwand",
+    "width": 1440,
+    "gfx": "3d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        1390,
+        658,
+        1432,
+        796
+      ],
+      [
+        "holdlbl",
+        594.328125,
+        804,
+        845.671875,
+        826
+      ],
+      [
+        "barrow",
+        410,
+        830,
+        1030,
+        892
+      ]
+    ],
+    "panel": [
+      490,
+      178.453125,
+      950,
+      721.546875
+    ],
+    "checked": [
+      "panel"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-trophaeenwand-1440-3d.png"
+  },
+  {
+    "scene": "sterne",
+    "width": 1440,
+    "gfx": "3d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        1390,
+        658,
+        1432,
+        796
+      ],
+      [
+        "holdlbl",
+        594.328125,
+        804,
+        845.671875,
+        826
+      ],
+      [
+        "barrow",
+        410,
+        830,
+        1030,
+        892
+      ]
+    ],
+    "hud": "Lindenstadt wächst: Lottes Blumenladen und Stadtpark\n38.500 / 60.000 G",
+    "panel": [
+      490,
+      12,
+      950,
+      888
+    ],
+    "checked": [
+      "panel"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-sterne-1440-3d.png"
+  },
+  {
+    "scene": "material",
+    "width": 1440,
+    "gfx": "3d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        1390,
+        658,
+        1432,
+        796
+      ],
+      [
+        "holdlbl",
+        594.328125,
+        804,
+        845.671875,
+        826
+      ],
+      [
+        "barrow",
+        410,
+        830,
+        1030,
+        892
+      ]
+    ],
+    "panel": [
+      490,
+      12,
+      950,
+      888
+    ],
+    "checked": [
+      "panel"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-material-1440-3d.png"
+  },
+  {
+    "scene": "werkzeuge",
+    "width": 1440,
+    "gfx": "3d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        1390,
+        658,
+        1432,
+        796
+      ],
+      [
+        "holdlbl",
+        594.328125,
+        804,
+        845.671875,
+        826
+      ],
+      [
+        "barrow",
+        410,
+        830,
+        1030,
+        892
+      ]
+    ],
+    "panel": [
+      490,
+      91.75,
+      950,
+      808.25
+    ],
+    "checked": [
+      "panel"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-werkzeuge-1440-3d.png"
+  },
+  {
+    "scene": "grossauftrag",
+    "width": 1440,
+    "gfx": "3d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        185.5
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        185.5
+      ],
+      [
+        "zoomb",
+        1390,
+        658,
+        1432,
+        796
+      ],
+      [
+        "holdlbl",
+        594.328125,
+        804,
+        845.671875,
+        826
+      ],
+      [
+        "barrow",
+        410,
+        830,
+        1030,
+        892
+      ]
+    ],
+    "panel": [
+      490,
+      288.453125,
+      950,
+      611.546875
+    ],
+    "checked": [
+      "panel"
+    ],
+    "raf": 91,
+    "file": "docs/belege/etappe5/rahmung-grossauftrag-1440-3d.png"
+  },
+  {
+    "scene": "wettbewerb_fenster",
+    "width": 1440,
+    "gfx": "3d",
+    "zoom": 0.45,
+    "covers": [
+      [
+        "clock",
+        10,
+        12,
+        310,
+        111
+      ],
+      [
+        "quest",
+        10,
+        117,
+        312,
+        168.25
+      ],
+      [
+        "qToggle",
+        316,
+        117,
+        360,
+        168.25
+      ],
+      [
+        "zoomb",
+        1390,
+        658,
+        1432,
+        796
+      ],
+      [
+        "holdlbl",
+        594.328125,
+        804,
+        845.671875,
+        826
+      ],
+      [
+        "barrow",
+        410,
+        830,
+        1030,
+        892
+      ]
+    ],
+    "panel": [
+      490,
+      270.953125,
+      950,
+      629.046875
+    ],
+    "checked": [
+      "panel"
+    ],
+    "raf": 92,
+    "file": "docs/belege/etappe5/rahmung-wettbewerb_fenster-1440-3d.png"
+  }
+]

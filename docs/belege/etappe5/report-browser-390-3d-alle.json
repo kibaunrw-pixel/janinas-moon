@@ -1,0 +1,298 @@
+[
+  {
+    "seg": "migration",
+    "width": 390,
+    "gfx": "3d",
+    "shots": [
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/migration-hinweis-390-3d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/migration-brief-390-3d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/migration-brief-offen-390-3d.png"
+    ],
+    "errors": [],
+    "start": {
+      "map": "farm",
+      "x": 6,
+      "y": 9,
+      "objs": [
+        "house:house",
+        "coop:coop",
+        "barn:barn",
+        "mailbox:mail",
+        "box:ship",
+        "doghouse:doghouse",
+        "trough:trough_h",
+        "trough:trough_c",
+        "bush:bush",
+        "bush:bush",
+        "bush:bush",
+        "bush:bush"
+      ]
+    },
+    "result": {
+      "geld": 38500,
+      "brief": true,
+      "hinweis": true
+    },
+    "raf": {
+      "frames": 122,
+      "ms": 2008
+    }
+  },
+  {
+    "seg": "material",
+    "width": 390,
+    "gfx": "3d",
+    "shots": [
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/material-timo-390-3d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/material-limit-390-3d.png"
+    ],
+    "errors": [],
+    "start": {
+      "map": "i_zimmerei",
+      "x": 6,
+      "y": 6,
+      "objs": [
+        "counter_huette:counter",
+        "shelf:shelf",
+        "shelf:shelf",
+        "barrel:deco"
+      ]
+    },
+    "result": {
+      "stein": 60,
+      "holz": 10,
+      "geld": 36350
+    },
+    "raf": {
+      "frames": 122,
+      "ms": 2006.4000000357628
+    }
+  },
+  {
+    "seg": "stadt",
+    "width": 390,
+    "gfx": "3d",
+    "shots": [
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/stadt-stufe1-390-3d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/stadt-plan-390-3d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/stadt-bau1-390-3d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/stadt-bau2-390-3d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/stadt-bau3-390-3d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/stadt-baeckerei-390-3d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/stadt-baeckerei-panel-390-3d.png"
+    ],
+    "errors": [],
+    "start": {
+      "map": "stadt",
+      "x": 16,
+      "y": 10,
+      "objs": [
+        "house:plot:0",
+        "board:plot:0",
+        "house:plot:1",
+        "board:plot:1",
+        "house:plot:2",
+        "board:plot:2",
+        "bahnhofhaus_stadt:train",
+        "fahrplan:train",
+        "fountain:fountain",
+        "lamp:lamp",
+        "lamp:lamp",
+        "house:post:haus7"
+      ]
+    },
+    "result": {
+      "stufe": 2,
+      "ankauf": 1000
+    },
+    "raf": {
+      "frames": 122,
+      "ms": 2006.6000000238419
+    }
+  },
+  {
+    "seg": "stadt5",
+    "width": 390,
+    "gfx": "3d",
+    "shots": [
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/stadt5-ost-390-3d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/stadt5-hotel-390-3d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/stadt5-hotel-panel-390-3d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/stadt5-blumenladen-390-3d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/stadt5-blumenladen-panel-390-3d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/stadt5-villa-390-3d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/stadt5-villa-panel-390-3d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/stadt5-park-390-3d.png"
+    ],
+    "errors": [],
+    "start": {
+      "map": "stadt",
+      "x": 36,
+      "y": 12,
+      "objs": [
+        "house:plot:0",
+        "board:plot:0",
+        "house:plot:1",
+        "board:plot:1",
+        "house:plot:2",
+        "board:plot:2",
+        "bahnhofhaus_stadt:train",
+        "fahrplan:train",
+        "fountain:fountain",
+        "lamp:lamp",
+        "lamp:lamp",
+        "house:post:haus7"
+      ]
+    },
+    "result": {
+      "gebaeude": 4,
+      "park": true
+    },
+    "raf": {
+      "frames": 122,
+      "ms": 2002.699999988079
+    }
+  },
+  {
+    "seg": "hof",
+    "width": 390,
+    "gfx": "3d",
+    "shots": [
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/hof-panel-390-3d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/hof-feldstueck-390-3d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/hof-gold-390-3d.png"
+    ],
+    "errors": [],
+    "start": {
+      "map": "i_zimmerei",
+      "x": 6,
+      "y": 6,
+      "objs": [
+        "counter_huette:counter",
+        "shelf:shelf",
+        "shelf:shelf",
+        "barrel:deco"
+      ]
+    },
+    "result": {
+      "silber": true,
+      "felder": true,
+      "gold": true
+    },
+    "raf": {
+      "frames": 122,
+      "ms": 2008.300000011921
+    }
+  },
+  {
+    "seg": "ziele",
+    "width": 390,
+    "gfx": "3d",
+    "shots": [
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/ziele-trophaeenregal-390-3d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/ziele-tagebuch-390-3d.png"
+    ],
+    "errors": [],
+    "start": {
+      "map": "haus",
+      "x": 5,
+      "y": 4,
+      "objs": [
+        "stove:stove",
+        "counter:counter",
+        "fridge:fridge",
+        "table:table",
+        "tv:tv",
+        "plant:plant",
+        "bed:bed",
+        "wardrobe:wardrobe",
+        "workbench:craft",
+        "trophaeen:ziele:trophaeen",
+        "fridge:fridge",
+        "workbench:craft"
+      ]
+    },
+    "result": {
+      "sterne": true,
+      "trophaeen": true
+    },
+    "raf": {
+      "frames": 122,
+      "ms": 2011.800000011921
+    }
+  },
+  {
+    "seg": "auftrag",
+    "width": 390,
+    "gfx": "3d",
+    "shots": [
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/auftrag-panel-390-3d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/auftrag-erfuellt-390-3d.png"
+    ],
+    "errors": [],
+    "start": {
+      "map": "stadt",
+      "x": 16,
+      "y": 14,
+      "objs": [
+        "house:plot:0",
+        "board:plot:0",
+        "house:plot:1",
+        "board:plot:1",
+        "house:plot:2",
+        "board:plot:2",
+        "bahnhofhaus_stadt:train",
+        "fahrplan:train",
+        "fountain:fountain",
+        "lamp:lamp",
+        "lamp:lamp",
+        "house:post:haus7"
+      ]
+    },
+    "result": {
+      "lohn": 968
+    },
+    "raf": {
+      "frames": 122,
+      "ms": 2010
+    }
+  },
+  {
+    "seg": "wettbewerb",
+    "width": 390,
+    "gfx": "3d",
+    "shots": [
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/wettbewerb-stand-390-3d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/wettbewerb-panel-390-3d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe5/wettbewerb-greta-390-3d.png"
+    ],
+    "errors": [],
+    "start": {
+      "map": "stadt",
+      "x": 15,
+      "y": 17,
+      "objs": [
+        "house:plot:0",
+        "board:plot:0",
+        "house:plot:1",
+        "board:plot:1",
+        "house:plot:2",
+        "board:plot:2",
+        "bahnhofhaus_stadt:train",
+        "fahrplan:train",
+        "fountain:fountain",
+        "lamp:lamp",
+        "lamp:lamp",
+        "house:post:haus7"
+      ]
+    },
+    "result": {
+      "punkte": 1120,
+      "preis": 3000
+    },
+    "raf": {
+      "frames": 122,
+      "ms": 2007.8999999761581
+    }
+  }
+]
