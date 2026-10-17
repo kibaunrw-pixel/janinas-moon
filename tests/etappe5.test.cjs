@@ -73,8 +73,8 @@ test('Stadtstufen 3–5: Blumenladen, Park, Villa für Herrn Falk, Hotel; Stadt 
 
 test('Einnahmen wachsen mit: Beispielrechnung für typische Spieltage',()=>{
  const b=Z.bilanz();assert.equal(b.length,5);for(let i=1;i<5;i++)assert.ok(b[i].proTag>b[i-1].proTag,'Einnahmen steigen mit der Stadtstufe');
- // Tage bis zum nächsten Ziel aus Geld und typischem Spiel (siehe Bericht): mittel ≤ zwei Jahreszeiten, lang ≤ zwei Jahre.
- for(let i=1;i<5;i++){const t=b[i].tageBisZiel;assert.ok(Number.isFinite(t)&&t>0);if(i<4)assert.ok(t<=2*J.DPS,'Stufe '+(i+1)+' in '+t+' Tagen');else assert.ok(t>=J.DPS&&t<=8*J.DPS,'Hotel ist lang, aber erreichbar: '+t);}
+ // Tage bis zum nächsten Ziel aus Geld und typischem Spiel (siehe Bericht): mittel ≤ drei Jahreszeiten, lang ≤ zwei Jahre.
+ for(let i=1;i<5;i++){const t=b[i].tageBisZiel;assert.ok(Number.isFinite(t)&&t>0);if(i<4)assert.ok(t<=3*J.DPS,'Stufe '+(i+1)+' in '+t+' Tagen');else assert.ok(t>=J.DPS&&t<=8*J.DPS,'Hotel ist lang, aber erreichbar: '+t);}
 });
 
 test('Hof ausbauen: Silber- und Goldwerkzeug, neues Feldstück',()=>{

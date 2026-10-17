@@ -1,6 +1,6 @@
 /* Janinas Moon – Offline-Speicher. Ausbau-Fundament 1 */
-const CACHE = "janinas-moon-etappe4-1";
-const FILES = ["./", "index.html", "jm-data.js", "jm-ausbau.js", "jm-stadt.js", "jm-post.js", "jm-ereignisse.js", "jm-dorf.js", "jm-romantik.js", "jm-tiere.js", "jm-cafe.js", "jm-magie.js", "jm-art.js", "jm-art3.js", "jm-game.js", "jm-3d.js", "three.module.min.js", "manifest.webmanifest", "icon-192.png", "icon-512.png", "icon-maskable-512.png"];
+const CACHE = "janinas-moon-etappe5-1";
+const FILES = ["./", "index.html", "jm-data.js", "jm-ausbau.js", "jm-stadt.js", "jm-post.js", "jm-ereignisse.js", "jm-dorf.js", "jm-romantik.js", "jm-tiere.js", "jm-cafe.js", "jm-magie.js", "jm-ziele.js", "jm-art.js", "jm-art3.js", "jm-art5.js", "jm-game.js", "jm-3d.js", "three.module.min.js", "manifest.webmanifest", "icon-192.png", "icon-512.png", "icon-maskable-512.png"];
 // Kein skipWaiting: ein laufender Hof wird bei einem späteren Update nicht zwangsweise übernommen.
 self.addEventListener("install", e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES))); });
 self.addEventListener("activate", e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim())); });

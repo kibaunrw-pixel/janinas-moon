@@ -118,7 +118,7 @@ const grassLike=t=>t===T.GRAS||t===T.TUFF||t===T.BLUME||t===T.BAUM||t===T.BLOCK|
 function buildGround(){
   const se=season(); GROUND=A.cnv(M.w*16,M.h*16); const g=A.G(GROUND);
   for(let y=0;y<M.h;y++) for(let x=0;x<M.w;x++) drawTile(g,x,y,se);
-  groundKey=M.id+":"+se+":"+(S.flags.glas?1:0);
+  groundKey=M.id+":"+se+":"+(S.flags.glas?1:0)+":"+(M.houseLevel||"");
   WMASK=A.cnv(M.w*16,M.h*16); const wg=WMASK.getContext("2d"); wg.fillStyle="#fff";
   for(let y=0;y<M.h;y++) for(let x=0;x<M.w;x++) if(M.t[y][x]===T.WASSER){ const top=y>0&&M.t[y-1][x]!==T.WASSER&&M.t[y-1][x]!==T.STEG?2:0; wg.fillRect(x*16,y*16+top,16,16-top); }
 }
@@ -481,7 +481,8 @@ function fieldPlan(x,y){
 function doField(x,y){
   const pl=fieldPlan(x,y);
   if(pl.msg){ note(pl.msg); return; }
-  if(pl.c&&!cost(pl.c)) return;
+  const pc=JM.Ziele.toolCost(S,pl.k==="plant"&&pl.c?"till":pl.k,pl.c||0);
+  if(pc&&!cost(pc)) return;
   const k=key(x,y); const f=S.field[k]||(S.field[k]={t:false,w:false,c:null,o:null});
   faceTo(x,y); P.busy=.22;
   switch(pl.k){
@@ -502,6 +503,9 @@ function doField(x,y){
     case "pickspr": f.o=null; give("sprinkler",1); sfx("pick"); break;
     case "fert": if(!S.inv.duenger) return; take("duenger",1); f.d=true; sfx("plant"); burst(x,y,"#cfe8a8",6); break;
   }
+  // Etappe 5: Goldwerkzeug bearbeitet die Beete links und rechts mit, ohne zusätzliche Energie.
+  if(pl.k==="till"||pl.k==="water") for(const [ex,ey] of JM.Ziele.extraTiles(S,x,y)){ if(!isField(ex,ey)||fieldPlan(ex,ey).k!==pl.k) continue; const f2=S.field[key(ex,ey)]||(S.field[key(ex,ey)]={t:false,w:false,c:null,o:null});
+    if(pl.k==="till"){ f2.t=true; emit("till"); } else { if(S.can.w<=0) break; f2.w=true; JM.Magie.markWater(S,f2,true); S.can.w--; emit("water"); } burst(ex,ey,pl.k==="till"?"#7a5232":"#6aa8dd",4,pl.k==="water"); redrawField(ex,ey); }
   redrawField(x,y); hudSoon(); hotbarSoon(); saveSoon();
 }
 function mineRock(r){
@@ -602,6 +606,7 @@ function bushAct(o){
 function objAct(o){
   const a=o.act;
   if(a.startsWith('magie:'))return runPost(JM.Magie.act(S,a.slice(6)));
+  if(a.startsWith('ziele:'))return runPost(JM.Ziele.act(S,a.slice(6)));
   if(a==='train')return openTrain();
   if(a==='station_hint')return note('Dorfbahnhof: dem Weg nach Osten folgen. Lindenstadt ist mit dem Zug erreichbar.');
   if(a.startsWith('plot:'))return openPlot(Number(a.slice(5)));
@@ -667,6 +672,7 @@ function endDay(passedOut){
   S.day++; S.min=360;
   const se=season(); const notes=[];
   const rent=JM.Stadt.advance(S);JM.Stadt.apply(MAPS,S);if(rent)notes.push("Tagesmiete aus Lindenstadt: "+rent+" G");
+  const ziele=JM.Ziele.advance(S);notes.push(...ziele.notes);JM.Stadt.apply(MAPS,S);
   if(JM.Ausbau.finishHouse(S)){MAPS=JM.buildMaps();JM.Ausbau.applyHouse(MAPS,S.house.level);JM.Stadt.apply(MAPS,S);notes.push('Timo hat den Hausausbau abgeschlossen! Stufe '+S.house.level+' · mehr Raum und +10 maximale Energie.');}
   if(se!==oldSe){
     notes.push(JM.SEASONS[se]+" beginnt!");
@@ -1489,16 +1495,19 @@ function openShop(id){
     const done=s.once&&S.bought[s.k];
     const full=(s.k==="tier_huhn"&&S.hens.length>=6)||(s.k==="tier_kuh"&&S.cows.length>=2);
     const desc=done?"Schon gekauft":full?"Kein Platz mehr":off?"Gibt es erst im "+crop.se.map(x=>JM.SEASONS[x]).join("/"):(s.d||(crop?crop.days+" Tage bis zur Ernte"+(crop.re?", danach alle "+crop.re+" Tage":"")+" · Ernte "+ITEMS[it.crop].sell+" G":""));
-    const can=!done&&!full&&!off&&S.money>=s.p;
-    const multi=crop||JM.Ausbau.food(s.k)||s.k==='holz'||s.k==='futter';
-    return `<div class="row ${off||done?"dim":""}">${ic(s.k)}<div class="tx"><b>${esc(itemName(s.k))}</b><small>${esc(desc)}</small></div><div class="price">${s.p} G</div><div class="btns v"><button class="btn" data-a="buy" data-k="${s.k}" data-n="1" ${can?"":"disabled"}>${multi?"1×":"Kaufen"}</button>${multi?`<button class="btn" data-a="buy" data-k="${s.k}" data-n="5" ${!off&&S.money>=s.p*5?"":"disabled"}>5×</button>`:""}</div></div>`;
+    const can=!done&&!full&&!off&&S.money>=s.p&&!(id==='zimmerei'&&JM.Ziele.MATERIAL[s.k]&&JM.Ziele.restHeute(S,s.k)<1);
+    const mat=id==='zimmerei'&&JM.Ziele.MATERIAL[s.k], rest=mat?JM.Ziele.restHeute(S,s.k):0;
+    const multi=crop||JM.Ausbau.food(s.k)||s.k==='holz'||s.k==='futter'||!!mat;
+    return `<div class="row ${off||done?"dim":""}">${ic(s.k)}<div class="tx"><b>${esc(itemName(s.k))}</b><small>${esc(desc)}${mat?" · heute noch "+rest:""}</small></div><div class="price">${s.p} G</div><div class="btns v"><button class="btn" data-a="buy" data-k="${s.k}" data-n="1" ${can?"":"disabled"}>${multi?"1×":"Kaufen"}</button>${multi?`<button class="btn" data-a="buy" data-k="${s.k}" data-n="5" ${!off&&S.money>=s.p*5&&(!mat||rest>=5)?"":"disabled"}>5×</button>`:""}${mat?`<button class="btn" data-a="buy" data-k="${s.k}" data-n="10" ${S.money>=s.p*10&&rest>=10?"":"disabled"}>10×</button>`:""}</div></div>`;
   }).join("");
   const giftable=ITEMS[S.hold]&&ITEMS[S.hold].cat!=="seed"&&S.hold!=="futter"&&S.hold!=="sprinkler";
   openPanel(`<div class="shophead"><canvas class="pt" data-pt="${nid}"></canvas><div><h2>${esc(SH.n)}</h2><p class="sub">${esc(N.n)} · ${heartRow(hearts10(nid))}</p></div></div>
     <div class="row2"><button class="btn alt wide" data-a="talk">Reden</button><button class="btn alt wide" data-a="gift" ${giftable&&S.npc[nid].gift!==S.day?"":"disabled"}>${giftable?"Schenken: "+esc(ITEMS[S.hold].n):"Geschenk: erst unten wählen"}</button></div>
-    <p class="sub">Du hast ${S.money.toLocaleString("de-DE")} G</p>${rows}${id==='zimmerei'?houseOffers():''}${closeBtn}`,
-  {buildhouse:k=>{if(id!=='zimmerei'||!JM.Ausbau.orderHouse(S,+k))return;hotbarSoon();hud();save(true);refreshPanel(()=>openShop(id));},talk:()=>{ closePanel(); talk(nid); }, gift:()=>{ closePanel(); giveGift(nid,S.hold); },
-   buy:(k,b)=>{ const n=+b.dataset.n, s=SH.stock.find(x=>x.k===k), c=s.p*n; if(S.money<c) return; S.money-=c; sfx("buy");
+    <p class="sub">Du hast ${S.money.toLocaleString("de-DE")} G</p>${rows}${id==='zimmerei'?houseOffers()+`<h3>Hof ausbauen</h3><p class="sub">Silber- und Goldwerkzeug, neues Feldstück</p><button class="btn wide" data-a="hofausbau">Werkzeug und Felder ansehen</button>`:''}${closeBtn}`,
+  {buildhouse:k=>{if(id!=='zimmerei'||!JM.Ausbau.orderHouse(S,+k))return;hotbarSoon();hud();save(true);refreshPanel(()=>openShop(id));},hofausbau:()=>{ closePanel(); runPost(JM.Ziele.hofPanel(S)); }, talk:()=>{ closePanel(); talk(nid); }, gift:()=>{ closePanel(); giveGift(nid,S.hold); },
+   buy:(k,b)=>{ const n=+b.dataset.n, s=SH.stock.find(x=>x.k===k), c=s.p*n;
+     if(id==='zimmerei'&&JM.Ziele.MATERIAL[k]){ if(!JM.Ziele.buyMaterial(S,k,n)){ note(JM.Ziele.restHeute(S,k)<n?"Timo hat heute nur noch "+JM.Ziele.restHeute(S,k)+" "+ITEMS[k].n+" übrig. Morgen wieder.":"Dafür reicht dein Geld nicht."); return; } sfx("buy"); note(n+"× "+ITEMS[k].n+" gekauft. Heute noch "+JM.Ziele.restHeute(S,k)+"."); hud(); saveSoon(); refreshPanel(()=>openShop(id)); return; }
+     if(S.money<c) return; S.money-=c; sfx("buy");
      if(k==="kanne2"){ S.bought[k]=true; S.can.max=40; S.can.w=40; note("Die große Gießkanne gehört jetzt dir."); }
      else if(k==="rute2"){ S.bought[k]=true; S.rod=2; note("Die goldene Angel gehört jetzt dir."); }
      else if(k==="gewaechshaus"){ S.bought[k]=true; S.flags.glas=true; groundKey=""; note("Das Gewächshaus auf deinem Hof wird repariert. Dort wächst jetzt alles, das ganze Jahr."); }
@@ -1508,7 +1517,7 @@ function openShop(id){
      else { give(k,n); note(n+"× "+ITEMS[k].n+" gekauft."); }
      hud(); saveSoon(); refreshPanel(()=>openShop(id)); }});
 }
-const MAILKIND={tier:"Tiere",cafe:"Café",miete:"Mietquittung",anfrage:"Mietanfrage",auftrag:"Bauauftrag",dank:"Dank",geschenk:"Geschenk",bewertung:"Bewertung",gruss:"Gruß",geheim:"Geheimnis",romantik:"Von Herzen",geburtstag:"Geburtstag"};
+const MAILKIND={ziel:"Stadt und Hof",tier:"Tiere",cafe:"Café",miete:"Mietquittung",anfrage:"Mietanfrage",auftrag:"Bauauftrag",dank:"Dank",geschenk:"Geschenk",bewertung:"Bewertung",gruss:"Gruß",geheim:"Geheimnis",romantik:"Von Herzen",geburtstag:"Geburtstag"};
 function mailFrom(m){ return m.from==="von"?JM.CONFIG.von:NPCS[m.from]?NPCS[m.from].n:m.from; }
 function attText(a){ return [a.money?a.money+" G":"",...Object.entries(a.items||{}).map(([k,n])=>n+"× "+ITEMS[k].n)].filter(Boolean).join(", "); }
 function openMail(showAll){
@@ -1540,6 +1549,8 @@ function refreshPost(){ JM.Stadt.apply(MAPS,S); setMap(M.id,Math.round(P.x),Math
 /* Ereignis-Skripte aus jm-ereignisse.js: Logik und Zustand liegen dort; hier nur Dialog, Panel, Reise. */
 function runPost(r){
   if(!r) return;
+  // Etappe 5: Bauaufträge verändern die Karte sofort (Baustelle, Phase 1).
+  if(r.rebuild){ JM.Stadt.apply(MAPS,S); setMap(M.id,Math.round(P.x),Math.round(P.y)); }
   if(r.refresh){ hud(); hotbar(); refreshPost(); }
   else if(r.hud){ hud(); hotbar(); save(true); updateQuestUI(); }
   if(r.banner) banner(r.banner); if(r.sfx) sfx(r.sfx);
@@ -1654,16 +1665,18 @@ function openBundles(){
  openPanel(`<h2>Der Mondbaum</h2><p class="sub">Freie Teilgaben. Endgültig und nicht zurücknehmbar; die Belohnung gibt es nur einmal nach vollständiger Gabe.</p>${rows}${closeBtn}`,{give:key=>{const [b,k]=key.split(':'),B=JM.BUNDLES.find(x=>x.id===b),max=Math.min(B.need[k]-(S.bundles[b]?.[k]||0),S.inv[k]||0);bundleDeliver(b,k,JM.Ausbau.quantity($('bundle-qty-'+b+'-'+k)?.value,max));}});
 }
 function openBook(tab){
-  const tabs=[["quest","Aufgaben"],["map","Karte"],["cal","Kalender"],["herz","Herz"],["friends","Freunde"],["coll","Sammlung"],["ach","Erfolge"],["opt","Optionen"]];
+  const tabs=[["quest","Aufgaben"],["ziele","Ziele"],["map","Karte"],["cal","Kalender"],["herz","Herz"],["friends","Freunde"],["coll","Sammlung"],["ach","Erfolge"],["opt","Optionen"]];
   let body="";
   if(tab==="quest"){
     const q=curQ();
     body=q?`<div class="qcard"><small>Aktuelle Aufgabe</small><b>${esc(fmtD(q.t))}</b><p>${esc(fmtD(q.d))}</p>${q.n>1?`<div class="pbar"><i style="width:${S.quest.p/q.n*100}%"></i></div><small>${S.quest.p} von ${q.n}</small>`:""}</div>`:"";
     if(S.daily&&S.daily.day===S.day) body+=`<h3>Tagesziele</h3>`+S.daily.goals.map(g=>{ const D=JM.DAILY.find(d=>d.k===g.k), ok=g.p>=D.n; return `<div class="row"><div class="tx"><b>${ok?"✓ ":""}${esc(fmtD(D.t))}</b><small>${Math.min(g.p,D.n)} von ${D.n} · Belohnung ${D.g} G</small></div></div>`; }).join("")+`<p class="sub">Alle drei geschafft: +100 G extra. Jeden Morgen gibt es neue.</p>`;
     if(S.board&&!S.board.done) body+=`<div class="row">${ic(S.board.k)}<div class="tx"><b>Anschlagtafel: ${esc(NPCS[S.board.who].n)}</b><small>sucht ${S.board.n}× ${esc(ITEMS[S.board.k].n)} · ${S.board.rew} G</small></div></div>`;
+    if(S.ziele&&S.ziele.brief){ const zn=JM.Ziele.naechste(S).slice(0,2); body+=`<h3>Langzeitziele</h3>`+zn.map(n=>`<div class="row"><div class="tx"><b>${esc(n.t)}</b><small>${esc(n.d)}</small></div></div>`).join("")+`<button class="btn alt wide" data-a="tab" data-k="ziele">Alle Ziele, Sterne und Trophäen</button>`; }
     body+=cafeDiary();
     body+=`<h3>Geschafft</h3>`+(S.qDone.length?S.qDone.slice().reverse().map(id=>`<div class="done">✓ ${esc(fmtD((JM.QUESTS.find(q=>q.id===id)||{t:id}).t))}</div>`).join(""):"<p class='sub'>Noch nichts. Leg los!</p>");
   }
+  if(tab==="ziele") body=JM.Ziele.page(S,esc);
   if(tab==="map"){
     const places=[["farm","Dein Hof","Haus, Felder, Tiere",5,8],["village","Das Dorf","Läden, Bewohner, Dorfplatz",14,13],["forest","Der Mondwald","Mondbaum, Fluss, See, Fundstücke",13,15]].concat(S.flags.caveSeen?[["hoehle","Die Mondhöhle","Kupfer und Edelsteine",10,14]]:[]);
     body=`<p class="sub">Mit der Kutsche bist du schnell überall. Die Fahrt dauert 30 Minuten.</p>`+places.map(([id,n,d])=>`<button class="tile" data-a="go" data-k="${id}" ${M.id===id?"disabled":""} style="width:100%;margin-bottom:8px"><b>${n}${M.id===id?" · du bist hier":""}</b><small>${d}</small></button>`).join("")+(S.flags.caveSeen?"":`<p class="sub">Eine Höhle soll es hinten im Wald geben. Erst wenn du sie gefunden hast, fährt die Kutsche dorthin.</p>`);
@@ -1675,7 +1688,7 @@ function openBook(tab){
     for(let d=1;d<=JM.DPS;d++){
       const f=JM.FESTS.find(x=>x.s===se&&x.d===d); const b=JM.NPC_ORDER.find(id=>NPCS[id].bday[0]===se&&NPCS[id].bday[1]===d);
       const wd=JM.WEEK[(d-1+(S.day-dayIn()))%7];
-      cells+=`<div class="day ${d===dayIn()?"today":""} ${d<dayIn()?"past":""}"><span>${d}</span><small>${wd}</small>${wd==="Sa"&&!f?`<em class="mk">Markt</em>`:""}${f?`<em class="fest">${esc(f.n)}</em>`:""}${b?`<em class="bd">${esc(NPCS[b].n)}</em>`:""}${JM.Rom.calMarks(S,se,d).concat(JM.Magie.calMarks(S,se,d)).map(t=>`<em class="bd rom">${esc(t)}</em>`).join("")}</div>`;
+      cells+=`<div class="day ${d===dayIn()?"today":""} ${d<dayIn()?"past":""}"><span>${d}</span><small>${wd}</small>${wd==="Sa"&&!f?`<em class="mk">Markt</em>`:""}${f?`<em class="fest">${esc(f.n)}</em>`:""}${b?`<em class="bd">${esc(NPCS[b].n)}</em>`:""}${JM.Rom.calMarks(S,se,d).concat(JM.Magie.calMarks(S,se,d),JM.Ziele.calMarks(S,se,d)).map(t=>`<em class="bd rom">${esc(t)}</em>`).join("")}</div>`;
     }
     body=`<h3>${JM.SEASONS[se]} · Jahr ${year()}</h3><div class="cal">${cells}</div><p class="sub">Feste beginnen auf dem Dorfplatz. An Geburtstagen zählen Geschenke dreifach.</p>`;
   }
@@ -1745,7 +1758,7 @@ function update(dt){
     if(S.min>=1440){ endDay(true); return; }
     if(Math.floor(S.min)%10===0) hudSoon();
     saveTick+=dt; if(saveTick>30){ saveTick=0; save(); }
-    if(groundKey!==M.id+":"+season()+":"+(S.flags.glas?1:0)) buildGround();
+    if(groundKey!==M.id+":"+season()+":"+(S.flags.glas?1:0)+":"+(M.houseLevel||"")) buildGround();
   } else { S.min=1290; }
   // Spielerin
   P.moving=false; if(P.busy>0) P.busy-=dt;
@@ -2059,7 +2072,7 @@ function render(){
     if(o.k==="vitrine"||o.k==="tafel"){ const list=Object.keys(S.cafe.vit).sort((a,b)=>(b==="mondkuchen")-(a==="mondkuchen")); const sp=lazy(SPR.prop,o.k+se+list.join(","),()=>A.prop(o.k,se,list)); L.push({y:by,d:()=>bx.drawImage(sp,o.x*16+(o.w||1)*8-(sp.width>>1)-CX,(o.y+(o.h||1))*16-sp.height+1-CY)}); continue; }
     if(o.k==="futterstelle"){ const full=S.tiere.futterE.day===S.day&&S.tiere.futterE.n>0; const sp=lazy(SPR.prop,o.k+se+(full?1:0),()=>A.prop(o.k,se,full)); L.push({y:by,d:()=>bx.drawImage(sp,o.x*16+8-(sp.width>>1)-CX,(o.y+1)*16-sp.height+1-CY)}); continue; }
     if(o.k==="cafe"){ const B=lazy(SPR.prop,"cafe"+se+(night?1:0),()=>A.prop("cafe",se,night)); cast(B,o.x*16+(o.w||1)*8-(B.width>>1)-CX,(o.y+(o.h||1))*16-B.height+1-CY); L.push({y:by,d:()=>bx.drawImage(B,o.x*16+(o.w||1)*8-(B.width>>1)-CX,(o.y+(o.h||1))*16-B.height+1-CY)}); continue; }
-    const extra=o.k==="stove"?(renePlan().mode==="cook"&&RA.vis):o.k==="tv"?(S.min>=1080&&S.min<1380):o.k==="stall"?marketDay():o.k==="mailbox"?unread:o.k==="trough"?(o.act==="trough_h"?S.trough.h>0:S.trough.c>0):o.k==="lamp"?night:false;
+    const extra=o.k==="stove"?(renePlan().mode==="cook"&&RA.vis):o.k==="tv"?(S.min>=1080&&S.min<1380):o.k==="stall"?marketDay():o.k==="mailbox"?unread:o.k==="trough"?(o.act==="trough_h"?S.trough.h>0:S.trough.c>0):o.k==="lamp"||["baeckerei","blumenladen","villa","hotel"].includes(o.k)?night:false;
     spr=lazy(SPR.prop,o.k+se+(extra?1:0),()=>A.prop(o.k,se,extra));
     if(o.k==="fountain"){ cast(spr,o.x*16-2-CX,(o.y+2)*16-spr.height+3-CY); L.push({y:by,d:()=>{ bx.drawImage(spr,o.x*16-2-CX,(o.y+2)*16-spr.height+3-CY); const t=gameT*6; for(let i=0;i<4;i++){ const a=(t+i*1.6)%6; bx.fillStyle=se===3?"#ffffff":"#bfe3ff"; bx.fillRect(o.x*16+14+Math.round(Math.sin(i*2.1)*a*1.4)-CX,o.y*16-6+Math.round(a*a*.5)-CY,1,1); } }}); continue; }
     if(spr.height>=14) cast(spr,o.x*16+(o.w||1)*8-(spr.width>>1)-CX,(o.y+(o.h||1))*16-spr.height+1-CY);
