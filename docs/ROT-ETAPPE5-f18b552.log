@@ -1,0 +1,204 @@
+# ROT gegen f18b552 (Stand nach Teil A, jm-ziele.js fehlt) – Sat Oct 17 16:13:12 CEST 2026
+TAP version 13
+# Subtest: Migration: Janinas fortgeschrittener Stand bleibt erhalten und sieht die neuen Ziele sofort
+not ok 1 - Migration: Janinas fortgeschrittener Stand bleibt erhalten und sieht die neuen Ziele sofort
+  ---
+  duration_ms: 0.773667
+  type: 'test'
+  location: '/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe5.test.cjs:19:1'
+  failureType: 'testCodeFailure'
+  error: 'jm-ziele.js geladen'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe5.test.cjs:20:9)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: Preisleiter: sofort bis 40.000 G, mittel 50.000–150.000 G, lang ab 300.000 G
+not ok 2 - Preisleiter: sofort bis 40.000 G, mittel 50.000–150.000 G, lang ab 300.000 G
+  ---
+  duration_ms: 0.11025
+  type: 'test'
+  location: '/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe5.test.cjs:29:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'STUFEN')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe5.test.cjs:30:13)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: Material bei Timo: teurer als Sammeln, Tageslimit, kein Arbitrage-Gewinn
+not ok 3 - Material bei Timo: teurer als Sammeln, Tageslimit, kein Arbitrage-Gewinn
+  ---
+  duration_ms: 0.853583
+  type: 'test'
+  location: '/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe5.test.cjs:37:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'MATERIAL')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe5.test.cjs:38:128
+    Array.some (<anonymous>)
+    TestContext.<anonymous> (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe5.test.cjs:38:103)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: Stadtstufe 2: Bäckerei mit Bauphasen, Reload, Pacht genau einmal pro Tag und Ankauf
+not ok 4 - Stadtstufe 2: Bäckerei mit Bauphasen, Reload, Pacht genau einmal pro Tag und Ankauf
+  ---
+  duration_ms: 0.455083
+  type: 'test'
+  location: '/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe5.test.cjs:49:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'migrate')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe5.test.cjs:50:21)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: Stadtstufen 3–5: Blumenladen, Park, Villa für Herrn Falk, Hotel; Stadt wird sichtbar größer
+not ok 5 - Stadtstufen 3–5: Blumenladen, Park, Villa für Herrn Falk, Hotel; Stadt wird sichtbar größer
+  ---
+  duration_ms: 0.548333
+  type: 'test'
+  location: '/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe5.test.cjs:64:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'migrate')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe5.test.cjs:65:21)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: Einnahmen wachsen mit: Beispielrechnung für typische Spieltage
+not ok 6 - Einnahmen wachsen mit: Beispielrechnung für typische Spieltage
+  ---
+  duration_ms: 0.117167
+  type: 'test'
+  location: '/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe5.test.cjs:74:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'bilanz')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe5.test.cjs:75:12)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: Hof ausbauen: Silber- und Goldwerkzeug, neues Feldstück
+not ok 7 - Hof ausbauen: Silber- und Goldwerkzeug, neues Feldstück
+  ---
+  duration_ms: 0.458666
+  type: 'test'
+  location: '/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe5.test.cjs:80:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'migrate')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe5.test.cjs:81:21)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: Großauftrag mit Frist: Teillieferung, Abschluss zahlt einmal, Scheitern ohne harte Strafe
+not ok 8 - Großauftrag mit Frist: Teillieferung, Abschluss zahlt einmal, Scheitern ohne harte Strafe
+  ---
+  duration_ms: 0.347375
+  type: 'test'
+  location: '/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe5.test.cjs:88:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'migrate')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe5.test.cjs:89:21)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: Erntewettbewerb mit Greta: nur am Wettbewerbstag, drei Stücke, Preis und Trophäe genau einmal
+not ok 9 - Erntewettbewerb mit Greta: nur am Wettbewerbstag, drei Stücke, Preis und Trophäe genau einmal
+  ---
+  duration_ms: 0.50575
+  type: 'test'
+  location: '/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe5.test.cjs:97:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'migrate')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe5.test.cjs:98:21)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: Langzeitziele: Hof- und Stadtsterne, nächstes Ziel mit Fortschritt, Trophäen
+not ok 10 - Langzeitziele: Hof- und Stadtsterne, nächstes Ziel mit Fortschritt, Trophäen
+  ---
+  duration_ms: 0.566958
+  type: 'test'
+  location: '/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe5.test.cjs:106:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'migrate')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe5.test.cjs:107:21)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..10
+# tests 10
+# suites 0
+# pass 0
+# fail 10
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 86.362417
+EXIT 1
