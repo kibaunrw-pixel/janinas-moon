@@ -117,11 +117,12 @@ async function tapGuest(id){await p.waitForFunction(id=>JM.ENG.NPCA[id]?.vis&&JM
  assert.equal(await p.evaluate(([x,y])=>document.elementFromPoint(x,y)?.tagName,r),'CANVAS','Gast sichtbar '+id);await p.mouse.click(...r);await p.waitForFunction(()=>JMDEBUG.busy.ui.dialog,null,{timeout:20000});}
 /* Längere Wege auf dem Hof: wie eine Spielerin in sichtbaren Etappen gehen (stepToward), zuletzt genau aufs Ziel. */
 async function goTo(x,y){for(let n=0;n<8;n++){const d=await S(()=>[JMDEBUG.P.x,JMDEBUG.P.y]);if(Math.abs(d[0]-x)+Math.abs(d[1]-y)<4)break;if(!await stepToward(x,y))break;}await walk(x,y);}
-/* Tierbilder: nur einen Zoomschritt näher (statt drei wie bei Szenen) und die Kamera auf das Tier richten, indem
-   Janina neben das Tier tritt. So ist das Tier ganz im Bild und nicht vom HUD verdeckt. */
+/* Tierbilder: in 2D drei Zoomschritte, mobil in 3D zwei; am Rechner in 3D kein Überzoom.
+   Janina tritt neben das Tier. Belege zeigen damit das Tier statt fast den ganzen Hof. */
 async function petShot(name,id){const a=await p.evaluate(id=>{const q=JMDEBUG.PETS.find(q=>q.id===id);return q?[Math.round(q.x),Math.round(q.y)]:null;},id);
  if(a){const d=await S(()=>[JMDEBUG.P.x,JMDEBUG.P.y]);if(Math.abs(d[0]-a[0])+Math.abs(d[1]-a[1])>3){const t=await p.evaluate(([x,y])=>{const m=JMDEBUG.M;for(const [dx,dy] of [[0,-2],[-2,0],[2,0],[0,2],[-1,-2],[1,-2]]){const tx=x+dx,ty=y+dy;if(m.t[ty]&&JM.WALK.has(m.t[ty][tx])&&!m.obj.some(o=>tx>=o.x&&tx<o.x+(o.w||1)&&ty>=o.y&&ty<o.y+(o.h||1))&&!JMDEBUG.S.field[tx+','+ty]?.t)return [tx,ty];}return null;},a);if(t)await goTo(t[0],t[1]);}}
- const n=gfx==='3d'&&viewport.width>=1000?0:1;for(let i=0;i<n;i++)await p.locator('#zIn').click();await p.waitForTimeout(1000);
+ if(id.startsWith('ente'))await p.waitForFunction(()=>{const a=JMDEBUG.PETS.filter(q=>q.id.startsWith('ente'));return a.every((q,i)=>a.slice(i+1).every(r=>Math.hypot(q.x-r.x,q.y-r.y)>.45));},null,{timeout:15000});
+ const n=gfx==='2d'?3:viewport.width>=1000?0:2;for(let i=0;i<n;i++)await p.locator('#zIn').click();await p.waitForTimeout(1000);
  const r=await petPixel(id);if(r)assert.ok(r[0]>20&&r[0]<viewport.width-20&&r[1]>130&&r[1]<viewport.height-110,'Tier '+id+' im Bild '+r);
  const f=await shot(name);for(let i=0;i<n;i++)await p.locator('#zOut').click();await p.waitForTimeout(400);return f;}
 async function night(){await p.evaluate(()=>JMDEBUG.endDay(false));await p.waitForFunction(()=>!JMDEBUG.busy.ui.fade,null,{timeout:20000});await map('haus');await S(()=>{JMDEBUG.S.daily.goals=[];JMDEBUG.S.rene.cudToday=2;});}
