@@ -471,6 +471,7 @@ function fieldPlan(x,y){
     const cr=CROPS[f.c.k];
     if(f.c.a>=cr.days) return {k:"harvest"};
     if(!f.w) return {k:"water",c:1};
+    const special=JM.Magie.cropHint(S,f); if(special) return {msg:special};
     const r=cr.days-f.c.a; return {msg:ITEMS[f.c.k].n+": noch "+r+(r===1?" Tag":" Tage")+"."};
   }
   if(!f.t) return {k:"till",c:2};
@@ -488,7 +489,7 @@ function doField(x,y){
     case "till": f.t=true; P.tool="hacke"; sfx("dig"); burst(x,y,"#7a5232",6); emit("till"); break;
     case "water":
       if(S.can.w<=0){ note("Die Gießkanne ist leer. Tippe auf Wasser, um sie zu füllen."); P.queue=[]; S.energy+=1; return; }
-      f.w=true; S.can.w--; P.tool="kanne"; sfx("water"); burst(x,y,"#6aa8dd",8,true); emit("water"); break;
+      f.w=true; JM.Magie.markWater(S,f,true); S.can.w--; P.tool="kanne"; sfx("water"); burst(x,y,"#6aa8dd",8,true); emit("water"); break;
     case "plant": {
       const it=ITEMS[S.hold]; if(!S.inv[S.hold]){ note("Keine "+it.n+" mehr."); return; }
       const wasT=f.t; f.t=true; f.c={k:it.crop,a:0}; take(S.hold,1); P.tool="seed"; sfx("plant"); burst(x,y,"#e8d29a",4); if(!wasT) emit("till"); emit("plant"); break; }
@@ -600,6 +601,7 @@ function bushAct(o){
 /* ================= Objekte ================= */
 function objAct(o){
   const a=o.act;
+  if(a.startsWith('magie:'))return runPost(JM.Magie.act(S,a.slice(6)));
   if(a==='train')return openTrain();
   if(a==='station_hint')return note('Dorfbahnhof: dem Weg nach Osten folgen. Lindenstadt ist mit dem Zug erreichbar.');
   if(a.startsWith('plot:'))return openPlot(Number(a.slice(5)));
@@ -655,8 +657,8 @@ function endDay(passedOut){
   const earned=JM.Ausbau.settleShipment(S);
   const oldSe=season();
   // Pflanzen
-  for(const k in S.field){ const f=S.field[k]; const [x,y]=k.split(",").map(Number); const glass=MAPS.farm.t[y][x]===T.GLAS;
-    if(f.c&&f.w&&(glass||oldSe!==3)){ f.c.a++; if(f.d&&rnd()<.5) f.c.a++; } f.w=false;
+  for(const k in S.field){ const f=S.field[k]; const [x,y]=k.split(",").map(Number); const glass=MAPS.farm.t[y][x]===T.GLAS,magic=f.c&&f.c.k==='mondblume';
+    if(f.c&&f.w&&(glass||oldSe!==3)&&(!magic||JM.Magie.growsTonight(S,f))){ f.c.a++; if(!magic&&f.d&&rnd()<.5) f.c.a++; } JM.Magie.afterGrowth(S,f); f.w=false;
     if(f.c&&f.c.a>=CROPS[f.c.k].days&&f.c.g==null) f.c.g=rnd()<(f.d?.08:.05); }
   // Tiere
   const eggSpots=[]; const c=MAPS.farm.coop; for(let y=c.y0+1;y<=c.y1;y++) for(let x=c.x0;x<=c.x1;x++) if(MAPS.farm.t[y][x]===T.GRAS||MAPS.farm.t[y][x]===T.TUFF||MAPS.farm.t[y][x]===T.BLUME) eggSpots.push([x,y]);
@@ -1097,6 +1099,11 @@ function questTarget(){
 }
 function routeTarget(t){
   if(!t) return null; if(t.map===M.id) return t;
+  if(t.map===JM.Magie.ROOM){
+    if(M.id===JM.Post.ROOM)return {map:M.id,x:JM.Magie.GATE.x,y:JM.Magie.GATE.y+1,exit:true};
+    if(M.id==='forest')return {map:M.id,x:JM.Post.door64.x,y:JM.Post.door64.y+1,exit:true};
+    t={map:'forest',x:JM.Post.door64.x,y:JM.Post.door64.y+1};
+  }
   if(t.map==="haus_oben"&&M.id==="haus")return {map:M.id,x:16,y:4,exit:true};
   if(M.inside){ const ex=M.exits[0]; return {map:M.id,x:ex.x,y:ex.y,exit:true}; }
   if(t.map==="haus_oben"){if(M.id==="haus")return {map:M.id,x:16,y:4,exit:true};t={map:"haus",x:16,y:4};}
@@ -1431,7 +1438,7 @@ function openTV(){
     <button class="tile" data-a="tip"><b>Landfunk</b><small>Tipps für deinen Hof</small></button></div>
     <div class="row2"><button class="btn alt wide" data-a="back">Zurück</button>${closeBtn}</div>`,
   {back:closePanel,
-   wx:()=>{ const w=S.tomorrow, f=JM.FESTS.find(x=>x.s===season()&&x.d===dayIn()+1); closePanel(); dialog([{who:null,text:"Der Wetterbericht für morgen: "+(w==="rain"?"Regen. Gut für die Felder, du musst nicht gießen.":w==="snow"?"Schnee. Zieh dich warm an!":"Sonnig und freundlich.")+(f?" Und morgen ist "+f.n+"!":"")}]); },
+   wx:()=>{ const w=S.tomorrow, f=JM.FESTS.find(x=>x.s===season()&&x.d===dayIn()+1); closePanel(); dialog([{who:null,text:"Der Wetterbericht für morgen: "+(w==="rain"?"Regen. Gut für die Felder, du musst nicht gießen.":w==="snow"?"Schnee. Zieh dich warm an!":"Sonnig und freundlich.")+JM.Magie.weatherText(w)+(f?" Und morgen ist "+f.n+"!":"")}]); },
    show:()=>{ closePanel(); if(weekday()===6&&!S.recipes.includes("tomatenei")){ S.recipes.push("tomatenei"); dialog([{who:null,text:"„Heute in der Kochshow: Tomaten-Ei-Pfanne! Zwei Tomaten, ein Ei, fertig ist ein Klassiker.“"},{who:null,text:"Du hast das Rezept „Tomaten-Ei-Pfanne“ gelernt!",fn:()=>sfx("fanfare")}]); } else dialog([{who:null,text:weekday()===6?"Eine Wiederholung der Kochshow. Das Rezept kennst du schon.":"Die Kochshow läuft nur sonntags."}]); },
    tip:()=>{ closePanel(); dialog([{who:null,text:"Landfunk: "+JM.TIPS[(S.day*7)%JM.TIPS.length]}]); }});
 }
@@ -1668,11 +1675,11 @@ function openBook(tab){
     for(let d=1;d<=JM.DPS;d++){
       const f=JM.FESTS.find(x=>x.s===se&&x.d===d); const b=JM.NPC_ORDER.find(id=>NPCS[id].bday[0]===se&&NPCS[id].bday[1]===d);
       const wd=JM.WEEK[(d-1+(S.day-dayIn()))%7];
-      cells+=`<div class="day ${d===dayIn()?"today":""} ${d<dayIn()?"past":""}"><span>${d}</span><small>${wd}</small>${wd==="Sa"&&!f?`<em class="mk">Markt</em>`:""}${f?`<em class="fest">${esc(f.n)}</em>`:""}${b?`<em class="bd">${esc(NPCS[b].n)}</em>`:""}${JM.Rom.calMarks(S,se,d).map(t=>`<em class="bd rom">${esc(t)}</em>`).join("")}</div>`;
+      cells+=`<div class="day ${d===dayIn()?"today":""} ${d<dayIn()?"past":""}"><span>${d}</span><small>${wd}</small>${wd==="Sa"&&!f?`<em class="mk">Markt</em>`:""}${f?`<em class="fest">${esc(f.n)}</em>`:""}${b?`<em class="bd">${esc(NPCS[b].n)}</em>`:""}${JM.Rom.calMarks(S,se,d).concat(JM.Magie.calMarks(S,se,d)).map(t=>`<em class="bd rom">${esc(t)}</em>`).join("")}</div>`;
     }
     body=`<h3>${JM.SEASONS[se]} · Jahr ${year()}</h3><div class="cal">${cells}</div><p class="sub">Feste beginnen auf dem Dorfplatz. An Geburtstagen zählen Geschenke dreifach.</p>`;
   }
-  if(tab==="herz") body=JM.Rom.diary(S,esc)+JM.Dorf.diary(S,esc);
+  if(tab==="herz") body=JM.Rom.diary(S,esc)+JM.Dorf.diary(S,esc)+JM.Magie.diary(S,esc);
   if(tab==="friends"){
     body=`<div class="row"><canvas class="pt" data-pt="dog0"></canvas><div class="tx"><b>${esc(dogName(0))}</b>${heartRow(S.dogH[0])}<small>${S.dogPet[0]===S.day?"Heute gestreichelt":"Noch nicht gestreichelt"}</small></div></div>
       <div class="row"><canvas class="pt" data-pt="dog1"></canvas><div class="tx"><b>${esc(dogName(1))}</b>${heartRow(S.dogH[1])}<small>${S.dogPet[1]===S.day?"Heute gestreichelt":"Noch nicht gestreichelt"}</small></div></div>`;
@@ -1892,14 +1899,14 @@ function moveA(a,tx,ty,sp,dt,fr){
   a.moving=true; a.ft+=dt; if(a.ft>fr){ a.ft=0; a.frame=(a.frame+1)%4; }
 }
 function ambient(dt){
-  const se=season(), night=S.min>=1170||S.min<360;
-  const want=S.weather==="rain"?90:S.weather==="snow"?60:(se===0?16:se===2?18:se===1&&night?18:se===3?20:6);
+  const se=season(), night=M.moonForest||S.min>=1170||S.min<360;
+  const want=M.moonForest?18:S.weather==="rain"?90:S.weather==="snow"?60:(se===0?16:se===2?18:se===1&&night?18:se===3?20:6);
   while(AMB.length<want) AMB.push({x:rnd()*LW,y:rnd()*LH,v:.5+rnd(),p:rnd()*6});
   if(AMB.length>want) AMB.length=want;
   for(const a of AMB){
     if(S.weather==="rain"){ a.y+=260*a.v*dt; a.x-=40*dt; }
     else if(S.weather==="snow"||se===3){ a.y+=14*a.v*dt; a.x+=Math.sin(gameT+a.p)*8*dt; }
-    else if(se===1&&night){ a.x+=Math.sin(gameT*.7+a.p)*10*dt; a.y+=Math.cos(gameT*.5+a.p)*8*dt; }
+    else if((se===1||M.moonForest)&&night){ a.x+=Math.sin(gameT*.7+a.p)*10*dt; a.y+=Math.cos(gameT*.5+a.p)*8*dt; }
     else { a.y+=12*a.v*dt; a.x+=(Math.sin(gameT+a.p)*10+6)*dt; }
     if(a.y>LH+4){ a.y=-4; a.x=rnd()*LW; } if(a.x>LW+4) a.x=-4; if(a.x<-4) a.x=LW+4; if(a.y<-6) a.y=LH;
   }
@@ -1913,6 +1920,7 @@ function darkness(){
   const m=S.min; let a=0;
   if(m<420) a=.5*(420-m)/60; else if(m>1050) a=Math.min(.66,(m-1050)/170*.66);
   if(M.cave) return .55;
+  if(M.moonForest) return .48;
   if(M.inside) return (m>=1140||m<390)?.32:0;
   if(S.weather==="rain") a=Math.max(a,.18)+.06; if(S.weather==="snow") a+=.03;
   return clamp(a,0,.72);
@@ -2013,7 +2021,7 @@ function render(){
   faceScene();
   if(use3D()){ render3(); return; }
   if(JM.R3&&JM.R3.ok) JM.R3.show(false);
-  const se=season(), night=S.min>=1110||S.min<390, dk=darkness();
+  const se=season(), night=M.moonForest||S.min>=1110||S.min<390, dk=darkness();
   const mw=M.w*16, mh=M.h*16;
   const padT=demo?0:padTop(), padB=demo?0:padBot();
   const sv=sceneView(); let cx=(sv?sv.x*16:P.x*16+8)-LW/2, cy=(sv?sv.y*16:P.y*16+4)-(LH+padT-padB)/2;
@@ -2119,6 +2127,10 @@ function render(){
   const fest=festActive(); if(fest&&M.id==="village") drawFestDecor(fest,CX,CY,night);
   // Wetter und Stimmung
   if(!M.cave&&!M.inside) drawAmbient(se,night);
+  if(M.moonForest){
+    bx.fillStyle='rgba(190,215,235,.055)';
+    for(let i=0;i<6;i++){const x=((i*47+gameT*3)% (LW+60))-30,y=18+i*17;bx.beginPath();bx.ellipse(x,y,34,6,0,0,Math.PI*2);bx.fill();}
+  }
   // Licht
   if(dk>0){
     lx.globalCompositeOperation="source-over"; lx.clearRect(0,0,LW,LH); lx.fillStyle=`rgba(18,22,62,${dk})`; lx.fillRect(0,0,LW,LH);
@@ -2195,7 +2207,7 @@ function drawAmbient(se,night){
     const x=Math.round(a.x), y=Math.round(a.y);
     if(S.weather==="rain"){ bx.fillStyle="rgba(190,215,245,.55)"; bx.fillRect(x,y,1,4); }
     else if(S.weather==="snow"||se===3){ bx.fillStyle="rgba(255,255,255,.9)"; bx.fillRect(x,y,a.v>1?2:1,a.v>1?2:1); }
-    else if(se===1&&night){ const on=Math.sin(gameT*3+a.p)>0; if(on){ bx.fillStyle="#f6f08a"; bx.fillRect(x,y,1,1); bx.fillStyle="rgba(246,240,138,.3)"; bx.fillRect(x-1,y-1,3,3); } }
+    else if((se===1||M.moonForest)&&night){ const on=Math.sin(gameT*3+a.p)>0; if(on){ bx.fillStyle="#f6f08a"; bx.fillRect(x,y,1,1); bx.fillStyle="rgba(246,240,138,.3)"; bx.fillRect(x-1,y-1,3,3); } }
     else if(se===0){ bx.fillStyle=a.p>3?"#f6b3c9":"#ffffff"; bx.fillRect(x,y,2,1); }
     else if(se===2){ bx.fillStyle=a.p>3?"#e8842a":"#c94a2a"; bx.fillRect(x,y,2,2); }
     else if(se===1&&a.p<2){ bx.fillStyle="rgba(255,255,220,.7)"; bx.fillRect(x,y,1,1); }

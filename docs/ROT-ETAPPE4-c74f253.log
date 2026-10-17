@@ -1,0 +1,124 @@
+TAP version 13
+# Subtest: Ausgangssystem Etappe 4 ist vorhanden und Migration bewahrt Besitz
+not ok 1 - Ausgangssystem Etappe 4 ist vorhanden und Migration bewahrt Besitz
+  ---
+  duration_ms: 1.018334
+  type: 'test'
+  location: '/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe4.test.cjs:13:1'
+  failureType: 'testCodeFailure'
+  error: 'jm-magie.js geladen'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe4.test.cjs:14:9)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: W07: 14-Tage-Mondkalender, Vortaghinweis, Zugang nur bei Vollmond und sichere Rückwege
+not ok 2 - W07: 14-Tage-Mondkalender, Vortaghinweis, Zugang nur bei Vollmond und sichere Rückwege
+  ---
+  duration_ms: 0.139375
+  type: 'test'
+  location: '/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe4.test.cjs:19:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'moon')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe4.test.cjs:20:22)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: W09: Samenquelle, nur nächtliches Handgießen, Regen/Sprinkler zählen nicht, Erntewert
+not ok 3 - W09: Samenquelle, nur nächtliches Handgießen, Regen/Sprinkler zählen nicht, Erntewert
+  ---
+  duration_ms: 5.56425
+  type: 'test'
+  location: '/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe4.test.cjs:29:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'ROOM')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe4.test.cjs:30:54)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: W10: Händler nur bei Regen mit Wegplan, Angebot und Wetterhinweis
+not ok 4 - W10: Händler nur bei Regen mit Wegplan, Angebot und Wetterhinweis
+  ---
+  duration_ms: 0.223875
+  type: 'test'
+  location: '/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe4.test.cjs:38:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'merchantLocation')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe4.test.cjs:39:67)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: W10: kein Sofortgewinn über Versand, Café oder Bestellungen
+not ok 5 - W10: kein Sofortgewinn über Versand, Café oder Bestellungen
+  ---
+  duration_ms: 0.082667
+  type: 'test'
+  location: '/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe4.test.cjs:45:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'STOCK')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe4.test.cjs:46:19)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: Alle neuen Ziele und Ausgänge liegen auf vorhandenen Karten und begehbaren Kacheln
+not ok 6 - Alle neuen Ziele und Ausgänge liegen auf vorhandenen Karten und begehbaren Kacheln
+  ---
+  duration_ms: 4.674334
+  type: 'test'
+  location: '/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe4.test.cjs:49:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'ROOM')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe4.test.cjs:50:173)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 0
+# fail 6
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 81.710708

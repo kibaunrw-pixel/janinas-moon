@@ -9,6 +9,12 @@ const flip=A.flip;
 function sprite(kind,se,extra){
  let c,g;const snow=se===3;
  switch(kind){
+  /* ---------- Etappe 4: Mondwald und Regenhändler ---------- */
+  case 'mondtor_zu':case 'mondtor_offen':{const open=kind==='mondtor_offen';c=cnv(30,38);g=G(c);g.ell(15,30,14,7,'#42533f');g.r(5,10,20,25,'#7a7480');g.r(7,12,16,23,open?'#18203a':'#544c62');g.ell(15,12,8,9,open?'#9fc8ff':'#817694');g.ell(15,12,5,6,open?'#e8f4ff':'#615872');for(let i=0;i<7;i++)g.p(3+i*4,8+(i%3),'#b7d98a');break;}
+  case 'mondpilze':{c=cnv(24,20);g=G(c);for(const [x,y,r] of [[5,13,4],[13,9,5],[20,14,3]]){g.r(x-1,y,2,6,'#dbe8e0');g.ell(x,y,r,r*.55,'#9fdcff');g.p(x-1,y-r*.2,'#ffffff');}break;}
+  case 'mondsamen_fund':{c=cnv(24,24);g=G(c);g.ell(12,18,10,4,'#435b4a');for(let i=0;i<6;i++){const a=i*Math.PI/3;g.ell(12+Math.cos(a)*6,11+Math.sin(a)*4,3,5,'#6fa872');}g.disc(12,10,4,'#d9efff');g.disc(12,9,2,'#ffffff');break;}
+  case 'mondsteinring':{c=cnv(34,20);g=G(c);for(let i=0;i<8;i++){const a=i*Math.PI/4;g.ell(17+Math.cos(a)*13,13+Math.sin(a)*5,3,2,'#8f8a98');}g.disc(17,10,3,'#cfe6ff');break;}
+  case 'regenhaendler':{c=cnv(34,48);g=G(c);g.r(12,16,10,24,'#40556f');g.ell(17,13,7,8,'#d2a47e');g.r(9,5,16,8,'#27394f');g.r(12,1,10,7,'#334c66');g.r(6,17,22,4,'#27445d');g.line(8,20,3,42,'#6b4423',2);g.ell(3,43,6,3,'#476b82');g.r(24,23,8,15,'#8a5a33');g.r(25,25,6,3,'#cfe6ff');break;}
   /* ---------- Dorf: Teehaus vorher, Baustelle, Café ---------- */
   case 'teehaus_alt':case 'teehaus_bau':case 'cafe':{const W=82,H=78,cafe=kind==='cafe',bau=kind==='teehaus_bau';c=cnv(W,H);g=G(c);
    const wall=cafe?'#f3e2c8':'#b9ab94',wallD=cafe?'#e0c9a6':'#a1937c',roof=cafe?'#6f8f5a':'#6e625a',roofD=cafe?'#557446':'#574d46';
@@ -60,13 +66,21 @@ function sprite(kind,se,extra){
 function outline(c){A.outline(c,OUT);return c;}
 const prop0=A.prop;A.prop=function(kind,se,extra){return sprite(kind,se,extra)||prop0(kind,se,extra);};
 const icon0=A.icon;A.icon=function(k){
- if(k==='entenei'||k==='leckstein'||k==='mondkuchen'||k==='tier_ziege'){const c=cnv(16,16),g=G(c);
+ if(k==='entenei'||k==='leckstein'||k==='mondkuchen'||k==='tier_ziege'||k==='mondsamen'||k==='mondblume'||k==='mondtau'){const c=cnv(16,16),g=G(c);
   if(k==='entenei'){g.ell(8,9,4.5,5.5,'#cfe8d8');g.r(10,7,1,5,'#a8c8b4');g.r(6,5,1,2,'#ffffff');}
   if(k==='leckstein'){g.ell(8,9,6,4.5,'#e8e2e8');g.ell(8,8,5,3,'#f6f2f6');g.r(7,12,2,3,'#6b4423');}
   if(k==='mondkuchen'){g.r(2,8,12,6,'#e8b86a');g.r(2,8,12,2,'#f6d79a');g.r(2,11,12,1,'#d9473a');g.disc(8,6,2.6,'#f6e6a0');g.disc(9,5,2.2,'#e8b86a');g.r(1,14,14,1,'#f4f1ea');}
   if(k==='tier_ziege'){const p=A.pet('ziege','weiss');c.getContext('2d').drawImage(p.r[0],0,0,p.r[0].width,p.r[0].height,0,1,16,14);return c;}
+  if(k==='mondsamen'){g.r(3,5,10,10,'#62517a');g.r(4,3,8,3,'#403651');g.disc(8,10,3,'#cfe6ff');g.p(7,9,'#ffffff');}
+  if(k==='mondblume'){g.r(7,7,2,8,'#4f8a62');for(let i=0;i<6;i++){const a=i*Math.PI/3;g.ell(8+Math.cos(a)*4,6+Math.sin(a)*3,3,2,'#9fc8ff');}g.disc(8,6,2,'#ffffff');}
+  if(k==='mondtau'){g.ell(8,9,5,7,'#9fdcff');g.ell(7,7,2,3,'#ffffff');}
   A.outline(c,'#3a2a2a');return c;}
  return icon0(k);};
+
+const crop0=A.crop;A.crop=function(k,stage){if(k!=='mondblume')return crop0(k,stage);const c=cnv(18,28),g=G(c),B=25;
+ if(stage===0){g.ell(9,B,4,2,'#4b365f');g.p(8,B-2,'#d9efff');}
+ else{g.r(8,B-(7+stage*3),2,7+stage*3,'#4f8a62');for(let i=0;i<3+stage;i++){const a=i*1.7;g.ell(9+Math.cos(a)*4,B-6-stage*2+Math.sin(a)*3,3,2,'#629f78');}if(stage>=3)for(let i=0;i<6;i++){const a=i*Math.PI/3;g.ell(9+Math.cos(a)*5,B-14+Math.sin(a)*4,3.5,2.2,stage===4?'#bfe3ff':'#829bc8');}if(stage>=3)g.disc(9,B-14,2.5,stage===4?'#ffffff':'#cbd7ee');}
+ A.outline(c,'#243044');return c;};
 
 /* ---------- Tierfiguren: r[0]=steht, r[1..2]=läuft, r[3..4]=Spezialpose (schläft/kaut/schwimmt), l gespiegelt ---------- */
 const DUCK={wild:['#8a6a46','#3f7a4a','#5a4630'],weiss:['#f6f4ee','#f6f4ee','#d8d4cc'],gold:['#f3d04a','#f6e07a','#d9a52a']};

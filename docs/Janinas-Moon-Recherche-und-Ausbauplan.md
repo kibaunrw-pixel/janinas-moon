@@ -87,10 +87,10 @@ Status: **Wunschliste, keine Behauptung vorhandener oder originaler Harvest-Moon
 
 | ID | Wunsch | Umsetzungskriterium |
 |---|---|---|
-| W07 | Versteckter Wald öffnet nur bei Vollmond | Nachvollziehbarer Mondkalender, Hinweis vor Öffnung; wer beim Schließen darin ist, bleibt nicht gefangen. |
+| W07 | Versteckter Wald öffnet nur bei Vollmond | Nachvollziehbarer Mondkalender, Hinweis vor Öffnung; wer beim Schließen darin ist, bleibt nicht gefangen. **Status Etappe 4 (lokaler Arbeitsbaum, Browserprüfung durch Sandbox blockiert, unabhängige Prüfung offen):** gebaut als eigene Karte `vollmondwald`, erreichbar ausschließlich über das bestehende W64-Gewölbe. 14-Tage-Rhythmus, Kalender-/Tagebuchhinweis, Ausgang zurück ins Gewölbe und sicherer Tageswechsel nach Hause. |
 | W08 | Kleine Waldgeister helfen bei der Ernte | An das Helfersystem anbinden, kein widersprüchliches zweites Automatisierungssystem. |
-| W09 | Seltene magische Pflanzen züchten | Samenquelle, Wachstumsbedingungen, sichtbare Pflanze und Verwendung definieren. |
-| W10 | Mysteriöser Händler nur bei Regen | Regenabhängiger Wegplan und besonderes Sortiment; Wetterbericht liefert Planungshilfe. |
+| W09 | Seltene magische Pflanzen züchten | Samenquelle, Wachstumsbedingungen, sichtbare Pflanze und Verwendung definieren. **Status Etappe 4 (lokaler Arbeitsbaum, Browserprüfung offen):** gebaut: Mondsamen im Vollmondwald und beim Regenhändler; Mondblüte im bestehenden Feldsystem, wächst nur nach nächtlichem Handgießen (nicht durch Regen/Sprinkler), eigene 2D-/3D-Darstellung, Versandwert 640 G. |
+| W10 | Mysteriöser Händler nur bei Regen | Regenabhängiger Wegplan und besonderes Sortiment; Wetterbericht liefert Planungshilfe. **Status Etappe 4 (lokaler Arbeitsbaum, Browserprüfung offen):** gebaut: Nerio nur bei Regen, 7–11 Uhr Waldweg, 11–16 Uhr Dorfbrunnen, 16–20 Uhr Waldsee; Wetterbericht kündigt ihn an; Sortiment mit Mondsamen, Mondtau und Mondquarz, ohne sofortige Versand-/Café-/Bestellarbitrage. |
 | W11 | Alte Ruinen erzählen Dorfgeschichte | Auffindbare Hinweise und zusammenhängende Entdeckungsreihe mit Tagebuch. |
 | W12 | Entscheidungen verändern die Magie | Bildsatz nach „ob die Magie …“ abgeschnitten. Nur der lesbare Kern ist übernommen; konkrete Auswirkungen offen. Keine erfundene Endentscheidung festschreiben. |
 
@@ -132,14 +132,14 @@ Status: **Wunschliste, keine Behauptung vorhandener oder originaler Harvest-Moon
 
 | ID | Wunsch | Umsetzungskriterium |
 |---|---|---|
-| W32 | Geheime Briefe unbekannter Absender | Hinweisfolge mit späterer Auflösung; vorhandenes Postsystem verwenden. |
-| W33 | Sternschnuppennächte | Vorhandenes System zuerst spielerisch prüfen, dann um Hinweise/Belohnungen erweitern. |
+| W32 | Geheime Briefe unbekannter Absender | Hinweisfolge mit späterer Auflösung; vorhandenes Postsystem verwenden. **Vorhandener Teilstand:** W55–W60 und weitere Postereignisse enthalten anonyme/geheime Briefketten. Etappe 4 ergänzt nichts. |
+| W33 | Sternschnuppennächte | Vorhandenes System zuerst spielerisch prüfen, dann um Hinweise/Belohnungen erweitern. **Vorhandener Teilstand:** Sternschnuppen existieren. Etappe 4 erweitert sie wegen der Priorisierung nicht. |
 | W34 | Regenbögen | An Wetterwechsel gebundenes sichtbares Ereignis, auf Mobilgeräten prüfbar. |
-| W35 | Nebel | Lesbare Wege und anklickbare Gegenstände trotz Effekt; optional seltene Begegnungen. |
-| W36 | Schatzkarten mit kleinen Rätseln | Karte führt zu konkretem erreichbarem Fund; Rätsel und Fundzustand bleiben gespeichert. |
+| W35 | Nebel | Lesbare Wege und anklickbare Gegenstände trotz Effekt; optional seltene Begegnungen. **Teilstand Etappe 4:** zurückhaltender Nebel nur als Darstellung im Vollmondwald; kein allgemeines Nebel-Wetterereignis. |
+| W36 | Schatzkarten mit kleinen Rätseln | Karte führt zu konkretem erreichbarem Fund; Rätsel und Fundzustand bleiben gespeichert. **Vorhanden:** W57 mit drei Hügeln, gespeichertem Fund und einmaliger Belohnung. |
 | W37 | Sammelalbum für Tiere, Pflanzen, Entdeckungen | Vorhandene Fang-, Koch- und Versandprotokolle zusammenführen; unbekannte Einträge und Fundbedingungen anzeigen. |
-| W38 | Geburtstage: überraschen und Geschenke bekommen | Bestehende Bewohnergeburtstage erweitern, auch persönlicher Geburtstag mit glaubwürdigen Besuchen/Geschenken. Bildzeile rechts teilweise abgeschnitten; keine weitere Bedingung daraus abgeleitet. **Status Etappe 2 (Branch `feat/stadt-und-wohnraum`, nicht veröffentlicht, unabhängige Prüfung offen):** gebaut: Geschenk am Bewohnergeburtstag mit eigener Antwort und Dankesbrief, Tratsch nennt das Lieblingsgeschenk; Janinas Geburtstag (Vorschlag 6. Herbst, im Tagebuch änderbar): Geburtstagspost mit Beilage, Kuchen und Nudeln von René, Besuch von Rosa und Mei mit Geschenkkorb, einmal pro Jahr. |
-| W39 | Verlassene Häuser renovieren, Bewohner ziehen ein | Materialien und Geld einsetzen, echte Bauphase, anschließend bewohnbarer Ort und neuer Alltag. |
+| W38 | Geburtstage: überraschen und Geschenke bekommen | Bestehende Bewohnergeburtstage erweitern, auch persönlicher Geburtstag mit glaubwürdigen Besuchen/Geschenken. Bildzeile rechts teilweise abgeschnitten; keine weitere Bedingung daraus abgeleitet. **Status Etappe 2 (Branch `feat/stadt-und-wohnraum`, nicht veröffentlicht, unabhängige Prüfung offen):** gebaut: Geschenk am Bewohnergeburtstag mit eigener Antwort und Dankesbrief, Tratsch nennt das Lieblingsgeschenk; Janinas Geburtstag (Vorschlag 6. Herbst, im Tagebuch änderbar): Geburtstagspost mit Beilage, Kuchen und Nudeln von René, Besuch von Rosa und Mei mit Geschenkkorb, einmal pro Jahr. Etappe 4 ergänzt nichts. |
+| W39 | Verlassene Häuser renovieren, Bewohner ziehen ein | Materialien und Geld einsetzen, echte Bauphase, anschließend bewohnbarer Ort und neuer Alltag. **Vorhandener Teilstand:** Stadtbauplätze, Haus Nummer 7 und W62 sind an Einzug/Miete angebunden. Etappe 4 beginnt kein weiteres Haus. |
 | W40 | Seltene Fische nur bei bestimmtem Wetter | Fangbedingungen dokumentieren und im Spiel andeuten; nicht nur extrem niedrige Zufallschance. |
 | W41 | Nachtmarkt mit seltenen Gegenständen | Feste Termine, echte Besucher und besonderes Angebot; vom bereits existierenden Samstagsstand unterscheiden. |
 
@@ -148,12 +148,12 @@ Status: **Wunschliste, keine Behauptung vorhandener oder originaler Harvest-Moon
 | ID | Wunsch | Umsetzungskriterium |
 |---|---|---|
 | W42 | Anfangs etwas heruntergekommenes Dorf | Definierter Ausgangszustand. Bestehende Spielstände nicht unangekündigt verschlechtern. |
-| W43 | Kaputten Brunnen reparieren | Ressourcenauftrag führt zu sichtbar anderem Brunnen und einer kleinen Einweihung. |
-| W44 | Leeres Haus wiederbeleben | Mit W05/W39 verknüpfen, kein doppelter Fortschrittszähler. |
+| W43 | Kaputten Brunnen reparieren | Ressourcenauftrag führt zu sichtbar anderem Brunnen und einer kleinen Einweihung. **Vorhanden:** W58–W60 reparieren den alten Brunnen mit Ressourcen, sichtbarer Änderung, Einweihungsdialog und Wasserfunktion. |
+| W44 | Leeres Haus wiederbeleben | Mit W05/W39 verknüpfen, kein doppelter Fortschrittszähler. **Vorhanden:** Haus Nummer 7 sowie Stadtbauplätze/W62 verwenden das bestehende Einzugs- und Hausregister. |
 | W45 | Verwilderten Garten erneuern | Arbeitsschritte und sichtbarer, nutzbarer Gemeinschaftsgarten. |
 | W46 | Dorfplatz renovieren | Gestaltung verändert sich nach Bauabschluss; Bewohner nutzen den neuen Ort. |
-| W47 | Altes Gewächshaus wiederherstellen | Hofgewächshaus existiert bereits als Freischaltung. Falls ein Dorfgewächshaus gemeint ist, als eigenen Ort definieren, nicht doppelt berechnen. |
-| W48 | Nach längerer Spielzeit sichtbarer Erfolg | Dauerhafte Vorher-/Nachher-Zustände und neue Nutzungsmöglichkeiten. Die im Bild genannten „20 Spielstunden“ sind ein Wunschbild, keine geprüfte Spielzeitprognose. |
+| W47 | Altes Gewächshaus wiederherstellen | Hofgewächshaus existiert bereits als Freischaltung. Falls ein Dorfgewächshaus gemeint ist, als eigenen Ort definieren, nicht doppelt berechnen. **Vorhandener Teilstand:** Das Hofgewächshaus bleibt bestehen; Etappe 4 dupliziert es nicht. |
+| W48 | Nach längerer Spielzeit sichtbarer Erfolg | Dauerhafte Vorher-/Nachher-Zustände und neue Nutzungsmöglichkeiten. Die im Bild genannten „20 Spielstunden“ sind ein Wunschbild, keine geprüfte Spielzeitprognose. **Vorhandener Teilstand:** dauerhafte Haus-, Brunnen-, Stadt-, Café- und Tierausbauten. Keine Spielstundenbehauptung und kein neuer Gesamtabschluss in Etappe 4. |
 
 ### Wünsche René 16.10.2026: Briefkasten
 

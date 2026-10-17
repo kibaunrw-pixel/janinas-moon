@@ -261,6 +261,11 @@ function prop(mg,mgE,o,se,st){
   const x=o.x+(o.w||1)/2, z=o.y+(o.h||1)/2, k=o.k, snow=se===3;
   const wood="#a8743f", woodD="#7a4e2a", woodL="#c8945a";
   switch(k){
+    case 'mondtor_zu':case 'mondtor_offen':{const open=k==='mondtor_offen';mg.sph(x,.15,z-.1,.9,.4,.75,'#435440');mg.box(x,1,z,.1,2,1.45,'#7a7480');mgE.box(x,1,z+.52,.72,1.35,.03,open?'#9fc8ff':'#544c62');mgE.sph(x,1.55,z+.55,.22,.3,.03,open?'#ffffff':'#817694');return;}
+    case 'mondpilze':for(const [dx,dz,r] of [[-.3,0,.18],[.1,-.12,.24],[.35,.12,.14]]){mg.cyl(x+dx,.13,z+dz,.035,.26,'#dbe8e0');mgE.sph(x+dx,.3,z+dz,r,.08,r,'#9fdcff',true);}return;
+    case 'mondsamen_fund':for(let i=0;i<7;i++){const a=i*.9;mg.sph(x+Math.cos(a)*.28,.18,z+Math.sin(a)*.2,.16,.08,.12,'#629f78');}mgE.sph(x,.32,z,.14,.14,.14,'#d9efff',true);return;
+    case 'mondsteinring':for(let i=0;i<9;i++){const a=i*.7;mg.sph(x+Math.cos(a)*.55,.08,z+Math.sin(a)*.35,.16,.1,.13,'#8f8a98');}mgE.sph(x,.16,z,.1,.12,.1,'#cfe6ff',true);return;
+    case 'regenhaendler':mg.box(x,.85,z,.6,1.4,.45,'#40556f');mg.sph(x,1.7,z,.25,.3,.23,'#d2a47e');mg.cyl(x,2,z,.38,.08,'#27394f');mg.box(x,2.18,z,.45,.24,.4,'#334c66');mg.box(x+.55,.55,z,.55,.8,.45,'#8a5a33');mgE.box(x+.55,.65,z+.24,.35,.18,.02,'#cfe6ff');return;
     case 'bau1':case 'bau2':case 'bau3':{const phase=+k.slice(3),w=o.w||5,d=o.h||4;mg.box(x,.12,z,w,.24,d,'#ada391');if(phase>=2){for(const dx of [-w/2+.2,0,w/2-.2])for(const dz of [-d/2+.2,d/2-.2])mg.box(x+dx,1.1,z+dz,.12,2,.12,woodD);for(const dz of [-d/2+.2,d/2-.2]){mg.box(x,2.05,z+dz,w,.12,.12,wood);mg.box(x,1,z+dz,w,.12,.12,wood);}}if(phase===3){mg.box(x,1.1,z,w-.3,1.8,d-.3,'#dcc3a0');for(const side of [-1,1])mg.add(GEO.box,M4(x+side*w/4,2.4,z,w*.6,.12,d+.3,0,0,side*.5),'#b85b48');mg.box(x,.75,z+d/2,.65,1.4,.05,woodD);}return;}
     case 'ruine':{const w=o.w||5,d=o.h||4;mg.box(x,1,z,w-.4,2,d-.6,'#9c8f7c');mg.box(x,2.25,z,w-.1,.5,d-.2,'#6e5a4e');mg.box(x,2.65,z,w-1.2,.35,d-1.2,'#5a4a40');
      mg.box(x,.75,z+d/2-.28,.7,1.5,.06,'#4a3a30');mg.box(x,1.75,z+d/2-.27,.36,.26,.04,'#e8dcc0');
@@ -410,6 +415,7 @@ function crop(mg,x,z,k,st,v){
   if(st===2){ mg.cyl(x,.15,z,.02,.26,G); for(let i=0;i<4;i++) leaf(i*1.57+v,.26,.22+i*.02,i%2?G:GL); return; }
   const ripe=st===4;
   switch(k){
+    case "mondblume":mg.cyl(x,.38,z,.025,.76,"#4f8a62");for(let i=0;i<6;i++){const a=i*1.047+v;leaf(a,ripe?.42:.3,.62,i%2?"#9fc8ff":"#7ca8cb",.15);}if(st>=3)mg.sph(x,.72,z,ripe?.16:.11,.08,ripe?.16:.11,ripe?"#ffffff":"#cbd7ee",true);return;
     case "zwiebel": for(let i=0;i<6;i++){ const a=i*1.05+v; mg.add(GEO.cyl,M4(x+Math.cos(a)*.06,.25,z+Math.sin(a)*.06,.025,.45,.025,Math.sin(a)*.2,0,Math.cos(a)*.2),i%2?G:GL); } if(ripe) mg.sph(x,.08,z,.12,.1,.12,"#f4f1ea"); return;
     case "pakchoi": for(let i=0;i<7;i++){ const a=i*.9+v; mg.add(GEO.sph,M4(x+Math.cos(a)*.1,.22,z+Math.sin(a)*.1,.1,ripe?.26:.18,.05,Math.sin(a)*.4,-a,Math.cos(a)*.4),i%2?"#9ad070":"#7cc45a"); } mg.cyl(x,.1,z,.08,.18,"#f0f4e8"); return;
     case "erdbeere": for(let i=0;i<5;i++) leaf(i*1.25+v,.3,.16,i%2?G:GL); if(ripe) for(let i=0;i<5;i++){ const a=i*1.25+v+.6; mg.add(GEO.cone,M4(x+Math.cos(a)*.18,.1,z+Math.sin(a)*.18,.06,.1,.06,Math.PI,0,0),"#e8434f"); } return;
@@ -779,7 +785,7 @@ function cameraUpdate(dt,pads){
 /* ---------- Licht nach Uhrzeit ---------- */
 function lightUpdate(){
   const M=E.M, S=E.S, m=S.min, se=E.season();
-  const night=m>=1140||m<375;
+  const night=M.moonForest||m>=1140||m<375;
   if(M.inside){ sun.intensity=night?.5:1.4; sun.color.set(night?"#c0a0ff":"#fff1dc"); hemi.intensity=night?.55:1.15; hemi.color.set("#fff0dc"); hemi.groundColor.set("#5a4030"); amb.intensity=night?.25:.35; sun.position.set(camT.x-4,12,camT.z+7); }
   else if(M.cave){ sun.intensity=.45; sun.color.set("#9aa8d8"); hemi.intensity=.6; hemi.color.set("#7080b0"); hemi.groundColor.set("#2a2020"); amb.intensity=.12; sun.position.set(camT.x-3,12,camT.z+5); }
   else {
@@ -808,7 +814,7 @@ function lightUpdate(){
   if(M.inside&&!M.cave){ const k=lightsSrc.find(l=>l[4]==="kerze"); if(k&&PL[1]){ PL[1].position.set(k[0],k[1],k[2]); PL[1].intensity=night?3:1.6; PL[1].color.set("#ffb060"); } }
   // Café (Etappe 3): warme Hängelampen über den Tischen, auch tagsüber
   if(M.inside){ lightsSrc.filter(l=>l[4]==="lampe").forEach((k,i)=>{ const l=PL[i+1]; if(l){ l.position.set(k[0],k[1],k[2]); l.intensity=night?2.6:1.4; l.color.set("#ffc27a"); } }); }
-  if(M.inside) scene.fog=null; else { if(!FOG) FOG=new THREE.Fog("#ffffff",40,80); FOG.color.copy(scene.background); FOG.near=camDist+8; FOG.far=camDist+45; scene.fog=FOG; }
+  if(M.inside) scene.fog=null; else { if(!FOG) FOG=new THREE.Fog("#ffffff",40,80); FOG.color.set(M.moonForest?'#596b82':scene.background); FOG.near=M.moonForest?camDist+2:camDist+8; FOG.far=M.moonForest?camDist+24:camDist+45; scene.fog=FOG; }
 }
 
 /* ---------- Rauch ---------- */
@@ -847,7 +853,7 @@ function lifePuddles(){
 function lifeUpdate(dt){
   if(!LIFE) lifeInit(); const M=E.M, S=E.S, se=E.season(), t=E.gameT, m=S.min, out=!M.inside&&!M.cave;
   if(LIFE.pmap!==M.id) lifePuddles();
-  const night=m>=1170||m<330, day=m>=420&&m<1080, sun=S.weather==="sun", rain=S.weather==="rain", snow=S.weather==="snow";
+  const night=M.moonForest||m>=1170||m<330, day=!M.moonForest&&m>=420&&m<1080, sun=S.weather==="sun", rain=S.weather==="rain", snow=S.weather==="snow";
   // Schmetterlinge
   const bfOn=out&&day&&sun&&(se===0||se===1);
   LIFE.bf.forEach((b,i)=>{ b.visible=bfOn; if(!bfOn) return; const u=b.userData; u.t+=dt*u.sp;
@@ -856,7 +862,7 @@ function lifeUpdate(dt){
     b.rotation.y=Math.atan2(Math.cos(u.t*.7+u.ph)*.7*2.2,-Math.sin(u.t*.5+u.ph)*.5*1.6)+Math.PI;
     const f=Math.sin(t*22+u.ph)*1.1; u.l.rotation.y=f; u.r.rotation.y=-f; });
   // Glühwürmchen
-  const ffOn=out&&night&&!rain&&!snow&&(se===0||se===1);
+  const ffOn=out&&night&&!rain&&!snow&&(M.moonForest||se===0||se===1);
   LIFE.ff.forEach(f=>{ f.visible=ffOn; if(!ffOn) return; const u=f.userData; u.t+=dt*.4;
     if(!u.home||Math.hypot(u.home.x-camT.x,u.home.z-camT.z)>10){ u.home={x:camT.x+(rnd()-.5)*14,z:camT.z+(rnd()-.5)*14}; }
     f.position.set(u.home.x+Math.sin(u.t+u.ph)*1.2,.4+Math.sin(u.t*1.7+u.ph)*.35+.3,u.home.z+Math.cos(u.t*.8+u.ph)*1.2);
