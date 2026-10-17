@@ -65,7 +65,7 @@ Z.buyMaterial=function(s,k,n){Z.migrate(s);const m=Z.MATERIAL[k];if(!m||!Number.
 Z.STUFEN=[
  {n:1,t:'Dorf am Bahnhof',d:'Drei kleine Mietshäuser mit Ida, Noah und Mara.'},
  {n:2,t:'Marktflecken',geb:['baeckerei'],money:12000,need:{holz:60,stein:40},days:3,d:'Friedas Bäckerei an der neuen Oststraße. Die Stadt wächst nach Osten.'},
- {n:3,t:'Gartenstadt',geb:['blumenladen','park'],money:60000,need:{holz:120,stein:80},days:4,d:'Lottes Blumenladen und ein Stadtpark mit Pavillon, Bänken und Beeten.'},
+ {n:3,t:'Gartenstadt',geb:['blumenladen','park'],money:60000,need:{holz:120,stein:80},days:4,d:'Lottes Blumenladen und ein Stadtpark mit Pavillon, Brunnen, Bank und Beeten.'},
  {n:4,t:'Villenviertel',geb:['villa'],money:140000,need:{holz:200,stein:150,eisen:20},days:5,d:'Eine eigene Villa für Herrn Falk, der Haus Nummer 7 mieten wollte.'},
  {n:5,t:'Kleinstadt Lindenstadt',geb:['hotel'],money:320000,need:{holz:300,stein:250,eisen:40},days:6,d:'Das Hotel Lindenhof bringt Gäste aus der ganzen Gegend.'}
 ];
@@ -225,14 +225,17 @@ Z.applyCity=function(m,s){if(!m)return;Z.widen(m);const z=s&&s.ziele,st=z?z.stuf
   else if(bau&&Z.STUFEN[bau-1].geb.includes(id)){rect(m,g.x,g.y,g.x+g.w-1,g.y+g.h-1,T.SAND);add(m,{k:'bau'+Z.bauPhase(s),x:g.x,y:g.y,w:g.w,h:g.h,act:'ziele:geb:'+id});}
   else{rect(m,g.x,g.y,g.x+g.w-1,g.y+g.h-1,T.SAND);add(m,{k:'bauschild',x:g.x+2,y:g.y+g.h-1,act:'ziele:bauland:'+id});}
  }
- if(st>=4)add(m,{k:'bank',x:45,y:12,w:2,h:1,act:'ziele:deko',ziele:1});
+ if(st>=4){add(m,{k:'bank',x:45,y:12,w:2,h:1,act:'ziele:deko',ziele:1});const V=Z.GEB.villa;add(m,{k:'villazaun',x:V.x,y:V.y+V.h,w:V.w,h:1,act:'ziele:geb:villa',ziele:1});}
  if(st>=5){add(m,{k:'blumenkuebel',x:37,y:16,act:'ziele:deko',ziele:1});add(m,{k:'blumenkuebel',x:43,y:16,act:'ziele:deko',ziele:1});}
  m.houseLevel=String(m.houseLevel)+'|z:'+st+':'+bau+':'+(bau?Z.bauPhase(s):0)+(s&&Z.wettTag(s)?':w':'');};
 function parkObjs(m){const P=Z.GEB.park;rect(m,P.x,P.y,P.x+5,P.y+4,T.GRAS);
- for(let x=P.x;x<=P.x+5;x++)m.t[P.y+2][x]=T.WEG;for(let y=P.y;y<=P.y+4;y++)m.t[y][P.x+3]=T.WEG;
- add(m,{k:'parkpavillon',x:P.x,y:P.y,w:2,h:2,act:'ziele:park',ziele:1});add(m,{k:'blumenbeet',x:P.x+4,y:P.y,w:2,h:1,act:'ziele:park',ziele:1});
- add(m,{k:'bank',x:P.x+4,y:P.y+3,w:2,h:1,act:'ziele:park',ziele:1});add(m,{k:'blumenbeet',x:P.x,y:P.y+4,w:2,h:1,act:'ziele:park',ziele:1});add(m,{k:'lamp',x:P.x+2,y:P.y+3,act:'lamp',ziele:1});
- for(const [x,y] of [[P.x+5,P.y+1],[P.x+1,P.y+3]]){m.t[y][x]=T.BAUM;m.trees.push({x,y,kind:'fruit',v:(x+y)%5});}}
+ // Wege: vom Fußweg der unteren Straße in den Park hinein und quer hindurch (kein Weg endet im Wald)
+ for(let x=P.x;x<=P.x+5;x++)m.t[P.y+2][x]=T.WEG;for(let y=P.y-1;y<=P.y+3;y++)m.t[y][P.x+3]=T.WEG;
+ // Nordhälfte: Pavillon und Parkbrunnen, dazwischen ein Blumenkübel am Weg
+ add(m,{k:'parkpavillon',x:P.x,y:P.y,w:2,h:2,act:'ziele:park',ziele:1});add(m,{k:'fountain',x:P.x+4,y:P.y,w:2,h:2,act:'ziele:park',ziele:1});add(m,{k:'blumenkuebel',x:P.x+2,y:P.y,act:'ziele:deko',ziele:1});
+ // Südhälfte: Lottes Beet, Laterne und Bank. Die Obstbäume stehen seitlich am Parkrand, damit sie Bank und Beet nicht verdecken.
+ add(m,{k:'blumenbeet',x:P.x,y:P.y+3,w:2,h:1,act:'ziele:park',ziele:1});add(m,{k:'lamp',x:P.x+2,y:P.y+3,act:'lamp',ziele:1});add(m,{k:'bank',x:P.x+4,y:P.y+3,w:2,h:1,act:'ziele:park',ziele:1});
+ for(const [x,y] of [[P.x-1,P.y+1],[P.x+6,P.y+1]]){m.t[y][x]=T.BAUM;m.trees.push({x,y,kind:'fruit',v:(x+y)%5});}}
 const sa=St.apply;St.apply=function(maps,s){sa(maps,s);if(s)Z.migrate(s);Z.applyCity(maps.stadt,s);Z.applyFarm(maps.farm,s);};
 const bmaps=J.buildMaps;J.buildMaps=function(){const all=bmaps();Z.applyCity(all.stadt,null);
  const h=all.haus;if(h&&!h.obj.some(o=>o.k==='trophaeen')){h.obj.push({k:'trophaeen',x:4,y:3,act:'ziele:trophaeen'});h.t[3][4]=T.BLOCK;}return all;};
@@ -257,8 +260,8 @@ Z.act=function(s,a){Z.migrate(s);
  if(a==='plan'||a.startsWith('bauland'))return Z.planPanel(s);
  if(a==='auftrag')return Z.auftragPanel(s);
  if(a==='wett')return Z.wettPanel(s);
- if(a==='trophaeen'){const st=Z.sterne(s),tr=Z.trophaeen(s);return {panel:{t:'Trophäenwand',p:['Stadt-Sterne: '+'★'.repeat(st.stadt.n)+'☆'.repeat(5-st.stadt.n)+' · Hof-Sterne: '+'★'.repeat(st.hof.n)+'☆'.repeat(5-st.hof.n),...(tr.length?tr.map(t=>'🏆 '+t.t+' (Spieltag '+t.day+')'):['Das Regal wartet noch auf die erste Trophäe.'])],buttons:[]}};}
- if(a==='park')return {note:'Der Stadtpark: Pavillon, Bänke und Lottes Beete. Seit es ihn gibt, zahlen alle Mieter gern ein Viertel mehr.'};
+ if(a==='trophaeen')return Z.trophPanel(s);
+ if(a==='park')return {note:'Der Stadtpark: Pavillon, Brunnen, eine Bank und Lottes Beet. Seit es ihn gibt, zahlen alle Mieter gern ein Viertel mehr.'};
  if(a==='deko')return {note:'Lindenstadt wird jeden Tag bunter.'};
  if(a.startsWith('geb:'))return Z.gebPanel(s,a.slice(4));
  return null;};
@@ -293,11 +296,19 @@ Z.gebPanel=function(s,id){const g=Z.GEB[id];if(!g)return null;
  if(id==='villa')p.push('Herr Falk wollte einst Haus Nummer 7. Jetzt hat er eine eigene Villa mit Fernrohr auf dem Dach.');
  if(N)p.push(N.n+' steht tagsüber vor dem Haus. Antippen zum Reden.');
  return {panel:{t:g.n,p,buttons:b}};};
-Z.hofPanel=function(s){const h=s.ziele.hof,p=['Timo schärft Werkzeuge beim Schmied in Lindenstadt und legt Felder an. Eine Arbeit gleichzeitig.'],b=[];
+Z.HOF_ICON={silber:'🪣',felder:'🌱',gold:'✨'};
+Z.hofPanel=function(s){const h=s.ziele.hof,p=['Timo schärft Werkzeuge beim Schmied in Lindenstadt und legt Felder an. Eine Arbeit gleichzeitig.'],b=[],cards=[];
  for(const [k,c] of Object.entries(Z.HOF)){const done=h[k],job=h.job&&h.job.k===k,f=Z.fehlt(s,c),req=c.req&&!h[c.req];
-  p.push(c.n+': '+c.d+' · '+fmt(c.money)+' G, '+Object.entries(c.need).map(([i,q])=>q+' '+J.ITEMS[i].n+' ('+(s.inv[i]||0)+' da)').join(', ')+(done?' · fertig':job?' · in Arbeit, noch '+Math.max(0,h.job.due-s.day)+' Nächte':req?' · erst Silberwerkzeug':''));
+  cards.push({icon:Z.HOF_ICON[k],t:c.n,d:c.d+' Kosten: '+fmt(c.money)+' G, '+Object.entries(c.need).map(([i,q])=>q+' '+J.ITEMS[i].n+' ('+(s.inv[i]||0)+' da)').join(', ')+'.',st:done?'ok':job?'job':'',tag:done?'fertig':job?'in Arbeit, noch '+Math.max(0,h.job.due-s.day)+' Nächte':req?'erst Silberwerkzeug':f.length?'fehlt: '+f.join(', '):'bereit'});
   if(!done&&!job)b.push(btn('hof-'+k,c.n+' beauftragen',()=>Z.orderHof(s,k)?{hud:true,sfx:'buy',note:'Timo macht sich an die Arbeit: '+c.n+'.'}:{note:'Dafür fehlt noch: '+Z.fehlt(s,c).join(', ')+'.'},!!(h.job||req||f.length)));}
- return {panel:{t:'Hof ausbauen bei Timo',p,buttons:b}};};
+ return {panel:{t:'Hof ausbauen bei Timo',p,cards,buttons:b}};};
+Z.trophPanel=function(s){const st=Z.sterne(s),tr=Z.trophaeen(s),star=n=>'★'.repeat(n)+'☆'.repeat(5-n),icon=t=>/wettbewerb/.test(t.id)?'🎃':/auftrag/.test(t.id)?'📜':/stadt/.test(t.id)?'🏘️':/^hof-/.test(t.id)?'🧰':'🏆';
+ const cards=tr.map(t=>({icon:icon(t),t:t.t,d:'Spieltag '+t.day,st:'ok'}));
+ // Freie Plätze zeigen, was noch zu holen ist (nur Anzeige, keine neue Regel)
+ const frei=[];if(st.stadt.n<5)frei.push('Stadtstufe '+(st.stadt.n+1)+' · '+Z.STUFEN[st.stadt.n].t);if(!tr.some(t=>/^wett-/.test(t.id)))frei.push('Erntewettbewerb gegen Greta gewinnen');
+ if(!tr.some(t=>t.id==='auftrag5'))frei.push('Fünf Großaufträge erfüllen');
+ for(const f of frei.slice(0,3))cards.push({icon:'·',t:f,d:'Noch frei im Regal',st:'leer'});
+ return {panel:{t:'Trophäenwand',p:['Stadt-Sterne '+star(st.stadt.n)+' · Hof-Sterne '+star(st.hof.n)],cards,p2:tr.length?[]:['Das Regal wartet noch auf die erste Trophäe.'],buttons:[]}};};
 
 /* ---------- Hinweisbox, Wegweiser, Kalender ---------- */
 Z.goal=function(s){if(!s||!s.ziele||!s.ziele.brief)return null;const z=s.ziele;

@@ -28,11 +28,12 @@ function sprite(kind,se,night){let c,g;const snow=se===3;
   for(const [x,y] of [[12,77],[17,76],[22,77],[32,77],[38,76]]){g.ell(x,y,2.5,1.6,'#c98a4a');g.p(x-1,y-1,'#e8b86a');}
   door(g,54,64,'#8a5a33');
   // Brezelschild am Ausleger
-  g.r(48,52,2,10,'#3a2a20');g.r(48,52,10,1,'#3a2a20');g.ell(55,58,4,3.5,'#c98a4a');g.ell(55,58,2,1.6,'#f1e2c4');g.p(55,55,'#c98a4a');
+  g.r(48,51,2,11,'#3a2a20');g.r(48,51,12,1,'#3a2a20');g.p(52,52,'#3a2a20');g.p(57,52,'#3a2a20');
+  {const BZ=['.XX...XX.','X..X.X..X','X...X...X','X..X.X..X','.X.....X.','..X...X..','...XXX...'];BZ.forEach((row,j)=>{for(let i=0;i<9;i++)if(row[i]==='X')g.p(50+i,53+j,j<2&&i%3===1?'#e8b86a':'#b8783a');});for(const [x,y] of [[51,54],[57,55],[54,58]])g.p(x,y,'#fff8e8');}
   // Brotkorb und Bank vor dem Laden
   g.ell(70,86,6,3,'#b07a3e');for(let i=0;i<4;i++)g.ell(66+i*3,84,1.6,1.2,'#e8b86a');
   g.r(8,84,16,2,'#a8743f');g.r(9,86,2,4,'#7a4e2a');g.r(21,86,2,4,'#7a4e2a');
-  text(g,25,52,'BAECKEREI'.slice(0,0),'#3a2a20');break;}
+  break;}
  case 'blumenladen':{c=cnv(82,100);g=G(c);base(g,90);walls(g,5,50,72,40,'#f3d3dc');
   roof(g,20,30,50,82,snow?'#f4f8fb':'#6f8f5a',snow?'#dfe9f0':'#557446');
   g.r(30,8,22,14,snow?'#f4f8fb':'#557446');g.r(33,11,16,9,'#cfe6ff');g.r(40,11,1,9,'#f4f1ea');g.r(33,15,16,1,'#f4f1ea');
@@ -68,6 +69,13 @@ function sprite(kind,se,night){let c,g;const snow=se===3;
   // Eingang mit Vordach und rotem Teppich
   g.r(30,88,22,3,'#2f456a');g.r(30,91,1,13,'#c9a46a');g.r(51,91,1,13,'#c9a46a');door(g,35,92,'#6b4423');g.r(37,117,8,10,'#b8302a');
   for(const x of [18,62]){g.ell(x,114,4,3,'#4f8a3a');g.r(x-3,114,7,4,'#8a5a33');}
+  break;}
+ case 'villazaun':{c=cnv(82,24);g=G(c);const IRON='#2f2f3a',GOLD='#e8c45a';
+  if(se<3){g.ell(13,19,10,4,'#4f8a3a');g.ell(69,19,10,4,'#4f8a3a');g.ell(13,17,7,2,'#6faa52');g.ell(69,17,7,2,'#6faa52');}
+  g.r(2,20,78,2,'#9a948a');
+  for(const [a,b] of [[4,30],[52,78]]){g.r(a,9,b-a,1,IRON);g.r(a,18,b-a,1,IRON);for(let x=a;x<=b;x+=3){g.r(x,8,1,12,IRON);g.p(x,7,GOLD);}}
+  for(let x=33;x<=49;x+=2){const h=Math.round(3*Math.sin((x-33)/16*Math.PI));g.r(x,8-h,1,12+h,IRON);}g.r(33,18,17,1,IRON);g.p(41,3,GOLD);g.p(40,4,GOLD);g.p(42,4,GOLD);
+  for(const x of [1,30,49,78]){g.r(x,5,4,16,'#d8d0c0');g.r(x,5,4,1,'#f0ebe0');g.r(x-1,4,6,2,'#c8c0b0');g.r(x+1,2,2,2,GOLD);}
   break;}
  case 'parkpavillon':{c=cnv(34,46);g=G(c);g.ell(17,40,15,5,'#c5bba6');g.ell(17,39,13,4,'#d8cfbc');
   for(const x of [5,13,21,29])g.r(x,18,2,22,'#f4f1ea');g.r(3,36,28,2,'#e8e2d4');for(let x=4;x<30;x+=3)g.r(x,32,1,4,'#e8e2d4');

@@ -203,13 +203,14 @@ const BSTYLE={
   baeckerei:{wall:"#f1e2c4",roof:"#b5523b",trim:"#8a3a2c",door:"#8a5a33",chim:true,awning:["#d9473a","#f4f1ea"],plank:true},
   blumenladen:{wall:"#f3d3dc",roof:"#6f8f5a",trim:"#557446",door:"#6f8f5a",flowers:true},
   villa:{wall:"#f4f1ea",roof:"#4a5a6e",trim:"#8a8070",door:"#3f4f6f",stone:true,flowers:true,tall:.9},
-  hotel:{wall:"#e8d9b8",roof:"#3f5a8a",trim:"#2f456a",door:"#6b4423",stone:true,flowers:true,tall:1.6}
+  hotel:{wall:"#e8d9b8",roof:"#3f5a8a",trim:"#2f456a",door:"#6b4423",stone:true,flowers:true,tall:1.35,nowin:true}
 };
 const SMOKERS=[];
 /* Etappe 5: Zusatzdetails der neuen Stadtgebäude (Brezelschild, Brotkorb, Blumeneimer, Säulen, Balkon, Fernrohr, Hotel-Etagen) */
 const EXTRA5={baeckerei:1,blumenladen:1,villa:1,hotel:1};
 function extras5(mg,mgE,o,se){ if(!EXTRA5[o.k]) return; const w=o.w,d=o.h,x0=o.x,cx=x0+w/2,front=o.y+d-.02,st=BSTYLE[o.k],wallH=1.6+(st.tall||0),snow=se===3,FLC=["#f28fb0","#f6d55c","#ffffff","#c49bf2","#e8483a"];
-  if(o.k==="baeckerei"){ mg.box(x0+3.6,1.55,front+.35,.05,.6,.05,"#3a2a20"); mg.box(x0+3.85,1.82,front+.35,.55,.05,.05,"#3a2a20"); mg.add(GEO.cyl,M4(x0+4.05,1.55,front+.35,.18,.06,.18,Math.PI/2,0,0),"#c98a4a");
+  if(o.k==="baeckerei"){ mg.box(x0+3.6,1.55,front+.35,.05,.6,.05,"#3a2a20"); mg.box(x0+3.85,1.82,front+.35,.55,.05,.05,"#3a2a20"); for(let i=0;i<28;i++){ const t=i/28*Math.PI*2, hx=Math.pow(Math.sin(t),3)*.2, hy=(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t))*.012; mg.sph(x0+4.05+hx,1.5+hy,front+.35,.045,.045,.045,"#b8783a"); }
+    for(let i=0;i<7;i++){ const f=i/6; for(const sg of [-1,1]) mg.sph(x0+4.05+sg*(.13-f*.26),1.36+f*.2,front+.37,.04,.04,.04,"#c98a4a"); }
     mg.cyl(x0+4.4,.2,front+.45,.28,.22,"#b07a3e"); for(let i=0;i<4;i++) mg.sph(x0+4.25+i*.1,.36,front+.45,.08,.05,.06,"#e8b86a");
     mg.box(x0+.9,.42,front+.45,1.2,.06,.35,"#a8743f"); for(const dx of [.4,1.4]) mg.box(x0+dx,.2,front+.45,.06,.4,.3,"#7a4e2a"); }
   if(o.k==="blumenladen"&&!snow){ for(const [dx,k] of [[.35,0],[.8,2],[w-.8,4],[w-.35,1]]){ mg.cyl(x0+dx,.2,front+.4,.17,.4,"#7a8a9a"); for(let i=0;i<5;i++) mgE.sph(x0+dx+Math.cos(i*1.3)*.1,.5+(i%2)*.06,front+.4+Math.sin(i*1.3)*.08,.07,.07,.07,FLC[(k+i)%5],true); }
@@ -219,10 +220,13 @@ function extras5(mg,mgE,o,se){ if(!EXTRA5[o.k]) return; const w=o.w,d=o.h,x0=o.x
     const ty=.24+wallH+1.6; mg.cyl(x0+w-1.1,ty,o.y+d/2,.25,.5,"#e2ddd2"); mg.add(GEO.cyl,M4(x0+w-.9,ty+.4,o.y+d/2,.07,.7,.07,0,0,-.9),"#c9a46a");
     for(let i=0;i<4;i++){ const wx=x0+.8+i*(w-1.6)/3; mg.box(wx,1.95,front+.03,.5,.5,.05,"#f4f1ea"); mgE.box(wx,1.95,front+.05,.4,.4,.03,"#9fd0ee"); }
     if(!snow) for(const dx of [.5,w-.5]) mg.sph(x0+dx,.3,front+.5,.4,.35,.3,"#4f8a3a"); }
-  if(o.k==="hotel"){ for(let row=0;row<2;row++) for(let i=0;i<4;i++){ const wx=x0+.7+i*(w-1.4)/3, wy=1.75+row*.75; mg.box(wx,wy,front+.03,.5,.48,.05,"#f4f1ea"); mgE.box(wx,wy,front+.05,.4,.38,.03,"#9fd0ee"); if(!snow){ mg.box(wx,wy-.32,front+.1,.5,.1,.12,"#8a5a33"); for(let k=0;k<3;k++) mg.sph(wx-.15+k*.15,wy-.25,front+.12,.06,.06,.06,FLC[(i+k+row)%5],true); } }
-    mg.box(cx,.24+wallH+.2,front+.06,2.2,.42,.06,"#2f456a"); mgE.box(cx,.24+wallH+.2,front+.1,1.9,.26,.02,"#f6d55c");
+  if(o.k==="hotel"){ for(let row=0;row<3;row++) for(let i=0;i<4;i++){ if(row===0&&(i===1||i===2)) continue; const wx=x0+.7+i*(w-1.4)/3, wy=1.5+row*.62; mg.box(wx,wy,front+.03,.5,.48,.05,"#f4f1ea"); mgE.box(wx,wy,front+.05,.4,.38,.03,"#9fd0ee"); if(!snow){ mg.box(wx,wy-.32,front+.1,.5,.1,.12,"#8a5a33"); for(let k=0;k<3;k++) mg.sph(wx-.15+k*.15,wy-.25,front+.12,.06,.06,.06,FLC[(i+k+row)%5],true); } }
+    // Schriftzug vor der Traufe (nicht unter dem Dachüberstand), auf zwei Messingstützen
+    mg.box(cx,.24+wallH+.22,front+.45,2.2,.5,.06,"#2f456a"); for(const dx of [-.9,.9]) mg.box(cx+dx,.24+wallH-.05,front+.42,.05,.3,.05,"#c9a46a"); { const F5={H:["101","101","111","101","101"],O:["111","101","101","101","111"],T:["111","010","010","010","010"],E:["111","100","110","100","111"],L:["100","100","100","100","111"]}, px=.075, sx=cx-(5*4-1)*px/2+px/2, sy=.24+wallH+.22+2*px;
+      [..."HOTEL"].forEach((ch,li)=>F5[ch].forEach((row,j)=>{ for(let q=0;q<3;q++) if(row[q]==="1") mgE.box(sx+(li*4+q)*px,sy-j*px,front+.49,px*.92,px*.92,.02,"#f6d55c"); })); }
     mg.box(cx,1.3,front+.45,1.4,.08,.7,"#2f456a"); for(const dx of [-.65,.65]) mg.box(cx+dx,.65,front+.75,.05,1.3,.05,"#c9a46a"); mg.box(cx,.03,front+.6,.7,.02,1.1,"#b8302a");
-    for(const dx of [-2,2]){ mg.box(cx+dx,.24+wallH+1.4,o.y+d/2,.04,1.2,.04,"#3a3a44"); mg.box(cx+dx+.25,.24+wallH+1.85,o.y+d/2,.45,.25,.02,dx<0?"#d9473a":"#f6d55c"); } }
+    // Fahnenmasten vor dem Eingang statt auf dem First: so bleiben die Fahnen auch im Querformat im Bild
+    for(const dx of [-2.1,2.1]){ mg.cyl(cx+dx,.06,front+.55,.12,.12,"#9a948a"); mg.box(cx+dx,1.3,front+.55,.05,2.5,.05,"#3a3a44"); mg.sph(cx+dx,2.58,front+.55,.05,.05,.05,"#c9a46a"); mg.box(cx+dx+(dx<0?.26:-.26),2.3,front+.55,.48,.3,.02,dx<0?"#d9473a":"#f6d55c"); } }
 }
 function building(mg,mgE,o,se){
   const st=BSTYLE[o.k], w=o.w, d=o.h, x0=o.x, z0=o.y, cx=x0+w/2, front=z0+d-.02;
@@ -257,8 +261,8 @@ function building(mg,mgE,o,se){
   mg.sph(dx+.17,.72,front+.08,.035,.035,.035,"#f3c34a");
   mg.box(dx,.06,front+.25,.8,.12,.4,"#a8a296");
   // Fenster
-  const wins=[]; for(let i=0;i<w;i++){ const wx=x0+i+.5; if(Math.abs(wx-dx)>.8&&i>0&&i<w-1) wins.push(wx); }
-  if(!wins.length&&w>=3) wins.push(x0+.6);
+  const wins=[]; if(!st.nowin){ for(let i=0;i<w;i++){ const wx=x0+i+.5; if(Math.abs(wx-dx)>.8&&i>0&&i<w-1) wins.push(wx); }
+  if(!wins.length&&w>=3) wins.push(x0+.6); } // Hotel: eigene Etagenfenster in extras5
   const wy=.24+wallH*.58;
   for(const wx of wins.slice(0,3)){
     mg.box(wx,wy,front+.03,.62,.56,.05,"#f4f1ea");
@@ -287,6 +291,13 @@ function prop(mg,mgE,o,se,st){
     case 'mondtor_zu':case 'mondtor_offen':{const open=k==='mondtor_offen';mg.sph(x,.15,z-.1,.9,.4,.75,'#435440');mg.box(x,1,z,.1,2,1.45,'#7a7480');mgE.box(x,1,z+.52,.72,1.35,.03,open?'#9fc8ff':'#544c62');mgE.sph(x,1.55,z+.55,.22,.3,.03,open?'#ffffff':'#817694');return;}
     case 'mondpilze':for(const [dx,dz,r] of [[-.3,0,.18],[.1,-.12,.24],[.35,.12,.14]]){mg.cyl(x+dx,.13,z+dz,.035,.26,'#dbe8e0');mgE.sph(x+dx,.3,z+dz,r,.08,r,'#9fdcff',true);}return;
     // Etappe 5: Park, Tafeln, Wettbewerb, Trophäen
+    // Etappe 5: schmiedeeiserner Zaun mit Tor vor der Villa am Lindenhang
+    case 'villazaun':{const w=o.w||5,zz=o.y+.55,IRON='#2f2f3a',GOLD='#d8b04a';
+     for(const px of [o.x+.12,o.x+w-.12,x-.62,x+.62]){mg.box(px,.45,zz,.2,.9,.2,'#d8d0c0');mg.box(px,.93,zz,.26,.06,.26,'#c8c0b0');mgE.sph(px,1.02,zz,.07,.07,.07,GOLD,true);}
+     for(const [a,b] of [[o.x+.22,x-.72],[x+.72,o.x+w-.22]]){mg.box((a+b)/2,.12,zz,b-a,.05,.04,IRON);mg.box((a+b)/2,.62,zz,b-a,.05,.04,IRON);const n=Math.round((b-a)/.16);for(let i=0;i<=n;i++){const bx=a+i*(b-a)/n;mg.box(bx,.37,zz,.03,.55,.03,IRON);mg.sph(bx,.67,zz,.025,.04,.025,GOLD);}}
+     for(let i=0;i<9;i++){const bx=x-.5+i*.125,h=.62+Math.sin(i/8*Math.PI)*.18;mg.box(bx,.06+h/2,zz,.03,h,.03,IRON);}mg.box(x,.12,zz,1.04,.05,.04,IRON);
+     for(let i=0;i<9;i++){const a=i/8*Math.PI;mg.sph(x-Math.cos(a)*.5,.68+Math.sin(a)*.18,zz,.03,.03,.03,IRON);}mgE.sph(x,.9,zz,.05,.05,.05,GOLD,true);
+     if(!snow)for(const hx of [o.x+.8,o.x+w-.8])mg.sph(hx,.25,zz-.3,.45,.28,.22,'#4f8a3a');return;}
     case 'parkpavillon':{mg.cyl(x,.08,z,1,.16,'#d8cfbc');for(let i=0;i<6;i++){const a=i*Math.PI/3;mg.cyl(x+Math.cos(a)*.8,1.05,z+Math.sin(a)*.8,.06,1.9,'#f4f1ea');}
      mg.add(GEO.cone,M4(x,2.35,z,1.15,.8,1.15),snow?'#f4f8fb':'#557446');mg.sph(x,2.8,z,.09,.09,.09,'#f6d55c');for(let i=0;i<6;i++){const a=i*Math.PI/3+.5;mgE.sph(x+Math.cos(a)*.95,1.95,z+Math.sin(a)*.95,.06,.06,.06,['#f28fb0','#f6d55c','#ffffff'][i%3],true);}
      mg.box(x,.45,z,.9,.06,.35,woodL);return;}
@@ -812,8 +823,10 @@ function cameraUpdate(dt,pads){
   const zoom=R3.zo||E.zoom(), inside=M.inside||M.cave;
   const sv=E.sceneView();let tx=sv?sv.x:P.x+.5, tz=sv?sv.y:P.y+.6;
   const pitch=inside?.92:.8, fovH=inside?9.5:6.6;
-  const visW=Math.max(fovH/zoom,sv?sv.width:0);
   camera.fov=34; const vfov=camera.fov*Math.PI/180, aspect=camera.aspect;
+  // Etappe 5: Auf Querformat (Desktop) zeigte die Außenkamera nur ~9 Reihen Tiefe; hohe Stadtgebäude (Bäckerei, Villa, Hotel)
+  // ragten selbst bei kleinstem Zoom oben aus dem Bild. Deshalb im Querformat mindestens 4/5 der Grundbreite als Tiefe zeigen.
+  const visW0=fovH/zoom, visW=Math.max(visW0,sv?sv.width:0,(!inside&&!sv&&aspect>1.2)?visW0*.8*aspect:0);
   const visH=visW/aspect;
   const dist=(visH/2)/Math.tan(vfov/2); camDist=dist;
   // Rand begrenzen

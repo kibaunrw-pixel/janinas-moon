@@ -68,7 +68,7 @@ try{for(const seg of SEGS)for(const vp of [{width:390,height:844},{width:1440,he
    row.result={stufe:2,ankauf:1000};
   }
   if(seg==='stadt5'){
-   await shot('stadt5-ost');for(const [k,hd] of [['hotel','Hotel Lindenhof'],['blumenladen','Lottes Blumenladen'],['villa','Villa am Lindenhang']]){const o=await obj(k);await S(({x,y})=>JMDEBUG.setMap('stadt',x,y),{x:o.x+2,y:o.y+o.h});await p.waitForTimeout(900);await shot('stadt5-'+k);await clickObj(k);await p.getByRole('heading',{name:hd}).waitFor();await shot('stadt5-'+k+'-panel');await closePanel();}
+   await shot('stadt5-ost');for(const [k,hd] of [['hotel','Hotel Lindenhof'],['blumenladen','Lottes Blumenladen'],['villa','Villa am Lindenhang']]){const o=await obj(k);await S(({x,y})=>JMDEBUG.setMap('stadt',x,y),{x:o.x+2,y:o.y+o.h+(k==='villa'?1:0)});/* vor der Villa steht seit dem Feinschliff ein Zaun mit Tor */await p.waitForTimeout(900);await shot('stadt5-'+k);await clickObj(k);await p.getByRole('heading',{name:hd}).waitFor();await shot('stadt5-'+k+'-panel');await closePanel();}
    const pv=await obj('parkpavillon');await S(({x,y})=>JMDEBUG.setMap('stadt',x,y),{x:pv.x+3,y:pv.y+2});await p.waitForTimeout(900);await shot('stadt5-park');
    await reload();assert.equal(await S(()=>JMDEBUG.S.ziele.stufe),5);row.result={gebaeude:4,park:true};
   }

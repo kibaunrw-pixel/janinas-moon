@@ -1562,7 +1562,9 @@ function runPost(r){
   const after=()=>{ if(r.travel) travel(r.travel); };
   if(r.panel){ const H={}, P0=r.panel;
     const btns=(P0.buttons||[]).map(b=>{ H[b.a]=()=>{ closePanel(); runPost(b.fn()); }; return `<button class="btn wide" data-a="${esc(b.a)}" ${b.off?"disabled":""}>${esc(b.t)}</button>`; }).join("");
-    openPanel(`<h2>${esc(P0.t)}</h2>${(P0.p||[]).map(x=>`<p>${esc(x)}</p>`).join("")}${btns}${closeBtn}`,H); return; }
+    // Etappe 5: optionale Karten (Symbol, Titel, Text, Stand) für Trophäenwand und Hofausbau; Inhalte bleiben reiner, maskierter Text
+    const cards=(P0.cards||[]).map(c=>`<div class="zcard ${c.st==="ok"?"ok":c.st==="job"?"job":c.st==="leer"?"leer":""}"><div class="zico" aria-hidden="true">${esc(c.icon||"")}</div><div class="ztx"><b>${esc(c.t)}</b>${c.d?`<small>${esc(c.d)}</small>`:""}${c.tag?`<span class="ztag">${esc(c.tag)}</span>`:""}</div></div>`).join("");
+    openPanel(`<h2>${esc(P0.t)}</h2>${(P0.p||[]).map(x=>`<p>${esc(x)}</p>`).join("")}${cards}${(P0.p2||[]).map(x=>`<p>${esc(x)}</p>`).join("")}${btns}${closeBtn}`,H); return; }
   // Etappe 2: Auswahl in der letzten Zeile führt das nächste Skript aus (Logik in jm-dorf.js/jm-romantik.js)
   if(r.lines&&r.lines.length) dialog(r.lines.map(l=>({who:l.who,text:fmtD(l.text),choices:l.choices&&l.choices.map(c=>({t:fmtD(c.t),fn:()=>{ const nx=c.fn(); save(true); runPost(nx); }}))})),after);
   else { if(r.note) note(r.note); after(); }
