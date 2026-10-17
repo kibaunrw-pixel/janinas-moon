@@ -285,7 +285,7 @@ function prop(mg,mgE,o,se,st){
      mg.box(x+.55,.78,z,.24,.24,.24,'#8a5aa8');mg.box(x+.55,.78,z,.25,.25,.05,'#f6d55c');mg.box(x+.55,.78,z,.05,.25,.25,'#f6d55c');return;}
     case 'herzbank':{const w=o.w||2;mg.box(x,.4,z,w-.3,.08,.45,wood);mg.box(x,.68,z-.2,w-.3,.3,.06,woodD);for(const dx of [-(w-.5)/2,(w-.5)/2])mg.box(x+dx,.2,z,.08,.4,.4,'#3a3a44');
      mg.sph(x-.06,.74,z-.165,.07,.07,.02,'#d9304a');mg.sph(x+.06,.74,z-.165,.07,.07,.02,'#d9304a');mg.sph(x,.67,z-.165,.06,.06,.02,'#d9304a');return;}
-    case 'tisch_jt':{prop(mg,mgE,Object.assign({},o,{k:'table'}),se,st);for(const dx of [-.5,.5]){mg.cyl(x+dx,.77,z-.05,.045,.22,'#f4ead8');mg.sph(x+dx,.92,z-.05,.035,.06,.035,'#ffd34a');}
+    case 'tisch_jt':{prop(mg,mgE,Object.assign({},o,{k:'table'}),se,st);for(const dx of [-1.05,1.05]){mg.box(x+dx,.44,z+.12,.48,.08,.48,'#a8743f');for(const lx of [-.18,.18])for(const lz of [-.18,.18])mg.box(x+dx+lx,.21,z+.12+lz,.05,.42,.05,'#6b4423');mg.box(x+dx+(dx<0?-.23:.23),.73,z+.12,.06,.55,.48,'#7a4e2a');}for(const dx of [-.5,.5]){mg.cyl(x+dx,.77,z-.05,.045,.22,'#f4ead8');mg.sph(x+dx,.92,z-.05,.035,.06,.035,'#ffd34a');}
      mg.cyl(x-.15,.75,z+.22,.05,.18,'#cfe6ff');mg.box(x-.15,.88,z+.22,.015,.16,.015,'#3f7a3a');mg.sph(x-.15,.98,z+.22,.055,.055,.055,'#d9304a');return;}
     case 'koffer':mg.box(x,.22,z,.62,.42,.26,'#8a4a2e');for(const dx of [-.2,.2])mg.box(x+dx,.22,z+.135,.04,.42,.01,'#c9a46a');mg.box(x,.47,z,.2,.06,.05,'#3a2a20');return;
     case 'waldtuer':case 'waldtuer_offen':{const open=k==='waldtuer_offen',w=o.w||2;mg.sph(x,.1,z-.2,w*.75,1.2,1,'#5d7a3a');mg.box(x,.8,z+.25,1.3,1.6,.3,'#7d776e');mg.box(x,1.68,z+.25,1.45,.18,.36,'#97918a');
@@ -424,7 +424,9 @@ function makeChar(L){
   if(L.glasses){ for(const sx of [-1,1]) part(CG.box,L.glasses,sx*.085,-.02,.225,.09,.07,.01,head,{transparent:true,opacity:.55}); }
   if(L.hat==="chef"){ part(CG.cyl,"#ffffff",0,.25,-.02,.2,.16,.2,head); part(CG.sph,"#ffffff",0,.36,-.02,.24,.12,.24,head); }
   if(L.hat==="cap"){ part(CG.hairCap,L.hatC,0,.04,-.02,.27,.27,.27,head).rotation.x=-.1; part(CG.cyl,L.hatC,0,.07,.2,.2,.02,.13,head); }
-  root.userData={legs,arms,body,head,eyes,ph:rnd()*6,blinkT:rnd()*4};
+  const sitLegs=new THREE.Group();body.add(sitLegs);sitLegs.visible=false;
+  for(const sx of [-1,1]){const col=L.dress?skin:bot;part(CG.box,col,sx*.075,.3,.12,.12,.1,.28,sitLegs);part(CG.legG,col,sx*.075,.3,.24,.06,.34,.06,sitLegs);part(CG.sph,L.shoes||"#4a3a2a",sx*.075,-.04,.27,.075,.05,.1,sitLegs);}
+  root.userData={legs,sitLegs,arms,body,head,eyes,ph:rnd()*6,blinkT:rnd()*4};
   root.traverse(o=>{ if(o.isMesh) o.castShadow=true; });
   return root;
 }
@@ -607,17 +609,18 @@ function syncActors(dt){
     if(!rec||rec.lk!==lk){ if(rec) AG.remove(rec.g); const g=kind==="char"?makeChar(look):kind==="dog"?makePoodle(look.split("|")[0],look.split("|")[1]):kind==="hen"?makeHen(look):makeCow(look==="b"); AG.add(g); rec={g,lk,kind,ry:0,px:a.x,py:a.y,ph:0}; ACT.set(id,rec); g.userData.actorId=id; g.userData.actor=a; }
     const g=rec.g, u=g.userData; u.actor=a;
     const ox=kind==="char"?.5:.5, oz=kind==="char"?.62:.6;
-    g.position.set(a.x+ox,0,a.y+oz);
+    const sit=kind==="char"&&E.seated(a);g.position.set(a.x+ox+(sit?(id==="P"?.45:-.45):0),sit?.14:0,a.y+oz);
     // Blickrichtung
     const vx=a.x-rec.px, vz=a.y-rec.py, mv=Math.hypot(vx,vz)>.0005;
     let ry=rec.ry;
-    if(kind==="char"){ ry=a.dir===0?0:a.dir===1?Math.PI:(a.flip?-Math.PI/2:Math.PI/2); if(mv) ry=Math.atan2(vx,vz); if(id.startsWith("shop:")) ry=0; }
+    if(kind==="char"){ ry=a.dir===0?0:a.dir===1?Math.PI:(a.flip?-Math.PI/2:Math.PI/2); if(mv) ry=Math.atan2(vx,vz); if(sit)ry=id==="P"?Math.PI/2:-Math.PI/2; if(id.startsWith("shop:")) ry=0; }
     else if(mv) ry=Math.atan2(vx,vz); else if(a.face!=null&&!mv&&rec.kind!=="char"&&!rec.init){ ry=a.face<0?-Math.PI/2:Math.PI/2; rec.init=true; }
     let dr=ry-rec.ry; while(dr>Math.PI) dr-=Math.PI*2; while(dr<-Math.PI) dr+=Math.PI*2; rec.ry+=dr*Math.min(1,dt*12); g.rotation.y=rec.ry;
     rec.px=a.x; rec.py=a.y;
     const moving=a.moving||mv; rec.ph+=dt*(moving?11:0);
     const sw=moving?Math.sin(rec.ph):0;
-    if(u.legs){ if(kind==="char"){ u.legs[0].rotation.x=sw*.6; u.legs[1].rotation.x=-sw*.6; } else { u.legs.forEach((l,i)=>l.rotation.x=(i%2?sw:-sw)*(i<2?.6:-.6)); } }
+    if(u.legs){ if(kind==="char"){ u.legs[0].rotation.x=sit?-Math.PI/2:sw*.6; u.legs[1].rotation.x=sit?-Math.PI/2:-sw*.6; } else { u.legs.forEach((l,i)=>l.rotation.x=(i%2?sw:-sw)*(i<2?.6:-.6)); } }
+    if(u.sitLegs){u.sitLegs.visible=sit;u.legs.forEach(l=>l.visible=!sit);}
     if(u.arms){ u.arms[0].rotation.x=-sw*.55; u.arms[1].rotation.x=sw*.55; }
     if(u.body) u.body.position.y=moving?Math.abs(Math.sin(rec.ph))*.03:Math.sin(t*2+u.ph)*.006;
     if(kind==="char"){
@@ -637,9 +640,9 @@ const camT=new V3(), camP=new V3(); let camDist=30; let camInit=false, lastMap="
 function cameraUpdate(dt,pads){
   const M=E.M, P=E.P;
   const zoom=R3.zo||E.zoom(), inside=M.inside||M.cave;
-  let tx=P.x+.5, tz=P.y+.6;
+  const sv=E.sceneView();let tx=sv?sv.x:P.x+.5, tz=sv?sv.y:P.y+.6;
   const pitch=inside?.92:.8, fovH=inside?9.5:6.6;
-  const visW=fovH/zoom;
+  const visW=Math.max(fovH/zoom,sv?sv.width:0);
   camera.fov=34; const vfov=camera.fov*Math.PI/180, aspect=camera.aspect;
   const visH=visW/aspect;
   const dist=(visH/2)/Math.tan(vfov/2); camDist=dist;

@@ -81,6 +81,16 @@ Befunde aus den Bildern, die ich behoben habe:
 
 Offen in den Bildern: Im 3D-Geburtstagsbild ist Rosa am Rand angeschnitten (Kamera folgt der Spielerin). Herzchen sind in den Standbildern nur teilweise zu sehen, weil sie nach etwa einer Sekunde verblassen.
 
+## Feinschliff
+
+Ausgang `b9c200b`, ausschließlich `feat/stadt-und-wohnraum`. Kein Merge oder Deploy.
+
+Ursachen und Abnahmekriterien vor der Änderung: Die Dialog-CSS-Korrektur ist im neuen Ausgangsbild bereits wirksam (alle drei Antworten umbrechen). Der bisherige Bildbeleg war veraltet. `dateNow` erlaubte die Szene aber schon ab `from-30`: enger Rot-Test bei 11:30, danach Szene nur ab 12 bis vor 15 Uhr, freundliche Hinweise außerhalb, Neuverabredung nach der Nacht. Die frühere 18-Uhr-Behauptung ist bislang nicht reproduziert: das neue Ausgangsbild zeigt 12:00. Die Browserzeitvorlage liegt nun ausdrücklich innerhalb des Fensters und prüft vorher den freundlichen Dialog.
+
+Darstellung: beide Picknickfiguren direkt vor der Decke; gruppenzentrierte Szenenkamera statt Randbeschnitt; Jahrestag mit zwei Stühlen und zueinander gedrehten Sitzposen in beiden Renderern. Sitzversätze sind rein visuell, die 2D-Trefferfläche folgt ihnen. Keine zusätzlichen blockierenden Kacheln. Die unabhängige statische Prüfung und ihre Korrekturen sind in `ETAPPE2-FEINSCHLIFF-CODEPRUEFUNG.md` dokumentiert.
+
+Erster grüner Teilschritt: 14 Etappe-2-Logiktests einschließlich Rot→Grün-Zeitgrenze; sieben Browsersegmente bei 390/2D. Vollständige Matrix und neue Bildsichtung werden im folgenden Beleg-Commit ergänzt. Noch keine Endabnahme.
+
 ## Offene Punkte
 - Unabhängiger Gesamtlauf (`node tests/run-all.cjs`) durch Hermes.
 - Optional nicht gebaut: W27 (Überraschungsbesuche, nur der Geburtstagsbesuch existiert), W29 (gemeinsames Haus), W03, W05, ein zweites Dorfpaar.

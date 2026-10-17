@@ -1,0 +1,64 @@
+TAP version 13
+# Subtest: Picknick beginnt nur im vereinbarten Fenster; verpasst heißt freundlich neu verabreden
+not ok 1 - Picknick beginnt nur im vereinbarten Fenster; verpasst heißt freundlich neu verabreden
+  ---
+  duration_ms: 2.257542
+  type: 'test'
+  location: '/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe2.test.cjs:23:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    keine Szene um Minute 690
+    + actual - expected
+    
+    + {
+    +   fx: [
+    +     'rene',
+    +     'player'
+    +   ],
+    +   lines: [
+    +     {
+    +       text: 'Da bist du ja! Ich habe alles eingepackt: Erdbeeren, belegte Brote und Tee in der Thermoskanne.',
+    +       who: 'rene'
+    +     },
+    +     {
+    +       text: 'Ihr setzt euch auf die karierte Decke am Waldsee. {d0} und {d1} schnuppern sofort am Korb.',
+    +       who: null
+    +     },
+    +     {
+    +       choices: [
+    +         {
+    +           fn: [Function: fn],
+    +           t: '„Was dir an uns am besten gefällt.“'
+    +         },
+    +         {
+    +           fn: [Function: fn],
+    +           t: '„Wovon träumst du?“'
+    +         },
+    +         {
+    +           fn: [Function: fn],
+    +           t: 'Einfach zusammen in die Wolken schauen'
+    +         }
+    +       ],
+    +       text: 'Worüber reden wir?',
+    +       who: 'rene'
+    +     }
+    +   ],
+    +   pose: {
+    +     map: 'forest',
+    +     x: 15,
+    +     y: 21
+    +   }
+    + }
+    - null
+    
+  code: 'ERR_TEST_FAILURE'
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 52.514292

@@ -12,7 +12,10 @@ if(process.env.VIEWPORT&&viewport.width!==+process.env.VIEWPORT||process.env.GFX
 const c=await b.newContext({viewport,deviceScaleFactor:viewport.width===390?2:1}),p=await c.newPage(),errors=[];p.on('pageerror',e=>errors.push(String(e)));p.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
 await p.goto(process.env.BASE_URL||'http://127.0.0.1:8765/');await p.waitForFunction(()=>window.JMDEBUG&&JM.R3?.ok&&JM.Rom&&JM.Dorf);
 const tag=`${seg}-${viewport.width}-${gfx}`;
-async function shot(name){const f=path.join(out,`${name}-${viewport.width}-${gfx}.png`);await p.waitForTimeout(500);await p.screenshot({path:f});return f;}
+const dialogBounds=[];
+async function checkChoices(){const rows=await p.evaluate(()=>[...document.querySelectorAll('#dlgC button')].filter(b=>b.getBoundingClientRect().height).map(b=>{const r=b.getBoundingClientRect();return {text:b.textContent,x:r.x,y:r.y,right:r.right,bottom:r.bottom,width:r.width,scroll:b.scrollWidth,client:b.clientWidth,viewport:[innerWidth,innerHeight]};}));
+ for(const r of rows){assert.ok(r.x>=0&&r.right<=viewport.width&&r.y>=0&&r.bottom<=viewport.height&&r.scroll<=r.client+1,'Antwort vollständig im Viewport: '+JSON.stringify(r));if(!dialogBounds.some(b=>b.text===r.text))dialogBounds.push(r);}}
+async function shot(name){await checkChoices();const f=path.join(out,`${name}-${viewport.width}-${gfx}.png`);await p.waitForTimeout(500);await p.screenshot({path:f});return f;}
 async function click(x,y,h=.05,actorOk=false){await p.waitForTimeout(450);
  /* Hunde/Figuren können vor einem Objekt stehen und den Klick abfangen (beobachtet: Pudel vor dem Briefkasten → Hundedialog).
     Dann wie eine Spielerin kurz warten, bis das Ziel frei ist; keine Teleports, keine verdeckten HUDs. */
@@ -68,12 +71,14 @@ async function toForest(){await walk(13,12);await walk(13,16);await walk(13,20);
 async function talkTo(id){await p.waitForFunction(id=>JM.ENG.NPCA[id]?.vis,id,{timeout:20000});const e=await p.evaluate(id=>({x:JM.ENG.NPCA[id].x,y:JM.ENG.NPCA[id].y}),id);await click(e.x,e.y,1,true);}
 
 /* ---------- Ergänzungen Etappe 2 ---------- */
-async function untilChoice(txt){for(let i=0;i<20;i++){const btn=p.locator('#dlgC button',{hasText:txt});if(await btn.count()&&await btn.first().isVisible())return btn.first();
+async function untilChoice(txt){for(let i=0;i<20;i++){const btn=p.locator('#dlgC button',{hasText:txt});if(await btn.count()&&await btn.first().isVisible()){await checkChoices();return btn.first();}
   if(!await S(()=>JMDEBUG.busy.ui.dialog))throw Error('Dialog ohne Auswahl „'+txt+'“ beendet');await p.locator('#dlg').click();await p.waitForTimeout(300);}throw Error('Auswahl nicht gefunden: '+txt);}
 async function pickChoice(txt){const btn=await untilChoice(txt);await p.waitForTimeout(250);await btn.click();await p.waitForTimeout(400);}
 async function dlgText(){return S(()=>document.querySelector('#dlgT')?.textContent||'');}
 async function seenText(re){for(let i=0;i<20;i++){await p.waitForTimeout(150);const t=await dlgText();if(re.test(t))return t;if(!await S(()=>JMDEBUG.busy.ui.dialog))break;await p.locator('#dlg').click();await p.waitForTimeout(300);}throw Error('Text nicht gesehen: '+re);}
-async function tapRene(){await p.waitForFunction(()=>JMDEBUG.RA.vis,null,{timeout:20000});const e=await S(()=>({x:JMDEBUG.RA.x,y:JMDEBUG.RA.y}));await click(e.x,e.y,1,true);await p.waitForFunction(()=>JMDEBUG.busy.ui.dialog,null,{timeout:20000});}
+async function tapRene(){await p.waitForFunction(()=>JMDEBUG.RA.vis&&!JMDEBUG.RA.path.length,null,{timeout:20000});await p.waitForTimeout(400);
+ const pixel=await p.evaluate(gfx=>{const d=JMDEBUG,a=d.RA,sit=JM.ENG.seated(a);return gfx==='3d'?JM.R3.proj(a.x+.5-(sit?.45:0),a.y+.62,.7+(sit?.14:0)).map(n=>n/devicePixelRatio):[(a.x*16+8-(sit?7:0)-Math.round(d.cam.x))*d.scale,(a.y*16+5-Math.round(d.cam.y))*d.scale];},gfx);
+ assert.equal(await p.evaluate(([x,y])=>document.elementFromPoint(x,y)?.tagName,pixel),'CANVAS','René sichtbar antippen');await p.mouse.click(...pixel);await p.waitForFunction(()=>JMDEBUG.busy.ui.dialog,null,{timeout:20000});}
 /* Liegt die Figur außerhalb des Bildes (3D mobil nah gezoomt), geht die Spielerin erst in ihre Nähe. */
 async function talk(id){await p.waitForFunction(id=>JM.ENG.NPCA[id]?.vis,id,{timeout:20000});
  for(let n=0;n<5;n++){const far=await p.evaluate(({id,gfx})=>{const a=JM.ENG.NPCA[id],d=JMDEBUG;const r=gfx==='3d'?JM.R3.proj(a.x+.5,a.y+.5,1).map(n=>n/devicePixelRatio):[(a.x*16+8-Math.round(d.cam.x))*d.scale,(a.y*16+8-Math.round(d.cam.y))*d.scale];
@@ -139,9 +144,9 @@ if(seg==='picknick'){ // W25 Picknick per Brief, W28 Brief danach, W26 Missverst
  await toFarm();await toMailbox();await readLetter('Eine Einladung');row.shots.push(await shot('picknick-brief'));
  await p.locator('[data-a="rom"]',{hasText:'Waldsee · heute 12 Uhr'}).click();await p.waitForTimeout(400);assert.equal((await rom()).date.place,'see');
  await p.locator('[data-a="back"]').click();await close();await dialogs();
- await walk(9,8);await toForest();await walk(13,8);await walk(13,14);await walk(15,18);await fixTime(715);await walk(15,21);
+ await walk(9,8);await toForest();await walk(13,8);await walk(13,14);await walk(15,18);await fixTime(690);await walk(15,21);await tapRene();await seenText(/12 Uhr/);await dialogs();assert.equal((await rom()).pick.n,0);await fixTime(725);
  await p.waitForFunction(()=>JMDEBUG.RA.vis&&JMDEBUG.M.obj.some(o=>o.k==='picknick'),null,{timeout:20000});await p.waitForTimeout(1200);row.shots.push(await sceneShot('picknick-decke'));
- await tapRene();await untilChoice('Wolken');row.shots.push(await sceneShot('picknick-szene'));
+ assert.ok(await S(()=>JMDEBUG.S.min>=720&&JMDEBUG.S.min<900),'Picknick tatsächlich im Fenster');await tapRene();await untilChoice('Wolken');row.shots.push(await sceneShot('picknick-szene'));
  await reload();assert.equal((await rom()).pick.n,0,'Reload vor der Wahl: noch kein Picknick');await tapRene();await pickChoice('Wolken');await dialogs();await p.waitForTimeout(400);row.shots.push(await sceneShot('picknick-herzen'));
  let r=await rom();assert.equal(r.pick.n,1);assert.equal(r.mem.length,1);
  await reload();await tapRene();await dialogs();r=await rom();assert.equal(r.pick.n,1,'kein zweites Picknick');assert.equal(r.mem.length,1);
@@ -179,7 +184,7 @@ if(seg==='geburtstag'){ // W38 Janinas Geburtstag (6. Herbst)
 
 }catch(e){failed++;row.error=String(e&&e.stack||e).slice(0,900);console.error('FEHLER',seg,viewport.width,gfx,row.error);try{await diag('fehler');}catch(_){}}
 const raf=await p.evaluate(()=>new Promise(r=>{let n=0;const t=performance.now();(function f(){n++;if(performance.now()-t<1000)requestAnimationFrame(f);else r(n);})();}));row.raf=raf;if(raf<5){failed++;row.error=(row.error||'')+' rAF '+raf;}
-row.errors=errors.slice();if(errors.length){failed++;console.error('SEITENFEHLER',seg,viewport.width,gfx,errors);}
+row.dialogBounds=dialogBounds;row.errors=errors.slice();if(errors.length){failed++;console.error('SEITENFEHLER',seg,viewport.width,gfx,errors);}
 report.push(row);console.log(JSON.stringify({seg,width:viewport.width,gfx,ok:!row.error&&!errors.length,raf,result:row.result,error:row.error}));await c.close();}}
 finally{await b.close();fs.writeFileSync(path.join(out,'report-'+SEGS.join('_')+'-'+(process.env.VIEWPORT||'alle')+'-'+(process.env.GFX||'alle')+'.json'),JSON.stringify(report,null,2));}
 if(failed){console.error('FEHLGESCHLAGEN',failed);process.exitCode=1;}else console.log('OK etappe2-browser',SEGS.join(','));})().catch(e=>{console.error(e);process.exit(1);});

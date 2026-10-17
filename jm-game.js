@@ -357,7 +357,7 @@ addEventListener("pointercancel",()=>{ ptr=null; });
    Figuren werden nur noch gewählt, wenn unter dem Finger kein Gegenstand liegt (siehe tapAt). */
 function hitActor(wx,wy){
   const hit=(a,hw,top)=>Math.abs(wx-(a.x+.5))<hw&&wy>a.y-top&&wy<a.y+1;
-  if(RA.vis&&hit(RA,.55,.75)) return {k:"rene"};
+  if(RA.vis&&hit(seated(RA)?{x:RA.x-7/16,y:RA.y}:RA,.55,.75)) return {k:"rene"};
   if(M.owner&&npcPlace(M.owner)==="in"){ const [nx,ny]=M.npcAt; if(hit({x:nx,y:ny},.55,.75)) return {k:"shopnpc",id:M.owner}; }
   for(const id in NPCA){ const n=NPCA[id]; if(n.vis&&hit(n,.55,.75)) return {k:"npc",id}; }
   for(const d of DOGS) if(hit(d,.7,.3)) return {k:"dog",d};
@@ -1501,6 +1501,7 @@ function runPost(r){
   if(r.banner) banner(r.banner); if(r.sfx) sfx(r.sfx);
   // Szenenaufstellung (Etappe 2): Die Spielerin stellt sich an ihren Platz in der Szene (Decke, Tisch), damit niemand verdeckt wird.
   if(r.pose&&r.pose.map===M.id&&walkT(r.pose.x,r.pose.y)){ P.x=r.pose.x; P.y=r.pose.y; P.path=[]; P.queue=[]; P.act=null; if(RA.vis) faceTo(Math.round(RA.x),Math.round(RA.y)); }
+  if(RA.vis&&r.pose){ RA.dir=2; RA.flip=P.x<RA.x; }
   if(r.fx) sceneHearts(r.fx);
   const after=()=>{ if(r.travel) travel(r.travel); };
   if(r.panel){ const H={}, P0=r.panel;
@@ -1765,7 +1766,7 @@ function reneUpdate(dt){
     if(Math.abs(dx)>Math.abs(dy)){ RA.dir=2; RA.flip=dx<0; } else if(Math.abs(dy)>.01) RA.dir=dy<0?1:0;
     if(d<=sp){ RA.x=nx; RA.y=ny; RA.path.shift(); } else { RA.x+=dx/d*sp; RA.y+=dy/d*sp; }
     RA.moving=true; RA.ft+=dt; if(RA.ft>.14){ RA.ft=0; RA.frame=(RA.frame+1)%4; } }
-  else { RA.frame=0; if(pl.mode==="cook"){ RA.dir=1; } else if(pl.mode==="sit"||pl.mode==="bed") RA.dir=0; }
+  else { RA.frame=0; if(pl.mode==="date"||pl.mode==="jt"){RA.dir=2;RA.flip=P.x<RA.x;} if(pl.mode==="cook"){ RA.dir=1; } else if(pl.mode==="sit"||pl.mode==="bed") RA.dir=0; }
 }
 function reneCuddle(){
   RA.dir=Math.round(P.y)<Math.round(RA.y)?1:Math.round(P.y)>Math.round(RA.y)?0:2; RA.flip=P.x<RA.x; faceTo(Math.round(RA.x),Math.round(RA.y));
@@ -1856,6 +1857,19 @@ function use3D(){
   return R.ok;
 }
 let snap3=false;
+// Nur Bildkomposition: keine Kollisionen, Wege oder gespeicherten Positionen ändern.
+function sceneView(){
+ if(!S||demo||P.moving||P.path.length)return null;
+ let points=null,kind=null;const d=S.rom&&S.rom.date;
+ if(d&&d.day===S.day&&S.min>=d.from-30&&S.min<d.to){const pl=JM.Rom.PLACES[d.place];if(pl.map===M.id){points=[pl.spot,pl.rene,[pl.obj.x,pl.obj.y],[pl.obj.x+2,pl.obj.y+1]];kind=d.k;}}
+ if(M.id==="haus"&&JM.Rom.jtToday(S)&&S.min>=JM.Rom.JT_FROM&&S.min<JM.Rom.JT_TO){points=[[4,5],[7,5],[5,4],[7,6]];kind="jt";}
+ if(M.id==="farm"&&JM.Rom.jbToday(S)&&S.min>=JM.Rom.BDAY.from&&S.min<JM.Rom.BDAY.to){points=[JM.Rom.BDAY.spot,JM.Rom.BDAY.rosa,JM.Rom.BDAY.mei,[11,8],[13,10]];kind="geburtstag";}
+ if(M.id==="village"&&["treffen","paar"].includes(S.dorf?.paar.st)&&S.min>=1080&&S.min<1200){const a=NPCA.mei,b=NPCA.timo;if(a?.vis&&b?.vis)points=[[a.x,a.y],[b.x,b.y]];kind="paar";}
+ if(!points||Math.min(...points.map(([x,y])=>Math.hypot(P.x-x,P.y-y)))>3)return null;
+ const xs=points.map(p=>p[0]),ys=points.map(p=>p[1]);xs.push(P.x);ys.push(P.y);
+ return {kind,x:(Math.min(...xs)+Math.max(...xs))/2+.5,y:(Math.min(...ys)+Math.max(...ys))/2+.5,width:Math.max(...xs)-Math.min(...xs)+3.4};
+}
+function seated(a){return sceneView()?.kind==="jt"&&!a.moving&&Math.abs(a.y-5)<.12&&(a===P&&Math.abs(a.x-4)<.12||a===RA&&Math.abs(a.x-7)<.12);}
 function render3(){
   const se=season(), night=S.min>=1110||S.min<390;
   const padT=demo?0:padTop(), padB=demo?0:padBot();
@@ -1922,7 +1936,7 @@ function render(){
   const se=season(), night=S.min>=1110||S.min<390, dk=darkness();
   const mw=M.w*16, mh=M.h*16;
   const padT=demo?0:padTop(), padB=demo?0:padBot();
-  let cx=P.x*16+8-LW/2, cy=P.y*16+4-(LH+padT-padB)/2;
+  const sv=sceneView(); let cx=(sv?sv.x*16:P.x*16+8)-LW/2, cy=(sv?sv.y*16:P.y*16+4)-(LH+padT-padB)/2;
   const tcx=mw>LW?clamp(cx,0,mw-LW):(mw-LW)/2, tcy=mh+padT+padB>LH?clamp(cy,-padT,mh-LH+padB):(mh-LH)/2;
   if(camSnap||Math.abs(tcx-cam.x)>LW||Math.abs(tcy-cam.y)>LH){ cam.x=tcx; cam.y=tcy; camSnap=false; }
   else { const k=Math.min(1,FDT*6); cam.x+=(tcx-cam.x)*k; cam.y+=(tcy-cam.y)*k; }
@@ -1967,12 +1981,12 @@ function render(){
   for(const f of (S.forage[M.id]||[])){ L.push({y:f.y,d:()=>{ const b=Math.round(Math.sin(gameT*3+f.x)*1); bx.drawImage(icon(f.k),f.x*16-CX,f.y*16-2+b-CY); }}); }
   // Figuren
   const fpos=a=>[Math.round(a.x*16+8-CX),Math.round(a.y*16+14-CY)];
-  L.push({y:P.y+.5,d:()=>{ const [fx,fy]=fpos(P); bx.drawImage(SPR.shadow,fx-7,fy-2); const set=P.dir===0?SPR.player.down:P.dir===1?SPR.player.up:(P.flip?SPR.player.sideL:SPR.player.side); bx.drawImage(P.dir===0&&!P.moving&&!P.tool&&blinkNow(0)?SPR.player.blink:set[P.frame],fx-9,fy-25); if(P.tool) drawTool(fx,fy); }});
+  L.push({y:P.y+.5,d:()=>{ const [fx,fy]=fpos(P); bx.drawImage(SPR.shadow,fx-7,fy-2); const set=P.dir===0?SPR.player.down:P.dir===1?SPR.player.up:(P.flip?SPR.player.sideL:SPR.player.side); bx.drawImage(seated(P)?SPR.player.sit: P.dir===0&&!P.moving&&!P.tool&&blinkNow(0)?SPR.player.blink:set[P.frame],fx-9+(seated(P)?7:0),fy-25); if(P.tool) drawTool(fx,fy); }});
   for(const d of DOGS){ L.push({y:d.y+.45,d:()=>{ const [fx,fy]=fpos(d); const jump=d.trick>0?Math.round(Math.abs(Math.sin(d.trick*9))*5):0; bx.drawImage(SPR.shadow,fx-7,fy-2); const set=d.face<0?SPR.dogs[d.i].l:SPR.dogs[d.i].r; const fr=d.trick>0?3:(d.moving?1+(d.frame%2):(S.min>=1260||d.idle>3?3:0)); bx.drawImage(set[fr],fx-11,fy-17-jump); }}); }
   for(const h of HENS){ const spr=SPR.hen[h.deco?(h.i===-1?0:1):S.hens[h.i].c]; L.push({y:h.y+.4,d:()=>{ const [fx,fy]=fpos(h); bx.drawImage(SPR.shadow,fx-6,fy-2); const set=h.face<0?spr.l:spr.r; bx.drawImage(set[h.peck>0?2:(h.moving?h.frame%2:0)],fx-8,fy-13); }}); }
   for(const c of COWS){ const spr=SPR.cow[S.cows[c.i].c]; L.push({y:c.y+.4,d:()=>{ const [fx,fy]=fpos(c); bx.drawImage(SPR.shadowB,fx-12,fy-3); const set=c.face<0?spr.l:spr.r; bx.drawImage(set[c.moving?1+(c.frame%2):0],fx-15,fy-21); if(S.cows[c.i].milk){ bx.drawImage(icon("milch"),fx-4,fy-36+Math.round(Math.sin(gameT*3))); } }}); }
   if(M.owner&&npcPlace(M.owner)==="in"){ const id=M.owner, [nx,ny]=M.npcAt; L.push({y:ny+.5,d:()=>{ const fx=nx*16+8-CX, fy=ny*16+14-CY; const sp=SPR.npc[id]; bx.drawImage(blinkNow(3)?sp.blink:sp.down[0],fx-9,fy-25); if(!S.npc[id].met) drawBadge(fx,fy-31,"?"); }}); }
-  if(RA.vis){ L.push({y:RA.y+.5,d:()=>{ const [fx,fy]=fpos(RA); bx.drawImage(SPR.shadow,fx-7,fy-2); const sp=SPR.rene; const set=RA.dir===0?sp.down:RA.dir===1?sp.up:(RA.flip?sp.sideL:sp.side); bx.drawImage(RA.dir===0&&!RA.moving&&blinkNow(7)?sp.blink:set[RA.moving?RA.frame:0],fx-9,fy-25);
+  if(RA.vis){ L.push({y:RA.y+.5,d:()=>{ const [fx,fy]=fpos(RA); bx.drawImage(SPR.shadow,fx-7,fy-2); const sp=SPR.rene; const set=RA.dir===0?sp.down:RA.dir===1?sp.up:(RA.flip?sp.sideL:sp.side); bx.drawImage(seated(RA)?sp.sitL:RA.dir===0&&!RA.moving&&blinkNow(7)?sp.blink:set[RA.moving?RA.frame:0],fx-9-(seated(RA)?7:0),fy-25);
     if(curQ()&&curQ().tg==="rene") drawBadge(fx,fy-31,"!"); else if(RA.cuddle) { bx.globalAlpha=.9; drawHeart(fx-3,fy-33,"#e8476a"); bx.globalAlpha=1; } if(renePlan().mode==="cook"&&Math.floor(gameT*2)%2) { bx.fillStyle="rgba(240,240,245,.6)"; bx.fillRect(2*16+6-CX,3*16-4-CY-Math.floor(gameT*8)%6,2,2); } }}); }
   for(const m of S.mess) if(m.map===M.id){ L.push({y:m.y,d:()=>{ bx.drawImage(icon(m.k),m.x*16-CX,m.y*16-1-CY); if(Math.floor(gameT*1.5+m.x)%4===0){ bx.fillStyle="#fff"; bx.fillRect(m.x*16+12-CX,m.y*16-CY,1,1); } }}); }
   for(const id in NPCA){ const a=NPCA[id]; if(!a.vis) continue; L.push({y:a.y+.5,d:()=>{ const [fx,fy]=fpos(a); bx.drawImage(SPR.shadow,fx-7,fy-2); const sp=SPR.npc[id]; const set=a.dir===0?sp.down:a.dir===1?sp.up:(a.flip?sp.sideL:sp.side); bx.drawImage(a.dir===0&&!a.moving&&blinkNow(id.length)?sp.blink:set[a.frame],fx-9,fy-25);
@@ -2198,7 +2212,7 @@ document.addEventListener("visibilitychange",()=>{ if(document.hidden) save(true
 addEventListener("pagehide",()=>{ if(!demo&&S) save(true); });
 requestAnimationFrame(loop);
 JM.ENG={get M(){return M;},get S(){return S;},P,RA,get DOGS(){return DOGS;},get HENS(){return HENS;},get COWS(){return COWS;},get NPCA(){return NPCA;},get gameT(){return gameT;},
-  season,fieldAt,isField,isGlass,icon,playerLook:()=>JM.lookFrom(S.look),reneLook:reneLookObj,npcInside:()=>!!(M.owner&&npcPlace(M.owner)==="in"),unread:()=>S.mail.some(m=>!m.read),marketDay,
+  sceneView,seated,season,fieldAt,isField,isGlass,icon,playerLook:()=>JM.lookFrom(S.look),reneLook:reneLookObj,npcInside:()=>!!(M.owner&&npcPlace(M.owner)==="in"),unread:()=>S.mail.some(m=>!m.read),marketDay,
   cooking:()=>renePlan().mode==="cook"&&RA.vis,tvOn:()=>S.min>=1080&&S.min<1380,bushBer:o=>season()===1&&(S.bush[M.id+":"+o.x+","+o.y]||0)<=S.day,
   giant:c=>!!c.g,cropStage:c=>{ const cr=CROPS[c.k]; return c.a===0?0:c.a>=cr.days?4:c.a/cr.days<.34?1:c.a/cr.days<.67?2:3; },zoom:()=>ZOOM,camSnap:()=>snap3};
 window.JMDEBUG={star:()=>STAR,zoomy:()=>ZOOMY,RA,renePlan,reneTalk,spawnMess,get qid(){const q=curQ(); return q?q.id:'ende';},set speed(v){TESTSPEED=v;},get scale(){return SC/DPR;},get audio(){return AC?AC.state:null;},get DOGS(){return DOGS;},get HENS(){return HENS;},tap:(tx,ty)=>tapAt(tx+.5,ty+.5,tx,ty),swipe:t=>{P.queue=t.slice();},get idle(){return !P.path.length&&!P.act&&!P.queue.length&&P.busy<=0;},get busy(){return {ui:UI,fish:FISH.phase};},dlgNext:()=>nextLine(),give,openHouse,openBag,openMail,openBundles,openCook,talk,giveGift,cam,FISH,fishTap,get NPCA(){return NPCA;},get S(){return S;},emit,endDay,setMap,startGame,newState,refreshPost,P,fieldPlan,doField,openBook,openShop,npcInteract,runFest:id=>runFest(JM.FESTS.find(f=>f.id===id)),get M(){return M;}};

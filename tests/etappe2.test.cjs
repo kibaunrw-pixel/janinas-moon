@@ -20,6 +20,13 @@ function reachTarget(s,label){const t=X.target(s);assert.ok(t,label+': Wegweiser
  const spawn=m[t.map].spawn||[m[t.map].exits[0].x,m[t.map].exits[0].y];assert.ok(reached({...m[t.map],spawn}).has(t.x+','+t.y),label+': Ziel erreichbar '+JSON.stringify(t));return t;}
 const adj=(a,b)=>Math.abs(a[0]-b[0])+Math.abs(a[1]-b[1])===1;
 
+test('Picknick beginnt nur im vereinbarten Fenster; verpasst heißt freundlich neu verabreden',()=>{
+ const s=base();assert.ok(R.propose(s,R.options(s,'picknick')[0].k).ok);
+ for(const min of [690,719,900,1080]){s.min=min;assert.equal(R.dateScene(s),null,'keine Szene um Minute '+min);assert.equal(R.finish(s,'uns'),null);assert.match(R.act(s,'decke').note,/12.*15|verpasst|verabred/i);}
+ for(const min of [720,899]){s.min=min;assert.ok(R.dateScene(s),'Szene im Fenster '+min);}
+ s.min=1080;night(s);assert.match(s.mail.map(m=>m.b).join(' '),/neuen Tag/);assert.ok(R.options(s,'picknick').length);assert.equal(s.rom.pick.n,0);
+});
+
 test('Migration: Altspielstand ohne neue Felder behält Besitz, bekommt leere Geschichten und Standarddaten',()=>{
  const s={day:30,money:4321,inv:{ei:3,holz:12},house:{level:1,job:null},mail:[{from:'rosa',t:'x',b:'y',read:true}],mailQ:[],npc:{mei:{p:350,met:true}},rene:{met:true},
   city:{plots:[{start:3,due:6,ready:true,tenant:'ida',since:7,lastRent:29},{start:null,ready:false,tenant:null,lastRent:0},{start:null,ready:false,tenant:null,lastRent:0}]},
@@ -119,7 +126,7 @@ test('W25/W28: Picknick per Brief verabreden, Decke auf der Karte, Szene mit Aus
  const P=R.PLACES.see;assert.ok(J.WALK.has(mp.forest.t[P.rene[1]][P.rene[0]])&&J.WALK.has(mp.forest.t[P.spot[1]][P.spot[0]]));
  assert.ok(adj(P.rene,[deck.x+deck.w-1,deck.y])&&adj(P.spot,[deck.x,deck.y]),'beide stehen an der Decke');
  s.min=690;assert.deepEqual(clone(R.plan(s)),{map:'forest',pos:clone(P.rene),mode:'date'});const t=reachTarget(s,'Picknick');assert.deepEqual([t.x,t.y],clone(P.spot));
- let r=R.reneTalk(s);assert.match(texts(r),/Decke/);
+ s.min=725;let r=R.reneTalk(s);assert.match(texts(r),/Decke/);
  const mid=reload(s);assert.ok(R.dateScene(mid),'Reload vor der Auswahl: Szene noch offen');
  const e0=s.energy;r=choose(r,2);assert.equal(s.rom.pick.n,1);assert.equal(s.energy,e0+30);assert.equal(s.rom.mem.length,1);assert.match(s.rom.mem[0].txt,/Wolken/);
  assert.equal(R.finish(s,'uns'),null);assert.equal(R.dateScene(s),null);assert.equal(R.act(s,'decke').note.length>0,true);
