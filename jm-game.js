@@ -605,6 +605,7 @@ function bushAct(o){
 /* ================= Objekte ================= */
 function objAct(o){
   const a=o.act;
+  if(a.startsWith('zuhause:'))return runPost(JM.Post.evAct(S,a));
   if(a.startsWith('dorfprojekt:'))return runPost(JM.Post.evAct(S,a));
   if(a.startsWith('entdecken:'))return runPost(JM.Post.evAct(S,a));
   if(a.startsWith('chronik:'))return runPost(JM.Post.evAct(S,a));
@@ -626,6 +627,7 @@ function objAct(o){
   if(a==="craft") return openCraft();
   if(a==="fridge") return openFridge();
   if(a==="counter"){ if(M.shop&&M.owner&&npcPlace(M.owner)==="in"&&!S.npc[M.owner].met) return npcInteract(M.owner); return M.shop?openShop(M.shop):note("Die Arbeitsplatte. "+JM.CONFIG.von+" hat Krümel hinterlassen."); }
+  if(a==="plant"&&M.id==="haus") return runPost(JM.Zuhause.panel(S));
   if(a==="plant") return note("Eine Zimmerpflanze. Sie sieht durstig aus.");
   if(a==="shelf") return note("Ein Regal voller Kram.");
   if(a==="deco") return note(pick(["Gemütlich hier.","Hier riecht es gut."]));
@@ -819,7 +821,7 @@ function addPts(id,n){
 function npcInteract(id,conversationOnly){
   const N=NPCS[id], st=S.npc[id], a=NPCA[id];
   if(a){ a.dir=Math.round(P.y)<Math.round(a.y)?1:Math.round(P.y)>Math.round(a.y)?0:2; a.flip=P.x<a.x; }
-  if(id==="rosa"&&marketDay()&&!conversationOnly){
+  if(id==="rosa"&&M.id==="village"&&marketDay()&&!conversationOnly){
     openPanel(`<h2>Rosa am Markttag</h2><p>Der Marktstand steht direkt vor Rosa. Was möchtest du tun? Samstag 9–15 Uhr, außer an Festtagen.</p><button class="btn wide" data-a="market">Marktstand öffnen</button><button class="btn alt wide" data-a="conversation">Mit Rosa reden</button>${closeBtn}`,{market:openStall,conversation:()=>{closePanel();npcInteract(id,true);}});return;
   }
   const f=festActive();
@@ -844,6 +846,7 @@ function npcInteract(id,conversationOnly){
   talk(id);
 }
 function talk(id){
+  const neu=JM.Zuhause.talk(S,id);if(neu){S.npc[id].talk=S.day;runPost(neu);return;}
   if(hearts10(id)>=5&&!S.flags["h5_"+id]&&JM.HEART[id]){ const H=JM.HEART[id]; S.flags["h5_"+id]=true; const seq=H.lines.map(t=>({who:id,text:fmtD(t)})); seq.push({who:null,text:"Ein besonderer Moment mit "+NPCS[id].n+". Du bekommst: "+Object.entries(H.items).map(([k,n])=>n+"× "+ITEMS[k].n).join(", ")+".",fn:()=>{ for(const k in H.items) give(k,H.items[k]); addPts(id,50); sfx("fanfare"); }}); dialog(seq,()=>{ emit("talk_"+id); emit("talk",id); }); saveSoon(); return; }
   const N=NPCS[id], st=S.npc[id], tier=hearts10(id)>=6?2:hearts10(id)>=3?1:0, b=N.bday;
   // Etappe 2: Geheimnisse, Beziehungen, Verkuppeln, Geburtstagsbesuch (Logik in jm-dorf.js/jm-romantik.js)
@@ -1563,6 +1566,7 @@ function runPost(r){
   // Szenenaufstellung (Etappe 2): Die Spielerin stellt sich an ihren Platz in der Szene (Decke, Tisch), damit niemand verdeckt wird.
   if(r.pose&&r.pose.map===M.id&&walkT(r.pose.x,r.pose.y)){ P.x=r.pose.x; P.y=r.pose.y; P.path=[]; P.queue=[]; P.act=null; if(RA.vis) faceTo(Math.round(RA.x),Math.round(RA.y)); }
   if(RA.vis&&r.pose){ RA.dir=2; RA.flip=P.x<RA.x; }
+  if(r.facePairs)for(const [one,two]of r.facePairs){const a=NPCA[one],b=NPCA[two];if(a&&b){a.dir=b.dir=2;a.flip=a.x>b.x;b.flip=b.x>a.x;}}
   if(r.fx) sceneHearts(r.fx);
   if(r.hearts) sceneHearts([r.hearts]);
   const after=()=>{ if(r.travel) travel(r.travel); };
@@ -1700,7 +1704,7 @@ function openBook(tab){
     }
     body=`<h3>${JM.SEASONS[se]} · Jahr ${year()}</h3><div class="cal">${cells}</div><p class="sub">Feste beginnen auf dem Dorfplatz. An Geburtstagen zählen Geschenke dreifach.</p>`;
   }
-  if(tab==="herz") body=JM.Rom.diary(S,esc)+JM.Dorf.diary(S,esc)+JM.Magie.diary(S,esc)+JM.Chronik.diary(S,esc)+JM.Entdecken.diary(S)+JM.Gemeinschaft.diary(S,esc);
+  if(tab==="herz") body=JM.Rom.diary(S,esc)+JM.Dorf.diary(S,esc)+JM.Magie.diary(S,esc)+JM.Chronik.diary(S,esc)+JM.Entdecken.diary(S)+JM.Gemeinschaft.diary(S,esc)+JM.Zuhause.diary(S,esc);
   if(tab==="friends"){
     body=`<div class="row"><canvas class="pt" data-pt="dog0"></canvas><div class="tx"><b>${esc(dogName(0))}</b>${heartRow(S.dogH[0])}<small>${S.dogPet[0]===S.day?"Heute gestreichelt":"Noch nicht gestreichelt"}</small></div></div>
       <div class="row"><canvas class="pt" data-pt="dog1"></canvas><div class="tx"><b>${esc(dogName(1))}</b>${heartRow(S.dogH[1])}<small>${S.dogPet[1]===S.day?"Heute gestreichelt":"Noch nicht gestreichelt"}</small></div></div>`;
@@ -1733,7 +1737,7 @@ function openBook(tab){
   }
   const nav=tabs.map(([k,l])=>`<button class="tab ${k===tab?"on":""}" data-a="tab" data-k="${k}">${l}</button>`).join("");
   openPanel(`<h2>Tagebuch</h2><div class="tabs">${nav}</div>${body}${closeBtn}`,
-  {tab:k=>openBook(k), rom:k=>{ const r=JM.Rom.propose(S,k,"tagebuch"); note(r.msg); if(r.ok){ sfx("gift"); refreshPost(); } openBook("herz"); },
+  {tab:k=>openBook(k), zuhause:()=>runPost(JM.Zuhause.panel(S)), rom:k=>{ const r=JM.Rom.propose(S,k,"tagebuch"); note(r.msg); if(r.ok){ sfx("gift"); refreshPost(); } openBook("herz"); },
    romdate:k=>{ const r=JM.Rom.setDate(S,k,$("romS-"+k).value,$("romD-"+k).value); note(r.msg); if(r.ok) refreshPost(); openBook("herz"); }, zoom:k=>{ S.zoom=+k; ZOOM=S.zoom; resize(); saveSoon(); openBook("opt"); }, go:k=>{ const pl=PH_GO.find(p=>p[0]===k); closePanel(); S.min=Math.min(1430,S.min+30); fadeQuick(()=>{ setMap(k,pl[3],pl[4]); banner(pl[1]); updateQuestUI(); saveSoon(); }); }, snd:()=>{ S.sound=!S.sound; saveSoon(); openBook("opt"); }, mus:()=>{ S.music=!S.music; saveSoon(); openBook("opt"); }, gfx:()=>{ S.gfx=S.gfx==="2d"?"3d":"2d"; camSnap=true; saveSoon(); openBook("opt"); },
    backup:()=>{save(true);const blob=new Blob([JSON.stringify(S,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='janinas-moon-tag-'+S.day+'.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);note('Sicherung als JSON exportiert.');},
    photo:takePhoto,

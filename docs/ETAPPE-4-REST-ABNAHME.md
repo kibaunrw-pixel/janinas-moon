@@ -30,7 +30,7 @@ Nachtmarkt 18–22 Uhr am Dorfbrunnen: zwei bestückte Stände, Nachthändlerin 
 ### Prüfbelege B
 
 - Rot gegen `70cc5cd`: `ROT-ENTDECKEN-70cc5cd.log`, EXIT 1. Fünf neue Logiktests grün, alle schnellen Tests **97/97**, EXIT 0 (`logs/entdecken-logik.log`).
-- `tests/entdecken-browser.cjs`: Markt/Kauf/Reload, Regenbogen/Album/Reload, Nebelkoi und Regenforelle mit echtem Zeiger-gesteuertem Angel-Minispiel und Reload, Sternschnuppe antippen/Wunsch/Reload. Je Handy 2D und Rechner 3D. Vorlauf **9/10**, letzter Sternenklick 3D zu spät (Position vor langsamer Bildschirmaufnahme ermittelt; ein bewegliches Ziel wird so verfehlt). Beleg unverändert in `logs/entdecken-browser.log`. Nachlauf nur Markt und Sterne nach frischer Positionsmessung und tieferem HUD-freien Sternenband: **4/4**, EXIT 0 (`logs/entdecken-browser-nachlauf.log`). Kein Gesamtlauf wiederholt.
+- `tests/entdecken-browser.cjs`: Markt/Kauf/Reload, Regenbogen/Album/Reload, Nebelkoi und Regenforelle mit echtem Zeiger-gesteuertem Angel-Minispiel und Reload, Sternschnuppe antippen/Wunsch/Reload. Je Handy 2D und Rechner 3D. Vorlauf **9/10**, letzter Sternenklick 3D verfehlt. Der Prüfaufbau ermittelte die Position vor einer langsamen Bildschirmaufnahme; außerdem konnte das alte höhere Sternenband am HUD liegen. Die ursprüngliche Einzelursache wurde nicht getrennt vermessen. Beleg unverändert in `logs/entdecken-browser.log`. Nachlauf nur Markt und Sterne nach frischer Positionsmessung und tieferem HUD-freien Sternenband: **4/4**, EXIT 0 (`logs/entdecken-browser-nachlauf.log`). Kein Gesamtlauf wiederholt.
 - Offline: `BASE_URL=http://127.0.0.1:8793/ node tests/offline.cjs`, EXIT 0, `logs/rest-offline.log`: neue Module aus Cache, frischer Offline-Tab, Chronik-/Helfer-/Albumfunktionen ausführbar. Kein Nachweis für Update einer schon installierten PWA.
 - Syntax aller 19 Spiel-/SW-Dateien: EXIT 0. Bilder selbst angesehen: Nachtmarkt Welt in 390 2D/1440 3D (vor/nach Bestückung), Angebot 390 2D, Regenbogen 390 2D/1440 3D, Nebel 1440 3D, Album 390 2D.
 
@@ -43,16 +43,32 @@ Eigenes altes Dorfgewächshaus: 3.500 G/35 Holz/20 Stein/4 Eisen, drei Nächte; 
 ### Prüfbelege C
 
 - Rot `ROT-GEMEINSCHAFT-b31cfab.log`, EXIT 1; drei neue Logiktests grün, alle schnellen Logiktests **100/100**, EXIT 0 (`logs/gemeinschaft-logik.log`). Alle 21 Spiel-/SW-Dateien syntaxgrün.
-- Browser Bau: **8/8** (`logs/gemeinschaft-browser-bau.log`). Nutzen-Vorlauf **9/10** (`logs/gemeinschaft-browser-nutzen.log`): ein mobiler Rückwegklick erfolgte noch während der Eintrittsblende (dunkles Screenshot belegt die frühe Aufnahme), kein Pageerror. Der Test wartet jetzt vor Klicks auf das Ende der echten Blende. Kein produktiver Rückweg umgangen.
+- Browser Bau: **8/8** (`logs/gemeinschaft-browser-bau.log`). Nutzen-Vorlauf **9/10** (`logs/gemeinschaft-browser-nutzen.log`): ein mobiler Rückwegklick kam zu früh nach dem Eintritt (dunkle Aufnahme; Eintrittsblende als Prüfaufbau-Ursache naheliegend, am Klick selbst nicht getrennt protokolliert), kein Pageerror. Der Test wartet jetzt vor Klicks auf das Ende der echten Blende. Kein produktiver Rückweg umgangen.
 - Nachlauf nur betroffene Glaswege/Beete/Bauphase: **8/8**, EXIT 0 (`logs/gemeinschaft-browser-nachlauf.log`). Zusätzliche Ansichten **390 3D und 1440 2D**, jeweils Eintritt/Rückweg und Pflanzen/Gießen/Reload: **4/4**, EXIT 0 (`logs/gemeinschaft-browser-extra-ansichten.log`). Dach-Eckpunkte gegen Viewport und einzelne HUD-Elemente geprüft.
 - Echte Nacht über Bettklick und „Gute Nacht“: **2/2**, EXIT 0 (`logs/gemeinschaft-browser-nacht.log`): letzte Bauphase wird fertig, 30 G kommen genau einmal, Reload verdoppelt nichts. Startfixture ist ausdrücklich die letzte bezahlte Baunacht, nicht ein behaupteter kompletter Ressourcen-Beschaffungsweg.
 - Aus den JSON-Berichten per Python zusammengeführt und nach (Schritt/Breite/Grafik) dedupliziert: **24 eigenständige Kombinationen, 24 grün** nach gezielten Nachläufen. Die roten Vorläufe bleiben erhalten; kein alter Gesamtlauf wiederholt.
 - Offline inkl. `jm-gemeinschaft.js` und `jm-art6.js`: EXIT 0 (`logs/gemeinschaft-offline.log`), eigene Karten/Projektmenü/neue Grafik im frischen Offline-Tab nutzbar.
 - Bilder selbst angesehen: fertiger Garten 390 2D, Gewächshaus außen 1440 3D vor/nach Kamerafix (vorher Dach abgeschnitten; jetzt vollständig), innen 390 2D/1440 3D, reifes Glasbeet 1440 3D, Dorfplatz 1440 3D, Zusatzansichten Gewächshaus 390 3D und Innenraum 1440 2D. Fixture-Banner „Ein Jahr“/Ortsname sind auf einigen Aufnahmen sichtbar; sie gehören nicht zur neuen Einrichtung.
 
+## D – Die noch offenen kleinen Dorfwünsche
+
+`jm-zuhause.js` ergänzt W03/W27/W29 und das zweite Dorfpaar, ohne vorhandene Einzüge neu zu zählen. Nach Meis schon bestehender Geschichte verändern Blumen vor ihrem Markt und ein Meerespostkartenregal im echten Laden sichtbar den Ort; Dankesbrief einmal. Freunde ab drei Herzen kommen frühestens alle sieben Tage 8–11 Uhr auf den Hof; keine erzwungene Szene und ein Tee je Besuch. Nach dem ersten Janina/René-Picknick sind zwei kostenlose gemeinsame Hausgestaltungen (Wände, Teppich, Erinnerungsrahmen) an der Zimmerpflanze oder im Herz-Tagebuch wählbar; Küche, Bett, Inventar und Ausbauten bleiben.
+
+Lin und Paula: erst bestehende Versöhnung und Gemeinschaftsgarten, dann Brief/Bitte → Einladung überbringen → Lin antwortet → Termin am nächsten Abend → sichtbares Treffen mit Teetisch, zueinander gewandten Figuren und zwei Antworten → Paar. Verpasstes Treffen lässt sich ohne Verlust neu vereinbaren. Danach gemeinsame Abendtreffen, andere Folgegespräche und einmal zwei Tee. Neue Paar-Nachsätze werden nicht vor die persönlichen Geheimnisse geschoben.
+
+`jm-geheimnisse.js` füllt W01 für alle **15 dauerhaften Bewohner**: elf individuelle neue Drei-Teile-Geschichten plus vier bestehende. Dasselbe vorhandene `JM.Dorf`-System, 2/4/6 Herzen, ein Teil je Tag, Belohnung einmal, Speicherung im Herz-Tagebuch. Kein zweites Freundschaftssystem. Vorbeireisende und Lumi werden nicht zu zusätzlichen Pflichtbewohnern eines schon erreichten Erfolgs.
+
+### Befunde und Prüfbelege D
+
+- Ausgang rot: `ROT-ZUHAUSE-69bc831.log`; W01-Erweiterung separat rot: `ROT-GEHEIMNISSE-69bc831.log`. Anschließend fünf neue optionale Logiktests; alle 15 Geheimnisse mit drei realen Produktionsschritten, Tagesgrenze, Reload und Doppelbelohnungssperre getestet.
+- Der erste gemischte Browserlauf wurde nach 220 s vom Werkzeug beendet (EXIT 124), **kein grüner Lauf**: `logs/zuhause-browser.log`. Seine Teilfehler wurden nicht als Flackern abgetan: (1) Gartenbesuche von Mei/Timo hatten deren Geschäfte vormittags geschlossen – jetzt 17–18 Uhr nach Geschäftsschluss, extra Logikregression. (2) Rosa öffnete am Hof ihr Samstags-Marktmenü – auf Dorfkarte begrenzt. (3) „Reden“ im Laden ging nicht durch den neuen Ereignisdialog – neue Geschichten haben auch dort Vorrang. (4) Lin-Fixture war vor Ladenöffnung – auf 12 Uhr korrigiert.
+- Danach nur kurze Abschnitte: Markt/Besuch **4/4**, Einladung/Antwort **4/4**, Haus/Paar **4/4**, Geheimnis/Paar nach Inszenierung **4/4**, zusätzliche Haus-/Paaransichten 390 3D und 1440 2D **4/4**, jeweils EXIT 0. Logs `zuhause-browser-*.log`. Jeder Nutzerweg enthält echte Klicks und Reload. Aus den Berichten per Python dedupliziert: **18 eigenständige Kombinationen, 18 grün**. Antwortknöpfe gegen Viewport gemessen. Alle vier Bilder der neuen Paarszene selbst angesehen; außerdem Haus 390 2D/1440 3D und Meeresregal 390 2D.
+- Abschluss: **108/108 schnelle Logiktests**, EXIT 0 (`logs/rest-abschluss-logik.log`). Zusätzlicher Bestandstest bestätigt, dass Riesen-Mondblüten bereits korrekt definiert sind – keine unnötige zweite Reparatur (`logs/riesenmondbluete-gruen.log`). 23 Spiel-/SW-Dateien syntaxgrün. Frischer Offline-Tab inkl. aller Restmodule und 15 Geschichten: EXIT 0 (`logs/rest-abschluss-offline.log`).
+- `git diff --check` über Produktionscode, Tests und Markdown: keine Fehler. Die rohen roten Node-TAP-Logs enthalten Leerzeilen mit Einrückung; sie bleiben unverändert als Originalbeleg und sind vom Whitespace-Gate ausdrücklich ausgenommen.
+
 ## W-ID-Statusmatrix
 
-| IDs | Status nach Modulen A/B/C |
+| IDs | Status nach Modulen A–D |
 |---|---|
 | W07/W09/W10 | Schon live; vorhandene Lösung unverändert übernommen |
 | W08/W11/W12/W32 | Neu gebaut, Logik und gezielte Browserwege grün; nur Entwicklungszweig |
@@ -63,10 +79,15 @@ Eigenes altes Dorfgewächshaus: 3.500 G/35 Holz/20 Stein/4 Eisen, drei Nächte; 
 | W38/W39/W43/W44/W48 | Bestehende Geburtstage, Stadt-/Haus-/Brunnen-/Café-/Tierprogression anerkannt, nicht doppelt gebaut |
 | W42 | Kein Herunterstufen alter Spielstände; vorhandene echte Ruinen bleiben Ausgangszustand |
 | W45/W46/W47 | Garten, Platz, eigenes Dorfgewächshaus gebaut, nutzbar und nach Reload erhalten; Hofgewächshaus bleibt |
-| W03/W05/W27/W29 | W05 durch Elva-/Jonas-Einzug vorhanden; W03/W27/W29 noch gesondert zu ergänzen |
-| W06/W24 | Erstes Dorfpaar besteht; zweites Paar noch offen |
-| W01/W14/W22 | Teilumfang bleibt ehrlich: vier persönliche Geheimnisse; Café sowie Stadtbäckerei/Blumenladen; Entenzucht. Keine weiteren vollen Geschäftsarten oder Tierzuchten vorgetäuscht |
+| W03/W05/W27/W29 | Ladenveränderung, Besuche, gemeinsame Einrichtung gebaut; vorhandene Elva-/Jonas-Einzüge erhalten |
+| W06/W24 | Erstes Dorfpaar besteht; Lin/Paula als zweite vollständige Vermittlungsgeschichte ergänzt |
+| W01 | Alle 15 dauerhaften Bewohner mit persönlichen Drei-Teile-Geschichten; gleicher gespeicherter Fortschritt |
+| W14/W22 | Gewählter vollständiger Umfang: Café, nutzbare Stadtbäckerei/Blumenladen und Entenzucht. Keine frei wechselbaren Unternehmensrichtungen, Tierpension oder Zucht jeder Tierart behauptet |
+
+## Bildbeleg und Grenzen
+
+`REST-BILD-BELEG-MANIFEST.json` enthält SHA-256 und Pfade der 26 tatsächlich selbst angesehenen Bilddateien. Dies ist Selbstkontrolle des Bauenden, keine unabhängige Abnahme.
 
 ## Offene Abnahmegrenzen
 
-Keine neue `run-all`-Schleife. Echte iPhone-/Rechnerhardware, PWA-Update einer Bestandsinstallation und unbekannter persönlicher Save nicht geprüft. Kein Livegang. Weitere Module ergänzen diese Datei mit ihren eigenen Belegen; offene IDs sind oben ausdrücklich benannt.
+Alle im Auftrag konkret priorisierten Reststränge A–D sind gebaut; keine halben sichtbaren Knöpfe und keine neue Wunschliste. W14/W22 sind die oben ausdrücklich begrenzten Alternativen, keine Behauptung zusätzlicher Vollsysteme. Keine neue `run-all`-Schleife. Offen bleiben echte iPhone-/Rechnerhardware, Langzeit-Balancing, Update einer Bestands-PWA und unbekannte persönliche Saves. Neue Kurzprüfungen erfassen Pageerrors; die Browserkonsole wurde nicht durchgängig aufgezeichnet, daher kein pauschaler Konsolenfehlerfrei-Beleg. Kein Livegang. Unabhängige Code-/Gestaltungsabnahme vor einer künftigen Veröffentlichung bleibt Aufgabe des Auftraggebers.

@@ -1,0 +1,58 @@
+[
+  {
+    "seg": "wohnen",
+    "width": 390,
+    "gfx": "2d",
+    "errors": [],
+    "ok": true
+  },
+  {
+    "seg": "wohnen",
+    "width": 1440,
+    "gfx": "3d",
+    "errors": [],
+    "ok": true
+  },
+  {
+    "seg": "paar",
+    "width": 390,
+    "gfx": "2d",
+    "errors": [],
+    "choices": [
+      {
+        "x": 28,
+        "y": 732.5,
+        "right": 362,
+        "bottom": 771.25
+      },
+      {
+        "x": 28,
+        "y": 777.25,
+        "right": 362,
+        "bottom": 816
+      }
+    ],
+    "ok": true
+  },
+  {
+    "seg": "paar",
+    "width": 1440,
+    "gfx": "3d",
+    "errors": [],
+    "choices": [
+      {
+        "x": 460,
+        "y": 788.5,
+        "right": 980,
+        "bottom": 827.25
+      },
+      {
+        "x": 460,
+        "y": 833.25,
+        "right": 980,
+        "bottom": 872
+      }
+    ],
+    "ok": true
+  }
+]

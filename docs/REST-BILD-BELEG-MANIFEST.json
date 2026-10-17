@@ -1,0 +1,137 @@
+{
+  "created": "2026-10-17T21:09:20.784276+02:00",
+  "scope": "Selbst angesehene Bilder; keine unabhängige Abnahme",
+  "count": 26,
+  "images": [
+    {
+      "file": "docs/belege/chronik/entscheidung-390-2d.png",
+      "sha256": "3223fec06595d2836cab4fa4230ab586d38e18a18f3e06ed4d18e305d372137b",
+      "self_reviewed": true
+    },
+    {
+      "file": "docs/belege/chronik/entscheidung-1440-3d.png",
+      "sha256": "f9fca4175dc4046cc5e77725a9c0b2cbca4bf6ba9be6d6b83f905594e9a5d620",
+      "self_reviewed": true
+    },
+    {
+      "file": "docs/belege/chronik/helfer-390-2d.png",
+      "sha256": "d4084eca96ef071f6c996db3cfdb5dcbb7eb3c1a793cdee515776ec6d8e8807c",
+      "self_reviewed": true
+    },
+    {
+      "file": "docs/belege/chronik/ruine-1440-3d.png",
+      "sha256": "e88d145c553d85ec603a75801048691d9ba8338f8639fac8c1ae2c276a331984",
+      "self_reviewed": true
+    },
+    {
+      "file": "docs/belege/entdecken/nachtmarkt-welt-1440-3d.png",
+      "sha256": "227f6b5b70cff12df94b51662e224a463ea29088dcb3219c5bf08bb719194e4a",
+      "self_reviewed": true
+    },
+    {
+      "file": "docs/belege/entdecken/nachtmarkt-welt-390-2d.png",
+      "sha256": "27436c29439c5d06cb37210d5867a282f8acbb27043d4a57907fd672249d99d7",
+      "self_reviewed": true
+    },
+    {
+      "file": "docs/belege/entdecken/nachtmarkt-angebot-390-2d.png",
+      "sha256": "dbbf02bb705d0b1dc54490b0d98385630493f6676dd78def7a894a07d8f1a7a7",
+      "self_reviewed": true
+    },
+    {
+      "file": "docs/belege/entdecken/regenbogen-390-2d.png",
+      "sha256": "cd123de5b5771daee2e3a932019032c89698b2364542483a577c5ddba7a4671f",
+      "self_reviewed": true
+    },
+    {
+      "file": "docs/belege/entdecken/regenbogen-1440-3d.png",
+      "sha256": "59276f0f0262fb219997f7a8044804a7f610295ce46e55dc6293916733827c37",
+      "self_reviewed": true
+    },
+    {
+      "file": "docs/belege/entdecken/nebel-1440-3d.png",
+      "sha256": "fdffed6e09cca93709864543f578beeddc130f6745c5ee901b904dc27c8dfa50",
+      "self_reviewed": true
+    },
+    {
+      "file": "docs/belege/entdecken/album-390-2d.png",
+      "sha256": "df555fbfff7a7938c02ce901efa56c59bf0811fbde8cc655baa6ec13b842acea",
+      "self_reviewed": true
+    },
+    {
+      "file": "docs/belege/gemeinschaft/dorfglas-innen-390-2d.png",
+      "sha256": "675ba8f4663bb6b2e0890a8889fdbee0746fbaf31961156914f12dba432fda9c",
+      "self_reviewed": true
+    },
+    {
+      "file": "docs/belege/gemeinschaft/dorfglas-innen-1440-3d.png",
+      "sha256": "3aed4b5f2a9527e1581c2137865e1f1628dea2e97f0d1ba002dfe47d0001a12c",
+      "self_reviewed": true
+    },
+    {
+      "file": "docs/belege/gemeinschaft/dorfglas-innen-1440-2d.png",
+      "sha256": "ba627a9bd48efba2352d672acb941844ea35ae677d3d748bcb6836630afd8aae",
+      "self_reviewed": true
+    },
+    {
+      "file": "docs/belege/gemeinschaft/dorfglas-fertig-1440-3d.png",
+      "sha256": "0058a1dcc623e4a147aec7c831d2a31df0d5d7f3cc162b496798f35588300029",
+      "self_reviewed": true
+    },
+    {
+      "file": "docs/belege/gemeinschaft/dorfglas-fertig-390-3d.png",
+      "sha256": "49d5e7cc6d205a109b12a47565be4c768a9959f2740bdb2d113f878ff4356aad",
+      "self_reviewed": true
+    },
+    {
+      "file": "docs/belege/gemeinschaft/garten-fertig-390-2d.png",
+      "sha256": "78bc3ea7bfbb40c4e9caa94a9b4aa4a6f01a53d9316b23bf07b5c1a370ba7a61",
+      "self_reviewed": true
+    },
+    {
+      "file": "docs/belege/gemeinschaft/glasbeet-reif-1440-3d.png",
+      "sha256": "a9d18107bbfb8df2b61ff2ae6342150fa900e141f2eb21fd37fa34aa7b8a9d7b",
+      "self_reviewed": true
+    },
+    {
+      "file": "docs/belege/gemeinschaft/dorfplatz-fertig-1440-3d.png",
+      "sha256": "b9f02007bc2453417e396b9b0a9abf2fac5d7d89c7e0193b9890ed5ebe29a702",
+      "self_reviewed": true
+    },
+    {
+      "file": "docs/belege/zuhause/lin-paula-treffen-390-2d.png",
+      "sha256": "55bf60d8157b102975cea0657a7edd9c22560d228dcf9704342b87e2aae35725",
+      "self_reviewed": true
+    },
+    {
+      "file": "docs/belege/zuhause/lin-paula-treffen-1440-3d.png",
+      "sha256": "0488ccee0ad9385bf525dc731305ccadf43137bcc4b3b43746328d315f799691",
+      "self_reviewed": true
+    },
+    {
+      "file": "docs/belege/zuhause/lin-paula-treffen-390-3d.png",
+      "sha256": "559458940cb32ec6c06038709a3d062f1966a88c1ec83a66f647584680fcc64e",
+      "self_reviewed": true
+    },
+    {
+      "file": "docs/belege/zuhause/lin-paula-treffen-1440-2d.png",
+      "sha256": "40aed64aaf56dafd396b21c44b354d43402a85cc377588d41ad333376b13a4e6",
+      "self_reviewed": true
+    },
+    {
+      "file": "docs/belege/zuhause/zuhause-sternenabend-1440-3d.png",
+      "sha256": "10fd41522dfb7650fbca2f80028ebdc949c95c7b9af054c62a29c06ce039f1c9",
+      "self_reviewed": true
+    },
+    {
+      "file": "docs/belege/zuhause/zuhause-sternenabend-390-2d.png",
+      "sha256": "860cb81d3f1612cb4806e124e32efed594f00b836b4c7d66aa02e0cb329224e5",
+      "self_reviewed": true
+    },
+    {
+      "file": "docs/belege/zuhause/markt-meeresregal-390-2d.png",
+      "sha256": "11e3d34449a4251a4086f4d9f1839cc92e34847b0169a98ba1cf331cee48f749",
+      "self_reviewed": true
+    }
+  ]
+}

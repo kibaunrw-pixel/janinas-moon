@@ -1,7 +1,7 @@
 "use strict";
 /* Dorfgewächshaus: verwittert → Gerüst → Glasrahmen → bepflanzt. Gleiche Motive in 3D. */
 (function(){const A=window.JM.ART,old=A.prop;
-A.prop=function(k,se,extra){if(!k.startsWith('dorfglas')&&!k.startsWith('dorfbeet_'))return old(k,se,extra);const bed=k.startsWith('dorfbeet_'),c=A.cnv(bed?24:100,bed?32:100),g=A.G(c);
+A.prop=function(k,se,extra){if(k==='erinnerungsrahmen'||k==='meerregal'){const c=A.cnv(24,36),g=A.G(c);if(k==='meerregal'){g.r(1,2,22,32,'#8a5a33');for(const y of [4,15,27]){g.r(2,y,20,2,'#c29a6d');for(let i=0;i<3;i++){g.r(3+i*6,y+3,5,7,'#efe5c2');g.r(4+i*6,y+5,3,3,['#75adcb','#8fb5a5','#879ac1'][i]);}}}else{g.r(1,7,22,20,'#bf9564');g.r(3,9,18,16,'#eee2b9');g.r(5,11,14,12,'#768bab');g.disc(10,15,3,'#e99caf');g.disc(14,15,3,'#e99caf');g.r(9,16,7,4,'#e99caf');g.r(11,20,3,2,'#e99caf');g.p(18,12,'#f7e4a0');}A.outline(c,'#3a3745');return c;}if(!k.startsWith('dorfglas')&&!k.startsWith('dorfbeet_'))return old(k,se,extra);const bed=k.startsWith('dorfbeet_'),c=A.cnv(bed?24:100,bed?32:100),g=A.G(c);
  if(bed){g.r(2,21,20,8,'#8e6242');g.r(1,20,22,3,'#bf9365');g.r(4,21,16,3,'#604b38');g.r(4,29,2,3,'#6a4c37');g.r(18,29,2,3,'#6a4c37');if(k!=='dorfbeet_leer'){const tall=k==='dorfbeet_jung'?5:13;for(const x of [7,12,17]){g.r(x,22-tall,1,tall,'#478052');g.ell(x-2,24-tall,3,1.5,'#78aa63');g.ell(x+2,27-tall,3,1.5,'#65a75b');if(k==='dorfbeet_reif'){g.disc(x,22-tall,2.4,'#e9b958');g.p(x,20-tall,'#fff1bd');}}}g.r(19,15,3,7,'#f1e5bf');g.p(20,17,'#65836a');}
  else{const ruined=k==='dorfglas_alt',build=k.includes('_bau'),phase=Number(k.slice(-1))||3;
  g.r(3,90,94,8,'#9c9b8a');g.r(4,90,92,2,'#c6c6b3');g.r(8,36,84,55,ruined?'#8e9d90':'#b5d9d1');

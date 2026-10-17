@@ -29,7 +29,7 @@ function letter(s,o){s.post.seq=(s.post.seq||0)+1;return Object.assign({id:'p'+s
 D.letter=letter;
 
 /* ---------- Zustand und Migration ---------- */
-const SECIDS=['mei','henk','paula','rosa'];
+const SECIDS=D.SECIDS=['mei','henk','paula','rosa'];
 D.migrate=function(s){let d=s.dorf;if(!d||typeof d!=='object')d=s.dorf={};d.v=1;
  if(!d.sec||typeof d.sec!=='object')d.sec={};
  for(const id of SECIDS){const m=d.sec[id];d.sec[id]=m&&typeof m==='object'&&Number.isInteger(m.st)?m:{st:0,day:0};}

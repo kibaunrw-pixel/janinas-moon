@@ -288,6 +288,8 @@ function prop(mg,mgE,o,se,st){
   const x=o.x+(o.w||1)/2, z=o.y+(o.h||1)/2, k=o.k, snow=se===3;
   const wood="#a8743f", woodD="#7a4e2a", woodL="#c8945a";
   switch(k){
+    case 'erinnerungsrahmen':mg.box(x,1.05,z,.95,.9,.1,'#bf9564');mg.box(x,1.05,z+.07,.78,.72,.03,'#768bab');mg.sph(x-.12,1.14,z+.10,.16,.14,.03,'#e99caf');mg.sph(x+.12,1.14,z+.10,.16,.14,.03,'#e99caf');mg.add(GEO.box,M4(x,.98,z+.10,.27,.27,.04,0,0,.78),'#e99caf');return;
+    case 'meerregal':mg.box(x,.85,z,.9,1.7,.4,'#8a5a33');for(const y of [.3,.85,1.4]){mg.box(x,y,z+.05,.95,.06,.45,'#c29a6d');for(let i=0;i<3;i++){mg.box(x-.3+i*.3,y+.22,z+.25,.24,.32,.025,'#efe5c2');mg.box(x-.3+i*.3,y+.22,z+.27,.18,.18,.01,['#75adcb','#8fb5a5','#879ac1'][i]);}}return;
     case 'dorfglas_alt':case 'dorfglas_bau1':case 'dorfglas_bau2':case 'dorfglas_bau3':case 'dorfglas':{
       const old=k==='dorfglas_alt',build=k.includes('_bau'),phase=Number(k.slice(-1))||3,frame=old?'#657e64':'#538977',glass=old?'#91a193':'#b9ded7';
       mg.box(x,.16,z,6,.32,4,'#9a9d8c');

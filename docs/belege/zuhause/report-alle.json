@@ -1,0 +1,146 @@
+[
+  {
+    "seg": "wohnen",
+    "width": 390,
+    "gfx": "2d",
+    "errors": [],
+    "ok": true
+  },
+  {
+    "seg": "wohnen",
+    "width": 1440,
+    "gfx": "3d",
+    "errors": [],
+    "ok": true
+  },
+  {
+    "seg": "markt",
+    "width": 390,
+    "gfx": "2d",
+    "errors": [],
+    "error": "page.waitForFunction: Timeout 30000ms exceeded.\n    at /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/zuhause-browser.cjs:7:79",
+    "state": {
+      "map": "village",
+      "px": 6,
+      "py": 6,
+      "dlg": "",
+      "ui": {
+        "ui": {
+          "panel": false,
+          "dialog": false,
+          "fade": false
+        },
+        "fish": null
+      }
+    }
+  },
+  {
+    "seg": "markt",
+    "width": 1440,
+    "gfx": "3d",
+    "errors": [],
+    "error": "page.waitForFunction: Timeout 30000ms exceeded.\n    at /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/zuhause-browser.cjs:7:79",
+    "state": {
+      "map": "village",
+      "px": 6,
+      "py": 6,
+      "dlg": "",
+      "ui": {
+        "ui": {
+          "panel": false,
+          "dialog": false,
+          "fade": false
+        },
+        "fish": null
+      }
+    }
+  },
+  {
+    "seg": "besuch",
+    "width": 390,
+    "gfx": "2d",
+    "errors": [],
+    "error": "page.waitForFunction: Timeout 30000ms exceeded.\n    at /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/zuhause-browser.cjs:8:83",
+    "state": {
+      "map": "farm",
+      "px": 4,
+      "py": 9,
+      "heading": "Rosa am Markttag",
+      "dlg": "",
+      "ui": {
+        "ui": {
+          "panel": true,
+          "dialog": false,
+          "fade": false
+        },
+        "fish": null
+      }
+    }
+  },
+  {
+    "seg": "besuch",
+    "width": 1440,
+    "gfx": "3d",
+    "errors": [],
+    "error": "page.waitForFunction: Timeout 30000ms exceeded.\n    at /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/zuhause-browser.cjs:8:83",
+    "state": {
+      "map": "farm",
+      "px": 4,
+      "py": 9,
+      "heading": "Rosa am Markttag",
+      "dlg": "",
+      "ui": {
+        "ui": {
+          "panel": true,
+          "dialog": false,
+          "fade": false
+        },
+        "fish": null
+      }
+    }
+  },
+  {
+    "seg": "einladung",
+    "width": 390,
+    "gfx": "2d",
+    "errors": [],
+    "error": "locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('[data-a=\"zuhause-einladung\"]') to be visible\n\n    at /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/zuhause-browser.cjs:9:253",
+    "state": {
+      "map": "i_tierhof",
+      "px": 6,
+      "py": 5,
+      "heading": "Paulas Tierhof",
+      "dlg": "Du kommst genau richtig! Heute Nacht ist bei mir ein Kälbchen zur Welt gekommen.",
+      "ui": {
+        "ui": {
+          "panel": false,
+          "dialog": true,
+          "fade": false
+        },
+        "fish": null
+      }
+    }
+  },
+  {
+    "seg": "einladung",
+    "width": 1440,
+    "gfx": "3d",
+    "errors": [],
+    "error": "locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('[data-a=\"zuhause-einladung\"]') to be visible\n\n    at /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/zuhause-browser.cjs:9:253",
+    "state": {
+      "map": "i_tierhof",
+      "px": 6,
+      "py": 5,
+      "heading": "Paulas Tierhof",
+      "dlg": "Du kommst genau richtig! Heute Nacht ist bei mir ein Kälbchen zur Welt gekommen.",
+      "ui": {
+        "ui": {
+          "panel": false,
+          "dialog": true,
+          "fade": false
+        },
+        "fish": null
+      }
+    }
+  }
+]

@@ -1,5 +1,7 @@
 # Etappe 4 – Vollmondwald, magische Pflanzen und Regenhändler – Prüfbericht
 
+**Historischer Bericht zum damaligen Stand `f18b552`.** Etappen 1–5 sind inzwischen von René als `de0367c` veröffentlicht. Der aktuelle, noch nicht veröffentlichte Reststand steht in `ETAPPE-4-REST-ABNAHME.md`; dessen W-ID-Matrix ersetzt die damalige Offen-Liste unten.
+
 Branch `feat/stadt-und-wohnraum`, Ausgangsstand `c74f253`, geprüfter Stand **`f18b552`**. `main` und `gh-pages` bleiben auf `c74f253` (live). Kein Merge, kein Deploy. Dieser Bericht ist eine technische Übergabe und keine Freigabe durch René.
 
 ## Codebefund vor der Änderung
