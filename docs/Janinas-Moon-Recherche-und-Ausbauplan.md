@@ -88,11 +88,11 @@ Status: **Wunschliste, keine Behauptung vorhandener oder originaler Harvest-Moon
 | ID | Wunsch | Umsetzungskriterium |
 |---|---|---|
 | W07 | Versteckter Wald öffnet nur bei Vollmond | Nachvollziehbarer Mondkalender, Hinweis vor Öffnung; wer beim Schließen darin ist, bleibt nicht gefangen. **Status Etappe 4 (live in `de0367c`, Browserbelege in ETAPPE-4-ABNAHME.md):** gebaut als eigene Karte `vollmondwald`, erreichbar ausschließlich über das bestehende W64-Gewölbe. 14-Tage-Rhythmus, Kalender-/Tagebuchhinweis, Ausgang zurück ins Gewölbe und sicherer Tageswechsel nach Hause. |
-| W08 | Kleine Waldgeister helfen bei der Ernte | An das Helfersystem anbinden, kein widersprüchliches zweites Automatisierungssystem. |
+| W08 | Kleine Waldgeister helfen bei der Ernte | **Reststand (nur Entwicklungszweig):** Lumi und ein gemeinsames Helfersystem für Ernte, Gießen und Füttern; Aufträge im Gewölbe/Steinring für 1/3 Tage, echte Bestände, Tagesbericht, Reload. Ausgang enthielt entgegen der Annahme noch kein Helfermodul; kein Zweitsystem. |
 | W09 | Seltene magische Pflanzen züchten | Samenquelle, Wachstumsbedingungen, sichtbare Pflanze und Verwendung definieren. **Status Etappe 4 (live in `de0367c`, Browserbelege in ETAPPE-4-ABNAHME.md):** gebaut: Mondsamen im Vollmondwald und beim Regenhändler; Mondblüte im bestehenden Feldsystem, wächst nur nach nächtlichem Handgießen (nicht durch Regen/Sprinkler), eigene 2D-/3D-Darstellung, Versandwert 640 G. |
 | W10 | Mysteriöser Händler nur bei Regen | Regenabhängiger Wegplan und besonderes Sortiment; Wetterbericht liefert Planungshilfe. **Status Etappe 4 (live in `de0367c`, Browserbelege in ETAPPE-4-ABNAHME.md):** gebaut: Nerio nur bei Regen, 7–11 Uhr Waldweg, 11–16 Uhr Dorfbrunnen, 16–20 Uhr Waldsee; Wetterbericht kündigt ihn an; Sortiment mit Mondsamen, Mondtau und Mondquarz, ohne sofortige Versand-/Café-/Bestellarbitrage. |
-| W11 | Alte Ruinen erzählen Dorfgeschichte | Auffindbare Hinweise und zusammenhängende Entdeckungsreihe mit Tagebuch. |
-| W12 | Entscheidungen verändern die Magie | Bildsatz nach „ob die Magie …“ abgeschnitten. Nur der lesbare Kern ist übernommen; konkrete Auswirkungen offen. Keine erfundene Endentscheidung festschreiben. |
+| W11 | Alte Ruinen erzählen Dorfgeschichte | **Reststand (nur Entwicklungszweig):** vier Inschriften verbinden Gewölbe, Ruinen auf Ebene 9, Hedwig am reparierten Brunnen und Vollmondwald; Jonas bewahrt den Abschluss. Herz-Tagebuch und geheimer Startbrief. |
+| W12 | Entscheidungen verändern die Magie | Der Bildsatz bleibt abgeschnitten. **Neuer kleiner Entwurf auf dem Entwicklungszweig, nicht aus dem Bild rekonstruiert:** Lichtlaterne (Lumi bis 20 Uhr sichtbar) oder Wasserschale (16 statt 12 Gießbeete); kostenlos wechselbar, keine Sperren/Verluste. |
 
 ### Bild: Eigenes Café oder Geschäft
 
@@ -132,16 +132,16 @@ Status: **Wunschliste, keine Behauptung vorhandener oder originaler Harvest-Moon
 
 | ID | Wunsch | Umsetzungskriterium |
 |---|---|---|
-| W32 | Geheime Briefe unbekannter Absender | Hinweisfolge mit späterer Auflösung; vorhandenes Postsystem verwenden. **Vorhandener Teilstand:** W55–W60 und weitere Postereignisse enthalten anonyme/geheime Briefketten. Etappe 4 ergänzt nichts. |
-| W33 | Sternschnuppennächte | Vorhandenes System zuerst spielerisch prüfen, dann um Hinweise/Belohnungen erweitern. **Vorhandener Teilstand:** Sternschnuppen existieren. Etappe 4 erweitert sie wegen der Priorisierung nicht. |
-| W34 | Regenbögen | An Wetterwechsel gebundenes sichtbares Ereignis, auf Mobilgeräten prüfbar. |
-| W35 | Nebel | Lesbare Wege und anklickbare Gegenstände trotz Effekt; optional seltene Begegnungen. **Teilstand Etappe 4:** zurückhaltender Nebel nur als Darstellung im Vollmondwald; kein allgemeines Nebel-Wetterereignis. |
+| W32 | Geheime Briefe unbekannter Absender | Bestehende Postketten W55–W60 bleiben. **Reststand (nur Entwicklungszweig):** Hedwigs anonymer Brief startet die Brunnenchronik, Absender wird am Brunnen und mit Jonas aufgelöst; Abschlussbrief einmal. |
+| W33 | Sternschnuppennächte | **Reststand (nur Entwicklungszweig):** bestehende antippbare Sternschnuppen/Wunschbelohnungen erhalten; am 7./14. Saisontag bei Sonne ab 19:30 häufiger und länger sichtbar, Kalender-/Herz-Hinweise und Album. Schweif unterhalb des festen oberen HUD. |
+| W34 | Regenbögen | **Reststand (nur Entwicklungszweig):** am sonnigen Morgen nach einem Regentag 7–10 Uhr, gemeinsamer sichtbarer Bogen in 2D/3D; Albumfund gespeichert. |
+| W35 | Nebel | **Reststand (nur Entwicklungszweig):** leichter Morgennebel an sonnigen zweiten Wochentagen 6–9 Uhr; keine Kollisionen oder undurchsichtigen Flächen; Nebelkoi als gezielter Fund. |
 | W36 | Schatzkarten mit kleinen Rätseln | Karte führt zu konkretem erreichbarem Fund; Rätsel und Fundzustand bleiben gespeichert. **Vorhanden:** W57 mit drei Hügeln, gespeichertem Fund und einmaliger Belohnung. |
-| W37 | Sammelalbum für Tiere, Pflanzen, Entdeckungen | Vorhandene Fang-, Koch- und Versandprotokolle zusammenführen; unbekannte Einträge und Fundbedingungen anzeigen. |
+| W37 | Sammelalbum für Tiere, Pflanzen, Entdeckungen | **Reststand (nur Entwicklungszweig):** Album im bestehenden Sammlungstab führt echte Fang-/Koch-/Versand-/Pflanzen-/Tier-/Entdeckungsdaten zusammen; bekannte Einträge bleiben gespeichert, unbekannte zeigen ??? und Fundhinweise. |
 | W38 | Geburtstage: überraschen und Geschenke bekommen | Bestehende Bewohnergeburtstage erweitern, auch persönlicher Geburtstag mit glaubwürdigen Besuchen/Geschenken. Bildzeile rechts teilweise abgeschnitten; keine weitere Bedingung daraus abgeleitet. **Status Etappe 2 (gebaut und inzwischen live in `de0367c`; damalige Prüfgrenzen im Etappenbericht):** gebaut: Geschenk am Bewohnergeburtstag mit eigener Antwort und Dankesbrief, Tratsch nennt das Lieblingsgeschenk; Janinas Geburtstag (Vorschlag 6. Herbst, im Tagebuch änderbar): Geburtstagspost mit Beilage, Kuchen und Nudeln von René, Besuch von Rosa und Mei mit Geschenkkorb, einmal pro Jahr. Etappe 4 ergänzt nichts. |
 | W39 | Verlassene Häuser renovieren, Bewohner ziehen ein | Materialien und Geld einsetzen, echte Bauphase, anschließend bewohnbarer Ort und neuer Alltag. **Vorhandener Teilstand:** Stadtbauplätze, Haus Nummer 7 und W62 sind an Einzug/Miete angebunden. Etappe 4 beginnt kein weiteres Haus. |
-| W40 | Seltene Fische nur bei bestimmtem Wetter | Fangbedingungen dokumentieren und im Spiel andeuten; nicht nur extrem niedrige Zufallschance. |
-| W41 | Nachtmarkt mit seltenen Gegenständen | Feste Termine, echte Besucher und besonderes Angebot; vom bereits existierenden Samstagsstand unterscheiden. |
+| W40 | Seltene Fische nur bei bestimmtem Wetter | **Reststand (nur Entwicklungszweig):** Regenforelle bei Regen im Waldfluss; Nebelkoi im Waldsee bei Morgennebel. Der erste erfolgreiche Fang am passenden Tag/Gewässer ist garantiert die Wetterart, danach normale Fische. Hinweise in Herz-Tagebuch/Album. |
+| W41 | Nachtmarkt mit seltenen Gegenständen | **Reststand (nur Entwicklungszweig):** jeden 7./14. Saisontag 18–22 Uhr am Dorfbrunnen, zwei Warenstände, Liora und Besucher, Lampe/Bank/Pflanzen. Pro Artikel ein Kauf je Markt, Nachtminztee als besonderes Energieangebot. Kein Sofortverkaufsgewinn. |
 
 ### Bild: Dorf verändert sich durch die Spielerin
 

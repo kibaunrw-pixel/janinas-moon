@@ -1,0 +1,12 @@
+{"seg":"markt","width":390,"gfx":"2d","errors":[],"ok":true}
+{"seg":"markt","width":1440,"gfx":"3d","errors":[],"ok":true}
+{"seg":"regenbogen","width":390,"gfx":"2d","errors":[],"ok":true}
+{"seg":"regenbogen","width":1440,"gfx":"3d","errors":[],"ok":true}
+{"seg":"nebel","width":390,"gfx":"2d","errors":[],"ok":true}
+{"seg":"nebel","width":1440,"gfx":"3d","errors":[],"ok":true}
+{"seg":"regenfisch","width":390,"gfx":"2d","errors":[],"ok":true}
+{"seg":"regenfisch","width":1440,"gfx":"3d","errors":[],"ok":true}
+{"seg":"stern","width":390,"gfx":"2d","errors":[],"ok":true}
+page.waitForFunction: Timeout 30000ms exceeded.
+    at /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/entdecken-browser.cjs:15:269
+{"seg":"stern","width":1440,"gfx":"3d","errors":[],"error":"page.waitForFunction: Timeout 30000ms exceeded.\n    at /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/entdecken-browser.cjs:15:269"}

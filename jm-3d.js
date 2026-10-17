@@ -388,7 +388,7 @@ function prop(mg,mgE,o,se,st){
     case "fountain": { const cx=o.x+1, cz=o.y+1; mg.cyl(cx,.2,cz,.95,.4,"#c8c0b2"); mg.cyl(cx,.38,cz,.82,.06,snow?"#e8f0f6":"#5fb4e8"); mg.cyl(cx,.7,cz,.12,.8,"#c8c0b2"); mg.cyl(cx,1.05,cz,.36,.1,"#c8c0b2"); mg.cyl(cx,1.12,cz,.3,.04,snow?"#e8f0f6":"#7cc4ee"); mg.sph(cx,1.25,cz,.1,.14,.1,"#c8c0b2"); return; }
     case "stall": { mg.box(x,.45,z,.9,.08,1.6,wood); mg.box(x-.38,.22,z-.7,.08,.44,.08,woodD); mg.box(x+.38,.22,z+.7,.08,.44,.08,woodD); mg.box(x-.38,.22,z+.7,.08,.44,.08,woodD); mg.box(x+.38,.22,z-.7,.08,.44,.08,woodD);
       mg.box(x-.4,.95,z,.06,1.0,.06,woodD); for(let i=0;i<6;i++) mg.add(GEO.box,M4(x-.05,1.42,z-.75+i*.3,.95,.05,.3,0,0,.25),i%2?"#f4f1ea":"#e8483a");
-      if(st.market) for(let i=0;i<5;i++) mg.sph(x+(i%2?.15:-.15),.55,z-.6+i*.3,.1,.08,.1,["#e8483a","#f6d55c","#8fd263","#f28fb0","#e8842a"][i],true); return; }
+      if(st.market||o.entdecken) for(let i=0;i<5;i++) mg.sph(x+(i%2?.15:-.15),.55,z-.6+i*.3,.1,.08,.1,["#e8483a","#f6d55c","#8fd263","#f28fb0","#e8842a"][i],true); return; }
     case "sprinkler": mg.cyl(x,.12,z,.08,.24,"#8a8a96"); mg.sph(x,.26,z,.07,.05,.07,"#3f6ad8"); return;
     case "cave": { const cx=o.x+1, cz=o.y+1.2; mg.sph(cx,.2,cz-.2,1.25,1.25,.95,"#6e625a"); mg.sph(cx-.7,.1,cz,.55,.6,.5,"#5e534c"); mg.sph(cx+.75,.1,cz,.6,.55,.5,"#7a6e64"); mg.sph(cx,.35,cz+.55,.48,.62,.25,"#1a1414"); if(snow) mg.sph(cx,1.15,cz-.3,.9,.3,.6,"#ffffff"); return; }
     case "stairs": for(let i=0;i<7;i++){const h=(7-i)*.16;mg.box(x,h/2,z-.85+i*.27,.86,h,.28,wood);mg.box(x,h+.02,z-.85+i*.27,.9,.04,.28,woodL);} for(const sx of [-.47,.47]){mg.box(x+sx,.8,z,.05,1.6,1.8,woodD);} return;

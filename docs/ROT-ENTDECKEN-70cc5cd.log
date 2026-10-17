@@ -1,0 +1,133 @@
+TAP version 13
+# Subtest: W33/W34/W35: feste Sternennächte, wettergebundener Regenbogen, leichter Morgennebel
+not ok 1 - W33/W34/W35: feste Sternennächte, wettergebundener Regenbogen, leichter Morgennebel
+  ---
+  duration_ms: 3.350041
+  type: 'test'
+  location: '/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/entdecken.test.cjs:3:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      a.ok(W)
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/entdecken.test.cjs:3:99)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: W40: seltene Wetterfische sind am richtigen Gewässer gezielt erreichbar, nach Fang Tageslimit
+not ok 2 - W40: seltene Wetterfische sind am richtigen Gewässer gezielt erreichbar, nach Fang Tageslimit
+  ---
+  duration_ms: 0.254833
+  type: 'test'
+  location: '/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/entdecken.test.cjs:4:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      a.ok(W)
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/entdecken.test.cjs:4:109)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: W41: Termine nach 14-Tage-Kalender, Handelsfenster, Tageslimit und Verlust beim Sofortverkauf
+not ok 3 - W41: Termine nach 14-Tage-Kalender, Handelsfenster, Tageslimit und Verlust beim Sofortverkauf
+  ---
+  duration_ms: 0.20425
+  type: 'test'
+  location: '/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/entdecken.test.cjs:5:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      a.ok(W)
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/entdecken.test.cjs:5:109)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: W37: Album verwendet wirkliche Bestands-/Fang-/Koch-/Tierdaten, Unbekannte mit Hinweis, bleibt nach Verkauf bekannt
+not ok 4 - W37: Album verwendet wirkliche Bestands-/Fang-/Koch-/Tierdaten, Unbekannte mit Hinweis, bleibt nach Verkauf bekannt
+  ---
+  duration_ms: 0.124042
+  type: 'test'
+  location: '/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/entdecken.test.cjs:6:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      a.ok(W)
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/entdecken.test.cjs:6:131)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: Nachtmarkt: echte Stände, Besucher nur im Zeitfenster, sauberer Abbau ohne Duplikate
+not ok 5 - Nachtmarkt: echte Stände, Besucher nur im Zeitfenster, sauberer Abbau ohne Duplikate
+  ---
+  duration_ms: 0.115
+  type: 'test'
+  location: '/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/entdecken.test.cjs:7:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      a.ok(W)
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/entdecken.test.cjs:7:100)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 0
+# fail 5
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 60.148583

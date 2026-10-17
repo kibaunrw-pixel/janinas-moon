@@ -605,6 +605,7 @@ function bushAct(o){
 /* ================= Objekte ================= */
 function objAct(o){
   const a=o.act;
+  if(a.startsWith('entdecken:'))return runPost(JM.Post.evAct(S,a));
   if(a.startsWith('chronik:'))return runPost(JM.Post.evAct(S,a));
   if(a.startsWith('magie:'))return runPost(JM.Magie.act(S,a.slice(6)));
   if(a.startsWith('ziele:'))return runPost(JM.Ziele.act(S,a.slice(6)));
@@ -680,7 +681,7 @@ function endDay(passedOut){
     let died=0; for(const k in S.field){ const f=S.field[k]; const [x,y]=k.split(",").map(Number); if(f.c&&MAPS.farm.t[y][x]!==T.GLAS&&!CROPS[f.c.k].se.includes(se)){ f.c=null; died++; } }
     if(died) notes.push(died+" Pflanzen haben den Wechsel nicht überstanden.");
   }
-  S.weather=S.tomorrow; S.tomorrow=rollWeather(S.day+1);
+  JM.Entdecken.morning(S,S.weather); S.weather=S.tomorrow; S.tomorrow=rollWeather(S.day+1);
   if(S.weather==="rain"){ for(const k in S.field){ const [x,y]=k.split(",").map(Number); if(S.field[k].t&&MAPS.farm.t[y][x]!==T.GLAS) S.field[k].w=true; } notes.push("Es regnet. Die Beete draußen sind schon gegossen."); }
   for(const k in S.field){ if(S.field[k].o==="spr"){ const [x,y]=k.split(",").map(Number); for(let dy=-1;dy<=1;dy++) for(let dx=-1;dx<=1;dx++){ const f=S.field[key(x+dx,y+dy)]; if(f&&f.t) f.w=true; } } }
   // Pudel-Geschenke
@@ -951,7 +952,7 @@ function startFishing(x,y){
   FISH.phase="wait"; FISH.t=1.6+rnd()*3.5; FISH.x=x; FISH.y=y; P.tool="rute"; P.busy=.4; sfx("cast");
   FISH.k=pickFish(JM.waterKind(M.id,x,y));
 }
-function pickFish(kind){return JM.Ausbau.pickFish(kind,S.min,FESTFX.moon,rnd);}
+function pickFish(kind){return JM.Entdecken.pickFish(S,kind,rnd,FESTFX.moon);}
 function fishTap(){
   if(FISH.phase==="wait"){ note("Geduld... warte, bis das Ausrufezeichen erscheint."); return; }
   if(FISH.phase==="bite"){ FISH.phase="reel"; FISH.prog=.45; FISH.zone=.2; FISH.zv=0; FISH.fy=.35; FISH.fv=0; FISH.ft=.8; FISH.tgt=.35; FISH.hold=false; $("fishui").hidden=false; sfx("bite"); }
@@ -976,7 +977,7 @@ function fishUpdate(dt){
   }
 }
 function catchFish(){
-  const k=FISH.k; give(k,1); S.fishLog[k]=(S.fishLog[k]||0)+1; sfx("fanfare"); floatItem(FISH.x,FISH.y,k);
+  const k=FISH.k; give(k,1); JM.Entdecken.caught(S,k); S.fishLog[k]=(S.fishLog[k]||0)+1; sfx("fanfare"); floatItem(FISH.x,FISH.y,k);
   note((k==="koi"?"Unglaublich! ":"")+ITEMS[k].n+" gefangen!"); emit("fish",k); saveSoon();
 }
 function drawFishUI(zs,inside){
@@ -1142,8 +1143,9 @@ const WISHES=["Ich wünsch mir, dass {d0} und {d1} immer gesund bleiben.","Ich w
 function starTick(dt){
   if(STAR.a){ STAR.a.t+=dt; if(STAR.a.t>STAR.a.d) STAR.a=null; return; }
   const night=S.min>=1170||S.min<300; if(demo||!night||M.inside||M.cave||S.weather!=="sun"||paused()) return;
-  STAR.cool-=dt; if(STAR.cool>0) return; STAR.cool=25+rnd()*35;
-  const ltr=rnd()<.5; STAR.a={x0:ltr?.1+rnd()*.3:.6+rnd()*.3,y0:.18+rnd()*.25,vx:(ltr?1:-1)*(.22+rnd()*.1),vy:.07+rnd()*.05,t:0,d:2.6};
+  if(JM.Entdecken.starNight(S)&&STAR.hint!==S.day)STAR.cool=Math.min(STAR.cool,3);
+  STAR.cool-=dt; if(STAR.cool>0) return; STAR.cool=JM.Entdecken.starNight(S)?6+rnd()*5:25+rnd()*35;
+  const ltr=rnd()<.5; STAR.a={x0:ltr?.1+rnd()*.3:.6+rnd()*.3,y0:.28+rnd()*.15,vx:(ltr?1:-1)*(.22+rnd()*.1),vy:.07+rnd()*.05,t:0,d:JM.Entdecken.starNight(S)?4.5:2.6};
   if(STAR.hint!==S.day){ STAR.hint=S.day; note("Eine Sternschnuppe! Schnell antippen und etwas wünschen."); }
 }
 function starPos(){ const a=STAR.a; return [(a.x0+a.vx*a.t)*innerWidth,(a.y0+a.vy*a.t)*innerHeight]; }
@@ -1695,7 +1697,7 @@ function openBook(tab){
     }
     body=`<h3>${JM.SEASONS[se]} · Jahr ${year()}</h3><div class="cal">${cells}</div><p class="sub">Feste beginnen auf dem Dorfplatz. An Geburtstagen zählen Geschenke dreifach.</p>`;
   }
-  if(tab==="herz") body=JM.Rom.diary(S,esc)+JM.Dorf.diary(S,esc)+JM.Magie.diary(S,esc)+JM.Chronik.diary(S,esc);
+  if(tab==="herz") body=JM.Rom.diary(S,esc)+JM.Dorf.diary(S,esc)+JM.Magie.diary(S,esc)+JM.Chronik.diary(S,esc)+JM.Entdecken.diary(S);
   if(tab==="friends"){
     body=`<div class="row"><canvas class="pt" data-pt="dog0"></canvas><div class="tx"><b>${esc(dogName(0))}</b>${heartRow(S.dogH[0])}<small>${S.dogPet[0]===S.day?"Heute gestreichelt":"Noch nicht gestreichelt"}</small></div></div>
       <div class="row"><canvas class="pt" data-pt="dog1"></canvas><div class="tx"><b>${esc(dogName(1))}</b>${heartRow(S.dogH[1])}<small>${S.dogPet[1]===S.day?"Heute gestreichelt":"Noch nicht gestreichelt"}</small></div></div>`;
@@ -1713,6 +1715,7 @@ function openBook(tab){
       <h3>Mondbaum</h3><p class="sub">${Object.keys(S.bundleDone).length} von ${JM.BUNDLES.length} Gaben erfüllt</p>
       <p class="sub">Verdient insgesamt: ${S.stats.earned.toLocaleString("de-DE")} G</p>`;
   }
+  if(tab==="coll") body=JM.Entdecken.page(S,esc)+`<h3>Magischer Teich · Ebene 10</h3><p class="sub">Mit Henks Angel erreichst du dort Sternenschuppe und Kristallforelle, zu jeder Tageszeit.</p><p>${['sternenschuppe','kristallforelle'].map(k=>esc(ITEMS[k].n)+': '+(S.fishLog[k]||0)+' gefangen').join('<br>')}</p><h3>Mondbaum</h3><p>${Object.keys(S.bundleDone).length} von ${JM.BUNDLES.length} Gaben erfüllt</p>`;
   if(tab==="opt"){
     body=`<div class="row"><div class="tx"><b>Geräusche</b></div><button class="btn alt" data-a="snd">${S.sound?"An":"Aus"}</button></div>
       <div class="row"><div class="tx"><b>Musik</b></div><button class="btn alt" data-a="mus">${S.music?"An":"Aus"}</button></div>
@@ -1819,7 +1822,7 @@ function update(dt){
   for(const p of FX){ p.l-=dt; p.x+=p.vx*dt; p.y+=p.vy*dt; p.vy+=p.g*dt; } FX=FX.filter(p=>p.l>0);
   for(const f of FLT){ f.l-=dt; f.y-=18*dt; } FLT=FLT.filter(f=>f.l>0);
   for(const k in FESTFX) if(FESTFX[k]>0) FESTFX[k]-=dt*(UI.dialog?0:1);
-  if(Math.floor(gameT*2)!==Math.floor((gameT-dt)*2)){ recheckQuest(); updateQuestUI(); if(!demo){ syncPets(false); const hr=JM.Helfer.tick(S); if(hr)runPost(hr); const tr=JM.Tiere.tick(S); if(tr){ if(M.id==="farm") note(tr.note); save(true); } } }
+  if(Math.floor(gameT*2)!==Math.floor((gameT-dt)*2)){ recheckQuest(); updateQuestUI(); if(!demo){ syncPets(false); const wr=JM.Entdecken.tick(S,M); if(wr)runPost(wr); const hr=JM.Helfer.tick(S); if(hr)runPost(hr); const tr=JM.Tiere.tick(S); if(tr){ if(M.id==="farm") note(tr.note); save(true); } } }
 }
 /* René spricht die Spielerin nur von sich aus an, wenn sie ruhig steht: kein Laufweg, keine
    vorgemerkte Aktion, keine Feldreihe, kein gehaltener Finger und seit 2 s kein Tipp. */
@@ -2004,7 +2007,7 @@ function render3(){
   ctx.drawImage(VIG,0,0);
   if(FESTFX.moon>0) drawMoon();
   if(!demo&&!paused()&&!PHOTO) drawArrow3(pr);
-  if(!PHOTO) drawStar();
+  if(!PHOTO){ JM.Entdecken.draw(ctx,VW,VH,S,M,gameT); drawStar(); }
 }
 function drawArrow3(pr){
   const t=routeTarget(questTarget()); if(!t) return;
@@ -2075,7 +2078,7 @@ function render(){
     if(o.k==="vitrine"||o.k==="tafel"){ const list=Object.keys(S.cafe.vit).sort((a,b)=>(b==="mondkuchen")-(a==="mondkuchen")); const sp=lazy(SPR.prop,o.k+se+list.join(","),()=>A.prop(o.k,se,list)); L.push({y:by,d:()=>bx.drawImage(sp,o.x*16+(o.w||1)*8-(sp.width>>1)-CX,(o.y+(o.h||1))*16-sp.height+1-CY)}); continue; }
     if(o.k==="futterstelle"){ const full=S.tiere.futterE.day===S.day&&S.tiere.futterE.n>0; const sp=lazy(SPR.prop,o.k+se+(full?1:0),()=>A.prop(o.k,se,full)); L.push({y:by,d:()=>bx.drawImage(sp,o.x*16+8-(sp.width>>1)-CX,(o.y+1)*16-sp.height+1-CY)}); continue; }
     if(o.k==="cafe"){ const B=lazy(SPR.prop,"cafe"+se+(night?1:0),()=>A.prop("cafe",se,night)); cast(B,o.x*16+(o.w||1)*8-(B.width>>1)-CX,(o.y+(o.h||1))*16-B.height+1-CY); L.push({y:by,d:()=>bx.drawImage(B,o.x*16+(o.w||1)*8-(B.width>>1)-CX,(o.y+(o.h||1))*16-B.height+1-CY)}); continue; }
-    const extra=o.k==="stove"?(renePlan().mode==="cook"&&RA.vis):o.k==="tv"?(S.min>=1080&&S.min<1380):o.k==="stall"?marketDay():o.k==="mailbox"?unread:o.k==="trough"?(o.act==="trough_h"?S.trough.h>0:S.trough.c>0):o.k==="lamp"||["baeckerei","blumenladen","villa","hotel"].includes(o.k)?night:false;
+    const extra=o.k==="stove"?(renePlan().mode==="cook"&&RA.vis):o.k==="tv"?(S.min>=1080&&S.min<1380):o.k==="stall"?(o.entdecken||marketDay()):o.k==="mailbox"?unread:o.k==="trough"?(o.act==="trough_h"?S.trough.h>0:S.trough.c>0):o.k==="lamp"||["baeckerei","blumenladen","villa","hotel"].includes(o.k)?night:false;
     spr=lazy(SPR.prop,o.k+se+(extra?1:0),()=>A.prop(o.k,se,extra));
     if(o.k==="fountain"){ cast(spr,o.x*16-2-CX,(o.y+2)*16-spr.height+3-CY); L.push({y:by,d:()=>{ bx.drawImage(spr,o.x*16-2-CX,(o.y+2)*16-spr.height+3-CY); const t=gameT*6; for(let i=0;i<4;i++){ const a=(t+i*1.6)%6; bx.fillStyle=se===3?"#ffffff":"#bfe3ff"; bx.fillRect(o.x*16+14+Math.round(Math.sin(i*2.1)*a*1.4)-CX,o.y*16-6+Math.round(a*a*.5)-CY,1,1); } }}); continue; }
     if(spr.height>=14) cast(spr,o.x*16+(o.w||1)*8-(spr.width>>1)-CX,(o.y+(o.h||1))*16-spr.height+1-CY);
@@ -2176,7 +2179,7 @@ function render(){
   if(FESTFX.moon>0) drawMoon();
   // Zielpfeil
   if(!demo&&!paused()&&!PHOTO) drawArrow(CX,CY);
-  if(!PHOTO) drawStar();
+  if(!PHOTO){ JM.Entdecken.draw(ctx,VW,VH,S,M,gameT); drawStar(); }
 }
 function drawWater(X,Y,x,y,se){
   const t=gameT, w=(xx,yy)=>xx<0||yy<0||xx>=M.w||yy>=M.h||M.t[yy][xx]===T.WASSER||M.t[yy][xx]===T.STEG;

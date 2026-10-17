@@ -572,6 +572,8 @@ A.icon=function(k){
     case "ei": g.ell(8,9,4.5,5.5,"#fbf6e9"); R(10,7,1,5,"#e2d9c3"); R(6,5,1,2,"#ffffff"); break;
     case "goldei": g.ell(8,9,4.5,5.5,"#f3c34a"); R(10,7,1,5,"#d9a52a"); R(6,5,1,2,"#fff3c9"); break;
     case "milch": R(4,4,8,11,"#f4f1ea"); R(5,2,6,2,"#9aa3ad"); R(4,8,8,4,"#5a7ab0"); R(6,9,4,2,"#f4f1ea"); R(11,5,1,10,"#d8d4cc"); break;
+    case 'regenforelle': fish('forelle'); R(5,6,2,1,'#8cc7ef'); R(9,8,2,1,'#8cc7ef'); break;
+    case 'nebelkoi': fish('koi'); R(5,6,6,2,'#e1ebef'); break;
     case "forelle": case "karpfen": case "barsch": case "wels": case "goldfisch": case "koi": fish(k); break;
     case "baerlauch": [[5,2],[8,1],[11,3]].forEach(([x,y])=>{ g.ell(x+.5,y+5,1.8,5,"#4fb04a"); }); R(7,11,2,4,"#eef2dc"); break;
     case "beeren": [[5,8],[9,6],[10,10],[6,12],[3,10]].forEach(([x,y])=>{ D(x+1.5,y+1.5,2,"#5a3a8a"); R(x+1,y+1,1,1,"#9a7ac8"); }); R(7,3,4,2,"#3f8a34"); break;
@@ -581,7 +583,7 @@ A.icon=function(k){
     case "winterwurzel": g.ell(8,10,4,5,"#b89a7a"); R(6,6,4,1,"#9a7a5a"); R(7,2,1,4,"#4f9e3a"); R(9,1,1,5,"#4f9e3a"); break;
     case "huhn": g.ell(8,9,6,4.5,"#f0a0a0"); g.ell(7,8,3,2,"#f6c0c0"); R(12,10,3,2,"#e0d6c8"); break;
     case "futter": R(3,4,10,11,"#c9b98a"); R(3,4,10,2,"#d8c99a"); R(5,8,6,4,"#e8c95a"); R(6,2,4,3,"#a8986a"); break;
-    case "tee": R(3,7,9,7,"#f4f1ea"); R(12,8,2,4,"#f4f1ea"); R(4,7,7,2,"#a8c84a"); R(2,14,12,1,"#d8d4cc"); R(6,3,1,3,"#e9e6e0"); R(9,2,1,3,"#e9e6e0"); break;
+    case "nachttee": case "tee": R(3,7,9,7,"#f4f1ea"); R(12,8,2,4,"#f4f1ea"); R(4,7,7,2,"#a8c84a"); R(2,14,12,1,"#d8d4cc"); R(6,3,1,3,"#e9e6e0"); R(9,2,1,3,"#e9e6e0"); break;
     case "rolle": R(1,11,14,3,"#f4f1ea"); g.line(3,10,12,6,"#e8b86a",3); g.line(4,12,13,8,"#d9a04a",3); R(5,7,2,1,"#4fb04a"); break;
     case "nudeln": bowl("#2f5a8a","#f0d38a"); R(4,6,8,1,"#e2c070"); R(9,3,4,3,"#d9902a"); R(10,2,2,1,"#f0b04a"); R(4,4,2,2,"#4f9e3a"); R(12,0,1,8,"#8a5a33"); R(14,0,1,8,"#8a5a33"); break;
     case "pakchoi_g": R(1,10,14,3,"#e9e4d8"); R(2,13,12,1,"#cfc8b8"); D(8,8,4.5,"#3f9a3a"); R(5,8,6,2,"#eef2dc"); break;
