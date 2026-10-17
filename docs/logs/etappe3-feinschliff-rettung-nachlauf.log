@@ -1,0 +1,9 @@
+{"seg":"rettung","width":390,"gfx":"2d","ok":true,"raf":62,"result":{"st":"adoptiert"}}
+FEHLER rettung 390 3d AssertionError [ERR_ASSERTION]: Tier pip im Bild 383.0365572442578,385.7515496257418,0.5
+    at petShot (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe3-browser.cjs:126:41)
+    at async /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe3-browser.cjs:241:177
+DIAG fehler rettung-390-3d {"map":"farm","p":[6,9],"idle":true,"busy":"{\"ui\":{\"panel\":false,\"dialog\":false,\"fade\":false},\"fish\":null}","min":396.1099999999952,"dlg":"","panel":"","notes":"Willkommen zurück, Etappe3."}
+{"seg":"rettung","width":390,"gfx":"3d","ok":false,"raf":61,"error":"AssertionError [ERR_ASSERTION]: Tier pip im Bild 383.0365572442578,385.7515496257418,0.5\n    at petShot (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe3-browser.cjs:126:41)\n    at async /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe3-browser.cjs:241:177"}
+{"seg":"rettung","width":1440,"gfx":"2d","ok":true,"raf":62,"result":{"st":"adoptiert"}}
+{"seg":"rettung","width":1440,"gfx":"3d","ok":true,"raf":62,"result":{"st":"adoptiert"}}
+FEHLGESCHLAGEN 1

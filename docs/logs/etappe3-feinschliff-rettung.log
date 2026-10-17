@@ -1,0 +1,11 @@
+Wegversuch wiederholt rettung-390-2d { x: 7, y: 9, r: [ 203, 486 ] }
+{"seg":"rettung","width":390,"gfx":"2d","ok":true,"raf":62,"result":{"st":"adoptiert"}}
+{"seg":"rettung","width":390,"gfx":"3d","ok":true,"raf":62,"result":{"st":"adoptiert"}}
+{"seg":"rettung","width":1440,"gfx":"2d","ok":true,"raf":62,"result":{"st":"adoptiert"}}
+FEHLER rettung 1440 3d Error: Dialog ohne Auswahl „Es bleibt bei uns“ beendet
+    at untilChoice (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe3-browser.cjs:80:49)
+    at async pickChoice (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe3-browser.cjs:81:42)
+    at async /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe3-browser.cjs:239:96
+DIAG fehler rettung-1440-3d {"map":"farm","p":[12,22],"idle":false,"busy":"{\"ui\":{\"panel\":false,\"dialog\":false,\"fade\":false},\"fish\":null}","min":384.69333333333,"dlg":"Pflegetag 3 von 3. Morgen ist es bereit für ein richtiges Zuhause.","panel":"","notes":"Du hast Post im Briefkasten."}
+{"seg":"rettung","width":1440,"gfx":"3d","ok":false,"raf":63,"error":"Error: Dialog ohne Auswahl „Es bleibt bei uns“ beendet\n    at untilChoice (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe3-browser.cjs:80:49)\n    at async pickChoice (/Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe3-browser.cjs:81:42)\n    at async /Users/reneklomfas/KIBAU_Produktion/janinas-moon/tests/etappe3-browser.cjs:239:96"}
+FEHLGESCHLAGEN 1

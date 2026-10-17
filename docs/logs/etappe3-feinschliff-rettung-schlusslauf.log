@@ -1,0 +1,6 @@
+{"seg":"rettung","width":390,"gfx":"2d","ok":true,"raf":62,"result":{"st":"adoptiert"}}
+{"seg":"rettung","width":390,"gfx":"3d","ok":true,"raf":62,"result":{"st":"adoptiert"}}
+Wegversuch wiederholt rettung-1440-2d { x: 7, y: 9, r: [ 736, 578 ] }
+{"seg":"rettung","width":1440,"gfx":"2d","ok":true,"raf":62,"result":{"st":"adoptiert"}}
+{"seg":"rettung","width":1440,"gfx":"3d","ok":true,"raf":62,"result":{"st":"adoptiert"}}
+OK etappe3-browser rettung
