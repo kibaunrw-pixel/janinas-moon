@@ -1,0 +1,70 @@
+[
+  {
+    "seg": "haendler",
+    "width": 390,
+    "gfx": "2d",
+    "shots": [
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe4/regenhaendler-390-2d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe4/regenhaendler-sortiment-390-2d.png"
+    ],
+    "errors": [],
+    "result": {
+      "kauf": 240
+    },
+    "raf": {
+      "frames": 122,
+      "ms": 2008.8999999761581
+    }
+  },
+  {
+    "seg": "haendler",
+    "width": 390,
+    "gfx": "3d",
+    "shots": [
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe4/regenhaendler-390-3d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe4/regenhaendler-sortiment-390-3d.png"
+    ],
+    "errors": [],
+    "result": {
+      "kauf": 240
+    },
+    "raf": {
+      "frames": 122,
+      "ms": 2005.300000011921
+    }
+  },
+  {
+    "seg": "haendler",
+    "width": 1440,
+    "gfx": "2d",
+    "shots": [
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe4/regenhaendler-1440-2d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe4/regenhaendler-sortiment-1440-2d.png"
+    ],
+    "errors": [],
+    "result": {
+      "kauf": 240
+    },
+    "raf": {
+      "frames": 122,
+      "ms": 2013.3999999761581
+    }
+  },
+  {
+    "seg": "haendler",
+    "width": 1440,
+    "gfx": "3d",
+    "shots": [
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe4/regenhaendler-1440-3d.png",
+      "/Users/reneklomfas/KIBAU_Produktion/janinas-moon/docs/belege/etappe4/regenhaendler-sortiment-1440-3d.png"
+    ],
+    "errors": [],
+    "result": {
+      "kauf": 240
+    },
+    "raf": {
+      "frames": 122,
+      "ms": 2016.699999988079
+    }
+  }
+]

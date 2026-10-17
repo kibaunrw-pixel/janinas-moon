@@ -241,6 +241,10 @@ Samstagsstand → eigenes Café als erste ausgearbeitete Geschäftsrichtung. Ver
 
 Vollmondwald, Regenhändler, magische Pflanzen, Ruinen, geheime Briefe, Schatzkarten, Nachtmarkt und Wetterereignisse. Beziehungs-/Jahrestagsgeschichten; Entscheidung zum optionalen Romanzen-System vorab klären.
 
+### Etappe 5 – Ziele, Geld, Spannung (Stand 17.10.2026, Branch `feat/stadt-und-wohnraum`, nicht live)
+
+Gebaut und im Browser abgenommen (Bericht `docs/ETAPPE-5-ABNAHME.md`): sofort sichtbare Ziele für fortgeschrittene Höfe (Brief und Hinweisbox), eine Preisleiter (sofort ≤ 40.000 G, mittel 50.000–150.000 G, lang ab 300.000 G), Material bei Timo mit Tageslimit, Lindenstadt in fünf Stufen (Bäckerei, Blumenladen und Park, Villa für Herrn Falk, Hotel) mit wachsenden Einnahmen, Silber- und Goldwerkzeug, ein neues Feldstück, Großaufträge mit Frist, ein Erntewettbewerb mit Greta, Hof- und Stadtsterne und eine Trophäenwand. Zeitrechnung für Janina (38.500 G Start): Stufe 2 sofort, nach 3 Nächten fertig; Stufe 3 etwa Tag 18; Stufe 5 etwa Tag 122 (gut zwei Spieljahre). Offen sind ein Test auf echter Hardware, das Update der installierten PWA und Renés Freigabe.
+
 **Keine belastbare Zeit- oder Umfangsgleichheit versprechen:** Featureanzahl, Anzahl der Dialoge oder zehn Ebenen beweisen keine zwanzig Stunden gute Unterhaltung. Das muss durch echte Spielsitzungen und ausgewertete Wiederholungen geprüft werden.
 
 ## 8. Verbindliche Prüfungen pro Bauetappe

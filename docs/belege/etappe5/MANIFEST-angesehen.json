@@ -1,0 +1,1137 @@
+{
+ "commit_geprueft": "27a3d07",
+ "angesehen_von": "Hermes (Kontaktbögen 2D/3D nebeneinander, Ausschnitt-Zoom bei Schildern)",
+ "anzahl": 219,
+ "angesehen": 33,
+ "fehlerbilder": 27,
+ "bilder": [
+  {
+   "datei": "docs/belege/etappe5/auftrag-erfuellt-1440-2d.png",
+   "sha256": "57dccf385386301cccd2c7996c67987b96093c03a5af671ae52c498e89e4e357",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/auftrag-erfuellt-1440-3d.png",
+   "sha256": "6b78e5cce1768311ef103a34c8708d6fa8ffa7d31dba91ed3f6f77b9083bcd13",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/auftrag-erfuellt-390-2d.png",
+   "sha256": "daa8ea043f702fb7ec39776c362b0f14eadfe9490f8e3076a4c0bf7a0ae4193c",
+   "art": "Abnahmebeleg, angesehen",
+   "befund": "Banner „Großauftrag erfüllt! +968 G“, Hinweis lesbar"
+  },
+  {
+   "datei": "docs/belege/etappe5/auftrag-erfuellt-390-3d.png",
+   "sha256": "ffb06a3d3d9d90d4009fd816a27946ed7e17e36d1ffa2133faddd9ba67f2d34d",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/auftrag-panel-1440-2d.png",
+   "sha256": "74ab9a08a01806659ba8990ebb83dbb1b80c0e145ffc7edb37df72c7532d893c",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/auftrag-panel-1440-3d.png",
+   "sha256": "fdc8f83f1d4a6d7b07a03b7fc688cd5c3d566608280fcaef9ed8f408ded15a5e",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/auftrag-panel-390-2d.png",
+   "sha256": "8705a28d9774f620e68c276212de6fc742af19324d5979d4eee13e777396870d",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/auftrag-panel-390-3d.png",
+   "sha256": "9d4ab261742d3486e56c27bc35f626edaa7e0af72efbbd7c4c7623200abfb9c9",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/fehler-auftrag-390-2d.png",
+   "sha256": "9801038b57de9e956645b835fa71c6c59ec870c5b5a2d5268f73460d4e9c0a58",
+   "art": "Fehler-Diagnosebild (Zwischenstand vor Korrektur, kein Abnahmebeleg)"
+  },
+  {
+   "datei": "docs/belege/etappe5/fehler-hof-390-2d.png",
+   "sha256": "daccc058a02fabebc950a4336249fbaa521750927b9224c449afcca59c039daf",
+   "art": "Fehler-Diagnosebild (Zwischenstand vor Korrektur, kein Abnahmebeleg)"
+  },
+  {
+   "datei": "docs/belege/etappe5/fehler-material-390-2d.png",
+   "sha256": "8a037ec6955457a0d956ba4fa5efaecfeadc8ac81413e098e2a5edfbf2933df8",
+   "art": "Fehler-Diagnosebild (Zwischenstand vor Korrektur, kein Abnahmebeleg)"
+  },
+  {
+   "datei": "docs/belege/etappe5/fehler-migration-390-2d.png",
+   "sha256": "4d3f98bc0f625334500389735e6e18949f4c1b514099d756d48f451768c05aff",
+   "art": "Fehler-Diagnosebild (Zwischenstand vor Korrektur, kein Abnahmebeleg)"
+  },
+  {
+   "datei": "docs/belege/etappe5/fehler-rahmung-baustelle-1440-2d.png",
+   "sha256": "68fdc4d6dac920a8c8a4920bfa68a2c8880be3db32f1bb3c21fc584b2802db87",
+   "art": "Fehler-Diagnosebild (Zwischenstand vor Korrektur, kein Abnahmebeleg)"
+  },
+  {
+   "datei": "docs/belege/etappe5/fehler-rahmung-baustelle-1440-3d.png",
+   "sha256": "a390e853727b49dead7ff99d5d829aaff6ee53b9de4923f1db1be2fb4394c04c",
+   "art": "Fehler-Diagnosebild (Zwischenstand vor Korrektur, kein Abnahmebeleg)"
+  },
+  {
+   "datei": "docs/belege/etappe5/fehler-rahmung-feldstueck-1440-3d.png",
+   "sha256": "28e32ca276c7f1a271239702687caf7a1a112735dc84d80488b2f2c55afa767c",
+   "art": "Fehler-Diagnosebild (Zwischenstand vor Korrektur, kein Abnahmebeleg)"
+  },
+  {
+   "datei": "docs/belege/etappe5/fehler-rahmung-material-390-2d.png",
+   "sha256": "fd16a3bcdc1d84b88e6716214fd68b403db2fb8023dcb2c6759d2041e80b54b4",
+   "art": "Fehler-Diagnosebild (Zwischenstand vor Korrektur, kein Abnahmebeleg)"
+  },
+  {
+   "datei": "docs/belege/etappe5/fehler-rahmung-sterne-390-2d.png",
+   "sha256": "61734683e589198369d4621787ebd2a1a54cf4cc3787719ec7a3784f9785881f",
+   "art": "Fehler-Diagnosebild (Zwischenstand vor Korrektur, kein Abnahmebeleg)"
+  },
+  {
+   "datei": "docs/belege/etappe5/fehler-rahmung-stufe1-1440-3d.png",
+   "sha256": "31d06c3d19d2344cb58123f1cbf56713cd9bfc9ce5e9dbc1088d65f79bf36624",
+   "art": "Fehler-Diagnosebild (Zwischenstand vor Korrektur, kein Abnahmebeleg)"
+  },
+  {
+   "datei": "docs/belege/etappe5/fehler-rahmung-stufe1-390-3d.png",
+   "sha256": "f7ebb31edae402526f623910115ae3b28f3184e904c9dcb8628e6001dc426939",
+   "art": "Fehler-Diagnosebild (Zwischenstand vor Korrektur, kein Abnahmebeleg)"
+  },
+  {
+   "datei": "docs/belege/etappe5/fehler-rahmung-stufe2_baeckerei-1440-2d.png",
+   "sha256": "6063560e646bdf81bbdf7d534ed6d1ec3e872b5323d511933a54635668d6b9e6",
+   "art": "Fehler-Diagnosebild (Zwischenstand vor Korrektur, kein Abnahmebeleg)"
+  },
+  {
+   "datei": "docs/belege/etappe5/fehler-rahmung-stufe2_baeckerei-1440-3d.png",
+   "sha256": "898275d9e2a6499c35a582c5f27d15da6dc187dc1933383b6a36db97271732a7",
+   "art": "Fehler-Diagnosebild (Zwischenstand vor Korrektur, kein Abnahmebeleg)"
+  },
+  {
+   "datei": "docs/belege/etappe5/fehler-rahmung-stufe3_blumenladen-1440-2d.png",
+   "sha256": "db8e5c6673fd50d29d07ffb4c8a0c9d3bd0979a8fb4f01da1636f95b6fb70fd8",
+   "art": "Fehler-Diagnosebild (Zwischenstand vor Korrektur, kein Abnahmebeleg)"
+  },
+  {
+   "datei": "docs/belege/etappe5/fehler-rahmung-stufe3_blumenladen-1440-3d.png",
+   "sha256": "dace2a856f1dae1d9b061c6804161e7110abb1a533726895a34f2ef2bfbcbb87",
+   "art": "Fehler-Diagnosebild (Zwischenstand vor Korrektur, kein Abnahmebeleg)"
+  },
+  {
+   "datei": "docs/belege/etappe5/fehler-rahmung-stufe3_park-1440-3d.png",
+   "sha256": "4f10ffd932e9764ed8c45ae5dea54dc8bf6efdd84f79c0091a24bbcca697d934",
+   "art": "Fehler-Diagnosebild (Zwischenstand vor Korrektur, kein Abnahmebeleg)"
+  },
+  {
+   "datei": "docs/belege/etappe5/fehler-rahmung-stufe4_villa-1440-2d.png",
+   "sha256": "6f7fc52b0769bbd5f671d196dc16caa01550caebeb7f85eeeb490f698d594b5b",
+   "art": "Fehler-Diagnosebild (Zwischenstand vor Korrektur, kein Abnahmebeleg)"
+  },
+  {
+   "datei": "docs/belege/etappe5/fehler-rahmung-stufe4_villa-1440-3d.png",
+   "sha256": "30214eb7c21fa987bd2f2c0d0127f96401201f60810d9cbb8dc5ca71dbdc29b7",
+   "art": "Fehler-Diagnosebild (Zwischenstand vor Korrektur, kein Abnahmebeleg)"
+  },
+  {
+   "datei": "docs/belege/etappe5/fehler-rahmung-stufe5_gesamt-1440-2d.png",
+   "sha256": "dfe63f01c1d5b30a54f005fcc486748f042d3c04d5c0454958cf348124de0515",
+   "art": "Fehler-Diagnosebild (Zwischenstand vor Korrektur, kein Abnahmebeleg)"
+  },
+  {
+   "datei": "docs/belege/etappe5/fehler-rahmung-stufe5_gesamt-1440-3d.png",
+   "sha256": "407b92b08f75d58b8e99d91eae68251d779133c059d77165a0ff93f171dc6b5b",
+   "art": "Fehler-Diagnosebild (Zwischenstand vor Korrektur, kein Abnahmebeleg)"
+  },
+  {
+   "datei": "docs/belege/etappe5/fehler-rahmung-stufe5_hotel-1440-3d.png",
+   "sha256": "400d959ffcf6e038df16e01814815df0bdbb1591a10af87a4eafcdbe91d5a02a",
+   "art": "Fehler-Diagnosebild (Zwischenstand vor Korrektur, kein Abnahmebeleg)"
+  },
+  {
+   "datei": "docs/belege/etappe5/fehler-rahmung-werkzeuge-390-2d.png",
+   "sha256": "c1783150579af7b1836c6c2e5a2edf23ca63d44d180c9e3162c9cedc41b09734",
+   "art": "Fehler-Diagnosebild (Zwischenstand vor Korrektur, kein Abnahmebeleg)"
+  },
+  {
+   "datei": "docs/belege/etappe5/fehler-rahmung-wettbewerb-1440-3d.png",
+   "sha256": "9396598b4dfa481950a7b78d007e908cd1d4525c6f99b1c4c6457be202e52d80",
+   "art": "Fehler-Diagnosebild (Zwischenstand vor Korrektur, kein Abnahmebeleg)"
+  },
+  {
+   "datei": "docs/belege/etappe5/fehler-stadt-390-2d.png",
+   "sha256": "d053f8b15e7ac59014d7d301b914e07377fb831e83918bbe1f152e96a084f4f1",
+   "art": "Fehler-Diagnosebild (Zwischenstand vor Korrektur, kein Abnahmebeleg)"
+  },
+  {
+   "datei": "docs/belege/etappe5/fehler-stadt5-390-2d.png",
+   "sha256": "a26b545b2caf2fcbfdbcb39cd1d6cfa45bf0be8ac3c6935d60341e85467e1a2b",
+   "art": "Fehler-Diagnosebild (Zwischenstand vor Korrektur, kein Abnahmebeleg)"
+  },
+  {
+   "datei": "docs/belege/etappe5/fehler-wettbewerb-390-2d.png",
+   "sha256": "b116a1adf11677220ce10032977905fc5b0e7b13de6daf61e0512e0c8e49c9c0",
+   "art": "Fehler-Diagnosebild (Zwischenstand vor Korrektur, kein Abnahmebeleg)"
+  },
+  {
+   "datei": "docs/belege/etappe5/fehler-ziele-390-2d.png",
+   "sha256": "67b42cdcb1660d3902e4493b9fe79540670a7eb64090bf02660801d4919b2fab",
+   "art": "Fehler-Diagnosebild (Zwischenstand vor Korrektur, kein Abnahmebeleg)"
+  },
+  {
+   "datei": "docs/belege/etappe5/hof-feldstueck-1440-2d.png",
+   "sha256": "45f5da21e1b3d54d6bd30b0e0b915db5df3a9ca3ce08eaf5e16543965f4bbf5d",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/hof-feldstueck-1440-3d.png",
+   "sha256": "ce8bf5a0142fce26460894feea6719952eba7a815844d88a04adad5008a796a0",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/hof-feldstueck-390-2d.png",
+   "sha256": "9f180312a7399db5605e7a53c6f0ceb63f2a830b85ee4ba94ea6b4b104dc8c7b",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/hof-feldstueck-390-3d.png",
+   "sha256": "0cc1fb2afd95807aa73aebd890d1de426c99e7d77f9e3f76f2639da6e0f17a79",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/hof-gold-1440-2d.png",
+   "sha256": "79232fa47c2e5ee113f8087a4afa6091518bc93452c9f8c81448efaada244a40",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/hof-gold-1440-3d.png",
+   "sha256": "3aaa454326f916ecacbd7fedb806c20aef135a89b0146ab0fb9ab7348685ca6f",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/hof-gold-390-2d.png",
+   "sha256": "6093843ffed33de650b445288f91d858631f4c676291a74bc81ac6f2bed13f8d",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/hof-gold-390-3d.png",
+   "sha256": "1a8e8f4d6ed6978f2bc7df19adea1f16a3c85de253291c50848b4587170d8889",
+   "art": "Abnahmebeleg, angesehen",
+   "befund": "Goldwerkzeug: drei nebeneinander umgegrabene Beete"
+  },
+  {
+   "datei": "docs/belege/etappe5/hof-panel-1440-2d.png",
+   "sha256": "bba168e6b2f9d53ff7b0fa7aa4de0984b37ca8105260da0fb095875f9805da59",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/hof-panel-1440-3d.png",
+   "sha256": "f518233d75b9ccb28ac53c49f3f4f2078e12f45b0d9f3c0535e3a3f2cb95f36a",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/hof-panel-390-2d.png",
+   "sha256": "21a873e2ffa2a61ec7f795ea4ff11e93850a832a9b9d4db17302207c0e283c17",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/hof-panel-390-3d.png",
+   "sha256": "03ce526e50464c4e12190fc2be8ce2ef2fb0177756c60b7ca9dee1f5b4241284",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/material-limit-1440-2d.png",
+   "sha256": "d260fb4fc226f9cc48e4664fecaa2e6d418d077e56e38a8304ece303ff9b2589",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/material-limit-1440-3d.png",
+   "sha256": "e3a33dc0f4e58a21215e4d81d5d411f9e38da5f073c8b9c39233c15e306a614f",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/material-limit-390-2d.png",
+   "sha256": "2446a69281e36c69067aa35c40a9b60e103fa01c25c384a0711b3c7dbdab5b65",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/material-limit-390-3d.png",
+   "sha256": "233a243d1aea3149b580650f8f743340ec4f9bbc8f378439b48a6d493f6650ba",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/material-timo-1440-2d.png",
+   "sha256": "9ef1c68e8a6347b0e037c1c3de10df970193e7bb525672d29004122f3949eaf1",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/material-timo-1440-3d.png",
+   "sha256": "4cda35dda105d6af6898179d7bd5f7b01488806be38ac416b819bf0cace5d21d",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/material-timo-390-2d.png",
+   "sha256": "fd16a3bcdc1d84b88e6716214fd68b403db2fb8023dcb2c6759d2041e80b54b4",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/material-timo-390-3d.png",
+   "sha256": "2d4b65d5fcbcaa40a019385d60569b7385dd53b6cad7a8b260df9fd220a17d1f",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/migration-brief-1440-2d.png",
+   "sha256": "db5bf70048c08e76e7f3150b41558fad7937b52fd983455a8455e9f3242677ac",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/migration-brief-1440-3d.png",
+   "sha256": "62d5f1ae75b2104e5c9ed7631d29ed631c489b0b53eb8ccfc443c01f1ba140a0",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/migration-brief-390-2d.png",
+   "sha256": "6bcbd17d741a41e6c8e2eb48e706944fd5bb448dedb341fd4ae7b2269f44450b",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/migration-brief-390-3d.png",
+   "sha256": "9ed45dd74c7fdf5fbed9ff530e896876a8425795e19f3e543a0981deafd997d1",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/migration-brief-offen-1440-2d.png",
+   "sha256": "8136f7ee67d4334bf1ab44db5ed3835cd18a64cb27cc65c93380c679e627c10f",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/migration-brief-offen-1440-3d.png",
+   "sha256": "43842fb44abdd686e85fd1ad798a54884590969ab5ca45fbe23933ba4d597f37",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/migration-brief-offen-390-2d.png",
+   "sha256": "34c890d17f6d0aa80591e5e2edefc09d7001b3a56a5e9d9482247ebc226c2eb7",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/migration-brief-offen-390-3d.png",
+   "sha256": "b282143a6c4ffcecff5909e7357cf0b175ca9d203f40dbf9eecd20da50ea5d6e",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/migration-hinweis-1440-2d.png",
+   "sha256": "6711a57ae36a62a624a5b4490d4266efa96c22f71b5a05f38c7e38cd45dc5e3e",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/migration-hinweis-1440-3d.png",
+   "sha256": "6034ecbab745469b8711afa61b39162468c5a8766d785ae83bf2d735afdfa91e",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/migration-hinweis-390-2d.png",
+   "sha256": "55263df7a8b552d4b9e8ab66729cbde4f7a8565b19609bb3e26f70e688379f68",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/migration-hinweis-390-3d.png",
+   "sha256": "55ecf7f4b8e0203eb325be2c117efb2459934153f71d4273243e1292e38eaa7c",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-baustelle-1440-2d.png",
+   "sha256": "6ca18167c844079d0f5df78e258804566ef039e4feac953adbdf21dba9f2d700",
+   "art": "Abnahmebeleg, angesehen",
+   "befund": "Baustelle Phase 2: Fachwerkgerüst auf Sandfläche, Bauschilder auf den Nachbarplätzen"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-baustelle-1440-3d.png",
+   "sha256": "97372494176608ea2f420129985f4043ea972716b076c56fef996731948082d3",
+   "art": "Abnahmebeleg, angesehen",
+   "befund": "Baustelle Phase 2 in 3D: Gerüst steht auf dem Boden, nicht angeschnitten (vor Kamerafix ragte es oben heraus)"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-baustelle-390-2d.png",
+   "sha256": "853069892370d38979725043a1ac79c12766d6498be4854a40b28ac523398642",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-baustelle-390-3d.png",
+   "sha256": "d55e593d12cdc441ce644e25600c598e34b65043e70a513584d5060fe98fed5d",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-feldstueck-1440-2d.png",
+   "sha256": "19cd7038e80010fde0aec9dbf9f290fa526a6788d78e2b2a63d92a4993629d94",
+   "art": "Abnahmebeleg, angesehen",
+   "befund": "Neues Feldstück unter dem alten Feld, vollständig im Bild"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-feldstueck-1440-3d.png",
+   "sha256": "80c1499af73b767fce37ee2a60f6008fbb8ae7031a0fe9944cdbe8e6f5ac7c68",
+   "art": "Abnahmebeleg, angesehen",
+   "befund": "Feldstück 3D: ganze Fläche frei"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-feldstueck-390-2d.png",
+   "sha256": "964ac5556afc70707a42e3586f0a85404a907a3f09088011e35f92055dc30afe",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-feldstueck-390-3d.png",
+   "sha256": "507148bd87c168aa2e61648b19fadbb91c601865304236517d50c423c3715157",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-grossauftrag-1440-2d.png",
+   "sha256": "6b814be8bcc697cad40f91e6ad4653fd328eceb7c5b85afaacde3051bde5f3ee",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-grossauftrag-1440-3d.png",
+   "sha256": "c4b372a74f7074e1c8a2c16223d2afc3a681dcdcc89002c1d3a9adce9d0095fb",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-grossauftrag-390-2d.png",
+   "sha256": "5d329eb1a1e8d4321e860d77ab61efc102b0b21906a1b672d3a4892aafece064",
+   "art": "Abnahmebeleg, angesehen",
+   "befund": "Großauftrag für Lin: Menge, Lohn, Frist, Rucksackstand lesbar; Knopf deaktiviert ohne Ware"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-grossauftrag-390-3d.png",
+   "sha256": "5ed4fa227ccecc77c981698bd79aa90f89b42ec046b9b493e07cd652d17f53bd",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-material-1440-2d.png",
+   "sha256": "9211d5133529fef866310063352f95fc5feba4715bf040dc6aa29575c7752b06",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-material-1440-3d.png",
+   "sha256": "a87dec06afc0ddf29c32846dc0c77ab06f468d2f4129b11957ae27ed3480c1d2",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-material-390-2d.png",
+   "sha256": "fd16a3bcdc1d84b88e6716214fd68b403db2fb8023dcb2c6759d2041e80b54b4",
+   "art": "Abnahmebeleg, angesehen",
+   "befund": "Timos Material: Bauholz 35 G, Stein 30 G, Eisenerz 90 G mit Tageslimit; Knöpfe 1×/5×/10× im Bild"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-material-390-3d.png",
+   "sha256": "2d4b65d5fcbcaa40a019385d60569b7385dd53b6cad7a8b260df9fd220a17d1f",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-sterne-1440-2d.png",
+   "sha256": "6ab74156516dceac25d09fa4d12c25c841bc0326434f61a02ace937f89840a25",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-sterne-1440-3d.png",
+   "sha256": "e15dbd03b0edb5a00b0d03baf2956d3eaeb4d77cd50542b0b11a11f92ec833bc",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-sterne-390-2d.png",
+   "sha256": "e6020b51fc985dd14a34bddc9539556b17cb7195a81a199bb1ebac5b69b1e071",
+   "art": "Abnahmebeleg, angesehen",
+   "befund": "Tagebuch Ziele: Stadt-Sterne, Hof-Sterne, Nächstes Ziel mit Fortschritt; lesbar"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-sterne-390-3d.png",
+   "sha256": "70fa1f53c8977d5e4c3536dc789535df43fc2f423846efd70b99d5a091706f68",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-sterne-hud-1440-2d.png",
+   "sha256": "4b29cdea2433d085100fbddbbd81996117fdf467088ade962256b8753aa75a70",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-sterne-hud-1440-3d.png",
+   "sha256": "ddcca75a6efc996809fedfa7bb2f8252f3aad2cbfb8a29208484fb8b3edcdba3",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-sterne-hud-390-2d.png",
+   "sha256": "f478a0576f0ea83b2f0c49e123e8cba5b559a9fc281253e65d3143ccd78b23cf",
+   "art": "Abnahmebeleg, angesehen",
+   "befund": "Hinweisbox „Lindenstadt wächst: Lottes Blumenladen und Stadtpark · 38.500 / 60.000 G“ lesbar"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-sterne-hud-390-3d.png",
+   "sha256": "15075d1c7308b74b3d8c6eb85c86dc99aaf11a57b385374d37e475a781395f6a",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-stufe1-1440-2d.png",
+   "sha256": "4c831f3e02db43b560a7607990ac4f751194c25756231105d1503f4a43e42572",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-stufe1-1440-3d.png",
+   "sha256": "53a713c4b022254ccc74fb5c1162c416a20ebc4225b246ae4d4d533f28a79242",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-stufe1-390-2d.png",
+   "sha256": "e410cc1e96ae22168154358b019f78290d38a3161dc08aeb1b696b4b3677c5f4",
+   "art": "Abnahmebeleg, angesehen",
+   "befund": "Stufe 1: drei Mietshäuser, Stadtplan- und Auftragstafel, Bauschild an der Oststraße frei; nichts vom HUD verdeckt"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-stufe1-390-3d.png",
+   "sha256": "2f4a57b1f59499b930141ec7468f11969276d5162ba4536f564ddb4b5c8ca7e9",
+   "art": "Abnahmebeleg, angesehen",
+   "befund": "Stufe 1 in 3D: Tafeln und Bauschild sichtbar, Rathaus unten frei"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-stufe2_baeckerei-1440-2d.png",
+   "sha256": "69a44f6bb2ddd6021e905cf41214525cff4d31d804619acf1defde2d8231f3bb",
+   "art": "Abnahmebeleg, angesehen",
+   "befund": "Bäckerei mit Markise, Brezelschild, Brotkorb, Bank, Rauch; Dach vollständig unter dem HUD"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-stufe2_baeckerei-1440-3d.png",
+   "sha256": "568b574f1d39fb82947b5f9d2fb9830cccc2b0c387d34511a5d071707a78a4ef",
+   "art": "Abnahmebeleg, angesehen",
+   "befund": "Bäckerei in 3D: Dach vollständig im Bild (Desktop-Kamerafix), Markise, Bank, Brotkorb, Brezel am Ausleger"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-stufe2_baeckerei-390-2d.png",
+   "sha256": "f5f51dbc649cd31d23aa4bac06c180842a84d5a84e07427b0508a4f3159bd714",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-stufe2_baeckerei-390-3d.png",
+   "sha256": "f7014d6c7fb0c563222b82071b9e3a5d6d82853587efd8d92a7dfa26eb265634",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-stufe3_blumenladen-1440-2d.png",
+   "sha256": "f1b9a2d748d50a4747fbfdf4a52a4b968f02b5cbd8fb7272bc87094ecbbca0bc",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-stufe3_blumenladen-1440-3d.png",
+   "sha256": "17a83dc25981c74290fb51230f2b6c4bb233ed2e8a232c7c6ffde7bda879cf71",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-stufe3_blumenladen-390-2d.png",
+   "sha256": "b872ce8751790f57dc987e1c2b09cb86c72f8121dd70dc9c5c7aaee737644984",
+   "art": "Abnahmebeleg, angesehen",
+   "befund": "Blumenladen rosa mit Blumenkästen, Eimern voller Schnittblumen und Schild; Park darunter"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-stufe3_blumenladen-390-3d.png",
+   "sha256": "8ca66918cd146c6c7daf5b69a2e4ed3efd79ad7001ea49f952d00638d2edc915",
+   "art": "Abnahmebeleg, angesehen",
+   "befund": "Blumenladen in 3D: Blumeneimer und Kästen, Lotte davor; Park mit Brunnen unten links"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-stufe3_park-1440-2d.png",
+   "sha256": "176e80543d50256827b904e3b753232e8d88cfc50730b73460dd0fae0a6346f7",
+   "art": "Abnahmebeleg, angesehen",
+   "befund": "Park: Pavillon, Brunnen, Blumenkübel, Beet, Laterne, Bank; Obstbäume seitlich, Weg an die Straße angebunden"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-stufe3_park-1440-3d.png",
+   "sha256": "d19eb7a09d84b0312961bb40a8fd65ea5e34d5744f17bdcf6fcca2696df5d155",
+   "art": "Abnahmebeleg, angesehen",
+   "befund": "Park in 3D: Pavillon mit Blütenkranz, Brunnen, Beet, Bank, Laterne; nichts von Bäumen verdeckt"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-stufe3_park-390-2d.png",
+   "sha256": "24e8f3700825a680f8db6661081f4153041211bfdf4548027057af31f8b927e8",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-stufe3_park-390-3d.png",
+   "sha256": "ad4c544e8dcbfb92e0674f782a250afcb93fd6e048c29086544265b0d0a33ecd",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-stufe4_villa-1440-2d.png",
+   "sha256": "c020e3e6eae6aa748d8bc2dcfd5251ffa79707bf95fd6087907b6e7ff51854c4",
+   "art": "Abnahmebeleg, angesehen",
+   "befund": "Villa 1440 2D: Zaun und Villa vollständig unter dem HUD"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-stufe4_villa-1440-3d.png",
+   "sha256": "de642d499502a8729601e9980380f3050cdf9ce0103e7d955b5b0b6fa7251360",
+   "art": "Abnahmebeleg, angesehen",
+   "befund": "Villa 1440 3D: Fernrohr, Balkon, Säulen, Zaun im Bild"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-stufe4_villa-390-2d.png",
+   "sha256": "e476682c54deca3c793953872195cf123cd476618e3ad5ac1e46b8b6790d4141",
+   "art": "Abnahmebeleg, angesehen",
+   "befund": "Villa mit Säulen, Balkon, Fernrohr; neuer Eisenzaun mit Tor und Hecken; Falk davor"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-stufe4_villa-390-3d.png",
+   "sha256": "15925cac9ee50ecd48fb3179641e928f862131139ee7ecb0ec0f7db55abb7f2f",
+   "art": "Abnahmebeleg, angesehen",
+   "befund": "Villa in 3D mit Zaun, Torbogen und Hecken; steht auf dem Boden, nicht angeschnitten"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-stufe5_gesamt-1440-2d.png",
+   "sha256": "7f63662088a4d2d2949b8fb148b5c87fe6fe9a3b7283b47bc7232dfd959fe128",
+   "art": "Abnahmebeleg, angesehen",
+   "befund": "Ganze Lindenstadt Stufe 5: Bäckerei, Blumenladen, Villa, Park, Hotel, Mietshäuser, Rathaus; alles frei"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-stufe5_gesamt-1440-3d.png",
+   "sha256": "598790535ade45eefb5a2f64a4a7f11b64dea550709d51ec027fe891c96ef59c",
+   "art": "Abnahmebeleg, angesehen",
+   "befund": "Stufe 5 in 3D: Oststraße mit Läden, Villa, Park und Hotelanschnitt (Gesamtbild nur in 2D gefordert)"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-stufe5_gesamt-390-2d.png",
+   "sha256": "17cefe855a06386a67fd715880d135976271936eec59974ff171abc6ba00828b",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-stufe5_gesamt-390-3d.png",
+   "sha256": "32e6b74baf98d9c4f7b5f6a32ad64499a7923b2ab584fcc03c8f249e3244037f",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-stufe5_hotel-1440-2d.png",
+   "sha256": "30e711900499c437d7d4e68a5afdfc3bb3b0f144c5d2b65a0bc97237d350145e",
+   "art": "Abnahmebeleg, angesehen",
+   "befund": "Hotel drei Etagen, HOTEL-Schriftzug, zwei Fahnen, Vordach, roter Teppich"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-stufe5_hotel-1440-3d.png",
+   "sha256": "ebc8493f4b45e5fe94504d549981cc488ed7ef70f49fa76ed037086ba2700a77",
+   "art": "Abnahmebeleg, angesehen",
+   "befund": "Hotel 3D: Schriftzug „HOTEL“ lesbar, drei Fensterreihen mit Blumenkästen, Fahnenmasten vor dem Eingang; vordere Waldreihe berührt den Sockel knapp"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-stufe5_hotel-390-2d.png",
+   "sha256": "e882b69bb066c77b1db60c6160f5c893dad12c1ced6a7f36b30b3cf0a08ad1fe",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-stufe5_hotel-390-3d.png",
+   "sha256": "46f439fb48bf3a075d7b6b49055ba90b39897fd584c3ab9b70dcf4a57bb3c4f9",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-trophaeen-1440-2d.png",
+   "sha256": "c1f046bac246d53f7fa0d776c7799b59ca643f8f65519931595aac753c9fb143",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-trophaeen-1440-3d.png",
+   "sha256": "f4033dfa7b9a41b4a22e3a44e8c5bd483bdcfcf86cb2d6afc0749fb20f59eab6",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-trophaeen-390-2d.png",
+   "sha256": "84249223cdff4a0bb93bac4c849a69f677af1b15ef9a1a4ddb4f028eba4e0138",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-trophaeen-390-3d.png",
+   "sha256": "eba519b7a2cd53d357b1212d200ffc0d387503e5ae9cd06918e61afe845dd15e",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-trophaeenwand-1440-2d.png",
+   "sha256": "97a627c465e8b134fcb28d3c95dd918a5afd9cc778bcc6971e3d49190b2a485f",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-trophaeenwand-1440-3d.png",
+   "sha256": "f22c3b928fe38d5e0798e2ad63897c89436369d0a9df54f8bb3006f48001d999",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-trophaeenwand-390-2d.png",
+   "sha256": "b1d71fa0393b6c0bc65a4be91d13108e05a06f9825c955f2c2ba7d6f2ea02d30",
+   "art": "Abnahmebeleg, angesehen",
+   "befund": "Trophäenwand neu als Karten: drei goldene Trophäen, zwei freie Plätze gestrichelt; Sterne-Zeile lesbar"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-trophaeenwand-390-3d.png",
+   "sha256": "11704b822988d19e0f9a084c1e0dfd48d12dfb15cfa32d0b7a0a97e7bf711f5e",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-werkzeuge-1440-2d.png",
+   "sha256": "db2e17c0aca4100fd544baba5fc8d45c66e5e7e9cca7b0484f6ee2c2524620bd",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-werkzeuge-1440-3d.png",
+   "sha256": "4ec9bf309e6318f846bffb48f4f1dd13104dffe1fa8543900ef7b9701132c304",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-werkzeuge-390-2d.png",
+   "sha256": "dfaf999973a255a1823df2b3580d1c95108389478e0b118d21883e543e957cd0",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-werkzeuge-390-3d.png",
+   "sha256": "12fe6fd990c4a249289a843c58ab8d3f88b03720af91a3f0a21331fd739a7efb",
+   "art": "Abnahmebeleg, angesehen",
+   "befund": "Hofausbau als Karten: Silber fertig (grün), Feldstück und Gold mit Fehlliste; Knöpfe im Bild"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-wettbewerb-1440-2d.png",
+   "sha256": "4ac19524e88f04960eb3ed5af9e1c32f288b536e9a803953c10834be055d65a3",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-wettbewerb-1440-3d.png",
+   "sha256": "ade88556271592a0f9955d74b250e61d0f07a075f0e1f168f8113c4c8b72ba59",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-wettbewerb-390-2d.png",
+   "sha256": "9470c36250956e322cf7c125a98e50e95b039f3ee54e3f84ac0811b8b4916704",
+   "art": "Abnahmebeleg, angesehen",
+   "befund": "Wettbewerbsstand mit Markise und Körben neben dem Rathaus, Greta daneben"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-wettbewerb-390-3d.png",
+   "sha256": "bec4b4dc96edeb96a89a83d797dd0f58fe554ed8cd649b2d2a096ac4298999c9",
+   "art": "Abnahmebeleg, angesehen",
+   "befund": "Stand 3D mit Kürbissen und Wimpeln, Greta daneben"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-wettbewerb_fenster-1440-2d.png",
+   "sha256": "2a5fc3980e27988bd8d47c8eaf01ee5c6d22ca6b6b8b36c37722679de7ebb16e",
+   "art": "Abnahmebeleg, angesehen",
+   "befund": "Wettbewerbsfenster: Gretas Zielpunkte, Zeigen-Knöpfe, Bewerten, Schließen"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-wettbewerb_fenster-1440-3d.png",
+   "sha256": "eca07deec04aa1f34f35ee2e16ddcb76bd4ef8ee6bc0a95dc6f71f72c09aacf6",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-wettbewerb_fenster-390-2d.png",
+   "sha256": "89b0df38abdeb99aec58b1d73e5ca985c5f2d779e63c6368202d352b3b5c4e8a",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/rahmung-wettbewerb_fenster-390-3d.png",
+   "sha256": "bac162239651cd4d5860c9457e454ecc4f1bf6956524a65c4e0b83f3db578226",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt-baeckerei-1440-2d.png",
+   "sha256": "93751c38bfe851d7afb6d29384d523811e3bf49922175a48485023286e992fc0",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt-baeckerei-1440-3d.png",
+   "sha256": "74cc84844ae2705e44bde50bd2b896462727b0e96a62c1744ebc09ae4c399f30",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt-baeckerei-390-2d.png",
+   "sha256": "ce024124ebdde6c234f81a147c715981aaa31c17e8e1fc0a9e5c71d24d37039d",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt-baeckerei-390-3d.png",
+   "sha256": "96cdcbf0dd341cdc675ddf8f063211ec6cbecff0e1567a73f428cd224d8f3294",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt-baeckerei-panel-1440-2d.png",
+   "sha256": "f4cf7fc8f08334a4db975fb9abcf1a0bff1708625b46edbe320724b4d9280971",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt-baeckerei-panel-1440-3d.png",
+   "sha256": "f070c95a2463291e31b28f1b0b4bfbf8a94c94abfd8ef6f8f1a69fe80039b076",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt-baeckerei-panel-390-2d.png",
+   "sha256": "a427eab538cb0d64e641f9151054012c16e67764d4959791ea36b93f358ccd6c",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt-baeckerei-panel-390-3d.png",
+   "sha256": "6f6de70b7aa6309309ddcbedba3eb090d42cf42e828875daf2817e2f03f4f6ab",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt-bau1-1440-2d.png",
+   "sha256": "b1b55ef876f5a7efc75dcd248cb79c5cd32d3c7c26fd7a7756794cab060fe0ae",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt-bau1-1440-3d.png",
+   "sha256": "bbda71befc64795a8d4bb2f7bf7d47d872dabd36a9dbbe050365f1be42966eff",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt-bau1-390-2d.png",
+   "sha256": "a1782ce17b1c6ef2014c5ad25995ee4f43fa7099e30a9136265766bbafeb0edc",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt-bau1-390-3d.png",
+   "sha256": "f14817fa70971fac6f7b90c398dc96a731f05b0e7d4fb59fab2bb64b762d976c",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt-bau2-1440-2d.png",
+   "sha256": "29fb6f9f37eebf28d058c09f798981ef369bfd5b308a3f99b26f7654f8faf345",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt-bau2-1440-3d.png",
+   "sha256": "5d605eed3967551a4b56890ba3f76e467ceb8e1178d03b1db730c8ed88dfa099",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt-bau2-390-2d.png",
+   "sha256": "2b0a09616a9d19db330b0287ce2f78d6ef93b702f1c657c12680877f62b91736",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt-bau2-390-3d.png",
+   "sha256": "a579dc6952df807385674b2587fc5df9374ae01418b8a1413e5747522b218f48",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt-bau3-1440-2d.png",
+   "sha256": "818bb64bde3945fe6abaec44a865d9ededb8e401604068126fe4c19a9c875428",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt-bau3-1440-3d.png",
+   "sha256": "d4f06d2dadcde5ee25934c4f750639276fcc08b9d375db58653d222644a9c44f",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt-bau3-390-2d.png",
+   "sha256": "c84dcbdc7a73e6303913fc534aaa708ce4fbc55f05c62248d0c1faac46779d4e",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt-bau3-390-3d.png",
+   "sha256": "c66753c2d287d749a181bbcf29083a2143c9830b8eccdfd4582befa6ff8da7fb",
+   "art": "Abnahmebeleg, angesehen",
+   "befund": "Baustelle Phase 3 morgens um 6 Uhr (dämmrig), Rohbau mit Dach"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt-plan-1440-2d.png",
+   "sha256": "1a3dc126dc5cb9e1ec711ae23e89fa5387c7e3823ce00cfd6a7dd4f52a3d31e1",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt-plan-1440-3d.png",
+   "sha256": "c5342541b6fe671e9d2d9027190f20c7dcc9955117b5cc13baebd17dc97cdd77",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt-plan-390-2d.png",
+   "sha256": "5cfe7479758297107c3209dad3c5aa690bd597d9fffa371ae531cc5ac0c5037e",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt-plan-390-3d.png",
+   "sha256": "cafb27b048235a71cd8aa9e35f8bc2c3780a7c68e61d28fe80644b8c3fe6574a",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt-stufe1-1440-2d.png",
+   "sha256": "897ae3eaa829823c14af593fee8b721a920709099ed964a12ce1e7c6bf9b98f4",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt-stufe1-1440-3d.png",
+   "sha256": "bd063726344a6a6cbc84dd7f3a845ca99accad35e7a9c0465b235772db0ba035",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt-stufe1-390-2d.png",
+   "sha256": "42883d1db47dbbebf0b6636f75a44dd85d44727f1743d630cf25d8cd0d419d32",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt-stufe1-390-3d.png",
+   "sha256": "3ee7894bb751785fa801b74f46a02cb2774e6abe08aa2b83942988b8291a2e99",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt5-blumenladen-1440-2d.png",
+   "sha256": "b114ff1372e3b7ae5342564c96bbac9af72cb9070d3faa53fdd3e2aa99126b3f",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt5-blumenladen-1440-3d.png",
+   "sha256": "678434024a72a24d7f6d6d00363e32a4888822ad12955051567ce2045d9f0bc7",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt5-blumenladen-390-2d.png",
+   "sha256": "658b8af16af9f151bac0cf01a616faf407ff32b8d3b58ea37275bdf3e8ab4294",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt5-blumenladen-390-3d.png",
+   "sha256": "89080aa49cafbdf6ca1ed7bcb004d803c06e48fb5e7830e9b7d2f21ba449453e",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt5-blumenladen-panel-1440-2d.png",
+   "sha256": "9795225b0670a4baa511ed4bcb23e00215fd28f979dc6329c77e2c602aa00c74",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt5-blumenladen-panel-1440-3d.png",
+   "sha256": "44cc9f54fea9102fd6bf7ec5dfc9ed279634c1c737ef937d69a5858ca7b82a19",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt5-blumenladen-panel-390-2d.png",
+   "sha256": "eec789925034d5bb7d3be77f10ec73764851b0e2362d2b3b4e6b5696223fa254",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt5-blumenladen-panel-390-3d.png",
+   "sha256": "8fa9a40a4f99b28946afa4ad52caad625fe9d7d97655d4609bbd3b3137dea35d",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt5-hotel-1440-2d.png",
+   "sha256": "e1d01798f960828654cb56832958512b3b364042f265ec3b6c0d544d0ac97989",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt5-hotel-1440-3d.png",
+   "sha256": "784a7fe70fbb8e943b907bf05abe62b9e333aee6e89adbf12f26ce08c9d7168a",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt5-hotel-390-2d.png",
+   "sha256": "665a80cbeab875177fd985b0a8a0ac733d26d3ce39f58089994e14e7cb45f149",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt5-hotel-390-3d.png",
+   "sha256": "ca9cd0266c1f55bd8cdc2fe08edfee03819ec2854bc451ac994bc11700972146",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt5-hotel-panel-1440-2d.png",
+   "sha256": "0d9daf6350c7fc0f6d2cf4a8f56fe3b37644c2c0e7500b055d843c754a95015c",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt5-hotel-panel-1440-3d.png",
+   "sha256": "4cbff715a38f97f5a0e78e067a9b2079f8e0ec40e0b681aa060b07b9b313c883",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt5-hotel-panel-390-2d.png",
+   "sha256": "a651c680f0dc0e9ec061134877e74dcba36dd4b2ef071a591f3f060665717fb3",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt5-hotel-panel-390-3d.png",
+   "sha256": "46f110f006172b3d45643355e2423b8f444f466d6cd96ac3bca5b9c911180391",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt5-ost-1440-2d.png",
+   "sha256": "9250cf4ce4814b972639e1c49f61f77fa680e6d19243728589ba35e80053bacf",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt5-ost-1440-3d.png",
+   "sha256": "7fff606282525577f887f576d86d34f61c356ce40389a214d0835e6a9b973276",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt5-ost-390-2d.png",
+   "sha256": "d58b660bd0c9dc2318875b18fb827384697c969c894615a8d7c7408c47747546",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt5-ost-390-3d.png",
+   "sha256": "6e6b545b16c886c9f67b5838f955f2509c2466c668b0b0597464c4418c8b0461",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt5-park-1440-2d.png",
+   "sha256": "c3a1e59a8db49fcdb167ad36a79be31c4b6e54feb06f4da765783219a175043b",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt5-park-1440-3d.png",
+   "sha256": "206b71fecef0cbe912aedac68988e3bd6b6a4ec16d6a9b478885b796cc634e29",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt5-park-390-2d.png",
+   "sha256": "a1e1ed47a3a42af69f97d4d1f2a161cdd7b2c7256027954ba19ba650326b61ca",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt5-park-390-3d.png",
+   "sha256": "63e321bc333f71e2d3b6169cd7fb2f5efefc30f610b73f85877747def194833e",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt5-villa-1440-2d.png",
+   "sha256": "3b3ec16e52014173934957ede476d56ba9f79afc58a9b015aea8e49c70d6310d",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt5-villa-1440-3d.png",
+   "sha256": "245a921067e4c08cb5580852afb53429cd31cf78433b48a029e50d996cf32306",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt5-villa-390-2d.png",
+   "sha256": "3e368907c6bd25558a66f5f480fb104c273029a1e14e6e99c8c10debc0dfe03c",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt5-villa-390-3d.png",
+   "sha256": "68abfa57cdae3dac4b557f26e94db983c25a9ecf821a6b98c73c0d2d31af68c3",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt5-villa-panel-1440-2d.png",
+   "sha256": "4bea556e245518c8fcb200a22faac38a0cbc85d8fd1b50ec2ed6724beda2230f",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt5-villa-panel-1440-3d.png",
+   "sha256": "52914c56d038b4c8b3f938a8c988ddad8b1a356155e3f9ec06066554fa407978",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt5-villa-panel-390-2d.png",
+   "sha256": "df408025b201b197cf9aa7746eae227264fad59bc142f85f56545c1b0b602600",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/stadt5-villa-panel-390-3d.png",
+   "sha256": "1ec9cc1537cfe9b958ebe2c8fcc4b246a8716f815347adc7ffb940bd5f1ff874",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/wettbewerb-greta-1440-2d.png",
+   "sha256": "ed6a32104470cccb05babf2c5b27ee1dcc3f9babf0850739489348da8c6591b2",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/wettbewerb-greta-1440-3d.png",
+   "sha256": "a14bf04a2c09f61c5f60dbd76f3f2e4ec3e5f3411cfe22a9606020db1b967424",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/wettbewerb-greta-390-2d.png",
+   "sha256": "05a07c665be1b08b5045820b860c794bbfecd410c9362f9725e124a448aec7a5",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/wettbewerb-greta-390-3d.png",
+   "sha256": "90c4045db845b4eaa448c02b5e25240eb1b0fecced7f3d030ba786c50d801ef2",
+   "art": "Abnahmebeleg, angesehen",
+   "befund": "Banner „Erntewettbewerb gewonnen!“, Gretas Dialog 520 zu 1120 Punkte"
+  },
+  {
+   "datei": "docs/belege/etappe5/wettbewerb-panel-1440-2d.png",
+   "sha256": "475d9524f55890fc19e031f39cdcea277f265365a3978270a1665cb43ba578cf",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/wettbewerb-panel-1440-3d.png",
+   "sha256": "17f433533b481a56341e7ace70c66da26cda439cd3a6da6fd0142fefa2cc638a",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/wettbewerb-panel-390-2d.png",
+   "sha256": "d608550df405c209596c8c8879bcc1925e5879cc7cb97ff57df8e0244a857471",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/wettbewerb-panel-390-3d.png",
+   "sha256": "411f04a1abbc9feef9875e5f5b3740ff31b07954cd2079968be4cdebc8948179",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/wettbewerb-stand-1440-2d.png",
+   "sha256": "5fae75fd86f8e9f3c760dfc19ad3b6f71ef65b3f5b7ad1c0b07151b5b25e82f5",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/wettbewerb-stand-1440-3d.png",
+   "sha256": "795fd22d68c1e8756195be168df0ef1b92a68d04a2ee08705b10074b9203dc35",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/wettbewerb-stand-390-2d.png",
+   "sha256": "38606b5767a8438fa53005cdd6beb9e53a7dab22477712f1dddf81c3f78e3085",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/wettbewerb-stand-390-3d.png",
+   "sha256": "a31246c0afc417e11d2950b92dccdff3df60d97cfb981c47150c0552a0d5a883",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/ziele-tagebuch-1440-2d.png",
+   "sha256": "6dbbf290182516c6ff23e2013ee39a452063ef883ff1d673cbdc9c9f7bf721cc",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/ziele-tagebuch-1440-3d.png",
+   "sha256": "43c75974c50c071370acb0bfb0a9e2657f95d0c4a88a25f182d01be1885d7a41",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/ziele-tagebuch-390-2d.png",
+   "sha256": "876c3181d0899eb84a0a65ca2784d494d8576e519d8acc46b12d9ec28444163d",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/ziele-tagebuch-390-3d.png",
+   "sha256": "8b64c12d0754de56d0c79eaefbd68df5818b04c1b63f72d169a2e7505ba3a4e0",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/ziele-trophaeenregal-1440-2d.png",
+   "sha256": "300ae3491f64f0fdb9d75d3ed4cfe77f4b4e2d332cc5549c1e1b2d4ddeb36ddd",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/ziele-trophaeenregal-1440-3d.png",
+   "sha256": "75f57d75729812cba6f270742b770b93421700350f2fdf947eb868add82c77e0",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/ziele-trophaeenregal-390-2d.png",
+   "sha256": "128e11ed86c15fad172fca0c36ebb398877dba9178f729dee9dece37735af72d",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  },
+  {
+   "datei": "docs/belege/etappe5/ziele-trophaeenregal-390-3d.png",
+   "sha256": "df1b9a8fd4ae26705a5f1fd14a19499a12f1634e8901318f7789386b5945aeb4",
+   "art": "Abnahmebeleg aus grünem Lauf, nicht einzeln angesehen"
+  }
+ ]
+}
