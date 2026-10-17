@@ -12,9 +12,20 @@ function sprite(kind,se,extra){
   /* ---------- Etappe 4: Mondwald und Regenhändler ---------- */
   case 'mondtor_zu':case 'mondtor_offen':{const open=kind==='mondtor_offen';c=cnv(30,38);g=G(c);g.ell(15,30,14,7,'#42533f');g.r(5,10,20,25,'#7a7480');g.r(7,12,16,23,open?'#18203a':'#544c62');g.ell(15,12,8,9,open?'#9fc8ff':'#817694');g.ell(15,12,5,6,open?'#e8f4ff':'#615872');for(let i=0;i<7;i++)g.p(3+i*4,8+(i%3),'#b7d98a');break;}
   case 'mondpilze':{c=cnv(24,20);g=G(c);for(const [x,y,r] of [[5,13,4],[13,9,5],[20,14,3]]){g.r(x-1,y,2,6,'#dbe8e0');g.ell(x,y,r,r*.55,'#9fdcff');g.p(x-1,y-r*.2,'#ffffff');}break;}
+  case 'mondblumen':{c=cnv(22,22);g=G(c);g.ell(11,18,9,3,'#3f5a46');for(const [x,y,h] of [[5,15,7],[10,13,10],[16,15,8],[13,17,5]]){g.r(x,y-h+3,1,h,'#4f8a62');g.ell(x+1,y-h+2,2.6,1.8,'#7fb0e8');g.ell(x+1,y-h+3,1.8,1.4,'#cfe6ff');g.p(x+1,y-h+5,'#ffffff');}g.ell(4,19,2,1,'#5f9a6e');g.ell(18,19,2,1,'#5f9a6e');break;}
   case 'mondsamen_fund':{c=cnv(24,24);g=G(c);g.ell(12,18,10,4,'#435b4a');for(let i=0;i<6;i++){const a=i*Math.PI/3;g.ell(12+Math.cos(a)*6,11+Math.sin(a)*4,3,5,'#6fa872');}g.disc(12,10,4,'#d9efff');g.disc(12,9,2,'#ffffff');break;}
   case 'mondsteinring':{c=cnv(34,20);g=G(c);for(let i=0;i<8;i++){const a=i*Math.PI/4;g.ell(17+Math.cos(a)*13,13+Math.sin(a)*5,3,2,'#8f8a98');}g.disc(17,10,3,'#cfe6ff');break;}
-  case 'regenhaendler':{c=cnv(34,48);g=G(c);g.r(12,16,10,24,'#40556f');g.ell(17,13,7,8,'#d2a47e');g.r(9,5,16,8,'#27394f');g.r(12,1,10,7,'#334c66');g.r(6,17,22,4,'#27445d');g.line(8,20,3,42,'#6b4423',2);g.ell(3,43,6,3,'#476b82');g.r(24,23,8,15,'#8a5a33');g.r(25,25,6,3,'#cfe6ff');break;}
+  case 'regenhaendler':{c=cnv(46,48);g=G(c);
+   // Nerios Regenwagen: Handwagen mit gestreiftem Planendach, Laterne und Gläsern voller Mondtau
+   g.r(24,22,20,14,'#8a5a33');g.r(24,22,20,2,'#c8945a');g.r(27,26,5,5,'#cfe6ff');g.r(28,27,2,2,'#ffffff');g.r(34,26,4,5,'#b8a4e0');g.r(39,26,3,5,'#cfe6ff');g.r(24,33,20,1,'#6b4423');
+   for(let i=0;i<6;i++)g.r(22+i*4,11,4,5,i%2?'#f4ead8':'#3f6a8a');g.r(22,16,24,1,'#27394f');g.r(24,17,1,5,'#6b4423');g.r(43,17,1,5,'#6b4423');
+   for(const wx of [28,40]){g.disc(wx,38,4.5,'#4a3428');g.disc(wx,38,2,'#8a6a46');g.p(wx,38,'#c8945a');}
+   g.r(44,17,2,1,'#3a2a20');g.r(44,18,2,3,'#ffd88a');g.p(44,21,'#c9a46a');
+   g.r(8,19,10,21,'#40556f');g.r(8,19,10,2,'#566f8c');g.r(12,23,2,10,'#33465c');g.r(9,40,3,4,'#27394f');g.r(14,40,3,4,'#27394f');
+   g.ell(13,15,5,5.5,'#d2a47e');g.p(11,15,'#2b1e2a');g.p(15,15,'#2b1e2a');g.r(12,18,3,1,'#b0806a');
+   g.r(6,9,14,3,'#27394f');g.r(9,4,8,6,'#334c66');g.r(9,8,8,1,'#7fb0e8');
+   g.line(19,24,20,5,'#3a2a20',1);g.ell(20,5,12,3.5,'#5a7fa0');g.r(8,5,24,1,'#476b82');g.p(20,1,'#3a2a20');
+   break;}
   /* ---------- Dorf: Teehaus vorher, Baustelle, Café ---------- */
   case 'teehaus_alt':case 'teehaus_bau':case 'cafe':{const W=82,H=78,cafe=kind==='cafe',bau=kind==='teehaus_bau';c=cnv(W,H);g=G(c);
    const wall=cafe?'#f3e2c8':'#b9ab94',wallD=cafe?'#e0c9a6':'#a1937c',roof=cafe?'#6f8f5a':'#6e625a',roofD=cafe?'#557446':'#574d46';

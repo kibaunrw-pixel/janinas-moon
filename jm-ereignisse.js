@@ -106,7 +106,7 @@ function room(){const w=11,h=8,m={id:X.ROOM,w,h,t:[],obj:[],trees:[],lights:[],e
  for(let y=0;y<h;y++)m.t[y]=Array.from({length:w},(_,x)=>x===0||x===w-1||y<3||y===h-1?T.WAND:T.BODEN);
  m.t[h-1][5]=T.BODEN;m.exits=[{x:5,y:h-1,to:'forest',tx:X.door64.x,ty:X.door64.y+1}];m.spawn=[5,h-2];m.inside=true;m.windows=[];m.owner=null;
  m.pal={wall:'#6f6a64',wall2:'#57534e',trim:'#3e3a36',floor:'#7d7468',floor2:'#6a6258',rug:'#3f5a8a',rug2:'#cfe6ff'};
- m.obj.push({k:'truhe',x:5,y:3,act:'post:truhe64'},{k:'steintafel',x:8,y:3,act:'post:tafel64'},{k:'barrel',x:2,y:3,act:'deco'});
+ m.obj.push({k:'truhe',x:5,y:3,act:'post:truhe64'},{k:'steintafel',x:8,y:3,act:'post:tafel64'},{k:'barrel',x:9,y:3,act:'deco'});
  for(const o of m.obj)m.t[o.y][o.x]=T.BLOCK;m.houseLevel='raum';return m;}
 const bm=J.buildMaps;J.buildMaps=function(){const all=bm();all[X.ROOM]=room();return X.apply(all,null);};
 function clearB(m){if(!m||!m.ev)return;m.obj=m.obj.filter(o=>!(o.act||'').startsWith('post:ev'));for(const [k,t] of Object.entries(m.ev)){const [x,y]=k.split(',').map(Number);m.t[y][x]=t;}m.ev={};}

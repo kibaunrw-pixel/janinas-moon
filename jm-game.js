@@ -2128,21 +2128,23 @@ function render(){
   // Wetter und Stimmung
   if(!M.cave&&!M.inside) drawAmbient(se,night);
   if(M.moonForest){
-    bx.fillStyle='rgba(190,215,235,.055)';
-    for(let i=0;i<6;i++){const x=((i*47+gameT*3)% (LW+60))-30,y=18+i*17;bx.beginPath();bx.ellipse(x,y,34,6,0,0,Math.PI*2);bx.fill();}
+    // Nebelbänder über die ganze Bildhöhe (nicht nur unter dem HUD) und die Mondspiegelung im Waldsee
+    bx.fillStyle='rgba(200,222,240,.07)';
+    for(let i=0;i<9;i++){const x=((i*53+gameT*(3+i%3))%(LW+80))-40,y=LH*(.16+i*.09);bx.beginPath();bx.ellipse(x,y,46,7,0,0,Math.PI*2);bx.fill();}
+    const mx=10*16-CX,my=9.5*16-CY;bx.fillStyle='rgba(240,248,255,.55)';bx.beginPath();bx.ellipse(mx,my,6,3,0,0,Math.PI*2);bx.fill();bx.fillStyle='rgba(240,248,255,.3)';for(let i=0;i<3;i++)bx.fillRect(Math.round(mx-8+i*5+Math.sin(gameT*2+i)*1.5),Math.round(my+5+i*2),5,1);
   }
   // Licht
   if(dk>0){
     lx.globalCompositeOperation="source-over"; lx.clearRect(0,0,LW,LH); lx.fillStyle=`rgba(18,22,62,${dk})`; lx.fillRect(0,0,LW,LH);
     lx.globalCompositeOperation="destination-out";
-    const lights=[]; lights.push([P.x*16+8,P.y*16+4,M.cave?64:38]);
+    const lights=[]; lights.push([P.x*16+8,P.y*16+4,M.cave?64:38]); if(M.moonForest) lights.push([10*16,9.5*16,46]);
     if(M.inside){ lights.push([M.w*8,M.h*8,90]); lights.push([M.w*8,M.h*8,90]); }
     if(M.cave) for(const r of (S.rocks||[])) if(r.k==='mondquarz'||r.k==='amethyst') lights.push([r.x*16+8,r.y*16+8,18]);
-    if(night){ for(const o of M.obj){ if(["house","coop","barn","markt","nudelhaus","rathaus","tierhof","huette"].includes(o.k)){ const B=lazy(SPR.bld,o.k+se+"n",()=>A.building(o.k,se,true)); const bx0=o.x*16-B.ox, by0=(o.y+(o.h||1))*16-B.c.height+2; B.lights.forEach(l=>lights.push([bx0+l[0],by0+l[1],l[2]])); } if(o.k==="lamp") lights.push([o.x*16+8,o.y*16-8,40]); if(o.k==="mondbaum") lights.push([o.x*16+16,o.y*16-20,50+Object.keys(S.bundleDone).length*12]); }
+    if(night){ for(const o of M.obj){ if(["house","coop","barn","markt","nudelhaus","rathaus","tierhof","huette"].includes(o.k)){ const B=lazy(SPR.bld,o.k+se+"n",()=>A.building(o.k,se,true)); const bx0=o.x*16-B.ox, by0=(o.y+(o.h||1))*16-B.c.height+2; B.lights.forEach(l=>lights.push([bx0+l[0],by0+l[1],l[2]])); } if(o.k==="lamp") lights.push([o.x*16+8,o.y*16-8,40]); if(M.moonForest&&/^mond(pilze|blumen|samen_fund|steinring)$/.test(o.k)) lights.push([o.x*16+8,o.y*16+6,o.k==="mondblumen"?22:30]); if(o.k==="mondbaum") lights.push([o.x*16+16,o.y*16-20,50+Object.keys(S.bundleDone).length*12]); }
       if(fest&&M.id==="village") for(let i=0;i<8;i++) lights.push([12*16+i*16+8,7*16+4,22]); }
     for(const [lxp,lyp,r] of lights){ const x=lxp-CX, y=lyp-CY; if(x<-r||y<-r||x>LW+r||y>LH+r) continue; const g=lx.createRadialGradient(x,y,0,x,y,r); g.addColorStop(0,"rgba(0,0,0,1)"); g.addColorStop(.5,"rgba(0,0,0,.6)"); g.addColorStop(1,"rgba(0,0,0,0)"); lx.fillStyle=g; lx.fillRect(x-r,y-r,r*2,r*2); }
     bx.drawImage(lit,0,0);
-    if(night){ bx.globalCompositeOperation="lighter"; for(const [lxp,lyp,r] of lights.slice(1)){ const x=lxp-CX, y=lyp-CY; if(x<-r||y<-r||x>LW+r||y>LH+r) continue; const g=bx.createRadialGradient(x,y,0,x,y,r*.7); g.addColorStop(0,"rgba(255,190,90,.22)"); g.addColorStop(1,"rgba(255,190,90,0)"); bx.fillStyle=g; bx.fillRect(x-r,y-r,r*2,r*2); } bx.globalCompositeOperation="source-over"; }
+    if(night){ bx.globalCompositeOperation="lighter"; const glow=M.moonForest?"150,205,255":"255,190,90"; for(const [lxp,lyp,r] of lights.slice(1)){ const x=lxp-CX, y=lyp-CY; if(x<-r||y<-r||x>LW+r||y>LH+r) continue; const g=bx.createRadialGradient(x,y,0,x,y,r*.7); g.addColorStop(0,"rgba("+glow+",.26)"); g.addColorStop(1,"rgba("+glow+",0)"); bx.fillStyle=g; bx.fillRect(x-r,y-r,r*2,r*2); } bx.globalCompositeOperation="source-over"; }
   }
   if(!M.cave&&!M.inside){
     if(S.min>960&&S.min<1170){ const a=Math.sin((S.min-960)/210*Math.PI); const gr=bx.createLinearGradient(0,0,0,LH); gr.addColorStop(0,`rgba(255,110,150,${.45*a})`); gr.addColorStop(1,`rgba(255,160,60,${.35*a})`); bx.globalCompositeOperation="soft-light"; bx.fillStyle=gr; bx.fillRect(0,0,LW,LH); bx.globalCompositeOperation="source-over"; bx.fillStyle=`rgba(255,130,70,${.10*a})`; bx.fillRect(0,0,LW,LH); }
@@ -2207,7 +2209,7 @@ function drawAmbient(se,night){
     const x=Math.round(a.x), y=Math.round(a.y);
     if(S.weather==="rain"){ bx.fillStyle="rgba(190,215,245,.55)"; bx.fillRect(x,y,1,4); }
     else if(S.weather==="snow"||se===3){ bx.fillStyle="rgba(255,255,255,.9)"; bx.fillRect(x,y,a.v>1?2:1,a.v>1?2:1); }
-    else if((se===1||M.moonForest)&&night){ const on=Math.sin(gameT*3+a.p)>0; if(on){ bx.fillStyle="#f6f08a"; bx.fillRect(x,y,1,1); bx.fillStyle="rgba(246,240,138,.3)"; bx.fillRect(x-1,y-1,3,3); } }
+    else if((se===1||M.moonForest)&&night){ const on=Math.sin(gameT*3+a.p)>(M.moonForest?-.4:0); if(on){ const big=M.moonForest&&a.v>1; bx.fillStyle="rgba(246,240,138,.22)"; bx.fillRect(x-(big?2:1),y-(big?2:1),big?5:3,big?5:3); bx.fillStyle="#f8f4a0"; bx.fillRect(x,y,big?2:1,big?2:1); } }
     else if(se===0){ bx.fillStyle=a.p>3?"#f6b3c9":"#ffffff"; bx.fillRect(x,y,2,1); }
     else if(se===2){ bx.fillStyle=a.p>3?"#e8842a":"#c94a2a"; bx.fillRect(x,y,2,2); }
     else if(se===1&&a.p<2){ bx.fillStyle="rgba(255,255,220,.7)"; bx.fillRect(x,y,1,1); }

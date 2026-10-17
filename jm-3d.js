@@ -263,9 +263,17 @@ function prop(mg,mgE,o,se,st){
   switch(k){
     case 'mondtor_zu':case 'mondtor_offen':{const open=k==='mondtor_offen';mg.sph(x,.15,z-.1,.9,.4,.75,'#435440');mg.box(x,1,z,.1,2,1.45,'#7a7480');mgE.box(x,1,z+.52,.72,1.35,.03,open?'#9fc8ff':'#544c62');mgE.sph(x,1.55,z+.55,.22,.3,.03,open?'#ffffff':'#817694');return;}
     case 'mondpilze':for(const [dx,dz,r] of [[-.3,0,.18],[.1,-.12,.24],[.35,.12,.14]]){mg.cyl(x+dx,.13,z+dz,.035,.26,'#dbe8e0');mgE.sph(x+dx,.3,z+dz,r,.08,r,'#9fdcff',true);}return;
+    case 'mondblumen':mg.sph(x,.05,z,.45,.08,.4,'#3f5a46');for(const [dx,dz,h] of [[-.28,.1,.45],[.05,-.12,.62],[.3,.12,.5],[.12,.25,.34]]){mg.cyl(x+dx,h/2,z+dz,.018,h,'#4f8a62');mgE.sph(x+dx,h+.04,z+dz,.09,.07,.09,'#a8d4ff',true);}return;
     case 'mondsamen_fund':for(let i=0;i<7;i++){const a=i*.9;mg.sph(x+Math.cos(a)*.28,.18,z+Math.sin(a)*.2,.16,.08,.12,'#629f78');}mgE.sph(x,.32,z,.14,.14,.14,'#d9efff',true);return;
     case 'mondsteinring':for(let i=0;i<9;i++){const a=i*.7;mg.sph(x+Math.cos(a)*.55,.08,z+Math.sin(a)*.35,.16,.1,.13,'#8f8a98');}mgE.sph(x,.16,z,.1,.12,.1,'#cfe6ff',true);return;
-    case 'regenhaendler':mg.box(x,.85,z,.6,1.4,.45,'#40556f');mg.sph(x,1.7,z,.25,.3,.23,'#d2a47e');mg.cyl(x,2,z,.38,.08,'#27394f');mg.box(x,2.18,z,.45,.24,.4,'#334c66');mg.box(x+.55,.55,z,.55,.8,.45,'#8a5a33');mgE.box(x+.55,.65,z+.24,.35,.18,.02,'#cfe6ff');return;
+    case 'regenhaendler':{// Nerio mit Schirm und Handwagen (Kasten, Räder, gestreiftes Planendach, Laterne, Gläser mit Mondtau)
+     const cx=x+.62,cz=z-.18;mg.box(cx,.58,cz,.85,.42,.5,'#8a5a33');mg.box(cx,.8,cz,.9,.05,.55,'#c8945a');
+     for(const dx of [-.28,.28])mg.cyl(cx+dx,.22,cz+.27,.2,.05,'#4a3428',Math.PI/2);for(const dx of [-.28,.28])mg.cyl(cx+dx,.22,cz+.3,.07,.03,'#c8945a',Math.PI/2);
+     for(const dx of [-.4,.4])for(const dz of [-.22,.22])mg.box(cx+dx,1.02,cz+dz,.04,.45,.04,woodD);
+     for(let i=0;i<5;i++)mg.box(cx-.4+i*.2,1.26,cz,.2,.05,.62,i%2?'#f4ead8':'#3f6a8a');
+     mgE.box(cx+.47,1.02,cz+.26,.1,.14,.1,'#ffd88a');mgE.box(cx-.18,.64,cz+.26,.22,.16,.02,'#cfe6ff');mgE.box(cx+.14,.64,cz+.26,.16,.16,.02,'#b8a4e0');
+     mg.box(x-.12,.75,z+.12,.5,1.2,.38,'#40556f');mg.sph(x-.12,1.55,z+.12,.22,.26,.2,'#d2a47e');mg.cyl(x-.12,1.78,z+.12,.36,.05,'#27394f');mg.cyl(x-.12,1.92,z+.12,.2,.26,'#334c66');
+     mg.box(x+.14,1.35,z+.12,.03,1.1,.03,'#3a2a20');mg.cone(x+.14,2.02,z+.12,.62,.3,'#5a7fa0');return;}
     case 'bau1':case 'bau2':case 'bau3':{const phase=+k.slice(3),w=o.w||5,d=o.h||4;mg.box(x,.12,z,w,.24,d,'#ada391');if(phase>=2){for(const dx of [-w/2+.2,0,w/2-.2])for(const dz of [-d/2+.2,d/2-.2])mg.box(x+dx,1.1,z+dz,.12,2,.12,woodD);for(const dz of [-d/2+.2,d/2-.2]){mg.box(x,2.05,z+dz,w,.12,.12,wood);mg.box(x,1,z+dz,w,.12,.12,wood);}}if(phase===3){mg.box(x,1.1,z,w-.3,1.8,d-.3,'#dcc3a0');for(const side of [-1,1])mg.add(GEO.box,M4(x+side*w/4,2.4,z,w*.6,.12,d+.3,0,0,side*.5),'#b85b48');mg.box(x,.75,z+d/2,.65,1.4,.05,woodD);}return;}
     case 'ruine':{const w=o.w||5,d=o.h||4;mg.box(x,1,z,w-.4,2,d-.6,'#9c8f7c');mg.box(x,2.25,z,w-.1,.5,d-.2,'#6e5a4e');mg.box(x,2.65,z,w-1.2,.35,d-1.2,'#5a4a40');
      mg.box(x,.75,z+d/2-.28,.7,1.5,.06,'#4a3a30');mg.box(x,1.75,z+d/2-.27,.36,.26,.04,'#e8dcc0');
@@ -803,7 +811,7 @@ function lightUpdate(){
   sun.target.position.copy(camT); sun.target.updateMatrixWorld();
   // Fenster und Laternen
   const glow=M.inside?0:(night?1:(m>=1080?(m-1080)/60:0));
-  if(MATS.vce) MATS.vce.emissiveIntensity=M.cave?.6:glow*1.4;
+  if(MATS.vce){ MATS.vce.emissiveIntensity=M.cave?.6:glow*1.4; MATS.vce.emissive.set(M.moonForest?"#8fc8ff":"#ffb050"); }
   const src=lightsSrc.slice().sort((a,b)=>Math.hypot(a[0]-camT.x,a[2]-camT.z)-Math.hypot(b[0]-camT.x,b[2]-camT.z));
   PL.forEach((l,i)=>{ const s=src[i]; if(s&&glow>0){ l.position.set(s[0],s[1],s[2]); l.intensity=glow*(s[3]?4:2.4); } else l.intensity=0; });
   if(M.inside&&night){ PL[0].position.set(M.w/2,2.2,M.h/2+1); PL[0].intensity=4; PL[0].distance=14; } else PL[0].distance=6;
@@ -813,7 +821,7 @@ function lightUpdate(){
   // Kerzenlicht (Etappe 2): drinnen auch tagsüber ein warmer Schein am Tisch
   if(M.inside&&!M.cave){ const k=lightsSrc.find(l=>l[4]==="kerze"); if(k&&PL[1]){ PL[1].position.set(k[0],k[1],k[2]); PL[1].intensity=night?3:1.6; PL[1].color.set("#ffb060"); } }
   // Café (Etappe 3): warme Hängelampen über den Tischen, auch tagsüber
-  if(M.inside){ lightsSrc.filter(l=>l[4]==="lampe").forEach((k,i)=>{ const l=PL[i+1]; if(l){ l.position.set(k[0],k[1],k[2]); l.intensity=night?2.6:1.4; l.color.set("#ffc27a"); } }); }
+  if(M.inside){ lightsSrc.filter(l=>l[4]==="lampe").forEach((k,i)=>{ const l=PL[i+1]; if(l){ l.position.set(k[0],k[1],k[2]); l.intensity=night?2.6:1.4; l.color.set(M.moonForest?"#9fd0ff":"#ffc27a"); } }); }
   if(M.inside) scene.fog=null; else { if(!FOG) FOG=new THREE.Fog("#ffffff",40,80); FOG.color.set(M.moonForest?'#596b82':scene.background); FOG.near=M.moonForest?camDist+2:camDist+8; FOG.far=M.moonForest?camDist+24:camDist+45; scene.fog=FOG; }
 }
 

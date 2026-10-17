@@ -18,9 +18,12 @@ function moonMap(){const w=20,h=17,m={id:G.ROOM,w,h,t:[],obj:[],trees:[],lights:
  for(const [x,y] of [[9,7],[10,7],[11,7],[8,8],[12,8],[8,9],[12,9],[8,10],[12,10],[9,11],[10,11],[11,11]])m.t[y][x]=T.WALD;
  m.t[15][10]=m.t[16][10]=T.WALD;m.spawn=[10,14];m.exits=[{x:10,y:16,to:'waldtuer',tx:5,ty:5}];
  m.obj=[{k:'mondpilze',x:4,y:6,act:'magie:pilze'},{k:'mondsamen_fund',x:G.SEED.x,y:G.SEED.y,act:'magie:samen'},{k:'mondsteinring',x:15,y:11,act:'magie:ring'}];
+ // Mehr Liebe fürs Detail: weitere leuchtende Pilze und Mondglocken säumen die Ränder; Weg Eingang–Samen–Ring–Tor bleibt frei.
+ for(const [x,y] of [[17,10],[2,14],[6,3]])m.obj.push({k:'mondpilze',x,y,act:'magie:pilze'});
+ for(const [x,y] of [[2,8],[3,12],[7,5],[17,5],[16,14],[14,3],[6,11],[13,13]])m.obj.push({k:'mondblumen',x,y,act:'magie:blumen'});
  for(const o of m.obj)m.t[o.y][o.x]=T.BLOCK;
  for(const [x,y,v] of [[2,3,1],[5,3,2],[16,3,3],[3,11,4],[17,8,5],[6,14,6],[15,14,7]])m.trees.push({x,y,kind:'pine',v});
- m.lights=[[4.5,.4,6.5],[13.5,.5,6.5],[15.5,.35,11.5]];m.houseLevel='vollmondwald';return m;}
+ m.lights=[[4.5,.4,6.5],[13.5,.5,6.5],[15.5,.35,11.5],[17.5,.4,10.5],[7.5,.4,5.5],[16.5,.4,14.5]];m.houseLevel='vollmondwald';return m;}
 const bm=J.buildMaps;J.buildMaps=function(){const all=bm();all[G.ROOM]=moonMap();return G.apply(all,null);};
 function clear(m){if(!m)return;m.obj=m.obj.filter(o=>!(o.act||'').startsWith('magie:'));if(m.magieTiles){for(const [k,t] of Object.entries(m.magieTiles)){const [x,y]=k.split(',').map(Number);m.t[y][x]=t;}delete m.magieTiles;}}
 function put(m,o){m.magieTiles=m.magieTiles||{};m.obj.push(o);for(let y=o.y;y<o.y+(o.h||1);y++)for(let x=o.x;x<o.x+(o.w||1);x++){const k=x+','+y;if(!(k in m.magieTiles))m.magieTiles[k]=m.t[y][x];m.t[y][x]=T.BLOCK;}}
@@ -32,6 +35,7 @@ const apply0=X.apply;X.apply=function(maps,s){apply0(maps,s);return G.apply(maps
 G.act=function(s,a){G.migrate(s);
  if(a==='tor'){if(!G.moon(s.day).full)return {note:'Noch kein Vollmond. Im Tagebuch steht, wann das Tor erwacht.'};return {travel:{to:G.ROOM,tx:10,ty:14}};}
  if(a==='samen'){if(s.magie.found.samen)return {note:'Die Mondsamen sind gesammelt. Zwischen den silbrigen Blättern ist heute nichts mehr.'};s.magie.found.samen=s.day;s.inv.mondsamen=(s.inv.mondsamen||0)+3;return {hud:true,sfx:'gift',lines:[D.say(null,'Unter den leuchtenden Blättern liegen drei dunkle Samen.'),D.say('player','Mondsamen. Sie fühlen sich kühl an. Ich gieße sie nachts von Hand.')]};}
+ if(a==='blumen')return {note:'Mondglocken. Sie läuten nicht, aber sie leuchten, sobald du näher kommst.'};
  if(a==='pilze')return {note:'Die Pilze leuchten ruhig. Ihr Licht bleibt dicht am Boden.'};
  if(a==='ring')return {note:'Im Steinring steht: „Drei Nächte Wasser aus deiner Hand. Kein Regen. Kein Rad.“'};
  if(a==='haendler')return G.shop(s);return null;};

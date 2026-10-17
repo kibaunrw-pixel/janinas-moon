@@ -2,14 +2,16 @@
 const {chromium}=require(process.env.PLAYWRIGHT_PATH||'playwright'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 const out=process.env.EVIDENCE_DIR||path.join(__dirname,'..','docs','belege','etappe4');fs.mkdirSync(out,{recursive:true});
 (async()=>{const base=process.env.BASE_URL||'http://127.0.0.1:8765/',b=await chromium.launch({channel:'chrome',headless:true,args:base.startsWith('file:')?['--allow-file-access-from-files']:[]}),rows=[];try{for(const width of [390,1440])for(const gfx of ['2d','3d'])for(const scene of ['wald','pflanze','haendler']){
+ if(process.env.VIEWPORT&&width!==+process.env.VIEWPORT||process.env.GFX&&gfx!==process.env.GFX)continue;
  const vp={width,height:width===390?844:900},c=await b.newContext({viewport:vp,deviceScaleFactor:width===390?2:1}),p=await c.newPage(),errors=[];p.on('pageerror',e=>errors.push(String(e)));
  await p.goto(base);await p.waitForFunction(()=>window.JMDEBUG&&JM.R3?.ok&&JM.Magie);
- await p.evaluate(({gfx,scene})=>{const s=JMDEBUG.newState('Rahmung',[{name:'Lilly',fell:'weiss'},{name:'Coco',fell:'apricot'}]);s.gfx=gfx;s.sound=s.music=false;s.day=14;s.qDone=JM.QUESTS.map(q=>q.id);s.post.m.tuer.st='fertig';s.daily={day:14,goals:[]};s.mail=[];s.mailQ=[];
-  if(scene==='wald')Object.assign(s,{map:'vollmondwald',px:10,py:10,min:1200,weather:'sun'});
-  if(scene==='pflanze'){Object.assign(s,{map:'farm',px:5,py:11,min:700,weather:'sun'});s.field={'5,12':{t:true,w:true,c:{k:'mondblume',a:3},o:null}};}
+ await p.evaluate(({gfx,scene})=>{const s=JMDEBUG.newState('Rahmung',[{name:'Lilly',fell:'weiss'},{name:'Coco',fell:'apricot'}]);s.gfx=gfx;s.sound=s.music=false;s.day=14;s.qDone=JM.QUESTS.map(q=>q.id);JM.Ausbau.migrate(s);s.flags.letter=s.flags.forestSeen=true;s.post.m.tuer.st='fertig';s.daily={day:14,goals:[]};s.mail=[];s.mailQ=[];
+  if(scene==='wald')Object.assign(s,{map:'vollmondwald',px:13,py:8,min:1200,weather:'sun'});
+  if(scene==='pflanze'){Object.assign(s,{map:'farm',px:5,py:14,min:700,weather:'sun'});s.field={'5,12':{t:true,w:true,c:{k:'mondblume',a:3},o:null}};}
   if(scene==='haendler')Object.assign(s,{map:'village',px:17,py:13,min:750,weather:'rain'});
   JMDEBUG.startGame(s,false);},{gfx,scene});for(let i=0;i<3;i++)await p.locator('#zOut').click();await p.waitForTimeout(1200);
+ assert.equal(await p.evaluate(()=>JMDEBUG.M.id),{wald:'vollmondwald',pflanze:'farm',haendler:'village'}[scene],'Startkarte '+scene);
  const target=scene==='wald'?[13,6,.4]:scene==='pflanze'?[5,12,.3]:[18,12,1];const r=await p.evaluate(({target,gfx})=>gfx==='3d'?JM.R3.proj(target[0]+.5,target[1]+.5,target[2]).map(n=>n/devicePixelRatio):[(target[0]*16+8-Math.round(JMDEBUG.cam.x))*JMDEBUG.scale,(target[1]*16+8-Math.round(JMDEBUG.cam.y))*JMDEBUG.scale],{target,gfx});
  const top=await p.locator('#hud').evaluate(e=>e.getBoundingClientRect().bottom),bottom=await p.locator('#bottom').evaluate(e=>e.getBoundingClientRect().top);assert.ok(r[0]>8&&r[0]<width-8&&r[1]>top&&r[1]<bottom,'wichtiges Motiv frei '+JSON.stringify({width,gfx,scene,r,top,bottom}));assert.equal(await p.evaluate(r=>document.elementFromPoint(...r)?.tagName,r),'CANVAS');
  const f=path.join(out,`rahmung-${scene}-${width}-${gfx}.png`);await p.screenshot({path:f});const raf=await p.evaluate(()=>new Promise(done=>{let n=0;const t=performance.now();(function q(){n++;if(performance.now()-t<2000)requestAnimationFrame(q);else done({frames:n,ms:performance.now()-t});})();}));assert.ok(raf.frames>=10);assert.deepEqual(errors,[]);rows.push({width,gfx,scene,target:r,top,bottom,raf,file:f});await c.close();console.log('OK Rahmung',scene,width,gfx,raf.frames);
- }}finally{await b.close();fs.writeFileSync(path.join(out,'report-rahmung.json'),JSON.stringify(rows,null,2));}})().catch(e=>{console.error(e);process.exitCode=1;});
+ }}finally{await b.close();fs.writeFileSync(path.join(out,`report-rahmung-${process.env.VIEWPORT||'alle'}-${process.env.GFX||'alle'}.json`),JSON.stringify(rows,null,2));}})().catch(e=>{console.error(e);process.exitCode=1;}).then(()=>process.exit(process.exitCode||0));
