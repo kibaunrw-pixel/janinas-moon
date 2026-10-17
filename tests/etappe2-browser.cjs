@@ -99,8 +99,8 @@ const FIX={
  paar:{map:'village',px:16,py:13,day:9,min:380,hearts:{mei:3},dorf:{sec:{mei:{st:3,day:2,paid:2}}}},
  picknick:{map:'haus',px:10,py:5,day:9,min:1200},
  ausflug:{map:'village',px:28,py:14,day:9,min:900,rom:{pick:{n:1,last:5,first:5},mv:{st:'fertig',day:6},mem:[{k:'picknick',day:5,place:'see',choice:'uns',t:'Picknick am Waldsee',txt:'Erstes Picknick.',l:6}]},plots:[{start:null,ready:false,tenant:null,lastRent:0},{start:null,ready:false,tenant:null,lastRent:0},{start:1,due:4,ready:true,tenant:'mara',since:2,lastRent:8}]},
- jahrestag:{map:'haus',px:4,py:6,day:26,min:1070},
- geburtstag:{map:'haus',px:10,py:5,day:33,min:1200}}[seg];
+ jahrestag:{map:'haus',px:4,py:6,day:23,min:1070},
+ geburtstag:{map:'haus',px:10,py:5,day:34,min:1200}}[seg];
 const before=await p.evaluate(({gfx,fx})=>{const s=JMDEBUG.newState('Etappe2',[{name:'A',fell:'weiss'},{name:'B',fell:'apricot'}]);s.gfx=gfx;s.sound=s.music=false;s.flags.letter=true;s.flags.caveSeen=s.flags.forestSeen=true;s.rene.met=true;s.rene.bf=fx.day;s.rene.cudToday=2;s.qDone=JM.QUESTS.map(q=>q.id);
  s.map=fx.map;s.px=fx.px;s.py=fx.py;s.day=fx.day;s.min=fx.min;s.weather='sun';s.tomorrow='sun';s.money=3000;s.inv=Object.assign({},fx.inv||{});s.hold='auto';s.daily={day:fx.day,goals:[]};s.mail=[];s.mailQ=[];
  for(const id of JM.NPC_ORDER){s.npc[id].met=true;s.npc[id].p=100;}for(const [id,h] of Object.entries(fx.hearts||{}))s.npc[id].p=h*100;
@@ -170,10 +170,10 @@ if(seg==='jahrestag'){ // W31
  await fixTime(1085);await p.waitForFunction(()=>JMDEBUG.RA.vis&&JMDEBUG.M.obj.some(o=>o.k==='tisch_jt'),null,{timeout:20000});await walk(4,5);await p.waitForTimeout(1200);row.shots.push(await sceneShot('jahrestag-kerzen'));
  await tapRene();await pickChoice('Den Brief sofort lesen');await p.waitForFunction(()=>JMDEBUG.busy.ui.dialog);await p.waitForTimeout(1500);row.shots.push(await sceneShot('jahrestag-brief'));await dialogs();await p.waitForTimeout(300);row.shots.push(await sceneShot('jahrestag-herzen'));
  let r=await rom();assert.ok(r.jtDone[1]);await reload();await tapRene();await p.waitForTimeout(600);const t=await dlgText();assert.ok(!/Jahrestag/.test(t),'keine zweite Feier: '+t);await dialogs();
- await book('herz');await p.selectOption('#romD-jt','13');await p.locator('[data-a="romdate"][data-k="jt"]').click();await p.waitForTimeout(400);await close();await reload();r=await rom();assert.deepEqual([r.jt.s,r.jt.d],[1,13]);assert.equal(Object.keys(r.jtDone).length,1);
+ await book('herz');await p.selectOption('#romD-jt','10');await p.locator('[data-a="romdate"][data-k="jt"]').click();await p.waitForTimeout(400);await close();await reload();r=await rom();assert.deepEqual([r.jt.s,r.jt.d],[1,10]);assert.equal(Object.keys(r.jtDone).length,1);
  await fixTime(1100,1);await tapRene();await p.waitForTimeout(600);assert.ok(!/Jahrestag/.test(await dlgText()),'Datum verschoben: im selben Jahr nicht noch einmal');await dialogs();row.result={jt:1};}
-if(seg==='geburtstag'){ // W38 Janinas Geburtstag (6. Herbst)
- await sleep();assert.equal(await S(()=>JMDEBUG.S.day),34);const neu=await S(()=>JMDEBUG.S.mail.filter(m=>!m.read).map(m=>m.t));assert.ok(neu.length>=1&&neu.length<=3,neu.join('|'));assert.ok(neu.includes('Alles Gute zum Geburtstag!'),neu.join('|'));
+if(seg==='geburtstag'){ // W38 Janinas Geburtstag (7. Herbst)
+ await sleep();assert.equal(await S(()=>JMDEBUG.S.day),35);const neu=await S(()=>JMDEBUG.S.mail.filter(m=>!m.read).map(m=>m.t));assert.ok(neu.length>=1&&neu.length<=3,neu.join('|'));assert.ok(neu.includes('Alles Gute zum Geburtstag!'),neu.join('|'));
  await fixTime(425);await tapRene();await seenText(/Geburtstag/);row.shots.push(await sceneShot('geburtstag-rene'));await dialogs();assert.equal(await S(()=>JMDEBUG.S.inv.nudeln),2);
  await toFarm();await toMailbox();await readLetter('Alles Gute zum Geburtstag!');await p.locator('[data-a="claim"]').click();await p.waitForTimeout(400);assert.equal(await S(()=>JMDEBUG.S.inv.erdbeere),3);row.shots.push(await shot('geburtstag-post'));
  await p.locator('[data-a="back"]').click();await close();await dialogs();

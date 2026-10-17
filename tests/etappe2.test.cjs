@@ -36,10 +36,10 @@ test('Migration: Altspielstand ohne neue Felder behält Besitz, bekommt leere Ge
  assert.deepEqual(clone(s.post.m.brunnen),before.post.m.brunnen);
  for(const id of ['mei','henk','paula','rosa'])assert.equal(s.dorf.sec[id].st,0);
  assert.equal(s.dorf.paar.st,'');assert.equal(s.dorf.streit.st,'');assert.equal(s.rom.date,null);
- assert.deepEqual(clone(s.rom.jb),{s:2,d:6});assert.deepEqual(clone(s.rom.jt),{s:1,d:12});
+ assert.deepEqual(clone(s.rom.jb),{s:2,d:7});assert.deepEqual(clone(s.rom.jt),{s:1,d:9});
  const again=reload(s);assert.deepEqual(clone(again.dorf),clone(s.dorf));assert.deepEqual(clone(again.rom),clone(s.rom));
  const broken=base();broken.rom={date:{place:'mond'},jb:{s:9,d:0},mem:'x'};broken.dorf={sec:{mei:'kaputt'}};J.Ausbau.migrate(broken);
- assert.equal(broken.rom.date,null);assert.deepEqual(clone(broken.rom.jb),{s:2,d:6});assert.deepEqual(clone(broken.rom.mem),[]);assert.equal(broken.dorf.sec.mei.st,0);
+ assert.equal(broken.rom.date,null);assert.deepEqual(clone(broken.rom.jb),{s:2,d:7});assert.deepEqual(clone(broken.rom.mem),[]);assert.equal(broken.dorf.sec.mei.st,0);
 });
 
 test('W01: vier Bewohner, je drei Teile nach Herzen, ein Teil pro Tag, Lohn genau einmal, Reload mitten in der Geschichte',()=>{
@@ -174,16 +174,16 @@ test('W30: Ausflug nach Lindenstadt – nach dem ersten Picknick, Tisch am Stadt
 });
 
 test('W31: Jahrestag – gespeichertes Datum, jedes Jahr eine Szene mit Kerzen, nie doppelt (Reload, Datumswechsel)',()=>{
- const s=base();s.day=day(1,1,12);s.min=1000;assert.ok(R.jtToday(s));assert.equal(R.jtScene(s),null,'erst ab 18 Uhr');
+ const s=base();s.day=day(1,1,9);s.min=1000;assert.ok(R.jtToday(s));assert.equal(R.jtScene(s),null,'erst ab 18 Uhr');
  const h=maps(s).haus;assert.ok(h.obj.some(o=>o.k==='tisch_jt'&&o.act==='post:ev:rom:tisch'),'Kerzen auf dem Tisch');
  s.min=1100;assert.deepEqual(clone(R.plan(s)),{map:'haus',pos:clone(R.HOME.rene),mode:'jt'});reachTarget(s,'Jahrestag');
  let r=R.reneTalk(s);assert.match(texts(r),/Jahrestag/);const mid=reload(s);assert.ok(R.jtScene(mid),'Reload vor der Wahl');
  r=choose(r,0);assert.equal(s.energy,s.maxE);assert.ok(s.rom.jtDone[1]);assert.equal(R.jtScene(s),null);assert.equal(R.reneTalk(s),null);
- assert.ok(R.setDate(s,'jt',1,13).ok);s.day++;assert.ok(R.jtToday(s));assert.equal(R.jtScene(s),null,'Datum verschoben: im selben Jahr nicht noch einmal');
+ assert.ok(R.setDate(s,'jt',1,10).ok);s.day++;assert.ok(R.jtToday(s));assert.equal(R.jtScene(s),null,'Datum verschoben: im selben Jahr nicht noch einmal');
  assert.equal(R.setDate(s,'jt',4,1).ok,false);assert.equal(R.setDate(s,'jt',1,15).ok,false);
- const y2=base();y2.rom.jtDone={1:{day:26}};y2.day=day(2,1,12);y2.min=1100;assert.ok(R.jtScene(y2),'nächstes Jahr wieder');
+ const y2=base();y2.rom.jtDone={1:{day:26}};y2.day=day(2,1,9);y2.min=1100;assert.ok(R.jtScene(y2),'nächstes Jahr wieder');
  const back=maps(base()).haus;assert.ok(back.obj.some(o=>o.k==='table')&&!back.obj.some(o=>o.k==='tisch_jt'),'sonst normaler Tisch');
- const two=J.buildMaps();St.apply(two,s);s.day=day(1,1,12);St.apply(two,s);St.apply(two,base());assert.equal(two.haus.obj.filter(o=>o.k==='table').length,1,'Tisch zurückgesetzt');
+ const two=J.buildMaps();St.apply(two,s);s.day=day(1,1,9);St.apply(two,s);St.apply(two,base());assert.equal(two.haus.obj.filter(o=>o.k==='table').length,1,'Tisch zurückgesetzt');
 });
 
 test('W38: Geburtstage – Bewohner freuen sich über passende Geschenke und danken; Janina bekommt Post, Kuchen und Besuch, einmal pro Jahr',()=>{
@@ -192,7 +192,7 @@ test('W38: Geburtstage – Bewohner freuen sich über passende Geschenke und dan
  assert.equal(D.bdayGift(s,'lin','tee','like'),null,'Lin hat heute keinen Geburtstag');
  night(s);const d=s.mail.find(m=>m.from==='mei'&&m.t==='Danke für mein Geburtstagsgeschenk');assert.ok(d&&d.att,'Dankesbrief mit Beilage');
  for(let n=0;n<4;n++)night(s);assert.equal(s.mail.filter(m=>m.t==='Danke für mein Geburtstagsgeschenk').length,1);
- const j=base();j.day=day(1,2,5);j.post.lastMyst=j.day+10;night(j);assert.ok(R.jbToday(j));
+ const j=base();j.day=day(1,2,6);j.post.lastMyst=j.day+10;night(j);assert.ok(R.jbToday(j));
  const card=j.mail.find(m=>m.kind==='geburtstag');assert.ok(card&&card.att,'Geburtstagspost');assert.match(card.b,/Mei:/);
  const inv0=clone(j.inv);X.claim(j,j.mail.indexOf(card));X.claim(j,j.mail.indexOf(card));assert.equal(j.inv.erdbeere,(inv0.erdbeere||0)+3,'Beilage einmal');
  j.min=400;let r=R.reneTalk(j);assert.match(texts(r),/Geburtstag/);assert.equal(j.inv.nudeln,2);assert.equal(R.reneTalk(j),null);assert.equal(reload(j).inv.nudeln,2);

@@ -7,7 +7,7 @@
    W28 Briefe      René schreibt nach jedem gemeinsamen Erlebnis einen Brief, der sich genau darauf bezieht (einmal je Erlebnis).
    W30 Ausflug     Nach dem ersten Picknick: Abend in Lindenstadt (Zug), Tisch am Stadtbrunnen, Auswahl, Erinnerung.
    W31 Jahrestag   Gespeichertes Datum (änderbar), jedes Jahr ein Abend mit Kerzen am Küchentisch, einmal pro Jahr.
-   W38 Janinas Geburtstag  Gespeichertes Datum (Standard 6. Herbst, im Tagebuch änderbar). Geburtstagspost aus dem Dorf,
+   W38 Janinas Geburtstag  Gespeichertes Datum (Standard 7. Herbst, im Tagebuch änderbar). Geburtstagspost aus dem Dorf,
                    Kuchen von René, Besuch von Rosa und Mei vor dem Haus mit Geschenkkorb. Alles einmal pro Jahr. */
 (function(){
 const J=window.JM,X=J.Post,St=J.Stadt,D=J.Dorf,R=J.Rom={};
@@ -26,7 +26,9 @@ R.KINDS={picknick:{places:['see','wiese'],slots:['mittag','abend']},ausflug:{pla
 R.HOME={rene:[7,5],spot:[4,5]};
 R.BDAY={from:600,to:960,rosa:[10,9],mei:[13,9],table:{k:'geburtstagstisch',x:11,y:9,w:2,h:1},spot:[12,8],gift:{items:{tee:2,rolle:2}},card:{items:{erdbeere:3}}};
 R.BANK={k:'herzbank',x:20,y:17,w:2,h:1};// am Teich, neben dem Picknickplatz
-R.DEF={jb:{s:2,d:6},jt:{s:1,d:12}};
+/* Echte Daten von René (16.10.2026): Janina hat am 7. September Geburtstag, Jahrestag ist der 9. August.
+   Im Spielkalender: gleiche Tageszahl, passende Jahreszeit (September = Herbst, August = Sommer). */
+R.DEF={jb:{s:2,d:7},jt:{s:1,d:9}};
 R.JT_FROM=1080;R.JT_TO=1410;
 
 /* ---------- Zustand und Migration ---------- */
@@ -218,7 +220,7 @@ R.diary=function(s,esc){R.migrate(s);const r=s.rom,y=cal.y(s),opt=(w)=>'<select 
  else{h+='<p class="sub">Verabrede dich mit '+esc(VON())+'. Ort und Uhrzeit wählst du selbst.</p>'+R.options(s,'picknick').map(o=>'<button class="btn alt wide" data-a="rom" data-k="'+esc(o.k)+'">Picknick: '+esc(o.t)+'</button>').join('');
   if(R.canPropose(s,'ausflug'))h+=R.options(s,'ausflug').map(o=>'<button class="btn alt wide" data-a="rom" data-k="'+esc(o.k)+'">Ausflug: '+esc(o.t)+'</button>').join('');
   else h+='<p class="sub">Nach eurem ersten Picknick könnt ihr auch einen Ausflug nach Lindenstadt machen.</p>';}
- h+='<div class="row"><div class="tx"><b>Dein Geburtstag</b><small>'+r.jb.d+'. '+esc(J.SEASONS[r.jb.s])+(r.jb.set?'':' · Vorschlag, bitte anpassen')+(r.jbDone[y]&&r.jbDone[y].rene?' · dieses Jahr gefeiert ✓':'')+'</small><span class="dates">'+opt('jb')+'<button class="btn alt" data-a="romdate" data-k="jb">Speichern</button></span></div></div>';
+ h+='<div class="row"><div class="tx"><b>Dein Geburtstag</b><small>'+r.jb.d+'. '+esc(J.SEASONS[r.jb.s])+(r.jbDone[y]&&r.jbDone[y].rene?' · dieses Jahr gefeiert ✓':'')+'</small><span class="dates">'+opt('jb')+'<button class="btn alt" data-a="romdate" data-k="jb">Speichern</button></span></div></div>';
  h+='<div class="row"><div class="tx"><b>Euer Jahrestag</b><small>'+r.jt.d+'. '+esc(J.SEASONS[r.jt.s])+(r.jtDone[y]?' · dieses Jahr gefeiert ✓':'')+'</small><span class="dates">'+opt('jt')+'<button class="btn alt" data-a="romdate" data-k="jt">Speichern</button></span></div></div>';
  if(r.mv.st&&r.mv.st!=='fertig')h+='<div class="row"><div class="tx"><b>Seltsam …</b><small>'+esc(r.mv.st==='hinweis'?'Timo sagt, '+VON()+' hat Holz gekauft. Frag ihn danach.':'Seit dem Picknick weicht '+VON()+' dir aus. Was ist da los?')+'</small></div></div>';
  h+='<h3>Erinnerungen</h3>'+(r.mem.length?r.mem.slice().reverse().map(m=>'<div class="row" data-mem="'+esc(m.k)+'"><div class="tx"><b>♥ '+esc(m.t)+'</b><small>Spieltag '+m.day+' · '+esc(m.txt)+'</small></div></div>').join(''):'<p class="sub">Noch keine. Euer erstes Picknick wartet.</p>');
