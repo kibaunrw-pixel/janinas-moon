@@ -605,6 +605,7 @@ function bushAct(o){
 /* ================= Objekte ================= */
 function objAct(o){
   const a=o.act;
+  if(a.startsWith('chronik:'))return runPost(JM.Post.evAct(S,a));
   if(a.startsWith('magie:'))return runPost(JM.Magie.act(S,a.slice(6)));
   if(a.startsWith('ziele:'))return runPost(JM.Ziele.act(S,a.slice(6)));
   if(a==='train')return openTrain();
@@ -1694,7 +1695,7 @@ function openBook(tab){
     }
     body=`<h3>${JM.SEASONS[se]} · Jahr ${year()}</h3><div class="cal">${cells}</div><p class="sub">Feste beginnen auf dem Dorfplatz. An Geburtstagen zählen Geschenke dreifach.</p>`;
   }
-  if(tab==="herz") body=JM.Rom.diary(S,esc)+JM.Dorf.diary(S,esc)+JM.Magie.diary(S,esc);
+  if(tab==="herz") body=JM.Rom.diary(S,esc)+JM.Dorf.diary(S,esc)+JM.Magie.diary(S,esc)+JM.Chronik.diary(S,esc);
   if(tab==="friends"){
     body=`<div class="row"><canvas class="pt" data-pt="dog0"></canvas><div class="tx"><b>${esc(dogName(0))}</b>${heartRow(S.dogH[0])}<small>${S.dogPet[0]===S.day?"Heute gestreichelt":"Noch nicht gestreichelt"}</small></div></div>
       <div class="row"><canvas class="pt" data-pt="dog1"></canvas><div class="tx"><b>${esc(dogName(1))}</b>${heartRow(S.dogH[1])}<small>${S.dogPet[1]===S.day?"Heute gestreichelt":"Noch nicht gestreichelt"}</small></div></div>`;
@@ -1818,7 +1819,7 @@ function update(dt){
   for(const p of FX){ p.l-=dt; p.x+=p.vx*dt; p.y+=p.vy*dt; p.vy+=p.g*dt; } FX=FX.filter(p=>p.l>0);
   for(const f of FLT){ f.l-=dt; f.y-=18*dt; } FLT=FLT.filter(f=>f.l>0);
   for(const k in FESTFX) if(FESTFX[k]>0) FESTFX[k]-=dt*(UI.dialog?0:1);
-  if(Math.floor(gameT*2)!==Math.floor((gameT-dt)*2)){ recheckQuest(); updateQuestUI(); if(!demo){ syncPets(false); const tr=JM.Tiere.tick(S); if(tr){ if(M.id==="farm") note(tr.note); save(true); } } }
+  if(Math.floor(gameT*2)!==Math.floor((gameT-dt)*2)){ recheckQuest(); updateQuestUI(); if(!demo){ syncPets(false); const hr=JM.Helfer.tick(S); if(hr)runPost(hr); const tr=JM.Tiere.tick(S); if(tr){ if(M.id==="farm") note(tr.note); save(true); } } }
 }
 /* René spricht die Spielerin nur von sich aus an, wenn sie ruhig steht: kein Laufweg, keine
    vorgemerkte Aktion, keine Feldreihe, kein gehaltener Finger und seit 2 s kein Tipp. */

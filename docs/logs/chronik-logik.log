@@ -1,0 +1,562 @@
+TAP version 13
+# Subtest: Anschlagtafel nimmt ausdrückliche Teilmengen, belohnt genau einmal
+ok 1 - Anschlagtafel nimmt ausdrückliche Teilmengen, belohnt genau einmal
+  ---
+  duration_ms: 1.154917
+  type: 'test'
+  ...
+# Subtest: Mondbaum zählt Teilgaben und meldet Fertigstellung genau einmal
+ok 2 - Mondbaum zählt Teilgaben und meldet Fertigstellung genau einmal
+  ---
+  duration_ms: 0.229
+  type: 'test'
+  ...
+# Subtest: Kochen verbraucht beide Lager atomar, auch konkrete plus Sammelfische
+ok 3 - Kochen verbraucht beide Lager atomar, auch konkrete plus Sammelfische
+  ---
+  duration_ms: 0.74075
+  type: 'test'
+  ...
+# Subtest: Alle konkreten Rezeptzutaten sind ganzjährig ohne Wiederverkaufsgewinn kaufbar
+ok 4 - Alle konkreten Rezeptzutaten sind ganzjährig ohne Wiederverkaufsgewinn kaufbar
+  ---
+  duration_ms: 0.249209
+  type: 'test'
+  ...
+# Subtest: Zehn Höhlenebenen: sichere Wege, persistente Abbaubilanz, Reload, neuer Besuch
+ok 5 - Zehn Höhlenebenen: sichere Wege, persistente Abbaubilanz, Reload, neuer Besuch
+  ---
+  duration_ms: 10.66925
+  type: 'test'
+  ...
+# Subtest: Neue Erze sind nutzbar; jeder magische Fisch ist wirklich auswählbar und verkäuflich
+ok 6 - Neue Erze sind nutzbar; jeder magische Fisch ist wirklich auswählbar und verkäuflich
+  ---
+  duration_ms: 0.454166
+  type: 'test'
+  ...
+# Subtest: Alte Saves migrieren ohne Progressionsverlust; leere alte Höhle bleibt leer
+ok 7 - Alte Saves migrieren ohne Progressionsverlust; leere alte Höhle bleibt leer
+  ---
+  duration_ms: 1.234209
+  type: 'test'
+  ...
+# Subtest: Zimmermann: Ressourcen, einmalige Kosten, Bauzeit, Reload und sichtbare Räume
+ok 8 - Zimmermann: Ressourcen, einmalige Kosten, Bauzeit, Reload und sichtbare Räume
+  ---
+  duration_ms: 6.935917
+  type: 'test'
+  ...
+# Subtest: Alte unerreichbare Sammelobjekte werden ohne Verlust erreichbar versetzt
+ok 9 - Alte unerreichbare Sammelobjekte werden ohne Verlust erreichbar versetzt
+  ---
+  duration_ms: 12.576541
+  type: 'test'
+  ...
+# Subtest: Komplett gekaufte Zutaten erzeugen auch am maximalen Marktbonus keine Endlosschleife
+ok 10 - Komplett gekaufte Zutaten erzeugen auch am maximalen Marktbonus keine Endlosschleife
+  ---
+  duration_ms: 0.148625
+  type: 'test'
+  ...
+# Subtest: Lebensmitteltransfer erhält Bilanz und lehnt ungültige Mengen ab
+ok 11 - Lebensmitteltransfer erhält Bilanz und lehnt ungültige Mengen ab
+  ---
+  duration_ms: 0.323333
+  type: 'test'
+  ...
+# Subtest: Modul vorhanden und Altspielstand ohne Postfelder bleibt vollständig erhalten
+ok 12 - Modul vorhanden und Altspielstand ohne Postfelder bleibt vollständig erhalten
+  ---
+  duration_ms: 3.292875
+  type: 'test'
+  ...
+# Subtest: Jede Nacht 1–3 neue Briefe, Geheimnis kommt spätestens nach fünf Tagen, keine Doppelzustellung
+ok 13 - Jede Nacht 1–3 neue Briefe, Geheimnis kommt spätestens nach fünf Tagen, keine Doppelzustellung
+  ---
+  duration_ms: 4.555791
+  type: 'test'
+  ...
+# Subtest: Miete kommt genau einmal (Stadtabrechnung), Brief ist nur Quittung; Bewertung beeinflusst Miete nachvollziehbar
+ok 14 - Miete kommt genau einmal (Stadtabrechnung), Brief ist nur Quittung; Bewertung beeinflusst Miete nachvollziehbar
+  ---
+  duration_ms: 1.410584
+  type: 'test'
+  ...
+# Subtest: Mietanfrage verknüpft fertigen Bauplatz; Zusage genau einmal, auch nach Reload
+ok 15 - Mietanfrage verknüpft fertigen Bauplatz; Zusage genau einmal, auch nach Reload
+  ---
+  duration_ms: 1.712333
+  type: 'test'
+  ...
+# Subtest: Bauauftrag: Wunsch → echter Bau → Dankbrief mit 150 G, Beilage genau einmal
+ok 16 - Bauauftrag: Wunsch → echter Bau → Dankbrief mit 150 G, Beilage genau einmal
+  ---
+  duration_ms: 0.469083
+  type: 'test'
+  ...
+# Subtest: Geschenkbrief: echter Gegenstand genau einmal
+ok 17 - Geschenkbrief: echter Gegenstand genau einmal
+  ---
+  duration_ms: 0.132333
+  type: 'test'
+  ...
+# Subtest: Mission Schatzkarte: Brief → Rätsel → erreichbarer Hügel → Schatz genau einmal
+ok 18 - Mission Schatzkarte: Brief → Rätsel → erreichbarer Hügel → Schatz genau einmal
+  ---
+  duration_ms: 5.977542
+  type: 'test'
+  ...
+# Subtest: Mission Haus Nr. 7: Brief → Besuch → Schlüssel → Renovierung (Geld, Material, zwei Nächte) → Elva zieht ein
+ok 19 - Mission Haus Nr. 7: Brief → Besuch → Schlüssel → Renovierung (Geld, Material, zwei Nächte) → Elva zieht ein
+  ---
+  duration_ms: 7.078375
+  type: 'test'
+  ...
+# Subtest: Mission Mitternacht am alten Brunnen: nur 23–24 Uhr, Dokument, Geisterbrief, Reparatur einmalig
+ok 20 - Mission Mitternacht am alten Brunnen: nur 23–24 Uhr, Dokument, Geisterbrief, Reparatur einmalig
+  ---
+  duration_ms: 6.736917
+  type: 'test'
+  ...
+# Subtest: Alle Missionsziele liegen auf vorhandenen Karten und erreichbaren Kacheln
+ok 21 - Alle Missionsziele liegen auf vorhandenen Karten und erreichbaren Kacheln
+  ---
+  duration_ms: 21.006208
+  type: 'test'
+  ...
+# Subtest: W11/W32: fortgeschrittener Hof erhält Brief, Hinweise in Reihenfolge, Auflösung mit Jonas
+ok 22 - W11/W32: fortgeschrittener Hof erhält Brief, Hinweise in Reihenfolge, Auflösung mit Jonas
+  ---
+  duration_ms: 2.007458
+  type: 'test'
+  ...
+# Subtest: W08: ein gemeinsames Helfersystem, echte Ernte, keine Doppelernte und Tagesbericht
+ok 23 - W08: ein gemeinsames Helfersystem, echte Ernte, keine Doppelernte und Tagesbericht
+  ---
+  duration_ms: 2.867125
+  type: 'test'
+  ...
+# Subtest: Helfer: Gießen ist keine magische Handbewässerung; Futter wird wirklich verbraucht; Laufzeit endet
+ok 24 - Helfer: Gießen ist keine magische Handbewässerung; Futter wird wirklich verbraucht; Laufzeit endet
+  ---
+  duration_ms: 2.18875
+  type: 'test'
+  ...
+# Subtest: W11: neue Hinweise sind erreichbar und jede Kartenanwendung bleibt idempotent
+ok 25 - W11: neue Hinweise sind erreichbar und jede Kartenanwendung bleibt idempotent
+  ---
+  duration_ms: 7.0765
+  type: 'test'
+  ...
+# Subtest: Altspielstand ohne neue Felder: Besitz unverändert, neue Missionen leer, ältere Missionen unberührt
+ok 26 - Altspielstand ohne neue Felder: Besitz unverändert, neue Missionen leer, ältere Missionen unberührt
+  ---
+  duration_ms: 1.232583
+  type: 'test'
+  ...
+# Subtest: Reihenfolge: neue Ereignisse erst nach den drei alten, nur wenn sinnvoll (Eignung), nie zwei gleichzeitig
+ok 27 - Reihenfolge: neue Ereignisse erst nach den drei alten, nur wenn sinnvoll (Eignung), nie zwei gleichzeitig
+  ---
+  duration_ms: 2.493167
+  type: 'test'
+  ...
+# Subtest: W61 Mieter verschwunden: Zettel → Bahnhof → Wiedersehen; Miete läuft weiter; Belohnung einmal; Mieter bleibt
+ok 28 - W61 Mieter verschwunden: Zettel → Bahnhof → Wiedersehen; Miete läuft weiter; Belohnung einmal; Mieter bleibt
+  ---
+  duration_ms: 26.346333
+  type: 'test'
+  ...
+# Subtest: W61 Belohnungsbilanz: genau +150 G und +2 Tee
+ok 29 - W61 Belohnungsbilanz: genau +150 G und +2 Tee
+  ---
+  duration_ms: 0.179583
+  type: 'test'
+  ...
+# Subtest: W62 Haus zu verkaufen: Ruine auf freiem Bauplatz → Kauf 900 G → derselbe Bauplatz bezugsfertig → Mietanfrage; einmalig
+ok 30 - W62 Haus zu verkaufen: Ruine auf freiem Bauplatz → Kauf 900 G → derselbe Bauplatz bezugsfertig → Mietanfrage; einmalig
+  ---
+  duration_ms: 3.293584
+  type: 'test'
+  ...
+# Subtest: W62 Ablehnen schließt ab, Bauplatz bleibt frei; anderweitig bebaut → Ereignis endet ohne Kosten
+ok 31 - W62 Ablehnen schließt ab, Bauplatz bleibt frei; anderweitig bebaut → Ereignis endet ohne Kosten
+  ---
+  duration_ms: 0.336708
+  type: 'test'
+  ...
+# Subtest: W63 Villa: nur mit bewohntem Haus Nr. 7; Treffen am Stadtbrunnen; Entscheidung genau einmal mit Folgen
+ok 32 - W63 Villa: nur mit bewohntem Haus Nr. 7; Treffen am Stadtbrunnen; Entscheidung genau einmal mit Folgen
+  ---
+  duration_ms: 9.020125
+  type: 'test'
+  ...
+# Subtest: W64 Geheime Tür: Brief → Tür im Mondwald → Gewölbe → Truhe einmal → Tafel kündigt Vollmondwald an → Rückweg
+ok 33 - W64 Geheime Tür: Brief → Tür im Mondwald → Gewölbe → Truhe einmal → Tafel kündigt Vollmondwald an → Rückweg
+  ---
+  duration_ms: 7.737333
+  type: 'test'
+  ...
+# Subtest: W65 Mysteriöser Bewohner: Tagesplan an drei Orten, Geheimnis nach drei Treffen, Belohnung einmal, Jonas bleibt
+ok 34 - W65 Mysteriöser Bewohner: Tagesplan an drei Orten, Geheimnis nach drei Treffen, Belohnung einmal, Jonas bleibt
+  ---
+  duration_ms: 12.875709
+  type: 'test'
+  ...
+# Subtest: Alle neuen Missionsziele liegen auf vorhandenen Karten und erreichbaren Kacheln
+ok 35 - Alle neuen Missionsziele liegen auf vorhandenen Karten und erreichbaren Kacheln
+  ---
+  duration_ms: 40.425417
+  type: 'test'
+  ...
+# Subtest: Picknick beginnt nur im vereinbarten Fenster; verpasst heißt freundlich neu verabreden
+ok 36 - Picknick beginnt nur im vereinbarten Fenster; verpasst heißt freundlich neu verabreden
+  ---
+  duration_ms: 3.4105
+  type: 'test'
+  ...
+# Subtest: Migration: Altspielstand ohne neue Felder behält Besitz, bekommt leere Geschichten und Standarddaten
+ok 37 - Migration: Altspielstand ohne neue Felder behält Besitz, bekommt leere Geschichten und Standarddaten
+  ---
+  duration_ms: 1.00575
+  type: 'test'
+  ...
+# Subtest: W01: vier Bewohner, je drei Teile nach Herzen, ein Teil pro Tag, Lohn genau einmal, Reload mitten in der Geschichte
+ok 38 - W01: vier Bewohner, je drei Teile nach Herzen, ein Teil pro Tag, Lohn genau einmal, Reload mitten in der Geschichte
+  ---
+  duration_ms: 1.261166
+  type: 'test'
+  ...
+# Subtest: W02: Streit Lin–Paula mit Szene und Versöhnung; Folgegespräche und Orte ändern sich; Freundschaft Rosa–Henk
+ok 39 - W02: Streit Lin–Paula mit Szene und Versöhnung; Folgegespräche und Orte ändern sich; Freundschaft Rosa–Henk
+  ---
+  duration_ms: 0.715209
+  type: 'test'
+  ...
+# Subtest: W04: Tratsch nur über echte Ereignisse, nie von Beteiligten, jede Meldung einmal
+ok 40 - W04: Tratsch nur über echte Ereignisse, nie von Beteiligten, jede Meldung einmal
+  ---
+  duration_ms: 12.471375
+  type: 'test'
+  ...
+# Subtest: W06: Mei und Timo – Hinweis, Brief, Treffen mit Ortswahl, Entscheidung, Paar; verpasstes Treffen neu ausmachen
+ok 41 - W06: Mei und Timo – Hinweis, Brief, Treffen mit Ortswahl, Entscheidung, Paar; verpasstes Treffen neu ausmachen
+  ---
+  duration_ms: 17.699083
+  type: 'test'
+  ...
+# Subtest: W25/W28: Picknick per Brief verabreden, Decke auf der Karte, Szene mit Auswahl, Erinnerung, Brief danach – alles einmal
+ok 42 - W25/W28: Picknick per Brief verabreden, Decke auf der Karte, Szene mit Auswahl, Erinnerung, Brief danach – alles einmal
+  ---
+  duration_ms: 12.200958
+  type: 'test'
+  ...
+# Subtest: W25: Verabredung im Tagebuch (Wiese am Hof, morgen 17 Uhr); verpasst → freundlicher Brief und neue Wahl
+ok 43 - W25: Verabredung im Tagebuch (Wiese am Hof, morgen 17 Uhr); verpasst → freundlicher Brief und neue Wahl
+  ---
+  duration_ms: 6.951958
+  type: 'test'
+  ...
+# Subtest: W26: Missverständnis nach dem Picknick – Ausweichen, Timos Hinweis, Auflösung mit Herzbank, neue Gespräche
+ok 44 - W26: Missverständnis nach dem Picknick – Ausweichen, Timos Hinweis, Auflösung mit Herzbank, neue Gespräche
+  ---
+  duration_ms: 7.650541
+  type: 'test'
+  ...
+# Subtest: W30: Ausflug nach Lindenstadt – nach dem ersten Picknick, Tisch am Stadtbrunnen, Auswahl, Erinnerung und Brief
+ok 45 - W30: Ausflug nach Lindenstadt – nach dem ersten Picknick, Tisch am Stadtbrunnen, Auswahl, Erinnerung und Brief
+  ---
+  duration_ms: 3.137625
+  type: 'test'
+  ...
+# Subtest: W31: Jahrestag – gespeichertes Datum, jedes Jahr eine Szene mit Kerzen, nie doppelt (Reload, Datumswechsel)
+ok 46 - W31: Jahrestag – gespeichertes Datum, jedes Jahr eine Szene mit Kerzen, nie doppelt (Reload, Datumswechsel)
+  ---
+  duration_ms: 2.526666
+  type: 'test'
+  ...
+# Subtest: W38: Geburtstage – Bewohner freuen sich über passende Geschenke und danken; Janina bekommt Post, Kuchen und Besuch, einmal pro Jahr
+ok 47 - W38: Geburtstage – Bewohner freuen sich über passende Geschenke und danken; Janina bekommt Post, Kuchen und Besuch, einmal pro Jahr
+  ---
+  duration_ms: 12.339333
+  type: 'test'
+  ...
+# Subtest: Post: mit allen neuen Briefen bleiben es 1–3 Briefe pro Nacht über 60 Nächte; alle Wegweiserziele erreichbar
+ok 48 - Post: mit allen neuen Briefen bleiben es 1–3 Briefe pro Nacht über 60 Nächte; alle Wegweiserziele erreichbar
+  ---
+  duration_ms: 18.116
+  type: 'test'
+  ...
+# Subtest: René: Verabredung beeinflusst Tagesplan nur im Zeitfenster; ohne Verabredung kein Eingriff
+ok 49 - René: Verabredung beeinflusst Tagesplan nur im Zeitfenster; ohne Verabredung kein Eingriff
+  ---
+  duration_ms: 0.228958
+  type: 'test'
+  ...
+# Subtest: Migration: Altspielstand ohne Tiere und Café behält Besitz; kaputte Felder werden ersetzt; Reload ändert nichts
+ok 50 - Migration: Altspielstand ohne Tiere und Café behält Besitz; kaputte Felder werden ersetzt; Reload ändert nichts
+  ---
+  duration_ms: 2.6755
+  type: 'test'
+  ...
+# Subtest: W13: Rosas Brief, Renovierung mit genauen Kosten, zwei Nächte, Timos Brief einmal, Innenraum mit Theke, Vitrine, Tafel, Tischen und Stühlen
+ok 51 - W13: Rosas Brief, Renovierung mit genauen Kosten, zwei Nächte, Timos Brief einmal, Innenraum mit Theke, Vitrine, Tafel, Tischen und Stühlen
+  ---
+  duration_ms: 16.354042
+  type: 'test'
+  ...
+# Subtest: W15: Vitrine verbraucht echte Vorräte; Öffnungszeit; Gäste bestellen Lieblingsgerichte; Geld genau einmal; Tagesabrechnung stimmt
+ok 52 - W15: Vitrine verbraucht echte Vorräte; Öffnungszeit; Gäste bestellen Lieblingsgerichte; Geld genau einmal; Tagesabrechnung stimmt
+  ---
+  duration_ms: 2.277125
+  type: 'test'
+  ...
+# Subtest: W15: kein Gewinn durch Einkauf und Weiterverkauf im Café (Läden, Lins Küche, Rezepte, Bestellungen)
+ok 53 - W15: kein Gewinn durch Einkauf und Weiterverkauf im Café (Läden, Lins Küche, Rezepte, Bestellungen)
+  ---
+  duration_ms: 0.338417
+  type: 'test'
+  ...
+# Subtest: W16: Freischaltungen nach 3, 6, 10 Gästen verändern Raum und Angebot sichtbar, genau einmal
+ok 54 - W16: Freischaltungen nach 3, 6, 10 Gästen verändern Raum und Angebot sichtbar, genau einmal
+  ---
+  duration_ms: 8.386292
+  type: 'test'
+  ...
+# Subtest: W17: Bestellungen passen zu Vorlieben, sind kochbar oder erntbar, haben drei Tage Frist, Lohn genau einmal
+ok 55 - W17: Bestellungen passen zu Vorlieben, sind kochbar oder erntbar, haben drei Tage Frist, Lohn genau einmal
+  ---
+  duration_ms: 2.203709
+  type: 'test'
+  ...
+# Subtest: W19: Katze mit Beziehung; nachvollziehbare Geschenke vor der Haustür, genau einmal
+ok 56 - W19: Katze mit Beziehung; nachvollziehbare Geschenke vor der Haustür, genau einmal
+  ---
+  duration_ms: 7.842833
+  type: 'test'
+  ...
+# Subtest: W20: Pudel wittert Schatz, Pfotenspur, Grabstelle, Belohnung genau einmal je Versteck, alle Verstecke erreichbar
+ok 57 - W20: Pudel wittert Schatz, Pfotenspur, Grabstelle, Belohnung genau einmal je Versteck, alle Verstecke erreichbar
+  ---
+  duration_ms: 18.534
+  type: 'test'
+  ...
+# Subtest: W18: Ziege nascht sichtbar höchstens eine reife Pflanze am Feldrand; Heu, Wegschicken und Leckstein helfen
+ok 58 - W18: Ziege nascht sichtbar höchstens eine reife Pflanze am Feldrand; Heu, Wegschicken und Leckstein helfen
+  ---
+  duration_ms: 2.721167
+  type: 'test'
+  ...
+# Subtest: W21: Ententeich verändert den Hof, Enten schwimmen im Wasser und brauchen Futter; Wege bleiben frei
+ok 59 - W21: Ententeich verändert den Hof, Enten schwimmen im Wasser und brauchen Futter; Wege bleiben frei
+  ---
+  duration_ms: 6.520917
+  type: 'test'
+  ...
+# Subtest: W22: Zucht speichert Eltern, Nachwuchs und Farbanlagen; Vererbung je eine Anlage von Mutter und Vater
+ok 60 - W22: Zucht speichert Eltern, Nachwuchs und Farbanlagen; Vererbung je eine Anlage von Mutter und Vater
+  ---
+  duration_ms: 3.419167
+  type: 'test'
+  ...
+# Subtest: W23: Tierrettung per Brief, drei Pflegetage, Adoption oder Vermittlung mit Abschluss genau einmal
+ok 61 - W23: Tierrettung per Brief, drei Pflegetage, Adoption oder Vermittlung mit Abschluss genau einmal
+  ---
+  duration_ms: 15.699917
+  type: 'test'
+  ...
+# Subtest: Laden: Ziege und Leckstein bei Paula, genau einmal; Leckstein erst mit Ziege
+ok 62 - Laden: Ziege und Leckstein bei Paula, genau einmal; Leckstein erst mit Ziege
+  ---
+  duration_ms: 0.163833
+  type: 'test'
+  ...
+# Subtest: Nebenaufgabe: Eine anstehende René-Geschichte hat Vorrang vor dem automatischen Kuscheln
+ok 63 - Nebenaufgabe: Eine anstehende René-Geschichte hat Vorrang vor dem automatischen Kuscheln
+  ---
+  duration_ms: 0.375625
+  type: 'test'
+  ...
+# Subtest: Alle neuen Ziele über den Wegweiser auflösbar und auf ihrer Karte erreichbar
+ok 64 - Alle neuen Ziele über den Wegweiser auflösbar und auf ihrer Karte erreichbar
+  ---
+  duration_ms: 7.161583
+  type: 'test'
+  ...
+# Subtest: Ausgangssystem Etappe 4 ist vorhanden und Migration bewahrt Besitz
+ok 65 - Ausgangssystem Etappe 4 ist vorhanden und Migration bewahrt Besitz
+  ---
+  duration_ms: 2.216917
+  type: 'test'
+  ...
+# Subtest: W07: 14-Tage-Mondkalender, Vortaghinweis, Zugang nur bei Vollmond und sichere Rückwege
+ok 66 - W07: 14-Tage-Mondkalender, Vortaghinweis, Zugang nur bei Vollmond und sichere Rückwege
+  ---
+  duration_ms: 11.392125
+  type: 'test'
+  ...
+# Subtest: W09: Samenquelle, nur nächtliches Handgießen, Regen/Sprinkler zählen nicht, Erntewert
+ok 67 - W09: Samenquelle, nur nächtliches Handgießen, Regen/Sprinkler zählen nicht, Erntewert
+  ---
+  duration_ms: 6.868375
+  type: 'test'
+  ...
+# Subtest: W10: Händler nur bei Regen mit Wegplan, Angebot und Wetterhinweis
+ok 68 - W10: Händler nur bei Regen mit Wegplan, Angebot und Wetterhinweis
+  ---
+  duration_ms: 3.809208
+  type: 'test'
+  ...
+# Subtest: W10: kein Sofortgewinn über Versand, Café oder Bestellungen
+ok 69 - W10: kein Sofortgewinn über Versand, Café oder Bestellungen
+  ---
+  duration_ms: 0.132375
+  type: 'test'
+  ...
+# Subtest: Alle neuen Ziele und Ausgänge liegen auf vorhandenen Karten und begehbaren Kacheln
+ok 70 - Alle neuen Ziele und Ausgänge liegen auf vorhandenen Karten und begehbaren Kacheln
+  ---
+  duration_ms: 36.588084
+  type: 'test'
+  ...
+# Subtest: Migration: Janinas fortgeschrittener Stand bleibt erhalten und sieht die neuen Ziele sofort
+ok 71 - Migration: Janinas fortgeschrittener Stand bleibt erhalten und sieht die neuen Ziele sofort
+  ---
+  duration_ms: 21.33275
+  type: 'test'
+  ...
+# Subtest: Preisleiter: sofort bis 40.000 G, mittel 50.000–150.000 G, lang ab 300.000 G
+ok 72 - Preisleiter: sofort bis 40.000 G, mittel 50.000–150.000 G, lang ab 300.000 G
+  ---
+  duration_ms: 0.124209
+  type: 'test'
+  ...
+# Subtest: Material bei Timo: teurer als Sammeln, Tageslimit, kein Arbitrage-Gewinn
+ok 73 - Material bei Timo: teurer als Sammeln, Tageslimit, kein Arbitrage-Gewinn
+  ---
+  duration_ms: 1.936709
+  type: 'test'
+  ...
+# Subtest: Stadtstufe 2: Bäckerei mit Bauphasen, Reload, Pacht genau einmal pro Tag und Ankauf
+ok 74 - Stadtstufe 2: Bäckerei mit Bauphasen, Reload, Pacht genau einmal pro Tag und Ankauf
+  ---
+  duration_ms: 18.026333
+  type: 'test'
+  ...
+# Subtest: Stadtstufen 3–5: Blumenladen, Park, Villa für Herrn Falk, Hotel; Stadt wird sichtbar größer
+ok 75 - Stadtstufen 3–5: Blumenladen, Park, Villa für Herrn Falk, Hotel; Stadt wird sichtbar größer
+  ---
+  duration_ms: 5.598292
+  type: 'test'
+  ...
+# Subtest: Einnahmen wachsen mit: Beispielrechnung für typische Spieltage
+ok 76 - Einnahmen wachsen mit: Beispielrechnung für typische Spieltage
+  ---
+  duration_ms: 0.395333
+  type: 'test'
+  ...
+# Subtest: Hof ausbauen: Silber- und Goldwerkzeug, neues Feldstück
+ok 77 - Hof ausbauen: Silber- und Goldwerkzeug, neues Feldstück
+  ---
+  duration_ms: 6.649917
+  type: 'test'
+  ...
+# Subtest: Großauftrag mit Frist: Teillieferung, Abschluss zahlt einmal, Scheitern ohne harte Strafe
+ok 78 - Großauftrag mit Frist: Teillieferung, Abschluss zahlt einmal, Scheitern ohne harte Strafe
+  ---
+  duration_ms: 0.763542
+  type: 'test'
+  ...
+# Subtest: Erntewettbewerb mit Greta: nur am Wettbewerbstag, drei Stücke, Preis und Trophäe genau einmal
+ok 79 - Erntewettbewerb mit Greta: nur am Wettbewerbstag, drei Stücke, Preis und Trophäe genau einmal
+  ---
+  duration_ms: 0.686833
+  type: 'test'
+  ...
+# Subtest: Langzeitziele: Hof- und Stadtsterne, nächstes Ziel mit Fortschritt, Trophäen
+ok 80 - Langzeitziele: Hof- und Stadtsterne, nächstes Ziel mit Fortschritt, Trophäen
+  ---
+  duration_ms: 0.680875
+  type: 'test'
+  ...
+# Subtest: Markt öffnet nach Spielkalender Samstag 9 bis vor 15 Uhr, nicht an Festtagen
+ok 81 - Markt öffnet nach Spielkalender Samstag 9 bis vor 15 Uhr, nicht an Festtagen
+  ---
+  duration_ms: 2.574375
+  type: 'test'
+  ...
+# Subtest: Freie Marktteilmenge rechnet den sichtbaren Stückpreis atomar und nur am offenen Markt ab
+ok 82 - Freie Marktteilmenge rechnet den sichtbaren Stückpreis atomar und nur am offenen Markt ab
+  ---
+  duration_ms: 0.596541
+  type: 'test'
+  ...
+# Subtest: Riesen-Ernte bleibt eigene Sorte mit Größenbonus statt fünf normalen Stücken
+ok 83 - Riesen-Ernte bleibt eigene Sorte mit Größenbonus statt fünf normalen Stücken
+  ---
+  duration_ms: 10.464708
+  type: 'test'
+  ...
+# Subtest: Größenstapel erhalten Transfer-/Reload-Bilanz; Markt und Tagesversand verwenden selben Basispreis
+ok 84 - Größenstapel erhalten Transfer-/Reload-Bilanz; Markt und Tagesversand verwenden selben Basispreis
+  ---
+  duration_ms: 0.474
+  type: 'test'
+  ...
+# Subtest: Materialbau dauert drei Nächte; Mieter und Tagesmiete überstehen Reload ohne Exploit
+ok 85 - Materialbau dauert drei Nächte; Mieter und Tagesmiete überstehen Reload ohne Exploit
+  ---
+  duration_ms: 0.892458
+  type: 'test'
+  ...
+# Subtest: Restaurantkarte erweitert; Abendgäste wechseln ohne doppelte Bewohner
+ok 86 - Restaurantkarte erweitert; Abendgäste wechseln ohne doppelte Bewohner
+  ---
+  duration_ms: 0.464792
+  type: 'test'
+  ...
+# Subtest: Drei Häuser: vollständige Altbestände bleiben bei wiederholter Migration erhalten
+ok 87 - Drei Häuser: vollständige Altbestände bleiben bei wiederholter Migration erhalten
+  ---
+  duration_ms: 0.837458
+  type: 'test'
+  ...
+# Subtest: Alle neuen NPC-Ziele sind an jedem Spieltag/Zeitfenster erreichbar, Gäste eindeutig
+ok 88 - Alle neuen NPC-Ziele sind an jedem Spieltag/Zeitfenster erreichbar, Gäste eindeutig
+  ---
+  duration_ms: 16.773542
+  type: 'test'
+  ...
+# Subtest: Dorf führt über Bahnhof in erste Stadt und zurück, Altbesitz bleibt
+ok 89 - Dorf führt über Bahnhof in erste Stadt und zurück, Altbesitz bleibt
+  ---
+  duration_ms: 1.921916
+  type: 'test'
+  ...
+# Subtest: Versand ist bearbeitbare Warteschlange mit atomarer Teilrücknahme bis zur einmaligen Abholung
+ok 90 - Versand ist bearbeitbare Warteschlange mit atomarer Teilrücknahme bis zur einmaligen Abholung
+  ---
+  duration_ms: 1.534584
+  type: 'test'
+  ...
+# Subtest: Direkte Mengen: nur ganze positive sichere Zahlen bis Bestand
+ok 91 - Direkte Mengen: nur ganze positive sichere Zahlen bis Bestand
+  ---
+  duration_ms: 0.158583
+  type: 'test'
+  ...
+# Subtest: Bezahlte Hausstufen erhalten kostenlos obere Etage, sichere Treppe und eigene Einrichtung
+ok 92 - Bezahlte Hausstufen erhalten kostenlos obere Etage, sichere Treppe und eigene Einrichtung
+  ---
+  duration_ms: 7.589084
+  type: 'test'
+  ...
+1..92
+# tests 92
+# suites 0
+# pass 92
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 282.19425
