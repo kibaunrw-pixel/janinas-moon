@@ -45,7 +45,7 @@ async function dialogs(){for(let i=0;i<12&&await p.evaluate(()=>JMDEBUG.busy.ui.
 async function close(){await p.getByRole('button',{name:'Schließen',exact:true}).click();}
 const S=expr=>p.evaluate(expr);
 async function sleep(){await click(11,3,.5);await p.getByRole('button',{name:'Gute Nacht',exact:true}).click();await p.waitForFunction(()=>!JMDEBUG.busy.ui.fade,null,{timeout:20000});await map('haus');
- /* Fixture: zufällige Tagesziele leeren, damit die Geldbilanz nur Miete/Missionen enthält */await S(()=>{JMDEBUG.S.daily.goals=[];});}
+ /* Fixture: zufällige Tagesziele und automatische Kuschelansprache ausschließen, damit Bilanz und Gesprächsfolge deterministisch bleiben (wie im Startspielstand). */await S(()=>{JMDEBUG.S.daily.goals=[];JMDEBUG.S.rene.cudToday=2;});}
 async function toFarm(){await walk(7,9);await click(7,10);await map('farm');}
 async function diag(what){const d=await p.evaluate(()=>{const r=JMDEBUG.M.id;return {map:r,p:[JMDEBUG.P.x,JMDEBUG.P.y],idle:JMDEBUG.idle,busy:JSON.stringify(JMDEBUG.busy),min:JMDEBUG.S.min,dlg:document.querySelector('#dlg')?.innerText,panel:document.querySelector('#panel')?.innerText?.slice(0,200),notes:[...document.querySelectorAll('.note,#note,.toast')].map(n=>n.innerText).join('|')};});console.error('DIAG',what,tag,JSON.stringify(d));await shot('diag-'+what+'-'+seg);}
 /* Hunde können sich zwischen Prüfung und Tipp vor den Briefkasten bewegen (beobachtet im vollen Lauf haus7 390/3D: Dialog „A schaut dich mit großen Augen an.“).
