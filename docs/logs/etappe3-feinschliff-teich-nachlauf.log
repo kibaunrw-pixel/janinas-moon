@@ -1,0 +1,6 @@
+{"seg":"teich","width":390,"gfx":"2d","ok":true,"raf":62,"result":{"kid":"Kiki","c":"wild","g":["w","A"]}}
+{"seg":"teich","width":390,"gfx":"3d","ok":true,"raf":62,"result":{"kid":"Kiki","c":"wild","g":["w","A"]}}
+Wegversuch wiederholt teich-1440-2d { x: 9, y: 8, r: [ 576, 178 ] }
+{"seg":"teich","width":1440,"gfx":"2d","ok":true,"raf":62,"result":{"kid":"Kiki","c":"wild","g":["w","A"]}}
+{"seg":"teich","width":1440,"gfx":"3d","ok":true,"raf":62,"result":{"kid":"Kiki","c":"wild","g":["w","A"]}}
+OK etappe3-browser teich
