@@ -27,6 +27,7 @@ async function click(x,y,h=.05,actorOk=false){await p.waitForTimeout(450);
 /* Ergänzung gegenüber briefe-browser: Liegt das Ziel außerhalb des Bildes (3D am Rechner nah gezoomt), geht die Figur
    wie eine Spielerin erst auf den sichtbaren freien Boden, der dem Ziel am nächsten ist (keine Teleports). */
 async function stepToward(x,y){const t=await p.evaluate(({x,y,gfx})=>{const d=JMDEBUG,m=d.M,out=[];for(let ty=0;ty<m.h;ty++)for(let tx=0;tx<m.w;tx++){if(!JM.WALK.has(m.t[ty][tx])||m.exits.some(e=>e.x===tx&&e.y===ty))continue;
+  /* Etappe 3: bestellte Beete nicht als Wegpunkt wählen, der Tipp würde dort pflanzen statt gehen */if(m.id==='farm'&&d.S.field[tx+','+ty]?.t)continue;
   const r=gfx==='3d'?JM.R3.proj(tx+.5,ty+.5,.01).map(n=>n/devicePixelRatio):[(tx*16+8-Math.round(d.cam.x))*d.scale,(ty*16+8-Math.round(d.cam.y))*d.scale];if(r[0]<20||r[0]>=innerWidth-20||r[1]<130||r[1]>=innerHeight-130||document.elementFromPoint(r[0],r[1])?.tagName!=='CANVAS')continue;
   if(gfx==='3d'){const h=JM.R3.pick(...r);if(!h||h.obj||h.actor||h.collectible||Math.floor(h.wx)!==tx||Math.floor(h.wy)!==ty)continue;}out.push({tx,ty,r,dist:Math.hypot(tx-x,ty-y)});}out.sort((a,b)=>a.dist-b.dist);return out[0]||null;},{x,y,gfx});
  if(!t)return false;await p.mouse.click(...t.r);await p.waitForTimeout(300);await p.waitForFunction(()=>JMDEBUG.idle,null,{timeout:15000});await p.waitForTimeout(800);return true;}
@@ -112,11 +113,16 @@ async function tapPet(id){await p.waitForFunction(id=>{const a=JMDEBUG.PETS.find
 async function tapGuest(id){await p.waitForFunction(id=>JM.ENG.NPCA[id]?.vis&&JM.ENG.seated(JM.ENG.NPCA[id]),id,{timeout:30000});await p.waitForTimeout(400);
  const r=await p.evaluate(({id,gfx})=>{const d=JMDEBUG,a=JM.ENG.NPCA[id],sd=JM.ENG.seatSide(a);return gfx==='3d'?JM.R3.proj(a.x+.5+(sd==='r'?.35:-.35),a.y+.62,.75).map(n=>n/devicePixelRatio):[(a.x*16+8-Math.round(d.cam.x))*d.scale,(a.y*16+6-Math.round(d.cam.y))*d.scale];},{id,gfx});
  assert.equal(await p.evaluate(([x,y])=>document.elementFromPoint(x,y)?.tagName,r),'CANVAS','Gast sichtbar '+id);await p.mouse.click(...r);await p.waitForFunction(()=>JMDEBUG.busy.ui.dialog,null,{timeout:20000});}
+/* Längere Wege auf dem Hof: wie eine Spielerin in sichtbaren Etappen gehen (stepToward), zuletzt genau aufs Ziel. */
+async function goTo(x,y){for(let n=0;n<8;n++){const d=await S(()=>[JMDEBUG.P.x,JMDEBUG.P.y]);if(Math.abs(d[0]-x)+Math.abs(d[1]-y)<4)break;if(!await stepToward(x,y))break;}await walk(x,y);}
 async function night(){await p.evaluate(()=>JMDEBUG.endDay(false));await p.waitForFunction(()=>!JMDEBUG.busy.ui.fade,null,{timeout:20000});await map('haus');await S(()=>{JMDEBUG.S.daily.goals=[];JMDEBUG.S.rene.cudToday=2;});}
 async function panelBtn(sel){const b=p.locator(sel).first();await b.scrollIntoViewIfNeeded();await b.click();await p.waitForTimeout(350);}
 async function farmFromHouse(){await walk(7,9);await click(7,10);await map('farm');}
 async function tapDog(i){await p.waitForFunction(i=>{const d=JMDEBUG.DOGS.find(q=>q.i===i);return d&&!d.moving;},i,{timeout:30000});await p.waitForTimeout(300);
- const r=await p.evaluate(({i,gfx})=>{const d=JMDEBUG,a=d.DOGS.find(q=>q.i===i);return gfx==='3d'?JM.R3.proj(a.x+.5,a.y+.6,.35).map(n=>n/devicePixelRatio):[(a.x*16+8-Math.round(d.cam.x))*d.scale,(a.y*16+9-Math.round(d.cam.y))*d.scale];},{i,gfx});
+ const r=await p.evaluate(({i,gfx})=>{const d=JMDEBUG,a=d.DOGS.find(q=>q.i===i);if(gfx!=='3d')return [(a.x*16+8-Math.round(d.cam.x))*d.scale,(a.y*16+9-Math.round(d.cam.y))*d.scale];
+  /* 3D: die Höhe suchen, in der der Strahl wirklich den Pudel trifft (Tipp-Vorrang: kein Gegenstand davor) */
+  for(const z of [.3,.22,.4,.15,.5])for(const dx of [.5,.4,.6]){const r=JM.R3.proj(a.x+dx,a.y+.5,z).map(n=>n/devicePixelRatio),h=JM.R3.pick(...r);if(h&&h.actor==='dog'+i)return r;}
+  return JM.R3.proj(a.x+.5,a.y+.5,.3).map(n=>n/devicePixelRatio);},{i,gfx});
  await p.mouse.click(...r);await p.waitForFunction(()=>JMDEBUG.busy.ui.dialog,null,{timeout:20000});}
 const FIX={
  cafe:{map:'village',px:9,py:14,day:12,min:440,inv:{holz:20,stein:10,erdbeere:3,suppe:3},cafe:{sent:{idee:11},served:1,orders:[{id:1,who:'rosa',k:'suppe',day:11,due:14,st:'offen',rew:270,letter:11}]}},
@@ -197,14 +203,14 @@ if(seg==='teich'){ // W21 Teich, W22 Zucht
  await walk(13,27);await click(12,27,.6);await p.getByRole('heading',{name:'Ein Ententeich',exact:true}).waitFor();await panelBtn('[data-a="teich"]');
  assert.equal((await T3()).teich.st,'bau');assert.equal(await S(()=>JMDEBUG.S.money),before.money-600);assert.equal(await S(()=>JMDEBUG.S.inv.stein),undefined);
  await reload();assert.equal((await T3()).teich.st,'bau');assert.equal(await S(()=>JMDEBUG.S.money),before.money-600);
- await night();await farmFromHouse();await walk(13,20);await walk(13,25);assert.equal((await T3()).teich.st,'fertig');assert.ok(await S(()=>JMDEBUG.M.t[26][8]===JM.T.WASSER),'Teich ist Wasser');
+ await night();await farmFromHouse();await goTo(13,20);await walk(13,25);assert.equal((await T3()).teich.st,'fertig');assert.ok(await S(()=>JMDEBUG.M.t[26][8]===JM.T.WASSER),'Teich ist Wasser');
  await p.waitForFunction(()=>JMDEBUG.PETS.filter(q=>q.anim==='schwimm').length===2,null,{timeout:20000});await p.waitForTimeout(800);row.shots.push(await sceneShot('teich-enten'));
  await click(12,26,.4);await p.waitForTimeout(500);assert.deepEqual(await S(()=>[JMDEBUG.S.tiere.futterE.n,JMDEBUG.S.inv.futter]),[2,4]);
  await tapPet('ente1');assert.equal((await T3()).enten[1].h,1);
  // Zucht-Fixture: beide Enten seit Tagen mit 3 Herzen, Teich seit vier Tagen fertig (statt vier echte Tage warten)
  await S(()=>{const t=JMDEBUG.S.tiere;t.enten.forEach(e=>e.h=3);t.teich.done=JMDEBUG.S.day-4;});await reload();
  await backHome();await sleep();const E=(await T3()).enten;assert.equal(E.length,3,'Küken geschlüpft');const kid=E[2];assert.equal(kid.mother,'Emma');assert.equal(kid.father,'Ede');assert.ok(['w','g'].includes(kid.g[0])&&['A','g'].includes(kid.g[1]));
- await farmFromHouse();await walk(13,20);await walk(13,25);await p.waitForTimeout(1500);row.shots.push(await sceneShot('teich-kueken'));
+ await farmFromHouse();await goTo(13,20);await walk(13,25);await p.waitForTimeout(1500);row.shots.push(await sceneShot('teich-kueken'));
  await book('friends');const bt=await bookText();assert.match(bt,/Eltern: Emma × Ede/);assert.match(bt,new RegExp(kid.n));row.shots.push(await shot('teich-tagebuch'));await close();
  await reload();assert.deepEqual((await T3()).enten,E);row.result={kid:kid.n,c:kid.c,g:kid.g};}
 if(seg==='rettung'){ // W23
@@ -213,8 +219,8 @@ if(seg==='rettung'){ // W23
  const careOnce=async()=>{await click(12,20,.3);await p.waitForTimeout(600);await dialogs();};
  await careOnce();assert.equal((await T3()).rettung.care.length,1);assert.equal(await S(()=>JMDEBUG.S.inv.milch),2);
  await reload();await careOnce();assert.equal(await S(()=>JMDEBUG.S.inv.milch),2,'einmal am Tag');row.shots.push(await sceneShot('rettung-korb'));
- for(let d=2;d<=3;d++){await night();await farmFromHouse();await walk(13,20);await walk(12,21);await careOnce();assert.equal((await T3()).rettung.care.length,d);}
- await night();await farmFromHouse();await walk(13,20);await walk(12,21);await click(12,20,.3);await pickChoice('Es bleibt bei uns');await dialogs();
+ for(let d=2;d<=3;d++){await night();await farmFromHouse();await goTo(13,20);await walk(12,21);await careOnce();assert.equal((await T3()).rettung.care.length,d);}
+ await night();await farmFromHouse();await goTo(13,20);await walk(12,21);await click(12,20,.3);await pickChoice('Es bleibt bei uns');await dialogs();
  assert.equal((await T3()).rettung.st,'adoptiert');await p.waitForFunction(()=>JMDEBUG.PETS.some(q=>q.id==='pip'),null,{timeout:20000});
  await reload();assert.equal((await T3()).rettung.st,'adoptiert');assert.ok(!await S(()=>JMDEBUG.M.obj.some(o=>o.k==='pflegekorb')));await p.waitForTimeout(800);row.shots.push(await sceneShot('rettung-pip'));
  row.result={st:'adoptiert'};}
