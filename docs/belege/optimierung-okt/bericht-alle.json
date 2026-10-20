@@ -1,0 +1,346 @@
+[
+ {
+  "seg": "osten",
+  "width": 390,
+  "gfx": "2d",
+  "shots": [
+   "osten-dorf-vorher-390-2d.png",
+   "osten-bahnhof-390-2d.png"
+  ],
+  "errors": [],
+  "hecke": "bahnhof",
+  "zurueck": [
+   29,
+   15
+  ],
+  "unten": [
+   2,
+   10
+  ],
+  "ok": true
+ },
+ {
+  "seg": "osten",
+  "width": 390,
+  "gfx": "3d",
+  "shots": [
+   "osten-dorf-vorher-390-3d.png",
+   "osten-bahnhof-390-3d.png"
+  ],
+  "errors": [],
+  "hecke": "bahnhof",
+  "zurueck": [
+   29,
+   15
+  ],
+  "unten": [
+   2,
+   10
+  ],
+  "ok": true
+ },
+ {
+  "seg": "osten",
+  "width": 1440,
+  "gfx": "2d",
+  "shots": [
+   "osten-dorf-vorher-1440-2d.png",
+   "osten-bahnhof-1440-2d.png"
+  ],
+  "errors": [],
+  "hecke": "bahnhof",
+  "zurueck": [
+   29,
+   15
+  ],
+  "unten": [
+   2,
+   10
+  ],
+  "ok": true
+ },
+ {
+  "seg": "osten",
+  "width": 1440,
+  "gfx": "3d",
+  "shots": [
+   "osten-dorf-vorher-1440-3d.png",
+   "osten-bahnhof-1440-3d.png"
+  ],
+  "errors": [],
+  "hecke": "bahnhof",
+  "zurueck": [
+   29,
+   15
+  ],
+  "unten": [
+   2,
+   10
+  ],
+  "ok": true
+ },
+ {
+  "seg": "tuer",
+  "width": 390,
+  "gfx": "2d",
+  "shots": [
+   "tuer-hang-390-2d.png",
+   "tuer-gewoelbe-vollmond-390-2d.png",
+   "tuer-vollmondwald-390-2d.png"
+  ],
+  "errors": [],
+  "text": "Zwischen Moos und Wurzeln steckt eine Tür aus Stein, mitten im Hang. Die Steintür ist schwer. Du stemmst dich dagegen, und mit einem Knirschen",
+  "tor": "vollmondwald",
+  "ok": true
+ },
+ {
+  "seg": "tuer",
+  "width": 390,
+  "gfx": "3d",
+  "shots": [
+   "tuer-hang-390-3d.png",
+   "tuer-gewoelbe-vollmond-390-3d.png",
+   "tuer-vollmondwald-390-3d.png"
+  ],
+  "errors": [],
+  "text": "Zwischen Moos und Wurzeln steckt eine Tür aus Stein, mitten im Hang. Die Steintür ist schwer. Du stemmst dich dagegen, und mit einem Knirschen s",
+  "tor": "vollmondwald",
+  "ok": true
+ },
+ {
+  "seg": "tuer",
+  "width": 1440,
+  "gfx": "2d",
+  "shots": [
+   "tuer-hang-1440-2d.png",
+   "tuer-gewoelbe-vollmond-1440-2d.png",
+   "tuer-vollmondwald-1440-2d.png"
+  ],
+  "errors": [],
+  "text": "Zwischen Moos und Wurzeln steckt eine Tür aus Stein, mitten im Hang. Die Steintür ist schwer. Du stemmst dich dagegen, und mit einem Knirsch",
+  "tor": "vollmondwald",
+  "ok": true
+ },
+ {
+  "seg": "tuer",
+  "width": 1440,
+  "gfx": "3d",
+  "shots": [
+   "tuer-hang-1440-3d.png",
+   "tuer-gewoelbe-vollmond-1440-3d.png",
+   "tuer-vollmondwald-1440-3d.png"
+  ],
+  "errors": [],
+  "text": "Zwischen Moos und Wurzeln steckt eine Tür aus Stein, mitten im Hang. Die Steintür ist schwer. Du stemmst dich dagegen, und mit einem Knirschen",
+  "tor": "vollmondwald",
+  "ok": true
+ },
+ {
+  "seg": "karte",
+  "width": 390,
+  "gfx": "2d",
+  "shots": [
+   "karte-tagebuch-karte-390-2d.png",
+   "karte-ebene7-390-2d.png"
+  ],
+  "errors": [],
+  "ziele": [
+   "farm",
+   "village",
+   "forest",
+   "bahnhof",
+   "stadt",
+   "waldtuer",
+   "hoehle",
+   "hoehle2",
+   "hoehle3",
+   "hoehle4",
+   "hoehle5",
+   "hoehle6",
+   "hoehle7"
+  ],
+  "mine": {
+   "id": "hoehle7",
+   "rocks": 25,
+   "max": 7
+  },
+  "ok": true
+ },
+ {
+  "seg": "karte",
+  "width": 390,
+  "gfx": "3d",
+  "shots": [
+   "karte-tagebuch-karte-390-3d.png",
+   "karte-ebene7-390-3d.png"
+  ],
+  "errors": [],
+  "ziele": [
+   "farm",
+   "village",
+   "forest",
+   "bahnhof",
+   "stadt",
+   "waldtuer",
+   "hoehle",
+   "hoehle2",
+   "hoehle3",
+   "hoehle4",
+   "hoehle5",
+   "hoehle6",
+   "hoehle7"
+  ],
+  "mine": {
+   "id": "hoehle7",
+   "rocks": 25,
+   "max": 7
+  },
+  "ok": true
+ },
+ {
+  "seg": "karte",
+  "width": 1440,
+  "gfx": "2d",
+  "shots": [
+   "karte-tagebuch-karte-1440-2d.png",
+   "karte-ebene7-1440-2d.png"
+  ],
+  "errors": [],
+  "ziele": [
+   "farm",
+   "village",
+   "forest",
+   "bahnhof",
+   "stadt",
+   "waldtuer",
+   "hoehle",
+   "hoehle2",
+   "hoehle3",
+   "hoehle4",
+   "hoehle5",
+   "hoehle6",
+   "hoehle7"
+  ],
+  "mine": {
+   "id": "hoehle7",
+   "rocks": 25,
+   "max": 7
+  },
+  "ok": true
+ },
+ {
+  "seg": "karte",
+  "width": 1440,
+  "gfx": "3d",
+  "shots": [
+   "karte-tagebuch-karte-1440-3d.png",
+   "karte-ebene7-1440-3d.png"
+  ],
+  "errors": [],
+  "ziele": [
+   "farm",
+   "village",
+   "forest",
+   "bahnhof",
+   "stadt",
+   "waldtuer",
+   "hoehle",
+   "hoehle2",
+   "hoehle3",
+   "hoehle4",
+   "hoehle5",
+   "hoehle6",
+   "hoehle7"
+  ],
+  "mine": {
+   "id": "hoehle7",
+   "rocks": 25,
+   "max": 7
+  },
+  "ok": true
+ },
+ {
+  "seg": "meteor",
+  "width": 390,
+  "gfx": "2d",
+  "shots": [
+   "meteor-meteorit-390-2d.png",
+   "meteor-meteorit-risse-390-2d.png"
+  ],
+  "errors": [],
+  "pos": {
+   "x": 11,
+   "y": 23,
+   "k": "meteorit3"
+  },
+  "belohnung": {
+   "m": 1,
+   "q": 2,
+   "ev": null
+  },
+  "ok": true
+ },
+ {
+  "seg": "meteor",
+  "width": 390,
+  "gfx": "3d",
+  "shots": [
+   "meteor-meteorit-390-3d.png",
+   "meteor-meteorit-risse-390-3d.png"
+  ],
+  "errors": [],
+  "pos": {
+   "x": 11,
+   "y": 23,
+   "k": "meteorit3"
+  },
+  "belohnung": {
+   "m": 1,
+   "q": 2,
+   "ev": null
+  },
+  "ok": true
+ },
+ {
+  "seg": "meteor",
+  "width": 1440,
+  "gfx": "2d",
+  "shots": [
+   "meteor-meteorit-1440-2d.png",
+   "meteor-meteorit-risse-1440-2d.png"
+  ],
+  "errors": [],
+  "pos": {
+   "x": 11,
+   "y": 23,
+   "k": "meteorit3"
+  },
+  "belohnung": {
+   "m": 1,
+   "q": 2,
+   "ev": null
+  },
+  "ok": true
+ },
+ {
+  "seg": "meteor",
+  "width": 1440,
+  "gfx": "3d",
+  "shots": [
+   "meteor-meteorit-1440-3d.png",
+   "meteor-meteorit-risse-1440-3d.png"
+  ],
+  "errors": [],
+  "pos": {
+   "x": 11,
+   "y": 23,
+   "k": "meteorit3"
+  },
+  "belohnung": {
+   "m": 1,
+   "q": 2,
+   "ev": null
+  },
+  "ok": true
+ }
+]

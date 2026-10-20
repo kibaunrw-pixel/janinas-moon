@@ -442,6 +442,10 @@ function tapAt(wx,wy,tx,ty,actor){
     if(h.k==="cow"){ const a=h.c; goTo(adjGoal(Math.round(a.x),Math.round(a.y)),()=>{ faceTo(Math.round(a.x),Math.round(a.y)); cowAct(a); }); return; }
     if(h.k==="pet"){ const a=h.p; goTo(adjGoal(Math.round(a.x),Math.round(a.y),true),()=>{ faceTo(Math.round(a.x),Math.round(a.y)); petTap(a); }); return; }
   }
+  // Ausgangs-Magnet: Ein Tipp knapp neben einen Kartenausgang (Hecke, Bäume, Kartenrand) führt zum Ausgang,
+  // statt die Figur an der Hecke stehen zu lassen. Wasser und begehbare Kacheln bleiben unberührt.
+  const exN=nearExit(tx,ty);
+  if(exN){ goTo((x,y)=>x===exN.x&&y===exN.y); return; }
   if(!inside) return;
   if(isWater(tx,ty)){
     const near=(x,y)=>{ for(const [dx,dy] of [[0,-1],[0,1],[-1,0],[1,0]]) if(isWater(x+dx,y+dy)&&Math.abs(x+dx-tx)+Math.abs(y+dy-ty)<=5) return [x+dx,y+dy]; return null; };
@@ -528,7 +532,15 @@ function waterAct(x,y){
   if(S.can.w<S.can.max){ S.can.w=S.can.max; sfx("water"); burst(x,y,"#9ad0f0",10,true); note("Gießkanne aufgefüllt ("+S.can.max+")."); hudSoon(); return; }
   if(S.rod) note("Wähle unten die Angel, um hier zu angeln."); else note("Die Gießkanne ist schon voll.");
 }
+function nearExit(tx,ty){
+  if(M.inside||!M.exits||!M.exits.length) return null;
+  const inside=tx>=0&&ty>=0&&tx<M.w&&ty<M.h;
+  if(inside&&(walkT(tx,ty)||isWater(tx,ty))) return null;
+  let best=null,bd=3; for(const e of M.exits){ const d=Math.max(Math.abs(e.x-tx),Math.abs(e.y-ty)); if(d<bd){ bd=d; best=e; } }
+  return best;
+}
 function treeAct(x,y){
+  if(M.id==="stadt"&&JM.Ziele&&x>=JM.Ziele.EAST&&JM.Ziele.stufe(S)<2){ note("Hier endet Lindenstadt noch am Wald. Am Stadtplan beim Brunnen gibst du Stadtstufe 2 in Auftrag, dann rodet Timo, und die Straße führt nach Osten weiter."); return; }
   if(season()===2&&rnd()<.3&&!S.flags["shake"+S.day+M.id+x+y]){ S.flags["shake"+S.day+M.id+x+y]=1; give("kastanie",1); floatItem(x,y,"kastanie"); sfx("pick"); return; }
   note(pick(["Ein schöner alter Baum.","Die Blätter rauschen leise.","Ein Vogel zwitschert irgendwo."]));
 }
@@ -609,6 +621,7 @@ function objAct(o){
   if(a.startsWith('dorfprojekt:'))return runPost(JM.Post.evAct(S,a));
   if(a.startsWith('entdecken:'))return runPost(JM.Post.evAct(S,a));
   if(a.startsWith('chronik:'))return runPost(JM.Post.evAct(S,a));
+  if(a.startsWith('nacht:'))return runPost(JM.Post.evAct(S,a));
   if(a.startsWith('magie:'))return runPost(JM.Magie.act(S,a.slice(6)));
   if(a.startsWith('ziele:'))return runPost(JM.Ziele.act(S,a.slice(6)));
   if(a==='train')return openTrain();
@@ -699,6 +712,7 @@ function endDay(passedOut){
   if(fest) S.mailQ.push({from:"rosa",t:fest.n+" morgen!",b:"Liebe "+S.name+",\n\nmorgen ist "+fest.n+"! "+fest.desc+" Es beginnt um "+Math.floor(fest.from/60)+" Uhr auf dem Dorfplatz. Sprich einfach mit mir, wenn du da bist.\n\nRosa"});
   // Briefkasten (jm-post.js): 1–3 Briefe pro Nacht, Missionsfortsetzungen; Karten danach neu anwenden
   JM.Post.night(S,{rent},rnd); JM.Stadt.apply(MAPS,S);
+  if(JM.Nacht) notes.push(...JM.Nacht.takeNotes(S));
   S.mail.push(...S.mailQ); S.mailQ=[];
   for(const id in NPCS){ const b=NPCS[id].bday; if(b[0]===se&&b[1]===dayIn()) notes.push("Heute hat "+NPCS[id].n+" Geburtstag."); }
   S.energy=passedOut?Math.round(S.maxE*.5):S.maxE;
@@ -1690,9 +1704,20 @@ function openBook(tab){
   }
   if(tab==="ziele") body=JM.Ziele.page(S,esc);
   if(tab==="map"){
-    const places=[["farm","Dein Hof","Haus, Felder, Tiere",5,8],["village","Das Dorf","Läden, Bewohner, Dorfplatz",14,13],["forest","Der Mondwald","Mondbaum, Fluss, See, Fundstücke",13,15]].concat(S.flags.caveSeen?[["hoehle","Die Mondhöhle","Kupfer und Edelsteine",10,14]]:[]);
-    body=`<p class="sub">Mit der Kutsche bist du schnell überall. Die Fahrt dauert 30 Minuten.</p>`+places.map(([id,n,d])=>`<button class="tile" data-a="go" data-k="${id}" ${M.id===id?"disabled":""} style="width:100%;margin-bottom:8px"><b>${n}${M.id===id?" · du bist hier":""}</b><small>${d}</small></button>`).join("")+(S.flags.caveSeen?"":`<p class="sub">Eine Höhle soll es hinten im Wald geben. Erst wenn du sie gefunden hast, fährt die Kutsche dorthin.</p>`);
-    PH_GO=places;
+    // Alle begehbaren Orte; neue Orte und jede schon erreichte Mine-Ebene (Janinas Rückmeldung 20.10.).
+    const seen=id=>!!(S.entdecken&&S.entdecken.places&&S.entdecken.places[id]), tuer=S.post&&S.post.m&&S.post.m.tuer&&S.post.m.tuer.st;
+    const GM=JM.Gemeinschaft, maxD=Math.max(S.flags.caveSeen?1:0,(S.mine&&S.mine.max)||0), full=JM.Magie.moon(S.day).full;
+    const places=[["farm","Dein Hof","Haus, Felder, Tiere",5,8],["village","Das Dorf","Läden, Bewohner, Dorfplatz",14,13],["forest","Der Mondwald","Mondbaum, Fluss, See, Fundstücke",13,15]];
+    if(S.flags.villageSeen||seen("bahnhof")) places.push(["bahnhof","Dorfbahnhof","Zug nach Lindenstadt",10,9],["stadt","Lindenstadt","Mietshäuser, Stadtplatz, Bauaufträge",13,18]);
+    if(seen(GM.ROOM)||(S.gemeinschaft&&S.gemeinschaft.garten&&S.gemeinschaft.garten.st)) places.push([GM.ROOM,"Garten hinter dem Rathaus","Gemeinschaftsbeete, Dorfgewächshaus",10,16]);
+    if(["offen","fertig"].includes(tuer)) places.push([JM.Post.ROOM,"Gewölbe hinter der Waldtür","Truhe, Steintafel, rechts das Mondtor",5,6]);
+    if(full&&["offen","fertig"].includes(tuer)) places.push([JM.Magie.ROOM,"Der Vollmondwald","Nur heute, bei Vollmond",10,14]);
+    const mine=[]; for(let d=1;d<=Math.min(10,maxD);d++) mine.push([d===1?"hoehle":"hoehle"+d,"Mine · Ebene "+d,JM.MINE_THEMES[d-1][0],10,14]);
+    const tile=([id,n,d])=>`<button class="tile" data-a="go" data-k="${id}" ${M.id===id?"disabled":""} style="width:100%;margin-bottom:8px"><b>${esc(n)}${M.id===id?" · du bist hier":""}</b><small>${esc(d)}</small></button>`;
+    body=`<p class="sub">Mit der Kutsche bist du schnell überall. Die Fahrt dauert 30 Minuten.</p>`+places.map(tile).join("")+
+      (mine.length?`<h3>Mine</h3><p class="sub">Direkt zu jeder Ebene, die du schon erreicht hast (bis Ebene ${mine.length}). Tiefer geht es weiter über die Leitern.</p><div class="grid" style="grid-template-columns:repeat(2,1fr);gap:6px">`+mine.map(([id,n,d])=>`<button class="tile" data-a="go" data-k="${id}" ${M.id===id?"disabled":""}><b>${esc(n.replace("Mine · ",""))}</b><small>${esc(d)}</small></button>`).join("")+`</div>`:`<p class="sub">Eine Höhle soll es hinten im Wald geben. Erst wenn du sie gefunden hast, fährt die Kutsche dorthin.</p>`)+
+      (["offen","fertig"].includes(tuer)?"":`<p class="sub">Henk erzählt von einer Steintür ganz im Nordwesten des Mondwalds. Hast du sie geöffnet, fährt die Kutsche auch zum Gewölbe.</p>`);
+    PH_GO=places.concat(mine);
   }
   if(tab==="ach"){ const got=S.ach||[]; body=`<p class="sub">${got.length} von ${JM.ACH.length} Erfolgen</p>`+JM.ACH.map(a=>`<div class="row ${got.includes(a.id)?"":"dim"}"><div class="tx"><b>${got.includes(a.id)?"★ ":"☆ "}${esc(fmtD(a.t))}</b><small>${esc(fmtD(a.d))}</small></div></div>`).join(""); }
   if(tab==="cal"){
@@ -1704,7 +1729,7 @@ function openBook(tab){
     }
     body=`<h3>${JM.SEASONS[se]} · Jahr ${year()}</h3><div class="cal">${cells}</div><p class="sub">Feste beginnen auf dem Dorfplatz. An Geburtstagen zählen Geschenke dreifach.</p>`;
   }
-  if(tab==="herz") body=JM.Rom.diary(S,esc)+JM.Dorf.diary(S,esc)+JM.Magie.diary(S,esc)+JM.Chronik.diary(S,esc)+JM.Entdecken.diary(S)+JM.Gemeinschaft.diary(S,esc)+JM.Zuhause.diary(S,esc);
+  if(tab==="herz") body=JM.Rom.diary(S,esc)+JM.Dorf.diary(S,esc)+JM.Magie.diary(S,esc)+JM.Chronik.diary(S,esc)+JM.Entdecken.diary(S)+JM.Gemeinschaft.diary(S,esc)+JM.Zuhause.diary(S,esc)+(JM.Nacht?JM.Nacht.diary(S,esc):"");
   if(tab==="friends"){
     body=`<div class="row"><canvas class="pt" data-pt="dog0"></canvas><div class="tx"><b>${esc(dogName(0))}</b>${heartRow(S.dogH[0])}<small>${S.dogPet[0]===S.day?"Heute gestreichelt":"Noch nicht gestreichelt"}</small></div></div>
       <div class="row"><canvas class="pt" data-pt="dog1"></canvas><div class="tx"><b>${esc(dogName(1))}</b>${heartRow(S.dogH[1])}<small>${S.dogPet[1]===S.day?"Heute gestreichelt":"Noch nicht gestreichelt"}</small></div></div>`;

@@ -3,7 +3,7 @@
    Der Mond folgt bewusst dem kurzen Spieljahr: Vollmond an Tag 14, 28, 42 …; am Vortag wird gewarnt. */
 (function(){
 const J=window.JM,X=J.Post,St=J.Stadt,D=J.Dorf,T=J.T,G=J.Magie={};
-G.ROOM='vollmondwald';G.PERIOD=14;G.GATE={x:2,y:3};G.SEED={x:13,y:6};
+G.ROOM='vollmondwald';G.PERIOD=14;G.GATE={x:9,y:3};/* rechts an der Rückwand: oben links verdeckte das HUD das Tor (1440×900, 3D) */G.SEED={x:13,y:6};
 J.ITEMS.mondsamen={n:'Mondsamen',cat:'seed',crop:'mondblume'};
 J.ITEMS.mondblume={n:'Mondblüte',cat:'crop',sell:640,eat:35};
 J.ITEMS.mondtau={n:'Mondtau',cat:'forage',sell:140,eat:18};
@@ -33,7 +33,7 @@ G.apply=function(maps,s){for(const id of ['waldtuer','forest','village'])clear(m
 const apply0=X.apply;X.apply=function(maps,s){apply0(maps,s);return G.apply(maps,s);};
 
 G.act=function(s,a){G.migrate(s);
- if(a==='tor'){if(!G.moon(s.day).full)return {note:'Noch kein Vollmond. Im Tagebuch steht, wann das Tor erwacht.'};return {travel:{to:G.ROOM,tx:10,ty:14}};}
+ if(a==='tor'){const mo=G.moon(s.day);if(!mo.full)return {note:'Das Mondtor schläft. '+(mo.tomorrow?'Morgen ist Vollmond, dann ist es einen Tag lang offen.':'Noch '+mo.until+' Tage bis Vollmond. Im Tagebuch unter „Herz“ steht es auch.')};return {travel:{to:G.ROOM,tx:10,ty:14}};}
  if(a==='samen'){if(s.magie.found.samen)return {note:'Die Mondsamen sind gesammelt. Zwischen den silbrigen Blättern ist heute nichts mehr.'};s.magie.found.samen=s.day;s.inv.mondsamen=(s.inv.mondsamen||0)+3;return {hud:true,sfx:'gift',lines:[D.say(null,'Unter den leuchtenden Blättern liegen drei dunkle Samen.'),D.say('player','Mondsamen. Sie fühlen sich kühl an. Ich gieße sie nachts von Hand.')]};}
  if(a==='blumen')return {note:'Mondglocken. Sie läuten nicht, aber sie leuchten, sobald du näher kommst.'};
  if(a==='pilze')return {note:'Die Pilze leuchten ruhig. Ihr Licht bleibt dicht am Boden.'};
@@ -49,8 +49,15 @@ G.afterGrowth=(s,f)=>{if(f&&f.c&&f.c.k==='mondblume')delete f.c.nacht;};
 G.cropHint=(s,f)=>f&&f.c&&f.c.k==='mondblume'&&!G.growsTonight(s,f)?'Mondblüten wachsen nur, wenn du sie nachts von Hand gießt. Regen und Sprinkler zählen nicht.':null;
 G.safeMorning=s=>s&&s.map===G.ROOM?{map:'haus',px:10,py:5}:null;
 G.weatherText=w=>w==='rain'?' Regen. Nerio kommt mit seinem Regenwagen: 7–11 Uhr Waldweg, 11–16 Uhr Dorfbrunnen, 16–20 Uhr Waldsee.':'';
-G.target=function(s){if(!s||!s.post||!s.post.m||!['offen','fertig'].includes(s.post.m.tuer.st))return null;const mo=G.moon(s.day);if(mo.full&&!s.magie.found.samen)return {map:G.ROOM,x:G.SEED.x,y:G.SEED.y+1,t:'Der Vollmondwald',sub:'Durch das Gewölbe · Mondsamen suchen'};return null;};
+// Auffindbarkeit (Janinas Rückmeldung 20.10.): Vor dem ersten Öffnen führt der Wegweiser an Vollmond und am Vortag
+// zur Steintür im Hang; danach wie bisher durch das Gewölbe zum Mondtor.
+G.doorOpen=s=>!!(s&&s.post&&s.post.m&&s.post.m.tuer&&['offen','fertig'].includes(s.post.m.tuer.st));
+G.target=function(s){if(!s||!s.post||!s.post.m||!s.post.m.tuer)return null;const mo=G.moon(s.day);
+ if(!G.doorOpen(s)){if(!mo.full&&!mo.tomorrow)return null;const d=X.door64;return {map:'forest',x:d.x,y:d.y+1,t:mo.full?'Heute ist Vollmond':'Morgen ist Vollmond',sub:'Steintür im Hang · ganz im Nordwesten des Mondwalds'};}
+ if(mo.full&&!s.magie.found.samen)return {map:G.ROOM,x:G.SEED.x,y:G.SEED.y+1,t:'Der Vollmondwald',sub:'Gewölbe hinter der Waldtür · rechts das Mondtor'};return null;};
 const target0=X.target;X.target=function(s){return target0(s)||G.target(s);};
-G.calMarks=function(s,se,d){const abs=D.cal.abs(D.cal.y(s),se,d),m=G.moon(abs);return m.full?['Vollmond · Das Tor im Gewölbe ist offen']:m.tomorrow?['Morgen ist Vollmond']:[];};
-G.diary=function(s,esc){G.migrate(s);const m=G.moon(s.day),e=esc||String;return '<h3>Mond und Magie</h3><div class="row"><div class="tx"><b>Mond: '+e(m.phase)+'</b><small>'+(m.full?'Heute öffnet sich das Tor im Gewölbe.':m.tomorrow?'Morgen ist Vollmond. Das Tor öffnet sich nur einen Tag.':'Noch '+m.until+' Tage bis Vollmond.')+'</small><small>Mondblüte: nachts von Hand gießen. Regen und Sprinkler zählen nicht.</small></div></div>';};
+G.calMarks=function(s,se,d){const abs=D.cal.abs(D.cal.y(s),se,d),m=G.moon(abs);return m.full?[G.doorOpen(s)?'Vollmond · Mondtor im Gewölbe offen':'Vollmond · Steintür im Nordwesten des Mondwalds']:m.tomorrow?['Morgen ist Vollmond']:[];};
+G.diary=function(s,esc){G.migrate(s);const m=G.moon(s.day),e=esc||String,open=G.doorOpen(s);
+ const wo=open?'Weg: Mondwald ganz im Nordwesten → Steintür im Hang → Gewölbe → rechts an der Wand das Mondtor.':'Weg: Im Mondwald ganz nach Nordwesten gehen. Dort steckt eine moosige Steintür im Hang. Dahinter liegt ein Gewölbe, und rechts an dessen Wand erwacht bei Vollmond das Mondtor.';
+ return '<h3>Mond und Magie</h3><div class="row"><div class="tx"><b>Mond: '+e(m.phase)+'</b><small>'+(m.full?'Heute ist Vollmond. Das Mondtor ist offen.':m.tomorrow?'Morgen ist Vollmond. Das Tor öffnet sich nur einen Tag.':'Noch '+m.until+' Tage bis Vollmond.')+'</small><small>'+e(wo)+'</small><small>Mondblüte: nachts von Hand gießen. Regen und Sprinkler zählen nicht.</small></div></div>';};
 })();

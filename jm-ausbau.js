@@ -109,7 +109,7 @@ X.enterMine=function(s,id,maps,rng=Math.random){
   for(let i=0;i<18+m.depth&&cand.length;i++){const [x,y]=cand.splice(Math.min(cand.length-1,Math.floor(rng()*cand.length)),1)[0],k=ores[Math.min(ores.length-1,Math.floor(rng()*ores.length))];rocks.push({x,y,k,hp:k==='stein'?1:m.depth<6?2:3});}
   s.mine.floors[id]=rocks;
  }
- s.mine.depth=m.depth;s.rocks=s.mine.floors[id];
+ s.mine.depth=m.depth;s.mine.max=Math.max(Number.isInteger(s.mine.max)?s.mine.max:0,m.depth);s.rocks=s.mine.floors[id];
 };
 Object.assign(JM.ITEMS,{
  eisen:{n:'Eisenerz',cat:'mineral',sell:12},silber:{n:'Silbererz',cat:'mineral',sell:30},
@@ -137,6 +137,14 @@ X.migrate=function(s){
  if(!s.mine.floors||typeof s.mine.floors!=='object')s.mine.floors={};
  if(s.map==='hoehle'&&s.mine.floors.hoehle===undefined&&Array.isArray(s.rocks))s.mine.floors.hoehle=s.rocks;
  for(const id of Object.keys(s.mine.floors)){const a=s.mine.floors[id];if(!Array.isArray(a)){delete s.mine.floors[id];continue;}s.mine.floors[id]=a.filter(r=>r&&Number.isInteger(r.x)&&Number.isInteger(r.y)&&r.x>=2&&r.x<20&&r.y>=2&&r.y<17&&JM.ITEMS[r.k]?.cat==='mineral'&&Number.isInteger(r.hp)&&r.hp>0);}
+ // Tiefste erreichte Ebene für die Tagebuch-Karte. Ältere Spielstände speicherten sie nicht; abgeleitet wird
+ // nur aus belegten Spuren (aktuelle Ebene, Ebenen des laufenden Abstiegs, Fänge am Teich auf Ebene 10,
+ // Ruinenplatte auf Ebene 9). Fehlt eine Spur, gilt die Ebene ab dem nächsten Besuch.
+ {let mx=Number.isInteger(s.mine.max)&&s.mine.max>=0&&s.mine.max<=10?s.mine.max:0;const lv=id=>id==='hoehle'?1:Number((/^hoehle(\d+)$/.exec(id)||[])[1])||0;
+  mx=Math.max(mx,lv(s.map||''),Number.isInteger(s.mine.depth)?Math.min(10,s.mine.depth):0,...Object.keys(s.mine.floors).map(lv));
+  if(s.flags&&s.flags.caveSeen)mx=Math.max(mx,1);if(s.fishLog&&((s.fishLog.sternenschuppe||0)>0||(s.fishLog.kristallforelle||0)>0))mx=10;
+  if(s.chronik&&Number.isInteger(s.chronik.stage)&&s.chronik.stage>=3)mx=Math.max(mx,9);if(s.entdecken&&s.entdecken.places)for(const k of Object.keys(s.entdecken.places))mx=Math.max(mx,lv(k));
+  s.mine.max=Math.min(10,mx);}
  if(typeof s.hintsCollapsed!=='boolean')s.hintsCollapsed=false;
  s.ausbauVersion=1;return s;
 };

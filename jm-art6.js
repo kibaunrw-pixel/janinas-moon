@@ -14,3 +14,21 @@ A.prop=function(k,se,extra){if(k==='erinnerungsrahmen'||k==='meerregal'){const c
  else{for(const x of [16,74]){g.r(x,85,13,6,'#b37e58');for(let j=0;j<3;j++){g.r(x+2+j*4,75-j*2,1,10+j*2,'#4f8c55');g.disc(x+2+j*4,75-j*2,2,['#edb46f','#e99bb7','#fff2c4'][j]);}}g.r(31,44,38,10,'#f4e8bf');g.r(35,47,30,1,'#62907b');g.r(39,50,22,1,'#62907b');}
  if(se===3){g.r(37,5,26,2,'#f3f7f3');g.r(4,35,92,2,'#e9f3ee');}}
 A.outline(c,'#304739');return c;};})();
+
+/* Nächtliche Überraschungen: Meteorit (3 → 1 verbleibende Schläge, mehr Risse) und Steineule. */
+(function(){const A=window.JM.ART,old=A.prop;
+A.prop=function(k,se,extra){
+ if(/^meteorit[123]$/.test(k)){const hp=Number(k.slice(-1)),c=A.cnv(26,20),g=A.G(c);
+  g.ell(13,15,12,4.5,'#5b4a3b');g.ell(13,15,10,3.4,'#3f342c');for(const [x,y] of [[2,13],[24,14],[5,18],[21,18]])g.r(x,y,2,1,'#8a7660');
+  g.ell(13,11,8,7,'#4a4458');g.ell(12,9,6,5,'#5f5872');g.ell(10,7,3,2,'#7a7390');g.p(9,6,'#9d97b3');
+  const cr=[[[13,6],[14,8],[13,10],[15,12]],[[9,10],[11,11],[10,13]],[[17,8],[18,10],[17,12],[18,14]]].slice(0,4-hp);
+  for(const line of cr)for(const [x,y] of line){g.r(x,y,1,2,'#ffb35a');g.p(x,y,'#fff0b8');}
+  for(const [x,y] of [[4,4],[21,3],[23,8]].slice(0,hp))g.p(x,y,'#ffe7a3');
+  A.outline(c,'#2a2433');return c;}
+ if(k==='steineule'){const c=A.cnv(18,26),g=A.G(c);
+  g.r(3,21,12,4,'#8d8a82');g.r(2,20,14,2,'#a9a69c');
+  g.ell(9,14,6,7,'#9b968c');g.ell(9,15,4,5,'#b2ada2');g.ell(9,7,5.5,4.5,'#9b968c');
+  for(const x of [5,13]){g.r(x-1,2,2,3,'#9b968c');}
+  for(const x of [7,11]){g.disc(x,7,2,'#efe9d6');g.p(x,7,'#3b3632');}g.r(9,9,1,2,'#c9a24a');
+  for(const y of [14,17])g.r(7,y,4,1,'#8a857b');A.outline(c,'#4a4640');return c;}
+ return old(k,se,extra);};})();

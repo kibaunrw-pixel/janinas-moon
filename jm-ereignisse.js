@@ -94,7 +94,9 @@ X.buy62=function(s){const e=M(s).verkauf,q=plots(s)[e.plot];if(e.st!=='angebot'|
 X.decline62=function(s){const e=M(s).verkauf;if(e.st!=='angebot')return false;e.st='fertig';e.out='abgelehnt';e.done=s.day;return true;};
 X.decide63=function(s,wahl){const e=M(s).villa;if(e.st!=='treffen'||!['elva','geld'].includes(wahl))return false;e.st='fertig';e.wahl=wahl;e.done=s.day;
  if(wahl==='geld')give(s,{money:X.reward63.money});else if(s.npc&&s.npc.elva)s.npc.elva.p=Math.min(1000,(s.npc.elva.p||0)+X.reward63.pts);return true;};
-X.open64=function(s){const e=M(s).tuer;if(e.st==='suche'){e.st='offen';e.opened=s.day;return true;}return false;};
+// Janina fand die Tür nicht, weil sie erst nach Henks Brief erschien (und der Brief hinter jeder offenen
+// Mission wartete). Die Tür ist jetzt immer im Hang zu sehen und lässt sich auch ohne Brief öffnen.
+X.open64=function(s){const e=M(s).tuer;if(['','brief','suche'].includes(e.st||'')){if(e.st!=='suche')e.self=s.day;e.st='offen';e.opened=s.day;return true;}return false;};
 X.chest64=function(s){const e=M(s).tuer;if(e.st!=='offen')return false;e.st='fertig';e.done=s.day;give(s,X.reward64);return true;};
 X.jonasWhere=function(s){const e=M(s).bewohner;if(!['beobachten','fertig'].includes(e.st))return null;let cur=null;for(const r of X.jonasPlan)if(s.min>=r[0])cur=r;return cur&&cur[1]?cur:null;};
 X.observe65=function(s){const e=M(s).bewohner,w=X.jonasWhere(s);if(e.st!=='beobachten'||!w)return null;e.seen=Array.isArray(e.seen)?e.seen:[];
@@ -106,7 +108,7 @@ function room(){const w=11,h=8,m={id:X.ROOM,w,h,t:[],obj:[],trees:[],lights:[],e
  for(let y=0;y<h;y++)m.t[y]=Array.from({length:w},(_,x)=>x===0||x===w-1||y<3||y===h-1?T.WAND:T.BODEN);
  m.t[h-1][5]=T.BODEN;m.exits=[{x:5,y:h-1,to:'forest',tx:X.door64.x,ty:X.door64.y+1}];m.spawn=[5,h-2];m.inside=true;m.windows=[];m.owner=null;
  m.pal={wall:'#6f6a64',wall2:'#57534e',trim:'#3e3a36',floor:'#7d7468',floor2:'#6a6258',rug:'#3f5a8a',rug2:'#cfe6ff'};
- m.obj.push({k:'truhe',x:5,y:3,act:'post:truhe64'},{k:'steintafel',x:8,y:3,act:'post:tafel64'},{k:'barrel',x:9,y:3,act:'deco'});
+ m.obj.push({k:'truhe',x:5,y:3,act:'post:truhe64'},{k:'steintafel',x:8,y:3,act:'post:tafel64'},{k:'barrel',x:2,y:3,act:'deco'});
  for(const o of m.obj)m.t[o.y][o.x]=T.BLOCK;m.houseLevel='raum';return m;}
 const bm=J.buildMaps;J.buildMaps=function(){const all=bm();all[X.ROOM]=room();return X.apply(all,null);};
 function clearB(m){if(!m||!m.ev)return;m.obj=m.obj.filter(o=>!(o.act||'').startsWith('post:ev'));for(const [k,t] of Object.entries(m.ev)){const [x,y]=k.split(',').map(Number);m.t[y][x]=t;}m.ev={};}
@@ -119,7 +121,7 @@ X.apply=function(maps,s){apply0(maps,s);const st=id=>s&&s.post&&s.post.m[id]?s.p
   if(st('verkauf')==='angebot'){const p=St.places[k.plot],q=plots(s)[k.plot];if(q&&q.start===null&&!q.ready){c.obj=c.obj.filter(o=>!(o.act==='plot:'+k.plot&&o.k!=='board'));put(c,{k:'ruine',x:p.x,y:p.y,w:5,h:4,act:'post:ev:haus62'});}}
   c.houseLevel=String(c.houseLevel)+'|ev:'+st('vermisst')+st('verkauf');}
  if(b){if(st('vermisst')==='spur')put(b,{k:'koffer',x:X.station61.koffer[0],y:X.station61.koffer[1],act:'post:ev:koffer61'});b.houseLevel='ev:'+st('vermisst');}
- if(f){const t=st('tuer');if(['suche','offen','fertig'].includes(t)){const d=X.door64;put(f,{k:t==='suche'?'waldtuer':'waldtuer_offen',x:d.x,y:d.y,w:d.w,h:d.h,act:'post:ev:tuer64'});}f.houseLevel=String(f.houseLevel)+'|ev:'+t;}
+ if(f){const t=st('tuer');{const d=X.door64;put(f,{k:['offen','fertig'].includes(t)?'waldtuer_offen':'waldtuer',x:d.x,y:d.y,w:d.w,h:d.h,act:'post:ev:tuer64'});}f.houseLevel=String(f.houseLevel)+'|ev:'+t;}
  if(r){const t=st('tuer');const ch=r.obj.find(o=>o.act==='post:truhe64');if(ch)ch.k=t==='fertig'?'truhe_offen':'truhe';r.houseLevel='raum:'+t;}
  return maps;};
 
@@ -142,10 +144,11 @@ X.evAct=function(s,a){
    buttons:[{a:'kaufen',t:'Für '+X.price62+' G kaufen',off:s.money<X.price62,fn:()=>X.buy62(s)?{refresh:true,banner:'Haus gekauft!',sfx:'fanfare',lines:[{who:null,text:'Rosa überreicht dir den Schlüssel. Das Haus '+placeName(e.plot)+' gehört jetzt dir und ist bezugsfertig.'},{who:'rosa',text:'Bestimmt kommt bald eine Mietanfrage mit der Post.'}]}:{note:'Nicht genug Geld.'}},
     {a:'nein',t:'Nicht kaufen',fn:()=>X.decline62(s)?{refresh:true,lines:[{who:'rosa',text:'In Ordnung. Dann bleibt es ein Bauplatz, und du kannst dort später selbst bauen.'}]}:null}]}};}
  if(a==='tuer64'){const e=M(s).tuer,d=X.door64;const into={to:X.ROOM,tx:5,ty:6};
-  if(X.open64(s))return {refresh:true,lines:[{who:null,text:'Die Steintür ist schwer. Du stemmst dich dagegen, und mit einem Knirschen schwingt sie auf.'},{who:null,text:'Dahinter führen drei Stufen hinunter in ein trockenes Gewölbe.'}],travel:into};
+  const self=e.st!=='suche';
+  if(X.open64(s))return {refresh:true,lines:[{who:null,text:(self?'Zwischen Moos und Wurzeln steckt eine Tür aus Stein, mitten im Hang. ':'')+'Die Steintür ist schwer. Du stemmst dich dagegen, und mit einem Knirschen schwingt sie auf.'},{who:null,text:'Dahinter führen drei Stufen hinunter in ein trockenes Gewölbe.'}],travel:into};
   if(e.st==='offen'||e.st==='fertig')return {travel:into};return {note:'Eine moosige Steintür im Hang.'};}
  if(a==='truhe64'){if(X.chest64(s))return {refresh:true,banner:'Ein alter Fund!',sfx:'fanfare',lines:[{who:null,text:'In der Truhe liegen ein Beutel mit '+X.reward64.money+' G und zwei Mondquarze, sorgfältig in Leinen gewickelt.'},{who:'player',text:'Wer hat das hier unten versteckt? Vielleicht verrät die Steintafel mehr.'}]};return {note:'Die Truhe ist leer. Nur der Geruch nach altem Holz ist geblieben.'};}
- if(a==='tafel64')return {lines:[{who:null,text:'Auf der Steintafel ist ein Mond eingemeißelt, darunter steht:'},{who:null,text:'„Dies ist nur die Vorkammer. Wenn der Mond voll ist, öffnet sich im Wald ein zweites Tor. Wer es findet, sieht den Wald, wie er nachts wirklich ist.“'},{who:'player',text:'Ein zweites Tor bei Vollmond … Das merke ich mir.'}]};
+ if(a==='tafel64')return {lines:[{who:null,text:'Auf der Steintafel ist ein Mond eingemeißelt, darunter steht:'},{who:null,text:'„Dies ist nur die Vorkammer. Bei Vollmond erwacht hier im Gewölbe, rechts an dieser Wand, ein zweites Tor: das Mondtor. Wer hindurchgeht, sieht den Wald, wie er nachts wirklich ist.“'},{who:'player',text:'Das steinerne Tor rechts an der Wand … bei Vollmond. Im Tagebuch unter „Herz“ steht, wann es so weit ist.'}]};
  return null;};
 X.evTalk=function(s,id){
  const v=M(s).vermisst;

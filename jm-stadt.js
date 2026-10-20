@@ -17,9 +17,11 @@ function city(s){const m=outdoor('stadt',28,23,[13,18]);m.title='Lindenstadt';re
  m.houseLevel=s?JSON.stringify(s.city.plots.map((p,i)=>[X.phase(s,i),p.tenant])):'leer';return m;}
 X.phase=(s,i)=>{const p=s.city.plots[i];return p.ready?4:p.start===null?0:Math.min(3,1+Math.max(0,s.day-p.start));};
 const maps=J.buildMaps;
-J.buildMaps=function(){const all=maps(),v=all.village;v.trees=v.trees.filter(t=>!(t.x>=28&&t.y===14));rect(v,26,14,31,14,T.WEG);v.exits.push({x:31,y:14,to:'bahnhof',tx:2,ty:9});
+// Der Weg zum Bahnhof war nur eine Kachel breit durch die Baumhecke; wer knapp daneben tippte, blieb an den
+// Bäumen hängen. Jetzt zwei Spuren wie die Gleisstraße am Bahnhof (Zeilen 9–10), beide führen hinüber.
+J.buildMaps=function(){const all=maps(),v=all.village;v.trees=v.trees.filter(t=>!(t.x>=28&&(t.y===14||t.y===15)));rect(v,26,14,31,15,T.WEG);v.exits.push({x:31,y:14,to:'bahnhof',tx:2,ty:9},{x:31,y:15,to:'bahnhof',tx:2,ty:10});
  add(v,{k:'board',x:29,y:13,act:'station_hint'});
- all.bahnhof=station();all.stadt=city(null);return all;};
+ all.bahnhof=station();if(!all.bahnhof.exits.some(e=>e.x===0&&e.y===10))all.bahnhof.exits.push({x:0,y:10,to:'village',tx:29,ty:15});all.stadt=city(null);return all;};
 /* Dorfbahnhof (Etappe 1b, „mehr Liebe fürs Detail“): durchgehende Gleise auf Schotter, die links und rechts aus dem Bild
    laufen; erhöhter Bahnsteig mit heller Sicherheitskante (Zeile 3, begehbar); Zug (Lok + Wagen) steht auf den Gleisen; Bahnhofsgebäude mit
    Dach, Uhr und Ortsschild; Bank, Laternen, Blumenkübel, Gepäck, Fahrplantafel. Gleise sind nicht begehbar (Zug zuerst in der Liste, damit ein Tipp auf den Zug die Zugfahrt öffnet),

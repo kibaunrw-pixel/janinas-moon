@@ -302,7 +302,28 @@ function prop(mg,mgE,o,se,st){
       else if(build){for(const y of [.8,1.8])mg.box(x,y,z+2.1,6.4,.1,.1,'#b48c61');for(const dx of [-3.1,3.1])mg.box(x+dx,1.2,z+2.1,.1,2.5,.1,'#a58056');}
       else {mg.box(x,2.04,z+2.01,2.4,.3,.06,'#f0e5c1');for(const dx of [-2,2]){mg.box(x+dx,.4,z+2.15,.75,.28,.5,'#b37e58');for(const d of [-.2,0,.2]){mg.cyl(x+dx+d,.7,z+2.15,.025,.4,'#4f8c55');mg.sph(x+dx+d,.92,z+2.15,.12,.09,.12,'#e9b474');}}}return;}
     case 'dorfbeet_leer':case 'dorfbeet_jung':case 'dorfbeet_gross':case 'dorfbeet_reif':{mg.box(x,.3,z,.95,.5,.75,'#a77a52');mg.box(x,.57,z,1.05,.1,.85,'#bf9365');mg.box(x,.63,z,.85,.03,.65,'#604b38');if(k!=='dorfbeet_leer'){const h=k==='dorfbeet_jung'?.22:.6;for(const dx of [-.28,0,.28]){mg.cyl(x+dx,.65+h/2,z,.025,h,'#478052');mg.sph(x+dx-.07,.68+h*.5,z,.14,.06,.09,'#70a65f');mg.sph(x+dx+.07,.72+h*.7,z,.13,.06,.09,'#65a75b');if(k==='dorfbeet_reif')mg.sph(x+dx,.66+h,z,.12,.1,.12,'#e9b958');}}return;}
-    case 'mondtor_zu':case 'mondtor_offen':{const open=k==='mondtor_offen';mg.sph(x,.15,z-.1,.9,.4,.75,'#435440');mg.box(x,1,z,.1,2,1.45,'#7a7480');mgE.box(x,1,z+.52,.72,1.35,.03,open?'#9fc8ff':'#544c62');mgE.sph(x,1.55,z+.55,.22,.3,.03,open?'#ffffff':'#817694');return;}
+    case 'meteorit3':case 'meteorit2':case 'meteorit1':{
+      // Nächtliche Überraschung: aufgeworfener Krater, kantiger dunkler Stein, Glut am Kraterrand; je Schlag mehr glühende Risse.
+      const hp=Number(k.slice(-1));mg.sph(x,.02,z,.66,.07,.54,'#6b5642');mg.sph(x,.05,z,.5,.05,.4,'#3f342c');
+      for(const [dx,dz,r] of [[-.55,.2,.1],[.5,-.25,.09],[.42,.38,.08],[-.38,-.4,.08],[.05,.55,.07]])mg.sph(x+dx,.06,z+dz,r,.07,r,'#7d6750');
+      mgE.sph(x,.07,z,.4,.025,.32,'#ff8a3a');
+      mg.sph(x,.3,z,.36,.28,.32,'#3e3a4c');mg.sph(x-.12,.42,z-.06,.22,.17,.2,'#4f4a62');mg.sph(x+.16,.36,z+.08,.18,.16,.17,'#57506b');mg.sph(x-.04,.55,z,.12,.08,.11,'#6a6384');
+      const cr=[[0,.42,.3],[-.24,.3,.22],[.25,.33,.22]].slice(0,4-hp);for(const [dx,dy,dz] of cr){mgE.box(x+dx,dy,z+dz,.05,.2,.04,'#ffb35a');mgE.sph(x+dx,dy+.12,z+dz,.035,.035,.035,'#fff0b8');}
+      for(const [dx,dy,dz] of [[-.18,.78,.05],[.12,.92,-.04],[.02,1.06,.02]].slice(0,hp))mgE.sph(x+dx,dy,z+dz,.035,.035,.035,'#ffe7a3');return;}
+    case 'steineule':{
+      mg.box(x,.12,z,.5,.24,.4,'#8d8a82');mg.sph(x,.5,z,.22,.28,.2,'#9b968c');mg.sph(x,.52,z+.12,.14,.18,.08,'#b2ada2');mg.sph(x,.86,z,.2,.17,.18,'#9b968c');
+      for(const dx of [-.12,.12]){mg.cone(x+dx,1.05,z,.05,.1,'#9b968c');mg.sph(x+dx*.75,.88,z+.15,.06,.06,.03,'#efe9d6');mg.sph(x+dx*.75,.88,z+.18,.025,.025,.02,'#3b3632');}
+      mg.sph(x,.82,z+.18,.025,.04,.03,'#c9a24a');return;}
+    case 'mondtor_zu':case 'mondtor_offen':{
+      // Steinbogen frontal zur Kamera (vorher eine schmale Scheibe quer zur Blickrichtung, im 3D kaum als Tor erkennbar).
+      const open=k==='mondtor_offen',st0='#7a7480',st1='#958ea0',z0=z-.18;
+      mg.sph(x,.06,z+.05,.78,.12,.5,'#435440');
+      for(const dx of [-.44,.44]){mg.box(x+dx,.86,z0,.22,1.72,.32,st0);mg.box(x+dx,.06,z0,.3,.12,.38,st1);}
+      mg.box(x,1.8,z0,1.16,.24,.36,st1);mg.box(x,1.98,z0,.5,.14,.3,st0);
+      mgE.box(x,.86,z0+.02,.66,1.56,.05,open?'#9fc8ff':'#4b445a');
+      mgE.sph(x,1.8,z0+.2,.13,.13,.04,open?'#ffffff':'#817694');
+      if(open)for(const [dx,dy] of [[-.2,.45],[.17,.8],[-.06,1.18],[.2,1.42],[-.24,1.5]])mgE.sph(x+dx,dy,z0+.12,.045,.045,.045,'#eef6ff');
+      return;}
     case 'mondpilze':for(const [dx,dz,r] of [[-.3,0,.18],[.1,-.12,.24],[.35,.12,.14]]){mg.cyl(x+dx,.13,z+dz,.035,.26,'#dbe8e0');mgE.sph(x+dx,.3,z+dz,r,.08,r,'#9fdcff',true);}return;
     // Etappe 5: Park, Tafeln, Wettbewerb, Trophäen
     // Etappe 5: schmiedeeiserner Zaun mit Tor vor der Villa am Lindenhang

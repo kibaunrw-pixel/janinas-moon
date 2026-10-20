@@ -95,7 +95,8 @@ test('W63 Villa: nur mit bewohntem Haus Nr. 7; Treffen am Stadtbrunnen; Entschei
 
 test('W64 Geheime Tür: Brief → Tür im Mondwald → Gewölbe → Truhe einmal → Tafel kündigt Vollmondwald an → Rückweg',()=>{
  const s=base();done(s,'schatz','haus7','brunnen','verkauf','villa');const i=startMission(s,'tuer');
- let m=maps(s);assert.ok(!m.forest.obj.some(o=>o.act==='post:ev:tuer64'),'vor dem Lesen keine Tür');
+ // Seit 20.10.2026 (Janina fand die Tür nicht): Die Tür steht schon vor dem Brief geschlossen im Hang.
+ let m=maps(s);assert.equal(m.forest.obj.find(o=>o.act==='post:ev:tuer64').k,'waldtuer','vor dem Lesen geschlossene, auffindbare Tür');
  X.read(s,i);assert.equal(s.post.m.tuer.st,'suche');reachTarget(s,'suche');m=maps(s);const d=m.forest.obj.find(o=>o.act==='post:ev:tuer64');assert.equal(d.k,'waldtuer');
  const r0=X.evAct(s,'tuer64');assert.equal(r0.travel.to,'waldtuer');assert.equal(s.post.m.tuer.st,'offen');
  const room=maps(s).waldtuer;assert.ok(room.inside);assert.ok(J.WALK.has(room.t[r0.travel.ty][r0.travel.tx]),'Ankunft begehbar');
